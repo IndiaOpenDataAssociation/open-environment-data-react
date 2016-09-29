@@ -1,54 +1,32 @@
 import React, {Component} from 'react'
-import {Navbar, NavItem, Nav} from 'react-bootstrap'
+import Navbar,{Header, Brand, Toggle, Collapse} from 'react-bootstrap/lib/Navbar'
+import Nav from 'react-bootstrap/lib/Nav'
+import NavItem from 'react-bootstrap/lib/NavItem'
+// import {Navbar, Nav, NavItem} from 'react-bootstrap'
 
 
 export default class Demo extends Component{
   render(){
     return(
       <div>
-        <Navbar inverse>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <a href="#">React-Bootstrap</a>
-            </Navbar.Brand>
-            <Navbar.Toggle />
-          </Navbar.Header>
-          <Navbar.Collapse>
-            <Nav>
-              <NavItem eventKey={1} href="#">Link</NavItem>
-              <NavItem eventKey={2} href="#">Link</NavItem>
-            </Nav>
+        <Navbar inverse fluid fixedTop>
+          <Header>
+            <Brand>
+              <a href="/">OPEN ENVIRONMENT DATA PROJECT</a>
+            </Brand>
+            <Toggle />
+          </Header>
+          <Collapse>
             <Nav pullRight>
-              <NavItem eventKey={1} href="#">Link Right</NavItem>
-              <NavItem eventKey={2} href="#">Link Right</NavItem>
+              <NavItem eventKey={1} href="/about">About</NavItem>
+              <NavItem eventKey={2} href="#">Community</NavItem>
+              <NavItem eventKey={3} href="#">Open APIs</NavItem>
+              <NavItem eventKey={4} href="#">Partners</NavItem>
+              <NavItem eventKey={5} href="#">WIKI</NavItem>
+              <NavItem eventKey={6} href="#" className="custom-navitem">Get our OWL</NavItem>
             </Nav>
-          </Navbar.Collapse>
+          </Collapse>
         </Navbar>
-        <br />
-        <nav className="navbar navbar-inverse">
-          <div className="container-fluid">
-            <div className="navbar-header">
-              <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-              </button>
-              <a className="navbar-brand" href="#">WebSiteName</a>
-            </div>
-            <div className="collapse navbar-collapse" id="myNavbar">
-              <ul className="nav navbar-nav">
-                <li className="active"><a href="#">Home</a></li>
-                <li><a href="#">Page 1</a></li>
-                <li><a href="#">Page 2</a></li>
-                <li><a href="#">Page 3</a></li>
-              </ul>
-              <ul className="nav navbar-nav navbar-right">
-                <li><a href="#"><span className="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                <li><a href="#"><span className="glyphicon glyphicon-log-in"></span> Login</a></li>
-              </ul>
-            </div>
-          </div>
-        </nav>
       </div>
     )
   }

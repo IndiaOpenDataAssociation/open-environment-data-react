@@ -47,7 +47,8 @@ const renderFullPage = (html, initialState) => {
   // Import Manifests
   const assetsManifest = process.env.webpackAssets && JSON.parse(process.env.webpackAssets);
   const chunkManifest = process.env.webpackChunkAssets && JSON.parse(process.env.webpackChunkAssets);
-
+  let refManifest = require('../dist/rev-manifest.json');
+  let styleSrc = `/${refManifest['main.css']}`;
   return `
     <!doctype html>
     <html>
@@ -59,9 +60,10 @@ const renderFullPage = (html, initialState) => {
         ${head.script.toString()}
 
         ${process.env.NODE_ENV === 'production' ? `<link rel='stylesheet' href='${assetsManifest['/app.css']}' />` : ''}
-        <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'/>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
         <link rel="shortcut icon" href="http://res.cloudinary.com/hashnode/image/upload/v1455629445/static_imgs/mern/mern-favicon-circle-fill.png" type="image/png" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href='${process.env.NODE_ENV === 'production' ?  styleSrc : '/main.css' }' type="text/css" media="screen" charset="utf-8">
 
       </head>
       <body>
