@@ -74,7 +74,7 @@ section{
   letter-spacing: 1px;
   margin-left: 30px;
   text-transform: uppercase;
-  font-weight: lighter;
+  font-weight: inherit;
   padding: 8px 15px;
 }
 
@@ -132,16 +132,16 @@ section{
   text-align: justify;
 }
 
-.about-container p{
+.about-container p, .api-container p{
   width: 1003px;
   margin: 20px auto;
   line-height: 1.4;
   font-size: 17px;
 }
 
-.about-container h2, .community-info h2{
+.about-container h2, .community-info h2, .api-container h2{
   text-transform: uppercase;
-  color: #374569;
+  color: #25345b;
   font-weight: 400;
 }
 
@@ -197,6 +197,63 @@ ul.partners-list li{
 .resources-content a:hover span>i.fa{
   color: #73797f !important;
 }
+
+//api page
+.api-container h2{
+  margin-top: 40px;
+}
+
+.consume-api{
+  margin: 30px auto 20px;
+}
+
+.license-api{
+  color: #aba7a7;
+}
+
+.license-api a{
+  font-size: 12px;
+  color: #aba7a7;
+}
+
+.license-api a:hover{
+  text-decoration: none;
+  color: #326584;
+}
+
+//device
+.airowl-container h2, .emk-container h2{
+  color: #25345b;
+}
+
+.vertical-center {
+  display: table-cell;
+  vertical-align: middle;
+  height: 250px;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.airowl-container .devices-img{
+  width: 445px;
+  margin-left: auto;
+}
+
+.airowl-container p, .emk-container p{
+  width: 80%;
+  color: #808080;
+  margin-bottom: 20px;
+}
+
+.emk-container p{
+  margin-left: auto;
+}
+
+.emk-container .devices-img{
+  width: 445px;
+  margin-right: auto;
+}
+
 @media (min-width: 370px) and (max-width: 768px) {
   .about-container p {
     width: 100%;

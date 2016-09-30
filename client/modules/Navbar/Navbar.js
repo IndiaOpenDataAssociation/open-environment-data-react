@@ -20,7 +20,7 @@ export default class Demo extends Component{
             <Nav pullRight>
               <NavItem eventKey={1} href="/about">About</NavItem>
               <NavItem eventKey={2} href="/community">Community</NavItem>
-              <NavItem eventKey={3} href="#">Open APIs</NavItem>
+              <NavItem eventKey={3} href="/openapi">Open APIs</NavItem>
               <NavItem eventKey={4} href="#">Partners</NavItem>
               <NavItem eventKey={5} href="#">WIKI</NavItem>
               <NavItem eventKey={6} href="#" className="custom-navitem">Get our OWL</NavItem>

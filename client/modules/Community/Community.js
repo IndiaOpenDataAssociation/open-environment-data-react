@@ -89,9 +89,9 @@ export default class Community extends Component{
               </div>
 
               <div className="col-md-3 text-center">
-                <a href="" target="_blank">
+                <Link to="/devices">
                   <span><i className="fa fa-cog primary-black"></i></span>
-                </a>
+                </Link>
                 <p className="h4 primary-black"> Devices </p>
               </div>
 

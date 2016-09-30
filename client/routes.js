@@ -5,6 +5,8 @@ import App from './modules/App/App';
 import Dashboard from './modules/Dashboard/Dashboard'
 import About from './modules/About/About'
 import Community from './modules/Community/Community'
+import Openapi from './modules/Openapi/Openapi'
+import Device from './modules/Device/Device'
 
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
@@ -52,5 +54,25 @@ export default (
         });
       }}
     />
+
+    <Route
+      path="/openapi"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null,Openapi);
+        });
+      }}
+    />
+
+    <Route
+      path="/devices"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null,Device);
+        });
+      }}
+    />
+
+
   </Route>
 );
