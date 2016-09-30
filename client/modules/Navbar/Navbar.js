@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import Navbar,{Header, Brand, Toggle, Collapse} from 'react-bootstrap/lib/Navbar'
 import Nav from 'react-bootstrap/lib/Nav'
 import NavItem from 'react-bootstrap/lib/NavItem'
+import LinkContainer from 'react-router-bootstrap/lib/LinkContainer'
 // import {Navbar, Nav, NavItem} from 'react-bootstrap'
-
 
 export default class Demo extends Component{
   render(){
@@ -18,12 +18,27 @@ export default class Demo extends Component{
           </Header>
           <Collapse>
             <Nav pullRight>
-              <NavItem eventKey={1} href="/about">About</NavItem>
-              <NavItem eventKey={2} href="/community">Community</NavItem>
-              <NavItem eventKey={3} href="/openapi">Open APIs</NavItem>
-              <NavItem eventKey={4} href="#">Partners</NavItem>
-              <NavItem eventKey={5} href="#">WIKI</NavItem>
-              <NavItem eventKey={6} href="#" className="custom-navitem">Get our OWL</NavItem>
+              <LinkContainer to="/about">
+                <NavItem eventKey={1}>About</NavItem>
+              </LinkContainer>
+
+              <LinkContainer to="/community">
+                <NavItem eventKey={2}>Community</NavItem>
+              </LinkContainer>
+
+              <LinkContainer to="/openapi">
+                <NavItem eventKey={3}>Open APIs</NavItem>
+              </LinkContainer>
+
+              <LinkContainer to="/partners">
+                <NavItem eventKey={4}>Partners</NavItem>
+              </LinkContainer>
+
+              <NavItem eventKey={5} href="http://knowledge.indiaopendata.com/index.php/India_Open_Environment_Data_Project" target="_blank">WIKI</NavItem>
+
+              <LinkContainer to="/airowl">
+                <NavItem eventKey={6} className="custom-navitem">Get our OWL</NavItem>
+              </LinkContainer>
             </Nav>
           </Collapse>
         </Navbar>

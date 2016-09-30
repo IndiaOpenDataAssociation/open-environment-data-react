@@ -7,6 +7,8 @@ import About from './modules/About/About'
 import Community from './modules/Community/Community'
 import Openapi from './modules/Openapi/Openapi'
 import Device from './modules/Device/Device'
+import Partner from './modules/Partners/Partners'
+import Airowl from './modules/Airowl/Airowl'
 
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
@@ -69,6 +71,24 @@ export default (
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null,Device);
+        });
+      }}
+    />
+
+    <Route
+      path="/partners"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null,Partner);
+        });
+      }}
+    />
+
+    <Route
+      path="/airowl"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null,Airowl);
         });
       }}
     />

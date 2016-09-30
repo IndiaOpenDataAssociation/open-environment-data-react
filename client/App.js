@@ -14,7 +14,12 @@ require('./main.css');
 export default function App(props) {
   return (
     <Provider store={props.store}>
-        <Router history={browserHistory}>
+        <Router
+          history={browserHistory}
+          onUpdate={() =>{
+            window.scrollTo(0, 0)
+          }}
+        >
           {routes}
         </Router>
     </Provider>
