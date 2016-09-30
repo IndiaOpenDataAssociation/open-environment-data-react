@@ -1,5 +1,5 @@
 body{
-  font-family: "Open Sans", sans-serif;
+  font-family: "Open Sans", sans-serif !important;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -12,6 +12,8 @@ a{
 section{
   margin-top: 50px;
 }
+
+//common colors
 
 .white{
   color: #fff;
@@ -27,11 +29,27 @@ section{
 }
 
 .primary-black {
-  color: #464f56;
+  color: #464f56 !important;
 }
 
 .black-bg {
   background: #474747;
+}
+
+.theme-color {
+  color: #00b3bf;
+}
+
+.margin-bottom-small {
+  margin-bottom: 10px;
+}
+
+.margin-bottom-50{
+  margin-bottom: 50px;
+}
+
+.margin-bottom-25{
+  margin-bottom: 25px;
 }
 
 //navbar
@@ -112,13 +130,16 @@ section{
 
 .about-container p{
   text-align: justify;
+}
+
+.about-container p{
   width: 1003px;
   margin: 20px auto;
   line-height: 1.4;
   font-size: 17px;
 }
 
-.about-container h2{
+.about-container h2, .community-info h2{
   text-transform: uppercase;
   color: #374569;
   font-weight: 400;
@@ -139,10 +160,6 @@ ul.partners-list li{
   padding: 25px 0;
 }
 
-.margin-bottom-50{
-  margin-bottom: 50px;
-}
-
 .join-btn{
   background: #a3a3a3;
   font-size: 18px;
@@ -155,6 +172,31 @@ ul.partners-list li{
   color: #474747;
 }
 
+//Community
+.community-container{
+  margin-bottom: 20px;
+}
+
+.community-container p{
+  text-align: center;
+  margin: 20px auto;
+  line-height: 1.4;
+  font-size: 17px;
+}
+
+.community-info p{
+  width: 100% !important;
+  color: #808080;
+  margin-bottom: 20px;
+}
+
+.resources-content span>i.fa{
+  font-size: 70px;
+}
+
+.resources-content a:hover span>i.fa{
+  color: #73797f !important;
+}
 @media (min-width: 370px) and (max-width: 768px) {
   .about-container p {
     width: 100%;

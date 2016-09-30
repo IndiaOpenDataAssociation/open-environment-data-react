@@ -4,6 +4,7 @@ import { Route, IndexRoute } from 'react-router';
 import App from './modules/App/App';
 import Dashboard from './modules/Dashboard/Dashboard'
 import About from './modules/About/About'
+import Community from './modules/Community/Community'
 
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
@@ -39,6 +40,15 @@ export default (
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null,About);
+        });
+      }}
+    />
+
+    <Route
+      path="/community"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null,Community);
         });
       }}
     />

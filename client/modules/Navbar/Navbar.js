@@ -19,7 +19,7 @@ export default class Demo extends Component{
           <Collapse>
             <Nav pullRight>
               <NavItem eventKey={1} href="/about">About</NavItem>
-              <NavItem eventKey={2} href="#">Community</NavItem>
+              <NavItem eventKey={2} href="/community">Community</NavItem>
               <NavItem eventKey={3} href="#">Open APIs</NavItem>
               <NavItem eventKey={4} href="#">Partners</NavItem>
               <NavItem eventKey={5} href="#">WIKI</NavItem>

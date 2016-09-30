@@ -63,8 +63,8 @@ const renderFullPage = (html, initialState) => {
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
         <link rel="shortcut icon" href="http://res.cloudinary.com/hashnode/image/upload/v1455629445/static_imgs/mern/mern-favicon-circle-fill.png" type="image/png" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
         <link rel="stylesheet" href='${process.env.NODE_ENV === 'production' ?  styleSrc : '/main.css' }' type="text/css" media="screen" charset="utf-8">
-
       </head>
       <body>
         <div id="root">${html}</div>
