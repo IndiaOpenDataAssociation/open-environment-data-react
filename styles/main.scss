@@ -602,6 +602,41 @@ hr#whitelong {
   max-height: 250px;
 }
 
+//dashboardhome
+.gmnoprint{
+  display: none;
+}
+
+.dashboard{
+  position: relative;
+}
+
+.select-cities-box{
+  position: absolute;
+  width: 250px;
+  top: 5%;
+  left: 2%;
+}
+
+.select-cities{
+  height: 30px;
+  color: #00b3bf;
+}
+
+.open-panel{
+  position: absolute;
+  right: 19px;
+  top: 5%;
+  background: #00b3bf;
+  padding: 8px 10px;
+  border-radius: 50%;
+}
+
+.fa-navicon{
+  font-size: 22px;
+  color: white;
+}
+
 @media (min-width: 370px) and (max-width: 768px) {
   .about-container p {
     width: 100%;

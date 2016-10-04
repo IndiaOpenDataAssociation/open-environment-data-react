@@ -65,7 +65,8 @@ const renderFullPage = (html, initialState) => {
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
         <link rel="stylesheet" href='${process.env.NODE_ENV === 'production' ?  styleSrc : '/main.css' }' type="text/css" media="screen" charset="utf-8">
-      </head>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing&key=AIzaSyBr3jBMT0Q4j0TnWxajkWt159n5lROYsh0"></script>      
+</head>
       <body>
         <div id="root">${html}</div>
         <script>
