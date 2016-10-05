@@ -637,6 +637,179 @@ hr#whitelong {
   color: white;
 }
 
+.open-panel, .close-panel{
+  cursor: pointer;
+}
+
+.review-panel{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 365px;
+  transition:  all ease 4s;
+}
+
+.review-panel .panel-heading{
+  background: #303841;
+  color: white;
+  font-weight: bold;
+  border: 0;
+}
+
+.review-panel .panel-body{
+  padding: 0;
+}
+
+.review-panel .panel-footer{
+  padding: 0;
+  background-color: #586067;
+  border: 0;
+}
+
+.review-panel-tab{
+  margin: 0;
+}
+
+.review-panel-tab a{
+  display: inline-block;
+  width: 33.3%;
+  text-align: center;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.review-panel-tab a li{
+  list-style: none;
+}
+
+.review-panel-tab a li img{
+  width: 30px;
+}
+
+.review-panel-tab a.active{
+  background: #464f56;
+}
+
+//home
+
+.home-top-content{
+  background: #e7efee;
+  padding: 8px;
+  margin: 0 !important;
+}
+
+.home-top-content span:nth-of-type(1){
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.home-top-content span:nth-of-type(2){
+  font-size: 12px;
+  text-align: right;
+}
+
+.dashboard-home{
+  background: #464f56;
+}
+
+.aqiinfo-img{
+  height: 150px;
+  margin-top: 25px;
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+}
+
+.home-bottom-content{
+  position: relative;
+}
+
+.home-label{
+  position: absolute;
+  top: 24px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  bottom: 0;
+}
+
+.home-label span{
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.imp-of-aqi{
+  font-size: 16px;
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 0;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.aqirange{
+  background: #586067;
+  margin: 20px 0 0;
+  text-align: center;
+}
+
+.aqirange-img{
+  width: 100%;
+}
+
+//realtime
+.aqiinfo-svgimg{
+  margin-top: 12px;
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+}
+
+.realtime-label{
+  position: absolute;
+  top: 80px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  bottom: 0;
+}
+
+.realtime-data img{
+  width: 30px;
+}
+
+.realtime-data{
+  padding: 8px 24px;
+}
+
+.realtime-data-list{
+  margin-bottom: 4px;
+
+}
+
+.realtime-data-list li{
+  display: inline-block;
+  margin-right: 3px;
+}
+
+.activity-icon{
+  background: #586067;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.activity-title{
+  background: #586067;
+  padding: 10px 8px 14px;
+  border-radius: 4px;
+  width: 230px;
+}
+
+.activity-title span{
+  color: #fff;
+}
+
 @media (min-width: 370px) and (max-width: 768px) {
   .about-container p {
     width: 100%;

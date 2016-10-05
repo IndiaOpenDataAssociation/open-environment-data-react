@@ -4,7 +4,7 @@ import GoogleMap from "react-google-maps/lib/GoogleMap";
 import Marker from "react-google-maps/lib/Marker";
 import cities from './Citydata'
 
-export default class DashboardMap extends Component {
+export default class LoadingMap extends Component {
   constructor(props){
     super(props)
     this.state = this.getState()
@@ -30,7 +30,7 @@ export default class DashboardMap extends Component {
 
   render() {
     return (
-      <div style={{height: "100%", pointerEvents: 'none'}}>
+      <div style={{height: "100%", pointerEvents: 'none', opacity: '0.4'}}>
         <GoogleMapLoader
           containerElement={
             <div
@@ -49,20 +49,7 @@ export default class DashboardMap extends Component {
               center={{lat: this.state.lat , lng: this.state.lng}}
               onClick={this.props.onMapClick}
             >
-              {this.props.markers.map((marker, index) => {
-                let position = {
-                    lat: parseFloat(marker.latitude),
-                    lng: parseFloat(marker.longitude)
-                }
 
-                console.log('position:', position)
-
-                return (
-                  <Marker
-                    position={position}
-                    onRightclick={() => this.props.onMarkerRightclick(index)} />
-                );
-              })}
             </GoogleMap>
           }
         />

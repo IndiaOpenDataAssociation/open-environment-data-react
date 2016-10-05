@@ -53,10 +53,12 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.4.1",
     "react-router-bootstrap": "^0.23.1",
+    "react-tab-pane": "0.0.6",
     "react-tabs": "^0.8.0",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
-    "sanitize-html": "^1.11.4"
+    "sanitize-html": "^1.11.4",
+    "superagent": "^2.3.0"
   },
   "devDependencies": {
     "ava": "^0.15.2",
