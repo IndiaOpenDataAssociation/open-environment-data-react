@@ -6,6 +6,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup'
 import FormControl from 'react-bootstrap/lib/FormControl'
 import Dashboardhome from './pages/Home'
 import Realtime from './pages/Realtime'
+import Analytics from './pages/Analytics'
 import superagent from 'superagent'
 import LoadingMap from './components/LoadingMap'
 
@@ -34,7 +35,6 @@ export default class Dashboard extends Component{
 
   componentDidMount(){
     superagent.get('https://openenvironment.p.mashape.com/all/public/devices').set('X-Mashape-Key','SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-      console.log('res', res.body)
       this.setState({loading: false, markers: res.body})
     }.bind(this))
   }
@@ -96,10 +96,43 @@ export default class Dashboard extends Component{
                     ?
                     <div className="review-panel" >
                       <div className="panel panel-default">
-                        <div className="panel-heading">
-                          An Open India Initiative
-                          <span style={{float: 'right'}} className="close-panel" onClick={this.closePanel}><i className="fa fa-close"></i></span>
+                        <div className="panel-heading ">
+                          <div className="row">
+
+                            {
+                              this.state.active_tab == 'analytics'
+                              ?
+                                <div className="col-sm-11">
+                                  <img src="assets/images/avatar.png" style={{width: '40px'}}/>
+                                  <span style={{position: 'absolute',top: '1px',left: '19%',fontSize: '16px'}}>zoopark</span> <br />
+                                  <span style={{position: 'absolute',top: '21px',left: '19%',fontSize: '14px',fontWeight: 300}}>CPCB</span>
+                                </div>
+                              :
+                              (
+                                this.state.active_tab == 'home'
+                                ?
+                                  <div className="col-sm-11">
+                                    An Open India-Data Initiative
+                                  </div>
+                                :
+                                (
+                                  this.state.active_tab == 'realtime'
+                                  ?
+                                    <div className="col-sm-11">
+                                      <img src="assets/images/avatar.png" style={{width: '40px'}}/>
+                                      <span style={{position: 'absolute',top: '1px',left: '19%',fontSize: '16px'}}>zoopark</span> <br />
+                                      <span style={{position: 'absolute',top: '21px',left: '19%',fontSize: '14px',fontWeight: 300}}>CPCB</span>
+                                    </div>
+                                  :
+                                  ''
+                                )
+                              )
+
+                            }
+                            <span className="col-sm-1" className="close-panel" onClick={this.closePanel}><i className="fa fa-close"></i></span>
+                          </div>
                         </div>
+
                         <div className="panel-body">
                           {
                             this.state.active_tab == 'home'
@@ -118,7 +151,7 @@ export default class Dashboard extends Component{
                           {
                             this.state.active_tab == 'analytics'
                               ?
-                              <div id="home">analytics</div>
+                              <Analytics />
                               :
                               ''
                           }

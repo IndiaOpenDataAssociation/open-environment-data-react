@@ -810,6 +810,43 @@ hr#whitelong {
   color: #fff;
 }
 
+//analytics
+.analytics-chart canvas{
+  width: 300px !important;
+  margin: auto;
+  padding-top: 30px;
+  height: 200px;
+}
+
+.analytics-chart{
+  text-align: center;
+}
+
+.analytics-chart span, .analytics-chart p{
+  color: #fff;
+}
+
+.analytics-chart span{
+  font-size: 11px;
+}
+
+.analytics-chart p{
+  font-size: 14px;
+}
+
+.avg-container{
+  padding: 18px 22px;
+  border-radius: 50%;
+  background: #687076
+}
+
+.average-cal{
+  margin: 20px 0;
+  background: #586067;
+  padding: 15px;
+}
+
+
 @media (min-width: 370px) and (max-width: 768px) {
   .about-container p {
     width: 100%;

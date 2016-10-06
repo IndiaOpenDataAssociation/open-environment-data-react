@@ -54,9 +54,7 @@ export default class DashboardMap extends Component {
                     lat: parseFloat(marker.latitude),
                     lng: parseFloat(marker.longitude)
                 }
-
-                console.log('position:', position)
-
+                
                 return (
                   <Marker
                     position={position}

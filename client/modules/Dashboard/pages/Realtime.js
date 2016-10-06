@@ -70,7 +70,7 @@ export default class Realtime extends Component{
 
           </div>
 
-          <div style={{padding: '35px'}}></div>
+          <div style={{padding: '25px'}}></div>
 
         </div>
       </div>
