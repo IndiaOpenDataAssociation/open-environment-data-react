@@ -5,8 +5,8 @@ export default class Dashboardhome extends Component{
     return(
       <div className="dashboard-home">
         <div className="home-top-content row">
-          <span className="col-sm-6">95 data sources</span>
-          <span className="col-sm-6">Please select one</span>
+          <span className="col-sm-6 col-xs-6">95 data sources</span>
+          <span className="col-sm-6 col-xs-6">Please select one</span>
         </div>
         <div className="home-bottom-content">
           <div className="aqiinfo">

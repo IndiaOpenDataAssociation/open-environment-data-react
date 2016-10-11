@@ -19,17 +19,28 @@ export default class Dashboard extends Component{
     this.openPanel = this.openPanel.bind(this)
     this.closePanel = this.closePanel.bind(this)
     this.changeTab = this.changeTab.bind(this)
+    this.changeDisable = this.changeDisable.bind(this)
+    this.realTimeData = this.realTimeData.bind(this)
+    this.analyticsData = this.analyticsData.bind(this)
   }
 
   getState(){
     return {
       markers: [],
+      realTimeData : [],
+      analyticsData : [],
       city: '',
       show_panel: false,
       active_tab: 'home',
+      disable_tab: true,
       loading: true,
       lat: '',
-      lng: ''
+      lng: '',
+      realTimedataLoading: true,
+      city_label: '',
+      device_type: '',
+      time: '',
+      no_records: false
     }
   }
 
@@ -53,6 +64,29 @@ export default class Dashboard extends Component{
 
   changeTab(tabName){
     this.setState({active_tab: tabName})
+    console.log(this.state.disable_tab)
+  }
+
+  changeDisable(boolean, label, deviceType){
+    this.setState({disable_tab: boolean, active_tab: 'realtime', show_panel: true, city_label: label, device_type: deviceType})
+  }
+
+  realTimeData(id, time){
+    superagent.get('https://openenvironment.p.mashape.com/all/public/data/cur/'+id).set('X-Mashape-Key','SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+      this.setState({realTimeData: res.body, realTimedataLoading:false, time: time})
+    }.bind(this))
+  }
+
+  analyticsData(id,time){
+    superagent.get('https://openenvironment.p.mashape.com/all/public/data/hours/24/'+id).set('X-Mashape-Key','SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+      if(res.body.message == 'No records found'){
+        this.setState({no_records: true})
+      }
+      else{
+        this.setState({analyticsData: res.body, time: time, no_records: false})
+      }
+
+    }.bind(this))
   }
 
   render(){
@@ -70,7 +104,7 @@ export default class Dashboard extends Component{
             <div>
               <Navbar />
               <section className="dashboard">
-                <DashboardMap markers={this.state.markers} cityValue={this.state.city} />
+                <DashboardMap markers={this.state.markers} cityValue={this.state.city} setDisable = {this.changeDisable} callRealtime = {this.realTimeData} callAnalytics = {this.analyticsData}/>
                 <div className="select-cities-box">
                   <FormGroup controlId="formControlsSelect" >
                     <FormControl componentClass="select" placeholder="select" ref="cityList" className="select-cities" onChange={this.changeCities}>
@@ -102,26 +136,26 @@ export default class Dashboard extends Component{
                             {
                               this.state.active_tab == 'analytics'
                               ?
-                                <div className="col-sm-11">
-                                  <img src="assets/images/avatar.png" style={{width: '40px'}}/>
-                                  <span style={{position: 'absolute',top: '1px',left: '19%',fontSize: '16px'}}>zoopark</span> <br />
-                                  <span style={{position: 'absolute',top: '21px',left: '19%',fontSize: '14px',fontWeight: 300}}>CPCB</span>
+                                <div className="col-sm-11 col-xs-11">
+                                  <img src="assets/images/avatar.png" style={{width: '35px'}}/>
+                                  <span style={{position: 'absolute',top: '1px',left: '19%',fontSize: '14px'}}>{this.state.city_label}</span> <br />
+                                  <span style={{position: 'absolute',top: '21px',left: '19%',fontSize: '12px',fontWeight: 300}}>{this.state.device_type}</span>
                                 </div>
                               :
                               (
                                 this.state.active_tab == 'home'
                                 ?
-                                  <div className="col-sm-11">
+                                  <div className="col-sm-11 col-xs-11" style={{padding: '7px 15px'}}>
                                     An Open India-Data Initiative
                                   </div>
                                 :
                                 (
                                   this.state.active_tab == 'realtime'
                                   ?
-                                    <div className="col-sm-11">
-                                      <img src="assets/images/avatar.png" style={{width: '40px'}}/>
-                                      <span style={{position: 'absolute',top: '1px',left: '19%',fontSize: '16px'}}>zoopark</span> <br />
-                                      <span style={{position: 'absolute',top: '21px',left: '19%',fontSize: '14px',fontWeight: 300}}>CPCB</span>
+                                    <div className="col-sm-11 col-xs-11">
+                                      <img src="assets/images/avatar.png" style={{width: '35px'}}/>
+                                      <span style={{position: 'absolute',top: '1px',left: '19%',fontSize: '14px'}}>{this.state.city_label}</span> <br />
+                                      <span style={{position: 'absolute',top: '21px',left: '19%',fontSize: '12px',fontWeight: 300}}>{this.state.device_type}</span>
                                     </div>
                                   :
                                   ''
@@ -129,7 +163,7 @@ export default class Dashboard extends Component{
                               )
 
                             }
-                            <span className="col-sm-1" className="close-panel" onClick={this.closePanel}><i className="fa fa-close"></i></span>
+                            <span className="col-sm-1 col-xs-1 close-panel" onClick={this.closePanel}><i className="fa fa-close"></i></span>
                           </div>
                         </div>
 
@@ -144,35 +178,67 @@ export default class Dashboard extends Component{
                           {
                             this.state.active_tab == 'realtime'
                               ?
-                              <Realtime />
+                              <Realtime realtimeData={this.state.realTimeData} loadingState={this.state.realTimedataLoading} timeStamp={this.state.time}/>
                               :
                               ''
                           }
                           {
                             this.state.active_tab == 'analytics'
                               ?
-                              <Analytics />
+                              <Analytics
+                                analysisData={
+                                  this.state.no_records == true
+                                  ?
+                                  this.state.no_records
+                                  :
+                                  this.state.analyticsData
+                                }
+                                timeStamp={this.state.time}
+                                realtimeData={this.state.realTimeData}
+                              />
                               :
                               ''
                           }
 
 
                         </div>
+
                         <div className="panel-footer">
                           <ul className="review-panel-tab">
-                            <a onClick={() => {this.changeTab('home')}} className={this.state.active_tab == 'home' ? 'active' : ''}>
+                            <a
+                              onClick={() => {this.changeTab('home')}}
+                              className={this.state.active_tab == 'home' ? 'active' : ''}
+                            >
                               <li>
                                 <img src={this.state.active_tab == 'home' ? 'assets/images/icons/home_b.png' : 'assets/images/icons/home_g.png' }/>
                               </li>
                             </a>
 
-                            <a onClick={() => {this.changeTab('realtime')}} className={this.state.active_tab == 'realtime' ? 'active' : ''}>
+                            <a
+                              onClick={() => {
+                              this.state.disable_tab
+                              ?
+                              null
+                              :
+                              this.changeTab('realtime')
+                              }}
+                              className={this.state.active_tab == 'realtime' ? 'active' : ''}>
                               <li>
                                 <img src={this.state.active_tab == 'realtime' ? 'assets/images/icons/realtime_b.png' : 'assets/images/icons/realtime_g.png' }/>
                               </li>
                             </a>
 
-                            <a onClick={() => {this.changeTab('analytics')}} className={this.state.active_tab == 'analytics' ? 'active' : ''}>
+                            <a onClick={() => {
+                              this.state.disable_tab
+                              ?
+                              null
+                              :
+
+                              this.changeTab('analytics')
+
+
+                              }}
+                             className={this.state.active_tab == 'analytics' ? 'active' : ''}>
                               <li>
                                 <img src={this.state.active_tab == 'analytics' ? 'assets/images/icons/analytics_b.png' : 'assets/images/icons/analytics_g.png' }/>
                               </li>
@@ -189,6 +255,10 @@ export default class Dashboard extends Component{
               </section>
             </div>
         }
+        <div className="dashboard-footer">
+          <a href="http://indiaopendata.com/" target="_blank" className="title">An India Open Data Association Initiative</a>
+          <a href="https://oizom.com/" target="_blank" className="regards">Made with <i className="white fa fa-heart"></i> Oizom</a>
+        </div>
 
       </div>
     )

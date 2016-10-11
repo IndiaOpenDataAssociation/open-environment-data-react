@@ -1,3 +1,8 @@
+@font-face {
+  font-family: Bebasneues;
+  src:url(../fonts/BebasNeueBold.woff);
+}
+
 body{
   font-family: "Open Sans", sans-serif !important;
   text-rendering: optimizeLegibility;
@@ -8,6 +13,7 @@ body{
 
 a{
   transition: all ease 0.2s;
+  cursor: pointer;
 }
 
 section{
@@ -611,6 +617,34 @@ hr#whitelong {
   position: relative;
 }
 
+.dashboard-footer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: #303841;
+}
+
+.dashboard-footer .title{
+  float: left;
+  color: #fff;
+  padding-left: 10px;
+  font-size: 14px;
+  line-height: 40px;
+}
+
+.dashboard-footer .regards{
+  float: right;
+  color: #fff;
+  line-height: 40px;
+  padding-right: 10px;
+  font-size: 14px;
+}
+
+a.regards:hover, .dashboard-footer a.title:hover{
+  text-decoration: none;
+  color: #ccc;
+}
+
 .select-cities-box{
   position: absolute;
   width: 250px;
@@ -710,6 +744,7 @@ hr#whitelong {
 
 .dashboard-home{
   background: #464f56;
+  height: 73vh;
 }
 
 .aqiinfo-img{
@@ -755,7 +790,7 @@ hr#whitelong {
 }
 
 .aqirange-img{
-  width: 100%;
+  width: 81%;
 }
 
 //realtime
@@ -776,7 +811,7 @@ hr#whitelong {
 }
 
 .realtime-data img{
-  width: 30px;
+  width: 20px;
 }
 
 .realtime-data{
@@ -791,6 +826,8 @@ hr#whitelong {
 .realtime-data-list li{
   display: inline-block;
   margin-right: 3px;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .activity-icon{
@@ -799,9 +836,13 @@ hr#whitelong {
   border-radius: 4px;
 }
 
+.activity-icon img{
+  width: 30px;
+}
+
 .activity-title{
   background: #586067;
-  padding: 10px 8px 14px;
+  padding: 11px 8px 14px;
   border-radius: 4px;
   width: 230px;
 }
@@ -828,6 +869,7 @@ hr#whitelong {
 
 .analytics-chart span{
   font-size: 11px;
+  padding-right: 10px;
 }
 
 .analytics-chart p{
@@ -835,15 +877,75 @@ hr#whitelong {
 }
 
 .avg-container{
-  padding: 18px 22px;
+  padding: 19px 0;
   border-radius: 50%;
-  background: #687076
+  background: #687076;
+  text-align: center;
+  height: 60px;
+}
+
+.readings{
+  color: #fff;
+  margin: 0;
+  display: block;
+  line-height: 15px;
+  font-family: 'Bebasneues';
+  font-size: 20px;
+}
+
+.units{
+  color:  #00b3bf;
+  font-size: 12px;
+  display: block;
 }
 
 .average-cal{
   margin: 20px 0;
   background: #586067;
   padding: 15px;
+}
+
+.circle{
+  width: 100%;
+  height: 60px;
+  background: #687076;
+  border-radius: 50%;
+}
+
+.circle-wrapper{
+  position: relative;
+}
+
+.border{
+  position: absolute;
+  top: 0;
+  border: 2px solid gray;
+}
+
+progress {
+  position: relative;
+  height: 60px;
+  width: 60px;
+  margin: 10px;
+  visibility: hidden;
+}
+progress:after {
+  content: attr(value);
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0 0 0 5px rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  text-align: center;
+  line-height: 60px;
+  visibility: visible;
+  color: #eee;
+}
+progress[value="10"]:after {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" style="transform-origin:center center;transform:rotate(-90deg)"><circle cx="30" cy="30" r="27.5" stroke-dasharray="172.7876" stroke-dashoffset="155.50884" fill="#687076" stroke-width="2px" stroke="#00b3bf"/></svg>');
 }
 
 
@@ -854,7 +956,7 @@ hr#whitelong {
 }
 
 @media (max-width: 768px){
-  .buy-airowl-section,.know-everything, #half-colored, .resource, .airowl-gif, .real-data, .footer-container{
+  .buy-airowl-section,.know-everything, #half-colored, .resource, .airowl-gif, .real-data, .footer-container, .dashboard-footer{
     display: none;
   }
 
@@ -862,4 +964,41 @@ hr#whitelong {
     padding-left: 0;
     font-size: 14px;
   }
+
+  .close-panel{
+    padding: 1px;
+    text-align: center;
+  }
+
+  .aqiinfo-img{
+    margin-top: 10px;
+  }
+
+  .activity-icon{
+    padding: 4px;
+  }
+
+  .activity-title{
+    padding: 8px 8px 11px;
+  }
+
+  .aqiinfo-svgimg{
+    width: 230px;
+    margin-top: 0;
+  }
+
+  .dashboard-home{
+    height: 77vh;
+  }
+
+  .realtime-label span:nth-of-type(1){
+    font-size: 40px !important;
+  }
+
+  .realtime-label span:nth-of-type(2){
+    font-size: 15px !important;
+  }
 }
+
+//highcharts
+
