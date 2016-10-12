@@ -64,7 +64,7 @@ export default class Dashboard extends Component{
 
   changeTab(tabName){
     this.setState({active_tab: tabName})
-    console.log(this.state.disable_tab)
+
   }
 
   changeDisable(boolean, label, deviceType){

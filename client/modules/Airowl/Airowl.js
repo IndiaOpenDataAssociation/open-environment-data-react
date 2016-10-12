@@ -14,7 +14,6 @@ export default class Airowl extends Component{
   }
 
   handleSelect(index, last) {
-    console.log('Selected tab: ' + index + ', Last tab: ' + last);
   }
 
   render(){

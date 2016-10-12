@@ -19,14 +19,12 @@ export default class Analytics extends Component{
         this.props.analysisData.map((e) => {
           arr.unshift(e.aqi)
         })
-        console.log('arr:', arr)
 
       }
       else {
         this.props.analysisData.map((e) => {
           arr.unshift(e.aqi)
         })
-        console.log('else arr:', arr)
       }
       this.setState({aqiArray:arr})
 
@@ -259,7 +257,7 @@ export default class Analytics extends Component{
 
             </div>
           </div>
-          <div style={{padding: '35px'}}></div>
+          <div style={{padding: '9px'}}></div>
 
         </div>
       </div>
