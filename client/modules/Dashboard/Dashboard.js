@@ -40,7 +40,8 @@ export default class Dashboard extends Component{
       city_label: '',
       device_type: '',
       time: '',
-      no_records: false
+      no_records: false,
+      iscity_changed: false
     }
   }
 
@@ -51,7 +52,7 @@ export default class Dashboard extends Component{
   }
 
   changeCities(e){
-    this.setState({city: e.target.value})
+    this.setState({city: e.target.value, iscity_changed: true})
   }
 
   openPanel(){
@@ -104,7 +105,7 @@ export default class Dashboard extends Component{
             <div>
               <Navbar />
               <section className="dashboard">
-                <DashboardMap markers={this.state.markers} cityValue={this.state.city} setDisable = {this.changeDisable} callRealtime = {this.realTimeData} callAnalytics = {this.analyticsData}/>
+                <DashboardMap markers={this.state.markers} cityValue={this.state.city} cityChanged={this.state.iscity_changed} setDisable = {this.changeDisable} callRealtime = {this.realTimeData} callAnalytics = {this.analyticsData}/>
                 <div className="select-cities-box">
                   <FormGroup controlId="formControlsSelect" >
                     <FormControl componentClass="select" placeholder="select" ref="cityList" className="select-cities" onChange={this.changeCities}>

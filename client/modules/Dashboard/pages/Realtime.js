@@ -68,7 +68,7 @@ export default class Realtime extends Component{
             <div className="home-bottom-content">
                 <div className="aqiinfo">
                   {
-                    this.props.realtimeData[0].aqi < 50
+                    this.props.realtimeData[0].aqi <= 50
                       ?
                       <svg version="1.1" id="Default" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"  width="272px" height="228px" viewBox="0 0 272 228" className="svg-center aqiinfo-svgimg" enableBackground="new 0 0 272 228" xmlSpace="preserve">
                         <g id="ARC_1_">
@@ -249,7 +249,7 @@ export default class Realtime extends Component{
                     <br />
                     <span style={{color: 'white', fontSize: '20px'}}>
                       {
-                        this.props.realtimeData[0].aqi < 50
+                        this.props.realtimeData[0].aqi <= 50
                           ?
                           'Good'
                           :
@@ -284,7 +284,7 @@ export default class Realtime extends Component{
                 </div>
 
               {
-                this.props.realtimeData[0].aqi < 50
+                this.props.realtimeData[0].aqi <= 50
                 ?
                   <div className="realtime-data">
 

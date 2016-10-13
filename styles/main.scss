@@ -613,6 +613,16 @@ hr#whitelong {
   display: none;
 }
 
+.cluster{
+  background: rgba(0, 179, 191, 0.47) !important;
+  border-radius: 50% !important;
+  box-shadow: inset 0 0 5px 2px #00b3bf !important;
+}
+
+.cluster>img{
+  display: none !important;
+}
+
 .dashboard{
   position: relative;
 }
