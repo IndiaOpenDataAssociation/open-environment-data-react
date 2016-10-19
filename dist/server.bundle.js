@@ -65,19 +65,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Navbar = __webpack_require__(51);
+	var _Navbar = __webpack_require__(50);
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _Nav = __webpack_require__(49);
+	var _Nav = __webpack_require__(48);
 
 	var _Nav2 = _interopRequireDefault(_Nav);
 
-	var _NavItem = __webpack_require__(50);
+	var _NavItem = __webpack_require__(49);
 
 	var _NavItem2 = _interopRequireDefault(_NavItem);
 
-	var _LinkContainer = __webpack_require__(55);
+	var _LinkContainer = __webpack_require__(54);
 
 	var _LinkContainer2 = _interopRequireDefault(_LinkContainer);
 
@@ -390,11 +390,11 @@
 
 	var _Citydata2 = _interopRequireDefault(_Citydata);
 
-	var _FormGroup = __webpack_require__(48);
+	var _FormGroup = __webpack_require__(47);
 
 	var _FormGroup2 = _interopRequireDefault(_FormGroup);
 
-	var _FormControl = __webpack_require__(47);
+	var _FormControl = __webpack_require__(46);
 
 	var _FormControl2 = _interopRequireDefault(_FormControl);
 
@@ -410,7 +410,7 @@
 
 	var _Analytics2 = _interopRequireDefault(_Analytics);
 
-	var _superagent = __webpack_require__(64);
+	var _superagent = __webpack_require__(63);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -829,7 +829,7 @@
 
 	var _redux = __webpack_require__(12);
 
-	var _reduxThunk = __webpack_require__(63);
+	var _reduxThunk = __webpack_require__(62);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -923,9 +923,9 @@
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 
 	var webpack = __webpack_require__(7);
-	var cssnext = __webpack_require__(44);
-	var postcssFocus = __webpack_require__(45);
-	var postcssReporter = __webpack_require__(46);
+	var cssnext = __webpack_require__(43);
+	var postcssFocus = __webpack_require__(44);
+	var postcssReporter = __webpack_require__(45);
 
 	module.exports = {
 	  devtool: 'cheap-module-eval-source-map',
@@ -1207,23 +1207,23 @@
 
 	var _Footer2 = _interopRequireDefault(_Footer);
 
-	var _Helmet = __webpack_require__(53);
+	var _Helmet = __webpack_require__(52);
 
 	var _Helmet2 = _interopRequireDefault(_Helmet);
 
-	var _Tab = __webpack_require__(56);
+	var _Tab = __webpack_require__(55);
 
 	var _Tab2 = _interopRequireDefault(_Tab);
 
-	var _TabList = __webpack_require__(57);
+	var _TabList = __webpack_require__(56);
 
 	var _TabList2 = _interopRequireDefault(_TabList);
 
-	var _Tabs = __webpack_require__(59);
+	var _Tabs = __webpack_require__(58);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
-	var _TabPanel = __webpack_require__(58);
+	var _TabPanel = __webpack_require__(57);
 
 	var _TabPanel2 = _interopRequireDefault(_TabPanel);
 
@@ -1785,13 +1785,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reduxDevtools = __webpack_require__(60);
+	var _reduxDevtools = __webpack_require__(59);
 
-	var _reduxDevtoolsLogMonitor = __webpack_require__(62);
+	var _reduxDevtoolsLogMonitor = __webpack_require__(61);
 
 	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
 
-	var _reduxDevtoolsDockMonitor = __webpack_require__(61);
+	var _reduxDevtoolsDockMonitor = __webpack_require__(60);
 
 	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
 
@@ -2110,7 +2110,7 @@
 
 	var _Mapstyle2 = _interopRequireDefault(_Mapstyle);
 
-	var _MarkerClusterer = __webpack_require__(52);
+	var _MarkerClusterer = __webpack_require__(51);
 
 	var _MarkerClusterer2 = _interopRequireDefault(_MarkerClusterer);
 
@@ -2240,13 +2240,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactHighcharts = __webpack_require__(54);
+	var _ReactHighcharts = __webpack_require__(53);
 
-	var _reactHighcharts2 = _interopRequireDefault(_reactHighcharts);
-
-	var _moment = __webpack_require__(43);
-
-	var _moment2 = _interopRequireDefault(_moment);
+	var _ReactHighcharts2 = _interopRequireDefault(_ReactHighcharts);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2431,7 +2427,7 @@
 	        className: 'home-bottom-content'
 	      }, void 0, this.props.analysisData == true ? _ref2 : _jsx('div', {
 	        className: 'analytics-chart'
-	      }, void 0, _ref3, this.state.aqiArray.length > 0 ? _jsx(_reactHighcharts2.default, {
+	      }, void 0, _ref3, this.state.aqiArray.length > 0 ? _jsx(_ReactHighcharts2.default, {
 	        config: config
 	      }) : null), _jsx('div', {
 	        className: 'average-cal'
@@ -4379,130 +4375,124 @@
 /* 43 */
 /***/ function(module, exports) {
 
-	module.exports = require("moment");
+	module.exports = require("postcss-cssnext");
 
 /***/ },
 /* 44 */
 /***/ function(module, exports) {
 
-	module.exports = require("postcss-cssnext");
+	module.exports = require("postcss-focus");
 
 /***/ },
 /* 45 */
 /***/ function(module, exports) {
 
-	module.exports = require("postcss-focus");
+	module.exports = require("postcss-reporter");
 
 /***/ },
 /* 46 */
 /***/ function(module, exports) {
 
-	module.exports = require("postcss-reporter");
+	module.exports = require("react-bootstrap/lib/FormControl");
 
 /***/ },
 /* 47 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/FormControl");
+	module.exports = require("react-bootstrap/lib/FormGroup");
 
 /***/ },
 /* 48 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/FormGroup");
+	module.exports = require("react-bootstrap/lib/Nav");
 
 /***/ },
 /* 49 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/Nav");
+	module.exports = require("react-bootstrap/lib/NavItem");
 
 /***/ },
 /* 50 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/NavItem");
+	module.exports = require("react-bootstrap/lib/Navbar");
 
 /***/ },
 /* 51 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/Navbar");
+	module.exports = require("react-google-maps/lib/addons/MarkerClusterer");
 
 /***/ },
 /* 52 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-google-maps/lib/addons/MarkerClusterer");
+	module.exports = require("react-helmet/lib/Helmet");
 
 /***/ },
 /* 53 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-helmet/lib/Helmet");
+	module.exports = require("react-highcharts/dist/ReactHighcharts.js");
 
 /***/ },
 /* 54 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-highcharts");
+	module.exports = require("react-router-bootstrap/lib/LinkContainer");
 
 /***/ },
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-router-bootstrap/lib/LinkContainer");
+	module.exports = require("react-tabs/lib/components/Tab");
 
 /***/ },
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/Tab");
+	module.exports = require("react-tabs/lib/components/TabList");
 
 /***/ },
 /* 57 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/TabList");
+	module.exports = require("react-tabs/lib/components/TabPanel");
 
 /***/ },
 /* 58 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/TabPanel");
+	module.exports = require("react-tabs/lib/components/Tabs");
 
 /***/ },
 /* 59 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/Tabs");
+	module.exports = require("redux-devtools");
 
 /***/ },
 /* 60 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools");
+	module.exports = require("redux-devtools-dock-monitor");
 
 /***/ },
 /* 61 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-dock-monitor");
+	module.exports = require("redux-devtools-log-monitor");
 
 /***/ },
 /* 62 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-log-monitor");
-
-/***/ },
-/* 63 */
-/***/ function(module, exports) {
-
 	module.exports = require("redux-thunk");
 
 /***/ },
-/* 64 */
+/* 63 */
 /***/ function(module, exports) {
 
 	module.exports = require("superagent");

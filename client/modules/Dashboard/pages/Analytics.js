@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import ReactHighcharts from 'react-highcharts'
-import moment from 'moment'
+import ReactHighcharts from 'react-highcharts/dist/ReactHighcharts.js'
 let arr = [], timeArr =[], newTime;
 
 export default class Analytics extends Component{
