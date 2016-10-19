@@ -77,7 +77,7 @@
 
 	var _NavItem2 = _interopRequireDefault(_NavItem);
 
-	var _LinkContainer = __webpack_require__(54);
+	var _LinkContainer = __webpack_require__(55);
 
 	var _LinkContainer2 = _interopRequireDefault(_LinkContainer);
 
@@ -410,7 +410,7 @@
 
 	var _Analytics2 = _interopRequireDefault(_Analytics);
 
-	var _superagent = __webpack_require__(63);
+	var _superagent = __webpack_require__(64);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -501,7 +501,8 @@
 	        city_label: '',
 	        device_type: '',
 	        time: '',
-	        no_records: false
+	        no_records: false,
+	        iscity_changed: false
 	      };
 	    }
 	  }, {
@@ -514,7 +515,7 @@
 	  }, {
 	    key: 'changeCities',
 	    value: function changeCities(e) {
-	      this.setState({ city: e.target.value });
+	      this.setState({ city: e.target.value, iscity_changed: true });
 	    }
 	  }, {
 	    key: 'openPanel',
@@ -566,6 +567,7 @@
 	      }, void 0, _jsx(_Map2.default, {
 	        markers: this.state.markers,
 	        cityValue: this.state.city,
+	        cityChanged: this.state.iscity_changed,
 	        setDisable: this.changeDisable,
 	        callRealtime: this.realTimeData,
 	        callAnalytics: this.analyticsData
@@ -827,7 +829,7 @@
 
 	var _redux = __webpack_require__(12);
 
-	var _reduxThunk = __webpack_require__(62);
+	var _reduxThunk = __webpack_require__(63);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -881,7 +883,7 @@
 	});
 	var config = {
 	  mongoURL: process.env.MONGO_URL || 'mongodb://localhost:27017/mern-starter',
-	  port: process.env.PORT || 8000
+	  port: process.env.PORT || 3001
 	};
 
 	exports.default = config;
@@ -992,7 +994,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"main.css": "main-a5e524d10c.css"
+		"main.css": "main-66029d8181.css"
 	};
 
 /***/ },
@@ -1205,23 +1207,23 @@
 
 	var _Footer2 = _interopRequireDefault(_Footer);
 
-	var _Helmet = __webpack_require__(52);
+	var _Helmet = __webpack_require__(53);
 
 	var _Helmet2 = _interopRequireDefault(_Helmet);
 
-	var _Tab = __webpack_require__(55);
+	var _Tab = __webpack_require__(56);
 
 	var _Tab2 = _interopRequireDefault(_Tab);
 
-	var _TabList = __webpack_require__(56);
+	var _TabList = __webpack_require__(57);
 
 	var _TabList2 = _interopRequireDefault(_TabList);
 
-	var _Tabs = __webpack_require__(58);
+	var _Tabs = __webpack_require__(59);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
-	var _TabPanel = __webpack_require__(57);
+	var _TabPanel = __webpack_require__(58);
 
 	var _TabPanel2 = _interopRequireDefault(_TabPanel);
 
@@ -1783,13 +1785,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reduxDevtools = __webpack_require__(59);
+	var _reduxDevtools = __webpack_require__(60);
 
-	var _reduxDevtoolsLogMonitor = __webpack_require__(61);
+	var _reduxDevtoolsLogMonitor = __webpack_require__(62);
 
 	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
 
-	var _reduxDevtoolsDockMonitor = __webpack_require__(60);
+	var _reduxDevtoolsDockMonitor = __webpack_require__(61);
 
 	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
 
@@ -2108,6 +2110,10 @@
 
 	var _Mapstyle2 = _interopRequireDefault(_Mapstyle);
 
+	var _MarkerClusterer = __webpack_require__(52);
+
+	var _MarkerClusterer2 = _interopRequireDefault(_MarkerClusterer);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2124,6 +2130,7 @@
 
 	    var _this = _possibleConstructorReturn(this, (DashboardMap.__proto__ || Object.getPrototypeOf(DashboardMap)).call(this, props));
 
+	    var mapComponent = void 0;
 	    _this.state = _this.getState();
 	    return _this;
 	  }
@@ -2134,18 +2141,27 @@
 	      return {
 	        lat: 22.9734,
 	        lng: 78.6569,
-	        zoom: 5
+	        zoom: 5,
+	        cityChanged: this.props.cityChanged
 	      };
 	    }
 	  }, {
 	    key: "componentWillReceiveProps",
 	    value: function componentWillReceiveProps(nextProps) {
+
 	      if (this.props.cityValue != nextProps.cityValue) {
+	        this.setState({ cityChanged: nextProps.cityChanged });
 	        if (_Citydata2.default[nextProps.cityValue] != undefined) {
 	          this.setState({ lat: _Citydata2.default[nextProps.cityValue].latitude, lng: _Citydata2.default[nextProps.cityValue].longitude, zoom: 11 });
+	          if (this.refs.map) {
+	            this.refs.map.props.map.setZoom(11);
+	          }
 	        } else {
-	          this.setState(this.getState());
+	          this.setState({ lat: 22.9734, lng: 78.6569 });
+	          this.refs.map.props.map.setZoom(5);
 	        }
+	      } else {
+	        // this.refs.map.props.map.setZoom(this.refs.map.props.map.getZoom())
 	      }
 	    }
 	  }, {
@@ -2161,34 +2177,41 @@
 	            height: "92.5vh"
 	          }
 	        })),
-	        googleMapElement: _jsx(_GoogleMap2.default, {
-	          defaultZoom: 5,
-	          zoom: this.state.zoom,
-	          defaultCenter: { lat: 22.9734, lng: 78.6569 },
-	          center: { lat: this.state.lat, lng: this.state.lng },
-	          onClick: this.props.onMapClick,
-	          defaultOptions: { styles: _Mapstyle2.default }
-	        }, void 0, this.props.markers.map(function (marker, index) {
-	          var position = {
-	            lat: parseFloat(marker.latitude),
-	            lng: parseFloat(marker.longitude)
-	          };
+	        googleMapElement: _react2.default.createElement(
+	          _GoogleMap2.default,
+	          {
+	            ref: "map",
+	            defaultZoom: 5,
+	            defaultCenter: { lat: 22.9734, lng: 78.6569 },
+	            center: { lat: this.state.lat, lng: this.state.lng },
+	            onClick: this.props.onMapClick,
+	            defaultOptions: { styles: _Mapstyle2.default }
+	          },
+	          _jsx(_MarkerClusterer2.default, {
+	            averageCenter: true,
+	            enableRetinaIcons: true,
+	            gridSize: 60
+	          }, void 0, this.props.markers.map(function (marker, index) {
+	            var position = {
+	              lat: parseFloat(marker.latitude),
+	              lng: parseFloat(marker.longitude)
+	            };
 
-	          return _jsx(_Marker2.default, {
-	            position: position,
-	            icon: marker.aqi < 51 ? 'assets/images/pins/good.svg' : marker.aqi > 50 && marker.aqi < 101 ? 'assets/images/pins/satisfactory.svg' : marker.aqi > 100 && marker.aqi < 201 ? 'assets/images/pins/moderate.svg' : marker.aqi > 200 && marker.aqi < 301 ? 'assets/images/pins/poor.svg' : marker.aqi > 300 && marker.aqi < 401 ? 'assets/images/pins/very-poor.svg' : 'assets/images/pins/severe.svg',
-	            onRightclick: function onRightclick() {
-	              return _this2.props.onMarkerRightclick(index);
-	            },
-	            onClick: function onClick() {
-
-	              _this2.props.setDisable(false, marker.label, marker.deviceType);
-	              _this2.props.callRealtime(marker.deviceId, marker.t);
-	              _this2.props.callAnalytics(marker.deviceId, marker.t);
-	              _this2.state.lat == 22.9734 && _this2.state.lng == 78.6569 ? null : _this2.setState({ lat: marker.latitude, lng: marker.longitude });
-	            }
-	          });
-	        }))
+	            return _jsx(_Marker2.default, {
+	              position: position,
+	              icon: marker.aqi <= 50 ? 'assets/images/pins/good.svg' : marker.aqi > 50 && marker.aqi < 101 ? 'assets/images/pins/satisfactory.svg' : marker.aqi > 100 && marker.aqi < 201 ? 'assets/images/pins/moderate.svg' : marker.aqi > 200 && marker.aqi < 301 ? 'assets/images/pins/poor.svg' : marker.aqi > 300 && marker.aqi < 401 ? 'assets/images/pins/very-poor.svg' : 'assets/images/pins/severe.svg',
+	              onRightclick: function onRightclick() {
+	                return _this2.props.onMarkerRightclick(index);
+	              },
+	              onClick: function onClick() {
+	                _this2.props.setDisable(false, marker.label, marker.deviceType);
+	                _this2.props.callRealtime(marker.deviceId, marker.t);
+	                _this2.props.callAnalytics(marker.deviceId, marker.t);
+	                _this2.setState({ lat: marker.latitude, lng: marker.longitude });
+	              }
+	            });
+	          }))
+	        )
 	      }));
 	    }
 	  }]);
@@ -2217,7 +2240,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactHighcharts = __webpack_require__(53);
+	var _reactHighcharts = __webpack_require__(54);
 
 	var _reactHighcharts2 = _interopRequireDefault(_reactHighcharts);
 
@@ -3432,13 +3455,13 @@
 	        className: 'home-bottom-content'
 	      }, void 0, _jsx('div', {
 	        className: 'aqiinfo'
-	      }, void 0, this.props.realtimeData[0].aqi < 50 ? _ref3 : this.props.realtimeData[0].aqi > 50 && this.props.realtimeData[0].aqi < 101 ? _ref4 : this.props.realtimeData[0].aqi > 100 && this.props.realtimeData[0].aqi < 201 ? _ref5 : this.props.realtimeData[0].aqi > 200 && this.props.realtimeData[0].aqi < 301 ? _ref6 : this.props.realtimeData[0].aqi > 300 && this.props.realtimeData[0].aqi < 401 ? _ref7 : _ref8, _jsx('div', {
+	      }, void 0, this.props.realtimeData[0].aqi <= 50 ? _ref3 : this.props.realtimeData[0].aqi > 50 && this.props.realtimeData[0].aqi < 101 ? _ref4 : this.props.realtimeData[0].aqi > 100 && this.props.realtimeData[0].aqi < 201 ? _ref5 : this.props.realtimeData[0].aqi > 200 && this.props.realtimeData[0].aqi < 301 ? _ref6 : this.props.realtimeData[0].aqi > 300 && this.props.realtimeData[0].aqi < 401 ? _ref7 : _ref8, _jsx('div', {
 	        className: 'realtime-label'
 	      }, void 0, _jsx('span', {
 	        style: { color: 'white', fontSize: '56px', fontFamily: 'Bebasneues' }
 	      }, void 0, this.props.realtimeData[0].aqi), _ref9, _jsx('span', {
 	        style: { color: 'white', fontSize: '20px' }
-	      }, void 0, this.props.realtimeData[0].aqi < 50 ? 'Good' : this.props.realtimeData[0].aqi > 50 && this.props.realtimeData[0].aqi < 101 ? 'Satisfactory' : this.props.realtimeData[0].aqi > 100 && this.props.realtimeData[0].aqi < 201 ? 'Moderate' : this.props.realtimeData[0].aqi > 200 && this.props.realtimeData[0].aqi < 301 ? 'Poor' : this.props.realtimeData[0].aqi > 300 && this.props.realtimeData[0].aqi < 401 ? 'Very Poor' : 'Severe'))), this.props.realtimeData[0].aqi < 50 ? _jsx('div', {
+	      }, void 0, this.props.realtimeData[0].aqi <= 50 ? 'Good' : this.props.realtimeData[0].aqi > 50 && this.props.realtimeData[0].aqi < 101 ? 'Satisfactory' : this.props.realtimeData[0].aqi > 100 && this.props.realtimeData[0].aqi < 201 ? 'Moderate' : this.props.realtimeData[0].aqi > 200 && this.props.realtimeData[0].aqi < 301 ? 'Poor' : this.props.realtimeData[0].aqi > 300 && this.props.realtimeData[0].aqi < 401 ? 'Very Poor' : 'Severe'))), this.props.realtimeData[0].aqi <= 50 ? _jsx('div', {
 	        className: 'realtime-data'
 	      }, void 0, _ref10, _ref11, _ref12, _jsx('ul', {
 	        className: 'realtime-data-list'
@@ -4410,70 +4433,76 @@
 /* 52 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-helmet/lib/Helmet");
+	module.exports = require("react-google-maps/lib/addons/MarkerClusterer");
 
 /***/ },
 /* 53 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-highcharts");
+	module.exports = require("react-helmet/lib/Helmet");
 
 /***/ },
 /* 54 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-router-bootstrap/lib/LinkContainer");
+	module.exports = require("react-highcharts");
 
 /***/ },
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/Tab");
+	module.exports = require("react-router-bootstrap/lib/LinkContainer");
 
 /***/ },
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/TabList");
+	module.exports = require("react-tabs/lib/components/Tab");
 
 /***/ },
 /* 57 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/TabPanel");
+	module.exports = require("react-tabs/lib/components/TabList");
 
 /***/ },
 /* 58 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/Tabs");
+	module.exports = require("react-tabs/lib/components/TabPanel");
 
 /***/ },
 /* 59 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools");
+	module.exports = require("react-tabs/lib/components/Tabs");
 
 /***/ },
 /* 60 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-dock-monitor");
+	module.exports = require("redux-devtools");
 
 /***/ },
 /* 61 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-log-monitor");
+	module.exports = require("redux-devtools-dock-monitor");
 
 /***/ },
 /* 62 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-thunk");
+	module.exports = require("redux-devtools-log-monitor");
 
 /***/ },
 /* 63 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-thunk");
+
+/***/ },
+/* 64 */
 /***/ function(module, exports) {
 
 	module.exports = require("superagent");
