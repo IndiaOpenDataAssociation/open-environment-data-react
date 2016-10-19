@@ -81,6 +81,8 @@
 
 	var _LinkContainer2 = _interopRequireDefault(_LinkContainer);
 
+	var _reactRouter = __webpack_require__(3);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -95,8 +97,8 @@
 	  inverse: true,
 	  fluid: true,
 	  fixedTop: true
-	}, void 0, _jsx(_Navbar.Header, {}, void 0, _jsx(_Navbar.Brand, {}, void 0, _jsx('a', {
-	  href: '/'
+	}, void 0, _jsx(_Navbar.Header, {}, void 0, _jsx(_Navbar.Brand, {}, void 0, _jsx(_reactRouter.Link, {
+	  to: '/'
 	}, void 0, 'OPEN ENVIRONMENT DATA PROJECT')), _jsx(_Navbar.Toggle, {})), _jsx(_Navbar.Collapse, {}, void 0, _jsx(_Nav2.default, {
 	  pullRight: true
 	}, void 0, _jsx(_LinkContainer2.default, {

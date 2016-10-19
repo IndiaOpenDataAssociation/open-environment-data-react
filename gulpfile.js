@@ -25,3 +25,16 @@ gulp.task('css:build', ['css'], function() {
              .pipe($.rev.manifest())
              .pipe(gulp.dest('./dist'));
 })
+
+gulp.task('images', function() {
+  return gulp.src('./assets/**/*')
+    // Pass in options to the task
+    .pipe(gulp.dest('./dist/assets'));
+});
+
+
+gulp.task('fonts', function() {
+  return gulp.src('./fonts/**/*')
+    // Pass in options to the task
+    .pipe(gulp.dest('./dist/fonts'));
+});
