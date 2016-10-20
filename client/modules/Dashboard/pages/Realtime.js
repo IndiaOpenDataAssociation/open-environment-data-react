@@ -473,7 +473,7 @@ export default class Realtime extends Component{
 
 
 
-                <div style={{padding: '9px'}}></div>
+              {/*<div style={{padding: '9px'}}></div>*/}
 
               </div>
           </div>

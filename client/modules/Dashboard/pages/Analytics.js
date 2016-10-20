@@ -125,6 +125,11 @@ export default class Analytics extends Component{
 
       xAxis: {
         categories : timeArr,
+        labels: {
+          style: {
+            color: '#FFF'
+          }
+        }
       },
 
       yAxis: {
@@ -256,7 +261,7 @@ export default class Analytics extends Component{
 
             </div>
           </div>
-          <div style={{padding: '9px'}}></div>
+          {/*<div style={{padding: '9px'}}></div>*/}
 
         </div>
       </div>

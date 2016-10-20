@@ -2395,7 +2395,12 @@
 	        },
 
 	        xAxis: {
-	          categories: timeArr
+	          categories: timeArr,
+	          labels: {
+	            style: {
+	              color: '#FFF'
+	            }
+	          }
 	        },
 
 	        yAxis: {
@@ -2451,9 +2456,7 @@
 	            style: { textAlign: 'center', fontFamily: 'Bebasneues', color: 'white', marginTop: '10px' }
 	          }, void 0, key == 'pm10' ? 'PM 10' : key == 'pm25' ? 'PM 2.5' : key == 'hum' ? 'Humidity' : key == 'so2' ? 'SO 2' : key == 'no2' ? 'NO 2' : key == 'o3' ? 'O 3' : key)) : null;
 	        });
-	      }))), _jsx('div', {
-	        style: { padding: '9px' }
-	      })));
+	      })))));
 	    }
 	  }]);
 
@@ -3466,9 +3469,7 @@
 	      }, void 0, _ref13, _ref14, _jsx('li', {
 	        className: 'activity-title',
 	        style: { padding: '12px 5px 15px' }
-	      }, void 0, _ref15))) : this.props.realtimeData[0].aqi > 50 && this.props.realtimeData[0].aqi < 101 ? _ref16 : this.props.realtimeData[0].aqi > 100 && this.props.realtimeData[0].aqi < 201 ? _ref17 : this.props.realtimeData[0].aqi > 200 && this.props.realtimeData[0].aqi < 301 ? _ref18 : this.props.realtimeData[0].aqi > 300 && this.props.realtimeData[0].aqi < 401 ? _ref19 : _ref20, _jsx('div', {
-	        style: { padding: '9px' }
-	      })));
+	      }, void 0, _ref15))) : this.props.realtimeData[0].aqi > 50 && this.props.realtimeData[0].aqi < 101 ? _ref16 : this.props.realtimeData[0].aqi > 100 && this.props.realtimeData[0].aqi < 201 ? _ref17 : this.props.realtimeData[0].aqi > 200 && this.props.realtimeData[0].aqi < 301 ? _ref18 : this.props.realtimeData[0].aqi > 300 && this.props.realtimeData[0].aqi < 401 ? _ref19 : _ref20));
 	    }
 	  }]);
 
