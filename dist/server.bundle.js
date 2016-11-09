@@ -229,140 +229,22 @@
 /* 4 */
 /***/ function(module, exports) {
 
-	"use strict";
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var cities = [{
-	  "city": "Agra",
-	  "latitude": 27.1767,
-	  "longitude": 78.0081
-	}, {
-	  "city": "Ahmedabad",
-	  "latitude": 23.0225,
-	  "longitude": 72.5714
-	}, {
-	  "city": "Bengaluru",
-	  "latitude": 12.9716,
-	  "longitude": 77.5946
-	}, {
-	  "city": "Chandrapur",
-	  "latitude": 20.2095,
-	  "longitude": 79.5603
-	}, {
-	  "city": "Chennai",
-	  "latitude": 13.0827,
-	  "longitude": 80.2707
-	}, {
-	  "city": "Delhi",
-	  "latitude": 28.6139,
-	  "longitude": 77.2090
-	}, {
-	  "city": "Faridabad",
-	  "latitude": 28.4089,
-	  "longitude": 77.3178
-	}, {
-	  "city": "Gaya",
-	  "latitude": 24.7955,
-	  "longitude": 84.9994
-	}, {
-	  "city": "Gurgaon",
-	  "latitude": 28.4595,
-	  "longitude": 77.0266
-	}, {
-	  "city": "Haldia",
-	  "latitude": 22.0667,
-	  "longitude": 88.0698
-	}, {
-	  "city": "Hyderabad",
-	  "latitude": 17.3850,
-	  "longitude": 78.4867
-	}, {
-	  "city": "Jaipur",
-	  "latitude": 26.9124,
-	  "longitude": 75.7873
-	}, {
-	  "city": "Jodhpur",
-	  "latitude": 26.2389,
-	  "longitude": 73.0243
-	}, {
-	  "city": "Kanpur",
-	  "latitude": 26.4499,
-	  "longitude": 80.3319
-	}, {
-	  "city": "Kolkata",
-	  "latitude": 22.5726,
-	  "longitude": 88.3639
-	}, {
-	  "city": "Lucknow",
-	  "latitude": 26.8467,
-	  "longitude": 80.9462
-	}, {
-	  "city": "Mumbai",
-	  "latitude": 19.0760,
-	  "longitude": 72.8777
-	}, {
-	  "city": "Muzaffarpur",
-	  "latitude": 26.1209,
-	  "longitude": 85.3647
-	}, {
-	  "city": "Nagpur",
-	  "latitude": 21.1458,
-	  "longitude": 79.0882
-	}, {
-	  "city": "Nashik",
-	  "latitude": 19.9975,
-	  "longitude": 73.7898
-	}, {
-	  "city": "Panchkula",
-	  "latitude": 30.6942,
-	  "longitude": 76.8606
-	}, {
-	  "city": "Patna",
-	  "latitude": 25.5941,
-	  "longitude": 85.1376
-	}, {
-	  "city": "Pune",
-	  "latitude": 18.5204,
-	  "longitude": 73.8567
-	}, {
-	  "city": "Rohtak",
-	  "latitude": 28.8955,
-	  "longitude": 76.6066
-	}, {
-	  "city": "Solapur",
-	  "latitude": 17.6599,
-	  "longitude": 75.9064
-	}, {
-	  "city": "Varanasi",
-	  "latitude": 25.3176,
-	  "longitude": 82.9739
-	}];
-
-	exports.default = cities;
+	module.exports = require("react-helmet");
 
 /***/ },
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-helmet");
+	module.exports = require("react-redux");
 
 /***/ },
 /* 6 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-redux");
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
 	module.exports = require("webpack");
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -387,10 +269,6 @@
 	var _Map = __webpack_require__(32);
 
 	var _Map2 = _interopRequireDefault(_Map);
-
-	var _Citydata = __webpack_require__(4);
-
-	var _Citydata2 = _interopRequireDefault(_Citydata);
 
 	var _FormGroup = __webpack_require__(47);
 
@@ -504,7 +382,8 @@
 	        device_type: '',
 	        time: '',
 	        no_records: false,
-	        iscity_changed: false
+	        iscity_changed: false,
+	        city_list: []
 	      };
 	    }
 	  }, {
@@ -512,6 +391,9 @@
 	    value: function componentDidMount() {
 	      _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/devices').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
 	        this.setState({ loading: false, markers: res.body });
+	      }.bind(this));
+	      _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/devices/citiesloc').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+	        this.setState({ city_list: res.body });
 	      }.bind(this));
 	    }
 	  }, {
@@ -572,7 +454,8 @@
 	        cityChanged: this.state.iscity_changed,
 	        setDisable: this.changeDisable,
 	        callRealtime: this.realTimeData,
-	        callAnalytics: this.analyticsData
+	        callAnalytics: this.analyticsData,
+	        cities: this.state.city_list
 	      }), _jsx('div', {
 	        className: 'select-cities-box'
 	      }, void 0, _jsx(_FormGroup2.default, {
@@ -581,10 +464,10 @@
 	        _FormControl2.default,
 	        { componentClass: 'select', placeholder: 'select', ref: 'cityList', className: 'select-cities', onChange: this.changeCities },
 	        _ref4,
-	        _Citydata2.default.map(function (element, index) {
+	        this.state.city_list.map(function (element, index) {
 	          return _jsx('option', {
 	            value: index
-	          }, index, element.city);
+	          }, index, element.name);
 	        })
 	      ))), _jsx('div', {
 	        className: 'info-panel-toggle'
@@ -668,31 +551,31 @@
 	exports.default = Dashboard;
 
 /***/ },
-/* 9 */
+/* 8 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-google-maps/lib/GoogleMap");
 
 /***/ },
-/* 10 */
+/* 9 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-google-maps/lib/GoogleMapLoader");
 
 /***/ },
-/* 11 */
+/* 10 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-google-maps/lib/Marker");
 
 /***/ },
-/* 12 */
+/* 11 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux");
 
 /***/ },
-/* 13 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -711,19 +594,19 @@
 
 	var _reactRouter = __webpack_require__(3);
 
-	var _App = __webpack_require__(28);
+	var _App = __webpack_require__(27);
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _Dashboard = __webpack_require__(8);
+	var _Dashboard = __webpack_require__(7);
 
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
-	var _About = __webpack_require__(26);
+	var _About = __webpack_require__(25);
 
 	var _About2 = _interopRequireDefault(_About);
 
-	var _Community = __webpack_require__(30);
+	var _Community = __webpack_require__(29);
 
 	var _Community2 = _interopRequireDefault(_Community);
 
@@ -739,7 +622,7 @@
 
 	var _Partners2 = _interopRequireDefault(_Partners);
 
-	var _Airowl = __webpack_require__(27);
+	var _Airowl = __webpack_require__(26);
 
 	var _Airowl2 = _interopRequireDefault(_Airowl);
 
@@ -758,7 +641,7 @@
 	 */
 	if (process.env.NODE_ENV !== 'production') {
 	  // Require async routes only in development for react-hot-reloader to work.
-	  __webpack_require__(8);
+	  __webpack_require__(7);
 	  // require('./modules/Post/pages/PostDetailPage/PostDetailPage');
 	}
 
@@ -818,7 +701,7 @@
 	}));
 
 /***/ },
-/* 14 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -829,13 +712,13 @@
 	});
 	exports.configureStore = configureStore;
 
-	var _redux = __webpack_require__(12);
+	var _redux = __webpack_require__(11);
 
 	var _reduxThunk = __webpack_require__(62);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-	var _DevTools = __webpack_require__(29);
+	var _DevTools = __webpack_require__(28);
 
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 
@@ -874,7 +757,7 @@
 	}
 
 /***/ },
-/* 15 */
+/* 14 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -891,7 +774,7 @@
 	exports.default = config;
 
 /***/ },
-/* 16 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -918,13 +801,13 @@
 	  */
 
 /***/ },
-/* 17 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 
-	var webpack = __webpack_require__(7);
+	var webpack = __webpack_require__(6);
 	var cssnext = __webpack_require__(43);
 	var postcssFocus = __webpack_require__(44);
 	var postcssReporter = __webpack_require__(45);
@@ -992,7 +875,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, ""))
 
 /***/ },
-/* 18 */
+/* 17 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -1000,49 +883,49 @@
 	};
 
 /***/ },
-/* 19 */
+/* 18 */
 /***/ function(module, exports) {
 
 	module.exports = require("body-parser");
 
 /***/ },
-/* 20 */
+/* 19 */
 /***/ function(module, exports) {
 
 	module.exports = require("compression");
 
 /***/ },
-/* 21 */
+/* 20 */
 /***/ function(module, exports) {
 
 	module.exports = require("express");
 
 /***/ },
-/* 22 */
+/* 21 */
 /***/ function(module, exports) {
 
 	module.exports = require("path");
 
 /***/ },
-/* 23 */
+/* 22 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-dom/server");
 
 /***/ },
-/* 24 */
+/* 23 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-dev-middleware");
 
 /***/ },
-/* 25 */
+/* 24 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-hot-middleware");
 
 /***/ },
-/* 26 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1183,7 +1066,7 @@
 	exports.default = About;
 
 /***/ },
-/* 27 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1674,7 +1557,7 @@
 	exports.default = Airowl;
 
 /***/ },
-/* 28 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1693,7 +1576,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(6);
+	var _reactRedux = __webpack_require__(5);
 
 	var _App = {
 	  "container": "App__container__4uEyK"
@@ -1701,7 +1584,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _reactHelmet = __webpack_require__(5);
+	var _reactHelmet = __webpack_require__(4);
 
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 
@@ -1771,7 +1654,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 /***/ },
-/* 29 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1805,7 +1688,7 @@
 	}, void 0, _jsx(_reduxDevtoolsLogMonitor2.default, {})));
 
 /***/ },
-/* 30 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1968,6 +1851,124 @@
 	exports.default = Community;
 
 /***/ },
+/* 30 */
+/***/ function(module, exports) {
+
+	"use strict";
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var cities = [{
+	  "city": "Agra",
+	  "latitude": 27.1767,
+	  "longitude": 78.0081
+	}, {
+	  "city": "Ahmedabad",
+	  "latitude": 23.0225,
+	  "longitude": 72.5714
+	}, {
+	  "city": "Bengaluru",
+	  "latitude": 12.9716,
+	  "longitude": 77.5946
+	}, {
+	  "city": "Chandrapur",
+	  "latitude": 20.2095,
+	  "longitude": 79.5603
+	}, {
+	  "city": "Chennai",
+	  "latitude": 13.0827,
+	  "longitude": 80.2707
+	}, {
+	  "city": "Delhi",
+	  "latitude": 28.6139,
+	  "longitude": 77.2090
+	}, {
+	  "city": "Faridabad",
+	  "latitude": 28.4089,
+	  "longitude": 77.3178
+	}, {
+	  "city": "Gaya",
+	  "latitude": 24.7955,
+	  "longitude": 84.9994
+	}, {
+	  "city": "Gurgaon",
+	  "latitude": 28.4595,
+	  "longitude": 77.0266
+	}, {
+	  "city": "Haldia",
+	  "latitude": 22.0667,
+	  "longitude": 88.0698
+	}, {
+	  "city": "Hyderabad",
+	  "latitude": 17.3850,
+	  "longitude": 78.4867
+	}, {
+	  "city": "Jaipur",
+	  "latitude": 26.9124,
+	  "longitude": 75.7873
+	}, {
+	  "city": "Jodhpur",
+	  "latitude": 26.2389,
+	  "longitude": 73.0243
+	}, {
+	  "city": "Kanpur",
+	  "latitude": 26.4499,
+	  "longitude": 80.3319
+	}, {
+	  "city": "Kolkata",
+	  "latitude": 22.5726,
+	  "longitude": 88.3639
+	}, {
+	  "city": "Lucknow",
+	  "latitude": 26.8467,
+	  "longitude": 80.9462
+	}, {
+	  "city": "Mumbai",
+	  "latitude": 19.0760,
+	  "longitude": 72.8777
+	}, {
+	  "city": "Muzaffarpur",
+	  "latitude": 26.1209,
+	  "longitude": 85.3647
+	}, {
+	  "city": "Nagpur",
+	  "latitude": 21.1458,
+	  "longitude": 79.0882
+	}, {
+	  "city": "Nashik",
+	  "latitude": 19.9975,
+	  "longitude": 73.7898
+	}, {
+	  "city": "Panchkula",
+	  "latitude": 30.6942,
+	  "longitude": 76.8606
+	}, {
+	  "city": "Patna",
+	  "latitude": 25.5941,
+	  "longitude": 85.1376
+	}, {
+	  "city": "Pune",
+	  "latitude": 18.5204,
+	  "longitude": 73.8567
+	}, {
+	  "city": "Rohtak",
+	  "latitude": 28.8955,
+	  "longitude": 76.6066
+	}, {
+	  "city": "Solapur",
+	  "latitude": 17.6599,
+	  "longitude": 75.9064
+	}, {
+	  "city": "Varanasi",
+	  "latitude": 25.3176,
+	  "longitude": 82.9739
+	}];
+
+	exports.default = cities;
+
+/***/ },
 /* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -1988,19 +1989,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _GoogleMapLoader = __webpack_require__(10);
+	var _GoogleMapLoader = __webpack_require__(9);
 
 	var _GoogleMapLoader2 = _interopRequireDefault(_GoogleMapLoader);
 
-	var _GoogleMap = __webpack_require__(9);
+	var _GoogleMap = __webpack_require__(8);
 
 	var _GoogleMap2 = _interopRequireDefault(_GoogleMap);
 
-	var _Marker = __webpack_require__(11);
+	var _Marker = __webpack_require__(10);
 
 	var _Marker2 = _interopRequireDefault(_Marker);
 
-	var _Citydata = __webpack_require__(4);
+	var _Citydata = __webpack_require__(30);
 
 	var _Citydata2 = _interopRequireDefault(_Citydata);
 
@@ -2092,21 +2093,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _GoogleMapLoader = __webpack_require__(10);
+	var _GoogleMapLoader = __webpack_require__(9);
 
 	var _GoogleMapLoader2 = _interopRequireDefault(_GoogleMapLoader);
 
-	var _GoogleMap = __webpack_require__(9);
+	var _GoogleMap = __webpack_require__(8);
 
 	var _GoogleMap2 = _interopRequireDefault(_GoogleMap);
 
-	var _Marker = __webpack_require__(11);
+	var _Marker = __webpack_require__(10);
 
 	var _Marker2 = _interopRequireDefault(_Marker);
-
-	var _Citydata = __webpack_require__(4);
-
-	var _Citydata2 = _interopRequireDefault(_Citydata);
 
 	var _Mapstyle = __webpack_require__(42);
 
@@ -2150,11 +2147,10 @@
 	  }, {
 	    key: "componentWillReceiveProps",
 	    value: function componentWillReceiveProps(nextProps) {
-
 	      if (this.props.cityValue != nextProps.cityValue) {
 	        this.setState({ cityChanged: nextProps.cityChanged });
-	        if (_Citydata2.default[nextProps.cityValue] != undefined) {
-	          this.setState({ lat: _Citydata2.default[nextProps.cityValue].latitude, lng: _Citydata2.default[nextProps.cityValue].longitude, zoom: 11 });
+	        if (this.props.cities[nextProps.cityValue] != undefined) {
+	          this.setState({ lat: this.props.cities[nextProps.cityValue].latitude, lng: this.props.cities[nextProps.cityValue].longitude, zoom: 11 });
 	          if (this.refs.map) {
 	            this.refs.map.props.map.setZoom(11);
 	          }
@@ -4089,7 +4085,7 @@
 	  value: true
 	});
 
-	var _redux = __webpack_require__(12);
+	var _redux = __webpack_require__(11);
 
 	// Import Reducers
 
@@ -4115,61 +4111,61 @@
 	// Webpack Requirements
 
 
-	var _express = __webpack_require__(21);
+	var _express = __webpack_require__(20);
 
 	var _express2 = _interopRequireDefault(_express);
 
-	var _compression = __webpack_require__(20);
+	var _compression = __webpack_require__(19);
 
 	var _compression2 = _interopRequireDefault(_compression);
 
-	var _bodyParser = __webpack_require__(19);
+	var _bodyParser = __webpack_require__(18);
 
 	var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-	var _path = __webpack_require__(22);
+	var _path = __webpack_require__(21);
 
 	var _path2 = _interopRequireDefault(_path);
 
-	var _webpack = __webpack_require__(7);
+	var _webpack = __webpack_require__(6);
 
 	var _webpack2 = _interopRequireDefault(_webpack);
 
-	var _webpackConfig = __webpack_require__(17);
+	var _webpackConfig = __webpack_require__(16);
 
 	var _webpackConfig2 = _interopRequireDefault(_webpackConfig);
 
-	var _webpackDevMiddleware = __webpack_require__(24);
+	var _webpackDevMiddleware = __webpack_require__(23);
 
 	var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 
-	var _webpackHotMiddleware = __webpack_require__(25);
+	var _webpackHotMiddleware = __webpack_require__(24);
 
 	var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 
-	var _store = __webpack_require__(14);
+	var _store = __webpack_require__(13);
 
-	var _reactRedux = __webpack_require__(6);
+	var _reactRedux = __webpack_require__(5);
 
 	var _react = __webpack_require__(0);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _server = __webpack_require__(23);
+	var _server = __webpack_require__(22);
 
 	var _reactRouter = __webpack_require__(3);
 
-	var _reactHelmet = __webpack_require__(5);
+	var _reactHelmet = __webpack_require__(4);
 
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 
-	var _routes = __webpack_require__(13);
+	var _routes = __webpack_require__(12);
 
 	var _routes2 = _interopRequireDefault(_routes);
 
-	var _fetchData = __webpack_require__(16);
+	var _fetchData = __webpack_require__(15);
 
-	var _config = __webpack_require__(15);
+	var _config = __webpack_require__(14);
 
 	var _config2 = _interopRequireDefault(_config);
 
@@ -4204,7 +4200,7 @@
 	  // Import Manifests
 	  var assetsManifest = process.env.webpackAssets && JSON.parse(process.env.webpackAssets);
 	  var chunkManifest = process.env.webpackChunkAssets && JSON.parse(process.env.webpackChunkAssets);
-	  var refManifest = __webpack_require__(18);
+	  var refManifest = __webpack_require__(17);
 	  var styleSrc = '/' + refManifest['main.css'];
 	  return '\n    <!doctype html>\n    <html>\n      <head>\n        ' + head.base.toString() + '\n        ' + head.title.toString() + '\n        ' + head.meta.toString() + '\n        ' + head.link.toString() + '\n        ' + head.script.toString() + '\n\n        ' + (process.env.NODE_ENV === 'production' ? '<link rel=\'stylesheet\' href=\'' + assetsManifest['/app.css'] + '\' />' : '') + '\n        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">\n        <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/png" />\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">\n        <link rel="stylesheet" href=\'' + (process.env.NODE_ENV === 'production' ? styleSrc : '/main.css') + '\' type="text/css" media="screen" charset="utf-8">\n        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing&key=AIzaSyBr3jBMT0Q4j0TnWxajkWt159n5lROYsh0"></script>      \n</head>\n      <body>\n        <div id="root">' + html + '</div>\n        <script>\n          window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + ';\n          ' + (process.env.NODE_ENV === 'production' ? '//<![CDATA[\n          window.webpackManifest = ' + JSON.stringify(chunkManifest) + ';\n          //]]>' : '') + '\n        </script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/vendor.js'] : '/vendor.js') + '\'></script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/app.js'] : '/app.js') + '\'></script>\n      </body>\n    </html>\n  ';
 	};
