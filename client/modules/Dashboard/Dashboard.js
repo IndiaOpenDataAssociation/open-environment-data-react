@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import Navbar from '../Navbar/Navbar'
 import DashboardMap from './components/Map'
-import cities from './components/Citydata'
 import FormGroup from 'react-bootstrap/lib/FormGroup'
 import FormControl from 'react-bootstrap/lib/FormControl'
 import Dashboardhome from './pages/Home'
@@ -41,13 +40,17 @@ export default class Dashboard extends Component{
       device_type: '',
       time: '',
       no_records: false,
-      iscity_changed: false
+      iscity_changed: false,
+      city_list: []
     }
   }
 
   componentDidMount(){
     superagent.get('https://openenvironment.p.mashape.com/all/public/devices').set('X-Mashape-Key','SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
       this.setState({loading: false, markers: res.body})
+    }.bind(this))
+    superagent.get('https://openenvironment.p.mashape.com/all/public/devices/citiesloc').set('X-Mashape-Key','SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+      this.setState({city_list: res.body})
     }.bind(this))
   }
 
@@ -105,15 +108,15 @@ export default class Dashboard extends Component{
             <div>
               <Navbar />
               <section className="dashboard">
-                <DashboardMap markers={this.state.markers} cityValue={this.state.city} cityChanged={this.state.iscity_changed} setDisable = {this.changeDisable} callRealtime = {this.realTimeData} callAnalytics = {this.analyticsData}/>
+                <DashboardMap markers={this.state.markers} cityValue={this.state.city} cityChanged={this.state.iscity_changed} setDisable = {this.changeDisable} callRealtime = {this.realTimeData} callAnalytics = {this.analyticsData} cities={this.state.city_list}/>
                 <div className="select-cities-box">
                   <FormGroup controlId="formControlsSelect" >
                     <FormControl componentClass="select" placeholder="select" ref="cityList" className="select-cities" onChange={this.changeCities}>
                       <option value="India">India</option>
                       {
-                        cities.map((element, index)=>{
+                        this.state.city_list.map((element, index)=>{
                           return(
-                            <option key={index} value={index}>{element.city}</option>
+                            <option key={index} value={index}>{element.name}</option>
                           )
                         })
                       }

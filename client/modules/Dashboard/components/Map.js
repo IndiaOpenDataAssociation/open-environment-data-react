@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import GoogleMapLoader from "react-google-maps/lib/GoogleMapLoader";
 import GoogleMap from "react-google-maps/lib/GoogleMap";
 import Marker from "react-google-maps/lib/Marker";
-import cities from './Citydata'
 import fancyMapStyles from "../Mapstyle.json"
 import MarkerClusterer from "react-google-maps/lib/addons/MarkerClusterer"
 export default class DashboardMap extends Component {
@@ -24,11 +23,10 @@ export default class DashboardMap extends Component {
 
 
   componentWillReceiveProps(nextProps){
-
       if(this.props.cityValue != nextProps.cityValue){
         this.setState({cityChanged: nextProps.cityChanged})
-        if(cities[nextProps.cityValue] != undefined ) {
-          this.setState({lat: cities[nextProps.cityValue].latitude, lng: cities[nextProps.cityValue].longitude, zoom: 11})
+        if(this.props.cities[nextProps.cityValue] != undefined ) {
+          this.setState({lat: this.props.cities[nextProps.cityValue].latitude, lng: this.props.cities[nextProps.cityValue].longitude, zoom: 11})
           if (this.refs.map){
             this.refs.map.props.map.setZoom(11)
           }
