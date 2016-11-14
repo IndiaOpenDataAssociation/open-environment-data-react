@@ -8,8 +8,7 @@ import Realtime from './pages/Realtime'
 import Analytics from './pages/Analytics'
 import superagent from 'superagent'
 import LoadingMap from './components/LoadingMap'
-
-
+import Map from '../Map/index'
 export default class Dashboard extends Component{
   constructor(props){
     super(props)
@@ -21,6 +20,8 @@ export default class Dashboard extends Component{
     this.changeDisable = this.changeDisable.bind(this)
     this.realTimeData = this.realTimeData.bind(this)
     this.analyticsData = this.analyticsData.bind(this)
+    this.handleMarkerClick = this.handleMarkerClick.bind(this);
+    this.handleMarkerClose = this.handleMarkerClose.bind(this);
   }
 
   getState(){
@@ -41,7 +42,7 @@ export default class Dashboard extends Component{
       time: '',
       no_records: false,
       iscity_changed: false,
-      city_list: []
+      city_list: [],
     }
   }
 
@@ -93,6 +94,35 @@ export default class Dashboard extends Component{
     }.bind(this))
   }
 
+  handleMarkerClick(targetMarker,index) {
+
+    this.setState({
+      markers: this.state.markers.map(marker => {
+        if (marker === targetMarker) {
+          return{
+            ...marker,
+            showInfo: true
+          }
+        }
+        return marker;
+      })
+    });
+  }
+
+  handleMarkerClose(targetMarker) {
+    this.setState({
+      markers: this.state.markers.map(marker => {
+        if (marker === targetMarker) {
+          return {
+            ...marker,
+            showInfo: false,
+          };
+        }
+        return marker;
+      }),
+    });
+  }
+
   render(){
     return(
       <div>
@@ -101,14 +131,25 @@ export default class Dashboard extends Component{
           ?
             <div style={{marginTop: '50px'}}>
               <Navbar />
-              <LoadingMap />
+              <LoadingMap
+              />
             </div>
 
           :
             <div>
               <Navbar />
               <section className="dashboard">
-                <DashboardMap markers={this.state.markers} cityValue={this.state.city} cityChanged={this.state.iscity_changed} setDisable = {this.changeDisable} callRealtime = {this.realTimeData} callAnalytics = {this.analyticsData} cities={this.state.city_list}/>
+                <Map
+                  markers={this.state.markers}
+                  cityValue={this.state.city}
+                  cityChanged={this.state.iscity_changed}
+                  setDisable = {this.changeDisable}
+                  callRealtime = {this.realTimeData}
+                  callAnalytics = {this.analyticsData}
+                  cities={this.state.city_list}
+                  onMarkerClick={this.handleMarkerClick}
+                  onMarkerClose={this.handleMarkerClose}
+                />
                 <div className="select-cities-box">
                   <FormGroup controlId="formControlsSelect" >
                     <FormControl componentClass="select" placeholder="select" ref="cityList" className="select-cities" onChange={this.changeCities}>

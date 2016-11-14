@@ -613,7 +613,7 @@ hr#whitelong {
   display: none;
 }
 
-.cluster{
+.cluster,.gm-style > div > div:nth-child(4) > div:nth-child(3) div{
   background: rgba(0, 179, 191, 0.47) !important;
   border-radius: 50% !important;
   box-shadow: inset 0 0 5px 2px #00b3bf !important;
@@ -1011,4 +1011,221 @@ progress[value="10"]:after {
 }
 
 //highcharts
+
+//map
+
+.infowindow-head{
+  border-bottom: 1px solid #00b3bf;
+  padding-bottom: 5px;
+  padding-top: 10px;
+}
+
+.infowindow-head strong{
+  color: #00b3bf;
+}
+
+.infowindow-body{
+  padding-top: 10px;
+}
+
+.right-content span{
+  position: absolute;
+  top: 40%;
+  right: 50%;
+  font-family: Bebasneues;
+  font-size: 20px;
+}
+
+.gmnoprint a, .gmnoprint span, .gm-style-cc {
+  display:none;
+}
+.gmnoprint div {
+  background:none !important;
+}/* white background and box outline */
+.gm-style > div:first-child > div + div > div:last-child > div > div:first-child > div
+{
+  /* we have to use !important because we are overwritng inline styles */
+  background-color: #fff !important;
+  box-shadow: none !important;
+  width: auto !important;
+  height: auto !important;
+  display: none;
+}
+
+/* arrow colour */
+.gm-style > div:first-child > div + div > div:last-child > div > div:first-child > div > div > div
+{
+  background-color: #003366 !important;
+}
+
+/* close button */
+.gm-style > div:first-child > div + div > div:last-child > div > div:last-child
+{
+  margin-right: 5px;
+  margin-top: 5px;
+}
+
+/* image icon inside close button */
+.gm-style > div:first-child > div + div > div:last-child > div > div:last-child > img
+{
+  display: none;
+}
+
+/* positioning of infowindow */
+.gm-style-iw
+{
+  top: 40px !important;
+  text-align: center;
+}
+
+.infowindow-content::after{
+    content:'';
+    //position: absolute;
+    //top: 100%;
+    //left: 50%;
+    //margin-left: -10px;
+    //width: 0;
+    //height: 0;
+    //border-top: solid 10px #313841;
+    //border-left: solid 10px transparent;
+    //border-right: solid 10px transparent;
+  background: url('../assets/images/arrow.png');
+}
+
+.infowindow-content
+{
+  position: relative;
+  background-color: #313841;
+  padding: 0px 20px;
+  text-align: left;
+  padding-bottom: 20px;
+  .left-content{
+    position: relative;
+    padding-right: 100px;
+  }
+  .left-content > div {
+    margin-bottom: 10px;
+  }
+  .left-content .fa {
+    margin-right: 10px;
+  }
+  .aqi{
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+.infowindow-body
+{
+  color: #fff;
+}
+
+
+.progress-pie-chart {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #E5E5E5;
+  position: relative;
+}
+.progress-pie-chart.gt-50 {
+  background-color: #81CE97;
+}
+
+.ppc-progress {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: calc(50% - 35px);
+  top: calc(50% - 35px);
+  width: 70px;
+  height: 70px;
+  clip: rect(0, 70px, 70px, 35px);
+}
+.ppc-progress .ppc-progress-fill {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: calc(50% - 35px);
+  top: calc(50% - 35px);
+  width: 70px;
+  height: 70px;
+  clip: rect(0, 35px, 70px, 0);
+  background: #81CE97;
+  transform: rotate(60deg);
+}
+
+.ppc-progress .ppc-progress-fill.good{
+  background: #6ecc58;
+}
+
+.ppc-progress .ppc-progress-fill.satisfactory{
+  background: #bbcf4c;
+}
+
+.ppc-progress .ppc-progress-fill.moderate{
+  background: #eac736;
+}
+
+.ppc-progress .ppc-progress-fill.poor{
+  background: #ed9a2e;
+}
+
+.ppc-progress .ppc-progress-fill.very-poor{
+  background: #e8633a;
+}
+
+.ppc-progress .ppc-progress-fill.severe{
+  background: #d63636;
+}
+
+.gt-250 .ppc-progress {
+  clip: rect(0, 35px, 70px, 0);
+}
+.gt-250 .ppc-progress .ppc-progress-fill {
+  clip: rect(0, 70px, 70px, 35px);
+  background: #E5E5E5;
+}
+
+//.progress-pie-chart.gt-250 {
+//  background-color: #81CE97;
+//}
+
+.progress-pie-chart.gt-250.very-poor {
+  background-color: #e8633a;
+}
+
+.progress-pie-chart.gt-250.poor {
+  background-color: #ed9a2e;
+}
+
+.progress-pie-chart.gt-250.severe {
+  background-color: #d63636;
+}
+
+
+.ppc-percents {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: calc(50% - 58.87px/2);
+  top: calc(50% - 60.86957px/2);
+  width: 60.86957px;
+  height: 60.86957px;
+  background: #313841;
+  text-align: center;
+  display: table;
+}
+.ppc-percents span {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.pcc-percents-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
 

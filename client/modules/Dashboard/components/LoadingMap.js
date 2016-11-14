@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 import GoogleMapLoader from "react-google-maps/lib/GoogleMapLoader";
 import GoogleMap from "react-google-maps/lib/GoogleMap";
-import Marker from "react-google-maps/lib/Marker";
-import cities from './Citydata'
+import fancyMapStyles from "../Mapstyle.json"
 
 export default class LoadingMap extends Component {
   constructor(props){
@@ -17,16 +16,16 @@ export default class LoadingMap extends Component {
       zoom: 5
     }
   }
-  componentWillReceiveProps(nextProps){
-    if(this.props.cityValue != nextProps.cityValue){
-      if(cities[nextProps.cityValue] != undefined) {
-        this.setState({lat: cities[nextProps.cityValue].latitude, lng: cities[nextProps.cityValue].longitude, zoom: 11})
-      } else {
-        this.setState(this.getState())
-      }
-    }
-
-  }
+  // componentWillReceiveProps(nextProps){
+  //   if(this.props.cityValue != nextProps.cityValue){
+  //     if(cities[nextProps.cityValue] != undefined) {
+  //       this.setState({lat: cities[nextProps.cityValue].latitude, lng: cities[nextProps.cityValue].longitude, zoom: 11})
+  //     } else {
+  //       this.setState(this.getState())
+  //     }
+  //   }
+  //
+  // }
 
   render() {
     return (
@@ -48,6 +47,8 @@ export default class LoadingMap extends Component {
               defaultCenter={{ lat: 22.9734 , lng: 78.6569 }}
               center={{lat: this.state.lat , lng: this.state.lng}}
               onClick={this.props.onMapClick}
+              defaultOptions={{ styles: fancyMapStyles }}
+
             >
 
             </GoogleMap>
