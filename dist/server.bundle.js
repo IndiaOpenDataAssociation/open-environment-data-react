@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 40);
+/******/ 	return __webpack_require__(__webpack_require__.s = 41);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -77,7 +77,7 @@
 
 	var _NavItem2 = _interopRequireDefault(_NavItem);
 
-	var _LinkContainer = __webpack_require__(54);
+	var _LinkContainer = __webpack_require__(56);
 
 	var _LinkContainer2 = _interopRequireDefault(_LinkContainer);
 
@@ -229,22 +229,110 @@
 /* 4 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-helmet");
+	module.exports = [
+		{
+			"featureType": "all",
+			"elementType": "labels.text.fill",
+			"stylers": [
+				{
+					"color": "#343434"
+				}
+			]
+		},
+		{
+			"featureType": "administrative",
+			"elementType": "geometry.fill",
+			"stylers": [
+				{
+					"color": "#000000"
+				}
+			]
+		},
+		{
+			"featureType": "landscape",
+			"elementType": "all",
+			"stylers": [
+				{
+					"color": "#e1e8ea"
+				}
+			]
+		},
+		{
+			"featureType": "poi",
+			"elementType": "geometry",
+			"stylers": [
+				{
+					"color": "#cbdde2"
+				},
+				{
+					"lightness": 5
+				}
+			]
+		},
+		{
+			"featureType": "road.highway",
+			"elementType": "geometry.fill",
+			"stylers": [
+				{
+					"color": "#dce1e2"
+				}
+			]
+		},
+		{
+			"featureType": "road.highway",
+			"elementType": "geometry.stroke",
+			"stylers": [
+				{
+					"color": "#dce1e2"
+				},
+				{
+					"lightness": 25
+				}
+			]
+		},
+		{
+			"featureType": "road.arterial",
+			"elementType": "geometry.stroke",
+			"stylers": [
+				{
+					"color": "#f7fbfb"
+				},
+				{
+					"lightness": 16
+				}
+			]
+		},
+		{
+			"featureType": "water",
+			"elementType": "all",
+			"stylers": [
+				{
+					"color": "#ace7f6"
+				}
+			]
+		}
+	];
 
 /***/ },
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-redux");
+	module.exports = require("react-helmet");
 
 /***/ },
 /* 6 */
 /***/ function(module, exports) {
 
-	module.exports = require("webpack");
+	module.exports = require("react-redux");
 
 /***/ },
 /* 7 */
+/***/ function(module, exports) {
+
+	module.exports = require("webpack");
+
+/***/ },
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -256,6 +344,8 @@
 
 	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(0);
@@ -266,7 +356,7 @@
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _Map = __webpack_require__(32);
+	var _Map = __webpack_require__(33);
 
 	var _Map2 = _interopRequireDefault(_Map);
 
@@ -278,25 +368,29 @@
 
 	var _FormControl2 = _interopRequireDefault(_FormControl);
 
-	var _Home = __webpack_require__(34);
+	var _Home = __webpack_require__(35);
 
 	var _Home2 = _interopRequireDefault(_Home);
 
-	var _Realtime = __webpack_require__(35);
+	var _Realtime = __webpack_require__(36);
 
 	var _Realtime2 = _interopRequireDefault(_Realtime);
 
-	var _Analytics = __webpack_require__(33);
+	var _Analytics = __webpack_require__(34);
 
 	var _Analytics2 = _interopRequireDefault(_Analytics);
 
-	var _superagent = __webpack_require__(63);
+	var _superagent = __webpack_require__(65);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
-	var _LoadingMap = __webpack_require__(31);
+	var _LoadingMap = __webpack_require__(32);
 
 	var _LoadingMap2 = _interopRequireDefault(_LoadingMap);
+
+	var _index = __webpack_require__(9);
+
+	var _index2 = _interopRequireDefault(_index);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -360,6 +454,8 @@
 	    _this.changeDisable = _this.changeDisable.bind(_this);
 	    _this.realTimeData = _this.realTimeData.bind(_this);
 	    _this.analyticsData = _this.analyticsData.bind(_this);
+	    _this.handleMarkerClick = _this.handleMarkerClick.bind(_this);
+	    _this.handleMarkerClose = _this.handleMarkerClose.bind(_this);
 	    return _this;
 	  }
 
@@ -440,6 +536,35 @@
 	      }.bind(this));
 	    }
 	  }, {
+	    key: 'handleMarkerClick',
+	    value: function handleMarkerClick(targetMarker, index) {
+
+	      this.setState({
+	        markers: this.state.markers.map(function (marker) {
+	          if (marker === targetMarker) {
+	            return _extends({}, marker, {
+	              showInfo: true
+	            });
+	          }
+	          return marker;
+	        })
+	      });
+	    }
+	  }, {
+	    key: 'handleMarkerClose',
+	    value: function handleMarkerClose(targetMarker) {
+	      this.setState({
+	        markers: this.state.markers.map(function (marker) {
+	          if (marker === targetMarker) {
+	            return _extends({}, marker, {
+	              showInfo: false
+	            });
+	          }
+	          return marker;
+	        })
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -448,14 +573,16 @@
 	        style: { marginTop: '50px' }
 	      }, void 0, _ref, _ref2) : _jsx('div', {}, void 0, _ref3, _jsx('section', {
 	        className: 'dashboard'
-	      }, void 0, _jsx(_Map2.default, {
+	      }, void 0, _jsx(_index2.default, {
 	        markers: this.state.markers,
 	        cityValue: this.state.city,
 	        cityChanged: this.state.iscity_changed,
 	        setDisable: this.changeDisable,
 	        callRealtime: this.realTimeData,
 	        callAnalytics: this.analyticsData,
-	        cities: this.state.city_list
+	        cities: this.state.city_list,
+	        onMarkerClick: this.handleMarkerClick,
+	        onMarkerClose: this.handleMarkerClose
 	      }), _jsx('div', {
 	        className: 'select-cities-box'
 	      }, void 0, _jsx(_FormGroup2.default, {
@@ -551,31 +678,219 @@
 	exports.default = Dashboard;
 
 /***/ },
-/* 8 */
-/***/ function(module, exports) {
-
-	module.exports = require("react-google-maps/lib/GoogleMap");
-
-/***/ },
 /* 9 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = require("react-google-maps/lib/GoogleMapLoader");
+	"use strict";
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(0);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Mapstyle = __webpack_require__(4);
+
+	var _Mapstyle2 = _interopRequireDefault(_Mapstyle);
+
+	var _Circle = __webpack_require__(10);
+
+	var _Circle2 = _interopRequireDefault(_Circle);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Map = function (_Component) {
+	  _inherits(Map, _Component);
+
+	  function Map(props) {
+	    _classCallCheck(this, Map);
+
+	    var _this = _possibleConstructorReturn(this, (Map.__proto__ || Object.getPrototypeOf(Map)).call(this, props));
+
+	    _this.state = { lat: 22.9734, lng: 78.6569, zoom: 5, cityChanged: _this.props.cityChanged };
+	    _this.renderMarkers = _this.renderMarkers.bind(_this);
+	    _this.renderInfoWindow = _this.renderInfoWindow.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(Map, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+
+	      //updating center of map on dropdown change
+	      if (this.props.cityValue != nextProps.cityValue) {
+	        this.setState({ cityChanged: nextProps.cityChanged });
+	        if (nextProps.cities[nextProps.cityValue] != undefined) {
+
+	          var nextLatitude = nextProps.cities[nextProps.cityValue].latitude;
+	          var nextLongitude = nextProps.cities[nextProps.cityValue].longitude;
+	          this.map.setCenter({ lat: nextLatitude, lng: nextLongitude });
+	          this.map.setZoom(11);
+	        } else {
+	          this.map.setCenter({ lat: 22.9734, lng: 78.6569 });
+	          this.map.setZoom(5);
+	        }
+	      }
+	    }
+	  }, {
+	    key: 'mapCenterLatLng',
+	    value: function mapCenterLatLng() {
+	      return new google.maps.LatLng(22.9734, 78.6569);
+	    }
+	  }, {
+	    key: 'renderMarkers',
+	    value: function renderMarkers(markers, map) {
+	      var _this2 = this;
+
+	      var infowindow = new google.maps.InfoWindow();
+	      var pins = markers.map(function (marker) {
+
+	        var loc = new google.maps.LatLng(marker.latitude, marker.longitude);
+	        var pin = new google.maps.Marker({
+	          position: loc,
+	          map: map,
+	          icon: _this2.getMarkerImage(marker.aqi)
+	        });
+
+	        pin.addListener('mouseover', function () {
+	          infowindow.setContent(this.renderInfoWindow(marker));
+	          infowindow.open(pin.get('map'), pin);
+	        }.bind(_this2));
+	        pin.addListener('click', function () {
+	          this.props.setDisable(false, marker.label, marker.deviceType);
+	          this.props.callRealtime(marker.deviceId, marker.t);
+	          this.props.callAnalytics(marker.deviceId, marker.t);
+	        }.bind(_this2));
+	        return pin;
+	      });
+
+	      //render cluster
+	      var markerCluster = new MarkerClusterer(this.map, pins);
+	    }
+	  }, {
+	    key: 'renderInfoWindow',
+	    value: function renderInfoWindow(marker) {
+	      var html = '<div class="infowindow-content">' + '<div class="infowindow-head">' + '<strong>' + marker.loc + '</strong>' + '</div>' + '<div class="infowindow-body">' + '<div class="left-content">' + '<div><i class="fa fa-map-marker"></i>' + marker.deviceType + '</div>' + '<div><i class="fa fa-map-marker"></i>' + marker.state + '</div>' + '<div><i class="fa fa-home"></i>Indoor <span style="margin-left: 20px;"> <i class="fa fa-circle" aria-hidden="true" style="color: #73C076;"></i>Online</span></div>' + '<div class="aqi">' + '<div class="progress-pie-chart ' + this.getClass250(marker.aqi) + ' ' + this.renderClass(marker.aqi) + '" id="ppc" > <div class="ppc-progress"> <div class="ppc-progress-fill ' + this.renderClass(marker.aqi) + '" style="transform: rotate(' + this.getDegree(marker.aqi).deg + 'deg)"></div> </div> <div class="ppc-percents"> <div class="pcc-percents-wrapper"> <span>' + marker.aqi + '</span></div></div></div>' + '</div></div></div></div>';
+	      return html;
+	    }
+	  }, {
+	    key: 'getClass250',
+	    value: function getClass250(aqi) {
+	      if (aqi > 250) {
+	        return 'gt-250';
+	      } else {
+	        return '';
+	      }
+	    }
+	  }, {
+	    key: 'renderClass',
+	    value: function renderClass(aqi) {
+	      if (aqi <= 50) {
+	        return 'good';
+	      } else if (aqi > 50 && aqi < 101) {
+	        return 'satisfactory';
+	      } else if (aqi > 100 && aqi < 201) {
+	        return 'moderate';
+	      } else if (aqi > 200 && aqi < 301) {
+	        return 'poor';
+	      } else if (aqi > 300 && aqi < 401) {
+	        return 'very-poor';
+	      } else {
+	        return 'severe';
+	      }
+	    }
+	  }, {
+	    key: 'getMarkerImage',
+	    value: function getMarkerImage(aqi) {
+	      //rendering images as per aqi's valye
+	      if (aqi <= 50) {
+	        return 'assets/images/pins/good.svg';
+	      } else if (aqi > 50 && aqi < 101) {
+	        return 'assets/images/pins/satisfactory.svg';
+	      } else if (aqi > 100 && aqi < 201) {
+	        return 'assets/images/pins/moderate.svg';
+	      } else if (aqi > 200 && aqi < 301) {
+	        return 'assets/images/pins/poor.svg';
+	      } else if (aqi > 300 && aqi < 401) {
+	        return 'assets/images/pins/very-poor.svg';
+	      } else {
+	        return 'assets/images/pins/severe.svg';
+	      }
+	    }
+	  }, {
+	    key: 'getDegree',
+	    value: function getDegree(aqi) {
+	      console.log(aqi);
+	      var percent = aqi,
+	          deg = 360 * percent / 500;
+	      console.log(percent, deg);
+
+	      return { percent: percent, deg: deg };
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+
+	      var mapOptions = {
+	        center: this.mapCenterLatLng(),
+	        zoom: this.state.zoom,
+	        styles: _Mapstyle2.default
+	      };
+	      this.map = new google.maps.Map(this.refs.map, mapOptions);
+	      {
+	        this.renderMarkers(this.props.markers, this.map);
+	      }
+	      this.setState({ map: this.map });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement('div', { ref: 'map', style: { height: '100vh', width: '100%' } });
+	    }
+	  }]);
+
+	  return Map;
+	}(_react.Component);
+
+	exports.default = Map;
 
 /***/ },
 /* 10 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-google-maps/lib/Marker");
+	module.exports = require("rc-progress/lib/Circle");
 
 /***/ },
 /* 11 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux");
+	module.exports = require("react-google-maps/lib/GoogleMap");
 
 /***/ },
 /* 12 */
+/***/ function(module, exports) {
+
+	module.exports = require("react-google-maps/lib/GoogleMapLoader");
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux");
+
+/***/ },
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -594,37 +909,41 @@
 
 	var _reactRouter = __webpack_require__(3);
 
-	var _App = __webpack_require__(27);
+	var _App = __webpack_require__(29);
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _Dashboard = __webpack_require__(7);
+	var _Dashboard = __webpack_require__(8);
 
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
-	var _About = __webpack_require__(25);
+	var _About = __webpack_require__(27);
 
 	var _About2 = _interopRequireDefault(_About);
 
-	var _Community = __webpack_require__(29);
+	var _Community = __webpack_require__(31);
 
 	var _Community2 = _interopRequireDefault(_Community);
 
-	var _Openapi = __webpack_require__(37);
+	var _Openapi = __webpack_require__(38);
 
 	var _Openapi2 = _interopRequireDefault(_Openapi);
 
-	var _Device = __webpack_require__(36);
+	var _Device = __webpack_require__(37);
 
 	var _Device2 = _interopRequireDefault(_Device);
 
-	var _Partners = __webpack_require__(38);
+	var _Partners = __webpack_require__(39);
 
 	var _Partners2 = _interopRequireDefault(_Partners);
 
-	var _Airowl = __webpack_require__(26);
+	var _Airowl = __webpack_require__(28);
 
 	var _Airowl2 = _interopRequireDefault(_Airowl);
+
+	var _index = __webpack_require__(9);
+
+	var _index2 = _interopRequireDefault(_index);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -641,7 +960,7 @@
 	 */
 	if (process.env.NODE_ENV !== 'production') {
 	  // Require async routes only in development for react-hot-reloader to work.
-	  __webpack_require__(7);
+	  __webpack_require__(8);
 	  // require('./modules/Post/pages/PostDetailPage/PostDetailPage');
 	}
 
@@ -698,10 +1017,17 @@
 	      cb(null, _Airowl2.default);
 	    }).bind(null, __webpack_require__));
 	  }
+	}), _jsx(_reactRouter.Route, {
+	  path: '/demo',
+	  getComponent: function getComponent(nextState, cb) {
+	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
+	      cb(null, _index2.default);
+	    }).bind(null, __webpack_require__));
+	  }
 	}));
 
 /***/ },
-/* 13 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -712,17 +1038,17 @@
 	});
 	exports.configureStore = configureStore;
 
-	var _redux = __webpack_require__(11);
+	var _redux = __webpack_require__(13);
 
-	var _reduxThunk = __webpack_require__(62);
+	var _reduxThunk = __webpack_require__(64);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-	var _DevTools = __webpack_require__(28);
+	var _DevTools = __webpack_require__(30);
 
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 
-	var _reducers = __webpack_require__(39);
+	var _reducers = __webpack_require__(40);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -757,7 +1083,7 @@
 	}
 
 /***/ },
-/* 14 */
+/* 16 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -774,7 +1100,7 @@
 	exports.default = config;
 
 /***/ },
-/* 15 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -785,7 +1111,7 @@
 	});
 	exports.fetchComponentData = fetchComponentData;
 
-	var _promiseUtils = __webpack_require__(41);
+	var _promiseUtils = __webpack_require__(42);
 
 	function fetchComponentData(store, components, params) {
 	  var needs = components.reduce(function (prev, current) {
@@ -801,13 +1127,13 @@
 	  */
 
 /***/ },
-/* 16 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 
-	var webpack = __webpack_require__(6);
+	var webpack = __webpack_require__(7);
 	var cssnext = __webpack_require__(43);
 	var postcssFocus = __webpack_require__(44);
 	var postcssReporter = __webpack_require__(45);
@@ -875,57 +1201,57 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, ""))
 
 /***/ },
-/* 17 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"main.css": "main-838ed6540f.css"
-	};
-
-/***/ },
-/* 18 */
-/***/ function(module, exports) {
-
-	module.exports = require("body-parser");
-
-/***/ },
 /* 19 */
 /***/ function(module, exports) {
 
-	module.exports = require("compression");
+	module.exports = {
+		"main.css": "main-74b29dcf5c.css"
+	};
 
 /***/ },
 /* 20 */
 /***/ function(module, exports) {
 
-	module.exports = require("express");
+	module.exports = require("body-parser");
 
 /***/ },
 /* 21 */
 /***/ function(module, exports) {
 
-	module.exports = require("path");
+	module.exports = require("compression");
 
 /***/ },
 /* 22 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-dom/server");
+	module.exports = require("express");
 
 /***/ },
 /* 23 */
 /***/ function(module, exports) {
 
-	module.exports = require("webpack-dev-middleware");
+	module.exports = require("path");
 
 /***/ },
 /* 24 */
 /***/ function(module, exports) {
 
-	module.exports = require("webpack-hot-middleware");
+	module.exports = require("react-dom/server");
 
 /***/ },
 /* 25 */
+/***/ function(module, exports) {
+
+	module.exports = require("webpack-dev-middleware");
+
+/***/ },
+/* 26 */
+/***/ function(module, exports) {
+
+	module.exports = require("webpack-hot-middleware");
+
+/***/ },
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1066,7 +1392,7 @@
 	exports.default = About;
 
 /***/ },
-/* 26 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1092,23 +1418,23 @@
 
 	var _Footer2 = _interopRequireDefault(_Footer);
 
-	var _Helmet = __webpack_require__(52);
+	var _Helmet = __webpack_require__(54);
 
 	var _Helmet2 = _interopRequireDefault(_Helmet);
 
-	var _Tab = __webpack_require__(55);
+	var _Tab = __webpack_require__(57);
 
 	var _Tab2 = _interopRequireDefault(_Tab);
 
-	var _TabList = __webpack_require__(56);
+	var _TabList = __webpack_require__(58);
 
 	var _TabList2 = _interopRequireDefault(_TabList);
 
-	var _Tabs = __webpack_require__(58);
+	var _Tabs = __webpack_require__(60);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
-	var _TabPanel = __webpack_require__(57);
+	var _TabPanel = __webpack_require__(59);
 
 	var _TabPanel2 = _interopRequireDefault(_TabPanel);
 
@@ -1557,7 +1883,7 @@
 	exports.default = Airowl;
 
 /***/ },
-/* 27 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1576,7 +1902,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(5);
+	var _reactRedux = __webpack_require__(6);
 
 	var _App = {
 	  "container": "App__container__4uEyK"
@@ -1584,7 +1910,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _reactHelmet = __webpack_require__(4);
+	var _reactHelmet = __webpack_require__(5);
 
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 
@@ -1654,7 +1980,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 /***/ },
-/* 28 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1670,13 +1996,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reduxDevtools = __webpack_require__(59);
+	var _reduxDevtools = __webpack_require__(61);
 
-	var _reduxDevtoolsLogMonitor = __webpack_require__(61);
+	var _reduxDevtoolsLogMonitor = __webpack_require__(63);
 
 	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
 
-	var _reduxDevtoolsDockMonitor = __webpack_require__(60);
+	var _reduxDevtoolsDockMonitor = __webpack_require__(62);
 
 	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
 
@@ -1688,7 +2014,7 @@
 	}, void 0, _jsx(_reduxDevtoolsLogMonitor2.default, {})));
 
 /***/ },
-/* 29 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1851,125 +2177,7 @@
 	exports.default = Community;
 
 /***/ },
-/* 30 */
-/***/ function(module, exports) {
-
-	"use strict";
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var cities = [{
-	  "city": "Agra",
-	  "latitude": 27.1767,
-	  "longitude": 78.0081
-	}, {
-	  "city": "Ahmedabad",
-	  "latitude": 23.0225,
-	  "longitude": 72.5714
-	}, {
-	  "city": "Bengaluru",
-	  "latitude": 12.9716,
-	  "longitude": 77.5946
-	}, {
-	  "city": "Chandrapur",
-	  "latitude": 20.2095,
-	  "longitude": 79.5603
-	}, {
-	  "city": "Chennai",
-	  "latitude": 13.0827,
-	  "longitude": 80.2707
-	}, {
-	  "city": "Delhi",
-	  "latitude": 28.6139,
-	  "longitude": 77.2090
-	}, {
-	  "city": "Faridabad",
-	  "latitude": 28.4089,
-	  "longitude": 77.3178
-	}, {
-	  "city": "Gaya",
-	  "latitude": 24.7955,
-	  "longitude": 84.9994
-	}, {
-	  "city": "Gurgaon",
-	  "latitude": 28.4595,
-	  "longitude": 77.0266
-	}, {
-	  "city": "Haldia",
-	  "latitude": 22.0667,
-	  "longitude": 88.0698
-	}, {
-	  "city": "Hyderabad",
-	  "latitude": 17.3850,
-	  "longitude": 78.4867
-	}, {
-	  "city": "Jaipur",
-	  "latitude": 26.9124,
-	  "longitude": 75.7873
-	}, {
-	  "city": "Jodhpur",
-	  "latitude": 26.2389,
-	  "longitude": 73.0243
-	}, {
-	  "city": "Kanpur",
-	  "latitude": 26.4499,
-	  "longitude": 80.3319
-	}, {
-	  "city": "Kolkata",
-	  "latitude": 22.5726,
-	  "longitude": 88.3639
-	}, {
-	  "city": "Lucknow",
-	  "latitude": 26.8467,
-	  "longitude": 80.9462
-	}, {
-	  "city": "Mumbai",
-	  "latitude": 19.0760,
-	  "longitude": 72.8777
-	}, {
-	  "city": "Muzaffarpur",
-	  "latitude": 26.1209,
-	  "longitude": 85.3647
-	}, {
-	  "city": "Nagpur",
-	  "latitude": 21.1458,
-	  "longitude": 79.0882
-	}, {
-	  "city": "Nashik",
-	  "latitude": 19.9975,
-	  "longitude": 73.7898
-	}, {
-	  "city": "Panchkula",
-	  "latitude": 30.6942,
-	  "longitude": 76.8606
-	}, {
-	  "city": "Patna",
-	  "latitude": 25.5941,
-	  "longitude": 85.1376
-	}, {
-	  "city": "Pune",
-	  "latitude": 18.5204,
-	  "longitude": 73.8567
-	}, {
-	  "city": "Rohtak",
-	  "latitude": 28.8955,
-	  "longitude": 76.6066
-	}, {
-	  "city": "Solapur",
-	  "latitude": 17.6599,
-	  "longitude": 75.9064
-	}, {
-	  "city": "Varanasi",
-	  "latitude": 25.3176,
-	  "longitude": 82.9739
-	}];
-
-	exports.default = cities;
-
-/***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1989,21 +2197,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _GoogleMapLoader = __webpack_require__(9);
+	var _GoogleMapLoader = __webpack_require__(12);
 
 	var _GoogleMapLoader2 = _interopRequireDefault(_GoogleMapLoader);
 
-	var _GoogleMap = __webpack_require__(8);
+	var _GoogleMap = __webpack_require__(11);
 
 	var _GoogleMap2 = _interopRequireDefault(_GoogleMap);
 
-	var _Marker = __webpack_require__(10);
+	var _Mapstyle = __webpack_require__(4);
 
-	var _Marker2 = _interopRequireDefault(_Marker);
-
-	var _Citydata = __webpack_require__(30);
-
-	var _Citydata2 = _interopRequireDefault(_Citydata);
+	var _Mapstyle2 = _interopRequireDefault(_Mapstyle);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2034,17 +2238,17 @@
 	        zoom: 5
 	      };
 	    }
-	  }, {
-	    key: "componentWillReceiveProps",
-	    value: function componentWillReceiveProps(nextProps) {
-	      if (this.props.cityValue != nextProps.cityValue) {
-	        if (_Citydata2.default[nextProps.cityValue] != undefined) {
-	          this.setState({ lat: _Citydata2.default[nextProps.cityValue].latitude, lng: _Citydata2.default[nextProps.cityValue].longitude, zoom: 11 });
-	        } else {
-	          this.setState(this.getState());
-	        }
-	      }
-	    }
+	    // componentWillReceiveProps(nextProps){
+	    //   if(this.props.cityValue != nextProps.cityValue){
+	    //     if(cities[nextProps.cityValue] != undefined) {
+	    //       this.setState({lat: cities[nextProps.cityValue].latitude, lng: cities[nextProps.cityValue].longitude, zoom: 11})
+	    //     } else {
+	    //       this.setState(this.getState())
+	    //     }
+	    //   }
+	    //
+	    // }
+
 	  }, {
 	    key: "render",
 	    value: function render() {
@@ -2061,7 +2265,8 @@
 	          zoom: this.state.zoom,
 	          defaultCenter: { lat: 22.9734, lng: 78.6569 },
 	          center: { lat: this.state.lat, lng: this.state.lng },
-	          onClick: this.props.onMapClick
+	          onClick: this.props.onMapClick,
+	          defaultOptions: { styles: _Mapstyle2.default }
 	        }, void 0)
 	      }));
 	    }
@@ -2073,7 +2278,7 @@
 	exports.default = LoadingMap;
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2093,25 +2298,33 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _GoogleMapLoader = __webpack_require__(9);
-
-	var _GoogleMapLoader2 = _interopRequireDefault(_GoogleMapLoader);
-
-	var _GoogleMap = __webpack_require__(8);
+	var _GoogleMap = __webpack_require__(11);
 
 	var _GoogleMap2 = _interopRequireDefault(_GoogleMap);
 
-	var _Marker = __webpack_require__(10);
+	var _GoogleMapLoader = __webpack_require__(12);
+
+	var _GoogleMapLoader2 = _interopRequireDefault(_GoogleMapLoader);
+
+	var _Marker = __webpack_require__(52);
 
 	var _Marker2 = _interopRequireDefault(_Marker);
 
-	var _Mapstyle = __webpack_require__(42);
+	var _Mapstyle = __webpack_require__(4);
 
 	var _Mapstyle2 = _interopRequireDefault(_Mapstyle);
 
-	var _MarkerClusterer = __webpack_require__(51);
+	var _MarkerClusterer = __webpack_require__(53);
 
 	var _MarkerClusterer2 = _interopRequireDefault(_MarkerClusterer);
+
+	var _InfoWindow = __webpack_require__(51);
+
+	var _InfoWindow2 = _interopRequireDefault(_InfoWindow);
+
+	var _Circle = __webpack_require__(10);
+
+	var _Circle2 = _interopRequireDefault(_Circle);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2120,6 +2333,14 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _ref = _jsx("i", {
+	  className: "fa fa-map-marker"
+	});
+
+	var _ref2 = _jsx("span", {}, void 0, "Indoor");
+
+	var _ref3 = _jsx("span", {}, void 0, "Online");
 
 	var DashboardMap = function (_Component) {
 	  _inherits(DashboardMap, _Component);
@@ -2159,6 +2380,8 @@
 	          this.refs.map.props.map.setZoom(5);
 	        }
 	      } else {
+	        console.log('yoo', this.refs.map);
+
 	        // this.refs.map.props.map.setZoom(this.refs.map.props.map.getZoom())
 	      }
 	    }
@@ -2198,16 +2421,41 @@
 	            return _jsx(_Marker2.default, {
 	              position: position,
 	              icon: marker.aqi <= 50 ? 'assets/images/pins/good.svg' : marker.aqi > 50 && marker.aqi < 101 ? 'assets/images/pins/satisfactory.svg' : marker.aqi > 100 && marker.aqi < 201 ? 'assets/images/pins/moderate.svg' : marker.aqi > 200 && marker.aqi < 301 ? 'assets/images/pins/poor.svg' : marker.aqi > 300 && marker.aqi < 401 ? 'assets/images/pins/very-poor.svg' : 'assets/images/pins/severe.svg',
-	              onRightclick: function onRightclick() {
-	                return _this2.props.onMarkerRightclick(index);
-	              },
 	              onClick: function onClick() {
 	                _this2.props.setDisable(false, marker.label, marker.deviceType);
 	                _this2.props.callRealtime(marker.deviceId, marker.t);
 	                _this2.props.callAnalytics(marker.deviceId, marker.t);
 	                _this2.setState({ lat: marker.latitude, lng: marker.longitude });
+	              },
+	              onMouseover: function onMouseover() {
+	                _this2.props.onMarkerClick(marker, index);
+	                console.log(marker);
 	              }
-	            });
+	            }, void 0,
+	            //   <InfoWindow onCloseClick={() => this.props.onMarkerClose(marker)}>
+	            //   <div>{marker.showInfo ? 'yey':'no'}</div>
+	            // </InfoWindow >
+
+	            marker.showInfo && _jsx(_InfoWindow2.default, {
+	              className: "hiiiii"
+	            }, void 0, _jsx("div", {
+	              className: "infowindow-content"
+	            }, void 0, _jsx("div", {
+	              className: "infowindow-head"
+	            }, void 0, _jsx("strong", {}, void 0, marker.loc)), _jsx("div", {
+	              className: "infowindow-body"
+	            }, void 0, _jsx("div", {
+	              className: "left-content",
+	              style: { width: '55%', float: 'left' }
+	            }, void 0, _jsx("p", {}, void 0, marker.deviceType), _jsx("p", {}, void 0, _ref, " ", marker.state), _ref2, _ref3), _jsx("div", {
+	              className: "right-content",
+	              style: { width: '5%', float: 'left', position: 'relative' }
+	            }, void 0, _jsx(_Circle2.default, {
+	              style: { width: '50px' },
+	              percent: marker.aqi <= 50 ? '16' : marker.aqi > 50 && marker.aqi < 101 ? '32' : marker.aqi > 100 && marker.aqi < 201 ? '48' : marker.aqi > 200 && marker.aqi < 301 ? '64' : marker.aqi > 300 && marker.aqi < 401 ? '80' : '96',
+	              strokeWidth: "4",
+	              strokeColor: marker.aqi <= 50 ? '#6ecc58' : marker.aqi > 50 && marker.aqi < 101 ? '#bbcf4c' : marker.aqi > 100 && marker.aqi < 201 ? '#eac736' : marker.aqi > 200 && marker.aqi < 301 ? '#ed9a2e' : marker.aqi > 300 && marker.aqi < 401 ? '#e8633a' : '#d63636'
+	            }), _jsx("span", {}, void 0, marker.aqi))))));
 	          }))
 	        )
 	      }));
@@ -2220,7 +2468,7 @@
 	exports.default = DashboardMap;
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2238,7 +2486,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ReactHighcharts = __webpack_require__(53);
+	var _ReactHighcharts = __webpack_require__(55);
 
 	var _ReactHighcharts2 = _interopRequireDefault(_ReactHighcharts);
 
@@ -2462,7 +2710,7 @@
 	exports.default = Analytics;
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2542,7 +2790,7 @@
 	exports.default = Dashboardhome;
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3475,7 +3723,7 @@
 	exports.default = Realtime;
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3582,7 +3830,7 @@
 	exports.default = Device;
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3711,7 +3959,7 @@
 	exports.default = Openapi;
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4075,7 +4323,7 @@
 	exports.default = Partner;
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4085,7 +4333,7 @@
 	  value: true
 	});
 
-	var _redux = __webpack_require__(11);
+	var _redux = __webpack_require__(13);
 
 	// Import Reducers
 
@@ -4096,7 +4344,7 @@
 	                                                    */
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4111,61 +4359,61 @@
 	// Webpack Requirements
 
 
-	var _express = __webpack_require__(20);
+	var _express = __webpack_require__(22);
 
 	var _express2 = _interopRequireDefault(_express);
 
-	var _compression = __webpack_require__(19);
+	var _compression = __webpack_require__(21);
 
 	var _compression2 = _interopRequireDefault(_compression);
 
-	var _bodyParser = __webpack_require__(18);
+	var _bodyParser = __webpack_require__(20);
 
 	var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-	var _path = __webpack_require__(21);
+	var _path = __webpack_require__(23);
 
 	var _path2 = _interopRequireDefault(_path);
 
-	var _webpack = __webpack_require__(6);
+	var _webpack = __webpack_require__(7);
 
 	var _webpack2 = _interopRequireDefault(_webpack);
 
-	var _webpackConfig = __webpack_require__(16);
+	var _webpackConfig = __webpack_require__(18);
 
 	var _webpackConfig2 = _interopRequireDefault(_webpackConfig);
 
-	var _webpackDevMiddleware = __webpack_require__(23);
+	var _webpackDevMiddleware = __webpack_require__(25);
 
 	var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 
-	var _webpackHotMiddleware = __webpack_require__(24);
+	var _webpackHotMiddleware = __webpack_require__(26);
 
 	var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 
-	var _store = __webpack_require__(13);
+	var _store = __webpack_require__(15);
 
-	var _reactRedux = __webpack_require__(5);
+	var _reactRedux = __webpack_require__(6);
 
 	var _react = __webpack_require__(0);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _server = __webpack_require__(22);
+	var _server = __webpack_require__(24);
 
 	var _reactRouter = __webpack_require__(3);
 
-	var _reactHelmet = __webpack_require__(4);
+	var _reactHelmet = __webpack_require__(5);
 
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 
-	var _routes = __webpack_require__(12);
+	var _routes = __webpack_require__(14);
 
 	var _routes2 = _interopRequireDefault(_routes);
 
-	var _fetchData = __webpack_require__(15);
+	var _fetchData = __webpack_require__(17);
 
-	var _config = __webpack_require__(14);
+	var _config = __webpack_require__(16);
 
 	var _config2 = _interopRequireDefault(_config);
 
@@ -4200,9 +4448,9 @@
 	  // Import Manifests
 	  var assetsManifest = process.env.webpackAssets && JSON.parse(process.env.webpackAssets);
 	  var chunkManifest = process.env.webpackChunkAssets && JSON.parse(process.env.webpackChunkAssets);
-	  var refManifest = __webpack_require__(17);
+	  var refManifest = __webpack_require__(19);
 	  var styleSrc = '/' + refManifest['main.css'];
-	  return '\n    <!doctype html>\n    <html>\n      <head>\n        ' + head.base.toString() + '\n        ' + head.title.toString() + '\n        ' + head.meta.toString() + '\n        ' + head.link.toString() + '\n        ' + head.script.toString() + '\n\n        ' + (process.env.NODE_ENV === 'production' ? '<link rel=\'stylesheet\' href=\'' + assetsManifest['/app.css'] + '\' />' : '') + '\n        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">\n        <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/png" />\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">\n        <link rel="stylesheet" href=\'' + (process.env.NODE_ENV === 'production' ? styleSrc : '/main.css') + '\' type="text/css" media="screen" charset="utf-8">\n        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing&key=AIzaSyBr3jBMT0Q4j0TnWxajkWt159n5lROYsh0"></script>      \n</head>\n      <body>\n        <div id="root">' + html + '</div>\n        <script>\n          window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + ';\n          ' + (process.env.NODE_ENV === 'production' ? '//<![CDATA[\n          window.webpackManifest = ' + JSON.stringify(chunkManifest) + ';\n          //]]>' : '') + '\n        </script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/vendor.js'] : '/vendor.js') + '\'></script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/app.js'] : '/app.js') + '\'></script>\n      </body>\n    </html>\n  ';
+	  return '\n    <!doctype html>\n    <html>\n      <head>\n        ' + head.base.toString() + '\n        ' + head.title.toString() + '\n        ' + head.meta.toString() + '\n        ' + head.link.toString() + '\n        ' + head.script.toString() + '\n\n        ' + (process.env.NODE_ENV === 'production' ? '<link rel=\'stylesheet\' href=\'' + assetsManifest['/app.css'] + '\' />' : '') + '\n        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">\n        <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/png" />\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">\n        <link rel="stylesheet" href=\'' + (process.env.NODE_ENV === 'production' ? styleSrc : '/main.css') + '\' type="text/css" media="screen" charset="utf-8">\n        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing&key=AIzaSyBr3jBMT0Q4j0TnWxajkWt159n5lROYsh0"></script>      \n         <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">\n    </script>\n      </head>\n      <body>\n        <div id="root">' + html + '</div>\n        <script>\n          window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + ';\n          ' + (process.env.NODE_ENV === 'production' ? '//<![CDATA[\n          window.webpackManifest = ' + JSON.stringify(chunkManifest) + ';\n          //]]>' : '') + '\n        </script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/vendor.js'] : '/vendor.js') + '\'></script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/app.js'] : '/app.js') + '\'></script>\n      </body>\n    </html>\n  ';
 	};
 
 	var renderError = function renderError(err) {
@@ -4252,7 +4500,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, "server"))
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4281,94 +4529,6 @@
 
 	  return runner();
 	}
-
-/***/ },
-/* 42 */
-/***/ function(module, exports) {
-
-	module.exports = [
-		{
-			"featureType": "all",
-			"elementType": "labels.text.fill",
-			"stylers": [
-				{
-					"color": "#343434"
-				}
-			]
-		},
-		{
-			"featureType": "administrative",
-			"elementType": "geometry.fill",
-			"stylers": [
-				{
-					"color": "#000000"
-				}
-			]
-		},
-		{
-			"featureType": "landscape",
-			"elementType": "all",
-			"stylers": [
-				{
-					"color": "#e1e8ea"
-				}
-			]
-		},
-		{
-			"featureType": "poi",
-			"elementType": "geometry",
-			"stylers": [
-				{
-					"color": "#cbdde2"
-				},
-				{
-					"lightness": 5
-				}
-			]
-		},
-		{
-			"featureType": "road.highway",
-			"elementType": "geometry.fill",
-			"stylers": [
-				{
-					"color": "#dce1e2"
-				}
-			]
-		},
-		{
-			"featureType": "road.highway",
-			"elementType": "geometry.stroke",
-			"stylers": [
-				{
-					"color": "#dce1e2"
-				},
-				{
-					"lightness": 25
-				}
-			]
-		},
-		{
-			"featureType": "road.arterial",
-			"elementType": "geometry.stroke",
-			"stylers": [
-				{
-					"color": "#f7fbfb"
-				},
-				{
-					"lightness": 16
-				}
-			]
-		},
-		{
-			"featureType": "water",
-			"elementType": "all",
-			"stylers": [
-				{
-					"color": "#ace7f6"
-				}
-			]
-		}
-	];
 
 /***/ },
 /* 43 */
@@ -4422,76 +4582,88 @@
 /* 51 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-google-maps/lib/addons/MarkerClusterer");
+	module.exports = require("react-google-maps/lib/InfoWindow");
 
 /***/ },
 /* 52 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-helmet/lib/Helmet");
+	module.exports = require("react-google-maps/lib/Marker");
 
 /***/ },
 /* 53 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-highcharts/dist/ReactHighcharts.js");
+	module.exports = require("react-google-maps/lib/addons/MarkerClusterer");
 
 /***/ },
 /* 54 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-router-bootstrap/lib/LinkContainer");
+	module.exports = require("react-helmet/lib/Helmet");
 
 /***/ },
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/Tab");
+	module.exports = require("react-highcharts/dist/ReactHighcharts.js");
 
 /***/ },
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/TabList");
+	module.exports = require("react-router-bootstrap/lib/LinkContainer");
 
 /***/ },
 /* 57 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/TabPanel");
+	module.exports = require("react-tabs/lib/components/Tab");
 
 /***/ },
 /* 58 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/Tabs");
+	module.exports = require("react-tabs/lib/components/TabList");
 
 /***/ },
 /* 59 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools");
+	module.exports = require("react-tabs/lib/components/TabPanel");
 
 /***/ },
 /* 60 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-dock-monitor");
+	module.exports = require("react-tabs/lib/components/Tabs");
 
 /***/ },
 /* 61 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-log-monitor");
+	module.exports = require("redux-devtools");
 
 /***/ },
 /* 62 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-thunk");
+	module.exports = require("redux-devtools-dock-monitor");
 
 /***/ },
 /* 63 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-devtools-log-monitor");
+
+/***/ },
+/* 64 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-thunk");
+
+/***/ },
+/* 65 */
 /***/ function(module, exports) {
 
 	module.exports = require("superagent");
