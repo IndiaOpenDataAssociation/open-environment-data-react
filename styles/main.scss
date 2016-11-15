@@ -1079,7 +1079,7 @@ progress[value="10"]:after {
 }
 
 .infowindow-content::after{
-    content:''; 
+    content:'';
     //position: absolute;
     //top: 100%;
     //left: 50%;
@@ -1208,7 +1208,8 @@ progress[value="10"]:after {
   content: "";
   position: absolute;
   border-radius: 50%;
-  left: calc(50% - 58.87px/2);
+  //left: calc(50% - 58.87px/2);
+  left: calc(50% - 60.66957px/2);
   top: calc(50% - 60.86957px/2);
   width: 60.86957px;
   height: 60.86957px;
