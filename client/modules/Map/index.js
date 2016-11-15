@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import mapStyle from '../Dashboard/Mapstyle.json'
-import Circle from 'rc-progress/lib/Circle'
 
 export default class Map extends Component {
 
