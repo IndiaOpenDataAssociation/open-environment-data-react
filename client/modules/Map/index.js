@@ -130,10 +130,8 @@ export default class Map extends Component {
   }
 
   getDegree(aqi){
-    console.log(aqi)
       var percent = aqi,
       deg = 360*percent/500;
-    console.log(percent, deg)
 
 
     return {percent: percent,deg: deg};
