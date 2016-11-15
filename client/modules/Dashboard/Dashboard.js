@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import Navbar from '../Navbar/Navbar'
-import DashboardMap from './components/Map'
 import FormGroup from 'react-bootstrap/lib/FormGroup'
 import FormControl from 'react-bootstrap/lib/FormControl'
 import Dashboardhome from './pages/Home'

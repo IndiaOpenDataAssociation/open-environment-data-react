@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 41);
+/******/ 	return __webpack_require__(__webpack_require__.s = 37);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -65,19 +65,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Navbar = __webpack_require__(50);
+	var _Navbar = __webpack_require__(47);
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _Nav = __webpack_require__(48);
+	var _Nav = __webpack_require__(45);
 
 	var _Nav2 = _interopRequireDefault(_Nav);
 
-	var _NavItem = __webpack_require__(49);
+	var _NavItem = __webpack_require__(46);
 
 	var _NavItem2 = _interopRequireDefault(_NavItem);
 
-	var _LinkContainer = __webpack_require__(56);
+	var _LinkContainer = __webpack_require__(52);
 
 	var _LinkContainer2 = _interopRequireDefault(_LinkContainer);
 
@@ -229,110 +229,22 @@
 /* 4 */
 /***/ function(module, exports) {
 
-	module.exports = [
-		{
-			"featureType": "all",
-			"elementType": "labels.text.fill",
-			"stylers": [
-				{
-					"color": "#343434"
-				}
-			]
-		},
-		{
-			"featureType": "administrative",
-			"elementType": "geometry.fill",
-			"stylers": [
-				{
-					"color": "#000000"
-				}
-			]
-		},
-		{
-			"featureType": "landscape",
-			"elementType": "all",
-			"stylers": [
-				{
-					"color": "#e1e8ea"
-				}
-			]
-		},
-		{
-			"featureType": "poi",
-			"elementType": "geometry",
-			"stylers": [
-				{
-					"color": "#cbdde2"
-				},
-				{
-					"lightness": 5
-				}
-			]
-		},
-		{
-			"featureType": "road.highway",
-			"elementType": "geometry.fill",
-			"stylers": [
-				{
-					"color": "#dce1e2"
-				}
-			]
-		},
-		{
-			"featureType": "road.highway",
-			"elementType": "geometry.stroke",
-			"stylers": [
-				{
-					"color": "#dce1e2"
-				},
-				{
-					"lightness": 25
-				}
-			]
-		},
-		{
-			"featureType": "road.arterial",
-			"elementType": "geometry.stroke",
-			"stylers": [
-				{
-					"color": "#f7fbfb"
-				},
-				{
-					"lightness": 16
-				}
-			]
-		},
-		{
-			"featureType": "water",
-			"elementType": "all",
-			"stylers": [
-				{
-					"color": "#ace7f6"
-				}
-			]
-		}
-	];
+	module.exports = require("react-helmet");
 
 /***/ },
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-helmet");
+	module.exports = require("react-redux");
 
 /***/ },
 /* 6 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-redux");
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
 	module.exports = require("webpack");
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -356,39 +268,35 @@
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _Map = __webpack_require__(33);
-
-	var _Map2 = _interopRequireDefault(_Map);
-
-	var _FormGroup = __webpack_require__(47);
+	var _FormGroup = __webpack_require__(44);
 
 	var _FormGroup2 = _interopRequireDefault(_FormGroup);
 
-	var _FormControl = __webpack_require__(46);
+	var _FormControl = __webpack_require__(43);
 
 	var _FormControl2 = _interopRequireDefault(_FormControl);
 
-	var _Home = __webpack_require__(35);
+	var _Home = __webpack_require__(31);
 
 	var _Home2 = _interopRequireDefault(_Home);
 
-	var _Realtime = __webpack_require__(36);
+	var _Realtime = __webpack_require__(32);
 
 	var _Realtime2 = _interopRequireDefault(_Realtime);
 
-	var _Analytics = __webpack_require__(34);
+	var _Analytics = __webpack_require__(30);
 
 	var _Analytics2 = _interopRequireDefault(_Analytics);
 
-	var _superagent = __webpack_require__(65);
+	var _superagent = __webpack_require__(61);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
-	var _LoadingMap = __webpack_require__(32);
+	var _LoadingMap = __webpack_require__(29);
 
 	var _LoadingMap2 = _interopRequireDefault(_LoadingMap);
 
-	var _index = __webpack_require__(9);
+	var _index = __webpack_require__(8);
 
 	var _index2 = _interopRequireDefault(_index);
 
@@ -678,7 +586,7 @@
 	exports.default = Dashboard;
 
 /***/ },
-/* 9 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -694,11 +602,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Mapstyle = __webpack_require__(4);
+	var _Mapstyle = __webpack_require__(9);
 
 	var _Mapstyle2 = _interopRequireDefault(_Mapstyle);
 
-	var _Circle = __webpack_require__(10);
+	var _Circle = __webpack_require__(42);
 
 	var _Circle2 = _interopRequireDefault(_Circle);
 
@@ -866,31 +774,101 @@
 	exports.default = Map;
 
 /***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	module.exports = [
+		{
+			"featureType": "all",
+			"elementType": "labels.text.fill",
+			"stylers": [
+				{
+					"color": "#343434"
+				}
+			]
+		},
+		{
+			"featureType": "administrative",
+			"elementType": "geometry.fill",
+			"stylers": [
+				{
+					"color": "#000000"
+				}
+			]
+		},
+		{
+			"featureType": "landscape",
+			"elementType": "all",
+			"stylers": [
+				{
+					"color": "#e1e8ea"
+				}
+			]
+		},
+		{
+			"featureType": "poi",
+			"elementType": "geometry",
+			"stylers": [
+				{
+					"color": "#cbdde2"
+				},
+				{
+					"lightness": 5
+				}
+			]
+		},
+		{
+			"featureType": "road.highway",
+			"elementType": "geometry.fill",
+			"stylers": [
+				{
+					"color": "#dce1e2"
+				}
+			]
+		},
+		{
+			"featureType": "road.highway",
+			"elementType": "geometry.stroke",
+			"stylers": [
+				{
+					"color": "#dce1e2"
+				},
+				{
+					"lightness": 25
+				}
+			]
+		},
+		{
+			"featureType": "road.arterial",
+			"elementType": "geometry.stroke",
+			"stylers": [
+				{
+					"color": "#f7fbfb"
+				},
+				{
+					"lightness": 16
+				}
+			]
+		},
+		{
+			"featureType": "water",
+			"elementType": "all",
+			"stylers": [
+				{
+					"color": "#ace7f6"
+				}
+			]
+		}
+	];
+
+/***/ },
 /* 10 */
-/***/ function(module, exports) {
-
-	module.exports = require("rc-progress/lib/Circle");
-
-/***/ },
-/* 11 */
-/***/ function(module, exports) {
-
-	module.exports = require("react-google-maps/lib/GoogleMap");
-
-/***/ },
-/* 12 */
-/***/ function(module, exports) {
-
-	module.exports = require("react-google-maps/lib/GoogleMapLoader");
-
-/***/ },
-/* 13 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux");
 
 /***/ },
-/* 14 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -909,39 +887,39 @@
 
 	var _reactRouter = __webpack_require__(3);
 
-	var _App = __webpack_require__(29);
+	var _App = __webpack_require__(26);
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _Dashboard = __webpack_require__(8);
+	var _Dashboard = __webpack_require__(7);
 
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
-	var _About = __webpack_require__(27);
+	var _About = __webpack_require__(24);
 
 	var _About2 = _interopRequireDefault(_About);
 
-	var _Community = __webpack_require__(31);
+	var _Community = __webpack_require__(28);
 
 	var _Community2 = _interopRequireDefault(_Community);
 
-	var _Openapi = __webpack_require__(38);
+	var _Openapi = __webpack_require__(34);
 
 	var _Openapi2 = _interopRequireDefault(_Openapi);
 
-	var _Device = __webpack_require__(37);
+	var _Device = __webpack_require__(33);
 
 	var _Device2 = _interopRequireDefault(_Device);
 
-	var _Partners = __webpack_require__(39);
+	var _Partners = __webpack_require__(35);
 
 	var _Partners2 = _interopRequireDefault(_Partners);
 
-	var _Airowl = __webpack_require__(28);
+	var _Airowl = __webpack_require__(25);
 
 	var _Airowl2 = _interopRequireDefault(_Airowl);
 
-	var _index = __webpack_require__(9);
+	var _index = __webpack_require__(8);
 
 	var _index2 = _interopRequireDefault(_index);
 
@@ -960,7 +938,7 @@
 	 */
 	if (process.env.NODE_ENV !== 'production') {
 	  // Require async routes only in development for react-hot-reloader to work.
-	  __webpack_require__(8);
+	  __webpack_require__(7);
 	  // require('./modules/Post/pages/PostDetailPage/PostDetailPage');
 	}
 
@@ -1027,7 +1005,7 @@
 	}));
 
 /***/ },
-/* 15 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1038,17 +1016,17 @@
 	});
 	exports.configureStore = configureStore;
 
-	var _redux = __webpack_require__(13);
+	var _redux = __webpack_require__(10);
 
-	var _reduxThunk = __webpack_require__(64);
+	var _reduxThunk = __webpack_require__(60);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-	var _DevTools = __webpack_require__(30);
+	var _DevTools = __webpack_require__(27);
 
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 
-	var _reducers = __webpack_require__(40);
+	var _reducers = __webpack_require__(36);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -1083,7 +1061,7 @@
 	}
 
 /***/ },
-/* 16 */
+/* 13 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1100,7 +1078,7 @@
 	exports.default = config;
 
 /***/ },
-/* 17 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1111,7 +1089,7 @@
 	});
 	exports.fetchComponentData = fetchComponentData;
 
-	var _promiseUtils = __webpack_require__(42);
+	var _promiseUtils = __webpack_require__(38);
 
 	function fetchComponentData(store, components, params) {
 	  var needs = components.reduce(function (prev, current) {
@@ -1127,16 +1105,16 @@
 	  */
 
 /***/ },
-/* 18 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 
-	var webpack = __webpack_require__(7);
-	var cssnext = __webpack_require__(43);
-	var postcssFocus = __webpack_require__(44);
-	var postcssReporter = __webpack_require__(45);
+	var webpack = __webpack_require__(6);
+	var cssnext = __webpack_require__(39);
+	var postcssFocus = __webpack_require__(40);
+	var postcssReporter = __webpack_require__(41);
 
 	module.exports = {
 	  devtool: 'cheap-module-eval-source-map',
@@ -1201,7 +1179,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, ""))
 
 /***/ },
-/* 19 */
+/* 16 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -1209,49 +1187,49 @@
 	};
 
 /***/ },
-/* 20 */
+/* 17 */
 /***/ function(module, exports) {
 
 	module.exports = require("body-parser");
 
 /***/ },
-/* 21 */
+/* 18 */
 /***/ function(module, exports) {
 
 	module.exports = require("compression");
 
 /***/ },
-/* 22 */
+/* 19 */
 /***/ function(module, exports) {
 
 	module.exports = require("express");
 
 /***/ },
-/* 23 */
+/* 20 */
 /***/ function(module, exports) {
 
 	module.exports = require("path");
 
 /***/ },
-/* 24 */
+/* 21 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-dom/server");
 
 /***/ },
-/* 25 */
+/* 22 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-dev-middleware");
 
 /***/ },
-/* 26 */
+/* 23 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-hot-middleware");
 
 /***/ },
-/* 27 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1392,7 +1370,7 @@
 	exports.default = About;
 
 /***/ },
-/* 28 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1418,23 +1396,23 @@
 
 	var _Footer2 = _interopRequireDefault(_Footer);
 
-	var _Helmet = __webpack_require__(54);
+	var _Helmet = __webpack_require__(50);
 
 	var _Helmet2 = _interopRequireDefault(_Helmet);
 
-	var _Tab = __webpack_require__(57);
+	var _Tab = __webpack_require__(53);
 
 	var _Tab2 = _interopRequireDefault(_Tab);
 
-	var _TabList = __webpack_require__(58);
+	var _TabList = __webpack_require__(54);
 
 	var _TabList2 = _interopRequireDefault(_TabList);
 
-	var _Tabs = __webpack_require__(60);
+	var _Tabs = __webpack_require__(56);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
-	var _TabPanel = __webpack_require__(59);
+	var _TabPanel = __webpack_require__(55);
 
 	var _TabPanel2 = _interopRequireDefault(_TabPanel);
 
@@ -1883,7 +1861,7 @@
 	exports.default = Airowl;
 
 /***/ },
-/* 29 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1902,7 +1880,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(6);
+	var _reactRedux = __webpack_require__(5);
 
 	var _App = {
 	  "container": "App__container__4uEyK"
@@ -1910,7 +1888,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _reactHelmet = __webpack_require__(5);
+	var _reactHelmet = __webpack_require__(4);
 
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 
@@ -1980,7 +1958,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 /***/ },
-/* 30 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1996,13 +1974,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reduxDevtools = __webpack_require__(61);
+	var _reduxDevtools = __webpack_require__(57);
 
-	var _reduxDevtoolsLogMonitor = __webpack_require__(63);
+	var _reduxDevtoolsLogMonitor = __webpack_require__(59);
 
 	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
 
-	var _reduxDevtoolsDockMonitor = __webpack_require__(62);
+	var _reduxDevtoolsDockMonitor = __webpack_require__(58);
 
 	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
 
@@ -2014,7 +1992,7 @@
 	}, void 0, _jsx(_reduxDevtoolsLogMonitor2.default, {})));
 
 /***/ },
-/* 31 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2177,7 +2155,7 @@
 	exports.default = Community;
 
 /***/ },
-/* 32 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2197,15 +2175,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _GoogleMapLoader = __webpack_require__(12);
+	var _GoogleMapLoader = __webpack_require__(49);
 
 	var _GoogleMapLoader2 = _interopRequireDefault(_GoogleMapLoader);
 
-	var _GoogleMap = __webpack_require__(11);
+	var _GoogleMap = __webpack_require__(48);
 
 	var _GoogleMap2 = _interopRequireDefault(_GoogleMap);
 
-	var _Mapstyle = __webpack_require__(4);
+	var _Mapstyle = __webpack_require__(9);
 
 	var _Mapstyle2 = _interopRequireDefault(_Mapstyle);
 
@@ -2278,197 +2256,7 @@
 	exports.default = LoadingMap;
 
 /***/ },
-/* 33 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(0);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _GoogleMap = __webpack_require__(11);
-
-	var _GoogleMap2 = _interopRequireDefault(_GoogleMap);
-
-	var _GoogleMapLoader = __webpack_require__(12);
-
-	var _GoogleMapLoader2 = _interopRequireDefault(_GoogleMapLoader);
-
-	var _Marker = __webpack_require__(52);
-
-	var _Marker2 = _interopRequireDefault(_Marker);
-
-	var _Mapstyle = __webpack_require__(4);
-
-	var _Mapstyle2 = _interopRequireDefault(_Mapstyle);
-
-	var _MarkerClusterer = __webpack_require__(53);
-
-	var _MarkerClusterer2 = _interopRequireDefault(_MarkerClusterer);
-
-	var _InfoWindow = __webpack_require__(51);
-
-	var _InfoWindow2 = _interopRequireDefault(_InfoWindow);
-
-	var _Circle = __webpack_require__(10);
-
-	var _Circle2 = _interopRequireDefault(_Circle);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _ref = _jsx("i", {
-	  className: "fa fa-map-marker"
-	});
-
-	var _ref2 = _jsx("span", {}, void 0, "Indoor");
-
-	var _ref3 = _jsx("span", {}, void 0, "Online");
-
-	var DashboardMap = function (_Component) {
-	  _inherits(DashboardMap, _Component);
-
-	  function DashboardMap(props) {
-	    _classCallCheck(this, DashboardMap);
-
-	    var _this = _possibleConstructorReturn(this, (DashboardMap.__proto__ || Object.getPrototypeOf(DashboardMap)).call(this, props));
-
-	    var mapComponent = void 0;
-	    _this.state = _this.getState();
-	    return _this;
-	  }
-
-	  _createClass(DashboardMap, [{
-	    key: "getState",
-	    value: function getState() {
-	      return {
-	        lat: 22.9734,
-	        lng: 78.6569,
-	        zoom: 5,
-	        cityChanged: this.props.cityChanged
-	      };
-	    }
-	  }, {
-	    key: "componentWillReceiveProps",
-	    value: function componentWillReceiveProps(nextProps) {
-	      if (this.props.cityValue != nextProps.cityValue) {
-	        this.setState({ cityChanged: nextProps.cityChanged });
-	        if (this.props.cities[nextProps.cityValue] != undefined) {
-	          this.setState({ lat: this.props.cities[nextProps.cityValue].latitude, lng: this.props.cities[nextProps.cityValue].longitude, zoom: 11 });
-	          if (this.refs.map) {
-	            this.refs.map.props.map.setZoom(11);
-	          }
-	        } else {
-	          this.setState({ lat: 22.9734, lng: 78.6569 });
-	          this.refs.map.props.map.setZoom(5);
-	        }
-	      } else {
-	        console.log('yoo', this.refs.map);
-
-	        // this.refs.map.props.map.setZoom(this.refs.map.props.map.getZoom())
-	      }
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      var _this2 = this;
-
-	      return _jsx("div", {
-	        style: { height: "100%" }
-	      }, void 0, _jsx(_GoogleMapLoader2.default, {
-	        containerElement: _react2.default.createElement("div", _extends({}, this.props.containerElementProps, {
-	          style: {
-	            height: "92.5vh"
-	          }
-	        })),
-	        googleMapElement: _react2.default.createElement(
-	          _GoogleMap2.default,
-	          {
-	            ref: "map",
-	            defaultZoom: 5,
-	            defaultCenter: { lat: 22.9734, lng: 78.6569 },
-	            center: { lat: this.state.lat, lng: this.state.lng },
-	            onClick: this.props.onMapClick,
-	            defaultOptions: { styles: _Mapstyle2.default }
-	          },
-	          _jsx(_MarkerClusterer2.default, {
-	            averageCenter: true,
-	            enableRetinaIcons: true,
-	            gridSize: 60
-	          }, void 0, this.props.markers.map(function (marker, index) {
-	            var position = {
-	              lat: parseFloat(marker.latitude),
-	              lng: parseFloat(marker.longitude)
-	            };
-
-	            return _jsx(_Marker2.default, {
-	              position: position,
-	              icon: marker.aqi <= 50 ? 'assets/images/pins/good.svg' : marker.aqi > 50 && marker.aqi < 101 ? 'assets/images/pins/satisfactory.svg' : marker.aqi > 100 && marker.aqi < 201 ? 'assets/images/pins/moderate.svg' : marker.aqi > 200 && marker.aqi < 301 ? 'assets/images/pins/poor.svg' : marker.aqi > 300 && marker.aqi < 401 ? 'assets/images/pins/very-poor.svg' : 'assets/images/pins/severe.svg',
-	              onClick: function onClick() {
-	                _this2.props.setDisable(false, marker.label, marker.deviceType);
-	                _this2.props.callRealtime(marker.deviceId, marker.t);
-	                _this2.props.callAnalytics(marker.deviceId, marker.t);
-	                _this2.setState({ lat: marker.latitude, lng: marker.longitude });
-	              },
-	              onMouseover: function onMouseover() {
-	                _this2.props.onMarkerClick(marker, index);
-	                console.log(marker);
-	              }
-	            }, void 0,
-	            //   <InfoWindow onCloseClick={() => this.props.onMarkerClose(marker)}>
-	            //   <div>{marker.showInfo ? 'yey':'no'}</div>
-	            // </InfoWindow >
-
-	            marker.showInfo && _jsx(_InfoWindow2.default, {
-	              className: "hiiiii"
-	            }, void 0, _jsx("div", {
-	              className: "infowindow-content"
-	            }, void 0, _jsx("div", {
-	              className: "infowindow-head"
-	            }, void 0, _jsx("strong", {}, void 0, marker.loc)), _jsx("div", {
-	              className: "infowindow-body"
-	            }, void 0, _jsx("div", {
-	              className: "left-content",
-	              style: { width: '55%', float: 'left' }
-	            }, void 0, _jsx("p", {}, void 0, marker.deviceType), _jsx("p", {}, void 0, _ref, " ", marker.state), _ref2, _ref3), _jsx("div", {
-	              className: "right-content",
-	              style: { width: '5%', float: 'left', position: 'relative' }
-	            }, void 0, _jsx(_Circle2.default, {
-	              style: { width: '50px' },
-	              percent: marker.aqi <= 50 ? '16' : marker.aqi > 50 && marker.aqi < 101 ? '32' : marker.aqi > 100 && marker.aqi < 201 ? '48' : marker.aqi > 200 && marker.aqi < 301 ? '64' : marker.aqi > 300 && marker.aqi < 401 ? '80' : '96',
-	              strokeWidth: "4",
-	              strokeColor: marker.aqi <= 50 ? '#6ecc58' : marker.aqi > 50 && marker.aqi < 101 ? '#bbcf4c' : marker.aqi > 100 && marker.aqi < 201 ? '#eac736' : marker.aqi > 200 && marker.aqi < 301 ? '#ed9a2e' : marker.aqi > 300 && marker.aqi < 401 ? '#e8633a' : '#d63636'
-	            }), _jsx("span", {}, void 0, marker.aqi))))));
-	          }))
-	        )
-	      }));
-	    }
-	  }]);
-
-	  return DashboardMap;
-	}(_react.Component);
-
-	exports.default = DashboardMap;
-
-/***/ },
-/* 34 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2486,7 +2274,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ReactHighcharts = __webpack_require__(55);
+	var _ReactHighcharts = __webpack_require__(51);
 
 	var _ReactHighcharts2 = _interopRequireDefault(_ReactHighcharts);
 
@@ -2710,7 +2498,7 @@
 	exports.default = Analytics;
 
 /***/ },
-/* 35 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2790,7 +2578,7 @@
 	exports.default = Dashboardhome;
 
 /***/ },
-/* 36 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3723,7 +3511,7 @@
 	exports.default = Realtime;
 
 /***/ },
-/* 37 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3830,7 +3618,7 @@
 	exports.default = Device;
 
 /***/ },
-/* 38 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3959,7 +3747,7 @@
 	exports.default = Openapi;
 
 /***/ },
-/* 39 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4323,7 +4111,7 @@
 	exports.default = Partner;
 
 /***/ },
-/* 40 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4333,7 +4121,7 @@
 	  value: true
 	});
 
-	var _redux = __webpack_require__(13);
+	var _redux = __webpack_require__(10);
 
 	// Import Reducers
 
@@ -4344,7 +4132,7 @@
 	                                                    */
 
 /***/ },
-/* 41 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4359,61 +4147,61 @@
 	// Webpack Requirements
 
 
-	var _express = __webpack_require__(22);
+	var _express = __webpack_require__(19);
 
 	var _express2 = _interopRequireDefault(_express);
 
-	var _compression = __webpack_require__(21);
+	var _compression = __webpack_require__(18);
 
 	var _compression2 = _interopRequireDefault(_compression);
 
-	var _bodyParser = __webpack_require__(20);
+	var _bodyParser = __webpack_require__(17);
 
 	var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-	var _path = __webpack_require__(23);
+	var _path = __webpack_require__(20);
 
 	var _path2 = _interopRequireDefault(_path);
 
-	var _webpack = __webpack_require__(7);
+	var _webpack = __webpack_require__(6);
 
 	var _webpack2 = _interopRequireDefault(_webpack);
 
-	var _webpackConfig = __webpack_require__(18);
+	var _webpackConfig = __webpack_require__(15);
 
 	var _webpackConfig2 = _interopRequireDefault(_webpackConfig);
 
-	var _webpackDevMiddleware = __webpack_require__(25);
+	var _webpackDevMiddleware = __webpack_require__(22);
 
 	var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 
-	var _webpackHotMiddleware = __webpack_require__(26);
+	var _webpackHotMiddleware = __webpack_require__(23);
 
 	var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 
-	var _store = __webpack_require__(15);
+	var _store = __webpack_require__(12);
 
-	var _reactRedux = __webpack_require__(6);
+	var _reactRedux = __webpack_require__(5);
 
 	var _react = __webpack_require__(0);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _server = __webpack_require__(24);
+	var _server = __webpack_require__(21);
 
 	var _reactRouter = __webpack_require__(3);
 
-	var _reactHelmet = __webpack_require__(5);
+	var _reactHelmet = __webpack_require__(4);
 
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 
-	var _routes = __webpack_require__(14);
+	var _routes = __webpack_require__(11);
 
 	var _routes2 = _interopRequireDefault(_routes);
 
-	var _fetchData = __webpack_require__(17);
+	var _fetchData = __webpack_require__(14);
 
-	var _config = __webpack_require__(16);
+	var _config = __webpack_require__(13);
 
 	var _config2 = _interopRequireDefault(_config);
 
@@ -4448,7 +4236,7 @@
 	  // Import Manifests
 	  var assetsManifest = process.env.webpackAssets && JSON.parse(process.env.webpackAssets);
 	  var chunkManifest = process.env.webpackChunkAssets && JSON.parse(process.env.webpackChunkAssets);
-	  var refManifest = __webpack_require__(19);
+	  var refManifest = __webpack_require__(16);
 	  var styleSrc = '/' + refManifest['main.css'];
 	  return '\n    <!doctype html>\n    <html>\n      <head>\n        ' + head.base.toString() + '\n        ' + head.title.toString() + '\n        ' + head.meta.toString() + '\n        ' + head.link.toString() + '\n        ' + head.script.toString() + '\n\n        ' + (process.env.NODE_ENV === 'production' ? '<link rel=\'stylesheet\' href=\'' + assetsManifest['/app.css'] + '\' />' : '') + '\n        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">\n        <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/png" />\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">\n        <link rel="stylesheet" href=\'' + (process.env.NODE_ENV === 'production' ? styleSrc : '/main.css') + '\' type="text/css" media="screen" charset="utf-8">\n        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing&key=AIzaSyBr3jBMT0Q4j0TnWxajkWt159n5lROYsh0"></script>      \n         <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">\n    </script>\n      </head>\n      <body>\n        <div id="root">' + html + '</div>\n        <script>\n          window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + ';\n          ' + (process.env.NODE_ENV === 'production' ? '//<![CDATA[\n          window.webpackManifest = ' + JSON.stringify(chunkManifest) + ';\n          //]]>' : '') + '\n        </script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/vendor.js'] : '/vendor.js') + '\'></script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/app.js'] : '/app.js') + '\'></script>\n      </body>\n    </html>\n  ';
 	};
@@ -4500,7 +4288,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, "server"))
 
 /***/ },
-/* 42 */
+/* 38 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4531,139 +4319,139 @@
 	}
 
 /***/ },
-/* 43 */
+/* 39 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-cssnext");
 
 /***/ },
-/* 44 */
+/* 40 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-focus");
 
 /***/ },
-/* 45 */
+/* 41 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-reporter");
 
 /***/ },
-/* 46 */
+/* 42 */
+/***/ function(module, exports) {
+
+	module.exports = require("rc-progress/lib/Circle");
+
+/***/ },
+/* 43 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-bootstrap/lib/FormControl");
 
 /***/ },
-/* 47 */
+/* 44 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-bootstrap/lib/FormGroup");
 
 /***/ },
-/* 48 */
+/* 45 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-bootstrap/lib/Nav");
 
 /***/ },
-/* 49 */
+/* 46 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-bootstrap/lib/NavItem");
 
 /***/ },
-/* 50 */
+/* 47 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-bootstrap/lib/Navbar");
 
 /***/ },
-/* 51 */
+/* 48 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-google-maps/lib/InfoWindow");
+	module.exports = require("react-google-maps/lib/GoogleMap");
 
 /***/ },
-/* 52 */
+/* 49 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-google-maps/lib/Marker");
+	module.exports = require("react-google-maps/lib/GoogleMapLoader");
 
 /***/ },
-/* 53 */
-/***/ function(module, exports) {
-
-	module.exports = require("react-google-maps/lib/addons/MarkerClusterer");
-
-/***/ },
-/* 54 */
+/* 50 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-helmet/lib/Helmet");
 
 /***/ },
-/* 55 */
+/* 51 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-highcharts/dist/ReactHighcharts.js");
 
 /***/ },
-/* 56 */
+/* 52 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-router-bootstrap/lib/LinkContainer");
 
 /***/ },
-/* 57 */
+/* 53 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-tabs/lib/components/Tab");
 
 /***/ },
-/* 58 */
+/* 54 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-tabs/lib/components/TabList");
 
 /***/ },
-/* 59 */
+/* 55 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-tabs/lib/components/TabPanel");
 
 /***/ },
-/* 60 */
+/* 56 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-tabs/lib/components/Tabs");
 
 /***/ },
-/* 61 */
+/* 57 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-devtools");
 
 /***/ },
-/* 62 */
+/* 58 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-devtools-dock-monitor");
 
 /***/ },
-/* 63 */
+/* 59 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-devtools-log-monitor");
 
 /***/ },
-/* 64 */
+/* 60 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-thunk");
 
 /***/ },
-/* 65 */
+/* 61 */
 /***/ function(module, exports) {
 
 	module.exports = require("superagent");
