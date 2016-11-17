@@ -974,7 +974,7 @@ progress:after {
 progress[value="10"]:after {
   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" style="transform-origin:center center;transform:rotate(-90deg)"><circle cx="30" cy="30" r="27.5" stroke-dasharray="172.7876" stroke-dashoffset="155.50884" fill="#687076" stroke-width="2px" stroke="#00b3bf"/></svg>');
 }
-
+  //new-design
 .blot{
   position: absolute;
 }
@@ -1025,6 +1025,7 @@ progress[value="10"]:after {
   width: 100%;
   height: 164px;
   border-radius: 4px;
+  padding: 8px 15px;
 }
 
 .knowmore-btn{
@@ -1032,6 +1033,7 @@ progress[value="10"]:after {
   border: 0;
   margin-top: 100px;
   color: #fff;
+  font-weight: bold;
 }
 
 .chart-description{
@@ -1069,7 +1071,80 @@ progress[value="10"]:after {
   background: #00b3bf;
   color: white;
 }
+.ppc-title{
+  font-size: 14px;
+  color: white;
+  font-weight: bold;
+}
 
+.progress-pie-chart-gas {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #E5E5E5;
+  position: relative;
+}
+.progress-pie-chart-gas.gt-50 {
+  background-color: #00b3bf;
+}
+
+.ppc-progress-gas {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: calc(50% - 25px);
+  top: calc(50% - 25px);
+  width: 50px;
+  height: 50px;
+  clip: rect(0, 50px, 50px, 25px);
+}
+.ppc-progress-gas .ppc-progress-fill-gas {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: calc(50% - 25px);
+  top: calc(50% - 25px);
+  width: 50px;
+  height: 50px;
+  clip: rect(0, 25px, 50px, 0);
+  background: #00b3bd;;
+  transform: rotate(60deg);
+}
+.gt-50 .ppc-progress-gas {
+  clip: rect(0, 25px, 50px, 0);
+}
+.gt-50 .ppc-progress-gas .ppc-progress-fill-gas {
+  clip: rect(0, 50px, 50px, 25px);
+  background: #E5E5E5;
+}
+
+.ppc-percents-gas {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  //left: calc(50% - 43.47826px/2);
+  //top: calc(50% - 43.47826px/2);
+  left: calc(50% - 42.48px/2);
+  top: calc(50% - 42.48px/2);
+  width: 43.47826px;
+  height: 43.47826px;
+  background: #586067;
+  text-align: center;
+  display: table;
+}
+.ppc-percents-gas span {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  color: #81CE97;
+}
+
+.pcc-percents-wrapper-gas {
+  display: table-cell;
+  vertical-align: middle;
+}
+    //new design
+//analytics
 @media (min-width: 370px) and (max-width: 768px) {
   .about-container p {
     width: 100%;
@@ -1239,7 +1314,7 @@ progress[value="10"]:after {
   background-color: #E5E5E5;
   position: relative;
 }
-.progress-pie-chart.gt-50 {
+.progress-pie-chart.gt-250 {
   background-color: #81CE97;
 }
 

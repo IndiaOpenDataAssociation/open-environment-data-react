@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import ReactHighcharts from 'react-highcharts/dist/ReactHighcharts.js'
 import DropdownButton from 'react-bootstrap/lib/DropdownButton'
 import MenuItem from 'react-bootstrap/lib/MenuItem'
+import LatestDevice from './LatestDevice'
 let arr = {'AQI': []}, timeArr = [], newTime;
 
 
@@ -37,11 +38,9 @@ export default class Analytics extends Component {
 
     this.state.chartList.map((e)=>{
       if(tabName === e){
-        console.log('if')
         document.getElementById(tabName).className = 'active'
       }
       else{
-        console.log('else')
         document.getElementById(e).className = ''
       }
     })
@@ -62,7 +61,6 @@ export default class Analytics extends Component {
   }
 
   render() {
-    let latestDevice = this.props.realtimeData[0];
     var config = {
       chart: {
         backgroundColor: 'transparent',
@@ -171,49 +169,10 @@ export default class Analytics extends Component {
     return (
       <div className="dashboard-home">
         <div className="row">
-          <div className="col-sm-4 text-center" style={{padding: '30px 20px', position: 'relative'}}>
-
-            <div className="aqi-status">
-              <p>Current AQI</p>
-              <strong>{latestDevice.aqi}</strong>
-              <p className="aqi-grade">
-                {
-                  latestDevice.aqi <= 50
-                    ?
-                    'Good'
-                    :
-                    (
-                      latestDevice.aqi > 50 && latestDevice.aqi < 101
-                        ?
-                        'Satisfactory'
-                        :
-                        (
-                          latestDevice.aqi > 100 && latestDevice.aqi < 201
-                            ?
-                            'Moderate'
-                            :
-                            (
-                              latestDevice.aqi > 200 && latestDevice.aqi < 301
-                                ?
-                                'Poor'
-                                :
-                                (
-                                  latestDevice.aqi > 300 && latestDevice.aqi < 401
-                                    ?
-                                    'Very Poor'
-                                    :
-                                    'Severe'
-                                )
-                            )
-                        )
-                    )
-                }
-              </p>
-            </div>
-
-            <div className="gases-details"></div>
-
-            <button className="btn btn-default knowmore-btn">Know More</button>
+          <div className="col-sm-4 text-center" style={{padding: '30px 0px 30px 20px', position: 'relative'}}>
+            <LatestDevice
+              realtimeData={this.props.realtimeData}
+            />
           </div>
           <div className="col-sm-8" style={{padding: '20px'}}>
             <div className="analytics-div">

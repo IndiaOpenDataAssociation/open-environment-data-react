@@ -139,10 +139,9 @@ export default class Map extends Component {
   getDegree(aqi){
       var percent = aqi,
       deg = 360*percent/500;
-
-
     return {percent: percent,deg: deg};
   }
+  
   componentDidMount() {
 
     var mapOptions = {
