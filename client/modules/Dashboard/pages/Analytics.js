@@ -1,122 +1,87 @@
 import React, {Component} from 'react'
 import ReactHighcharts from 'react-highcharts/dist/ReactHighcharts.js'
-let arr = [], timeArr =[], newTime;
+import DropdownButton from 'react-bootstrap/lib/DropdownButton'
+import MenuItem from 'react-bootstrap/lib/MenuItem'
+let arr = {'AQI': []}, timeArr = [], newTime;
 
-export default class Analytics extends Component{
 
-  constructor(props){
+export default class Analytics extends Component {
+
+  constructor(props) {
     super(props)
-    this.displayTime = this.displayTime.bind(this)
-    this.maxAqi = this.maxAqi.bind(this)
-    this.state = {aqiArray : []}
-  }
+    // this.maxAqi = this.maxAqi.bind(this)
 
-  componentDidMount(){
-    if(this.props.analysisData.length > 0) {
-      if(arr.length > 0){
-        arr = [];
-        this.props.analysisData.map((e) => {
-          arr.unshift(e.aqi)
-        })
-
-      }
-      else {
-        this.props.analysisData.map((e) => {
-          arr.unshift(e.aqi)
-        })
-      }
-      this.setState({aqiArray:arr})
-
-
-      this.props.analysisData.map((e) => {
-        newTime = new Date(e.payload.d.t * 1000)
-        var hour = newTime.getHours();
-        var hourVal = hour + ':00';
-        timeArr.unshift(hourVal)
-      })
+    this.state = {
+      aqiArray: {'AQI': [], 'CO2':[], 'SO2':[], 'NO2':[], 'PM10':[], 'PM25':[]},
+      chartList : ['aqi', 'co', 'so2', 'no2', 'pm10','pm25']
     }
-    // if(arr.length>0){
-    //   arr = [];
-    //   this.props.analysisData.map((e) => {
-    //     arr.unshift(e.aqi)
-    //   })
-    //   this.setState({aqiArray:arr})
-    // }
-    // else
-    // {
-    //   if(this.props.analysisData.length > 0) {
-    //
-    //     this.props.analysisData.map((e) => {
-    //       arr.unshift(e.aqi)
-    //     })
-    //     this.setState({aqiArray: arr})
-    //   }
-    // }
-
-    // if(timeArr.length > 0){
-    //   timeArr = []
-    //
-    //   this.props.analysisData.map((e) => {
-    //     newTime = new Date(e.payload.d.t * 1000)
-    //     var hour = newTime.getHours();
-    //     var hourVal = hour + ':00';
-    //     timeArr.unshift(hourVal)
-    //   })
-    // }
-    // else {
-    //
-    //   if(this.props.analysisData.length > 0){
-    //     this.props.analysisData.map((e) => {
-    //       newTime = new Date(e.payload.d.t * 1000)
-    //       var hour = newTime.getHours();
-    //       var hourVal = hour + ':00';
-    //       timeArr.unshift(hourVal)
-    //     })
-    //   }
-    // }
+    this.displayGraph = this.displayGraph.bind(this)
   }
 
-  displayTime(){
-    let a = new Date(this.props.timeStamp * 1000)
-
-    var year = a.getFullYear().toString().substr(2,2);
-    var month = a.getMonth() + 1;
-    var date = a.getDate();
-    var hour = a.getHours();
-    var min = a.getMinutes();
-    var ampm = hour >= 12 ? 'pm' : 'am'
-    let displayTime = date + '-' + month + "-" + year + ' ' + hour + ':' + min + ampm;
-    return displayTime
+  componentDidMount() {
+    if (this.props.analysisData.length > 0) {
+      let temp = this.state.aqiArray
+      this.props.analysisData.map((e) => {
+        temp.AQI.unshift(e.aqi)
+        temp.CO2.unshift(e.payload.d.co)
+        temp.SO2.unshift(e.payload.d.so2)
+        temp.NO2.unshift(e.payload.d.no2)
+        temp.PM10.unshift(e.payload.d.pm10)
+        temp.PM25.unshift(e.payload.d.pm25)
+      })
+      this.setState({aqiArray: temp})
+    }
   }
 
-  maxAqi() {
-    return Math.max(...arr)
+  displayGraph(tabName){
+
+    this.state.chartList.map((e)=>{
+      if(tabName === e){
+        console.log('if')
+        document.getElementById(tabName).className = 'active'
+      }
+      else{
+        console.log('else')
+        document.getElementById(e).className = ''
+      }
+    })
+    let chart = this.refs.highchart.getChart()
+    chart.series.map((e)=>{
+      if(e.name == tabName){
+        e.setVisible(true)
+        // document.getElementById(tabName).className = 'active'
+      }
+      else{
+        e.setVisible(false)
+      }
+    })
+
+
+    // document.getElementById(tabName).className = 'active'
+
   }
 
-
-
-
-
-  render(){
+  render() {
+    let latestDevice = this.props.realtimeData[0];
     var config = {
       chart: {
         backgroundColor: 'transparent',
-        width: 350,
-        height: 170,
+        width: 600,
+        height: 270,
         type: 'areaspline'
       },
       colors: ['#00b3bf'],
 
       title: {
-        text: 'Max AQI: '+this.maxAqi(),
+        text: 'Analytics',
         style: {
           color: 'white',
           fontSize: '14px'
         }
       },
 
-      legend:{
-        enabled:false
+      legend: {
+        enabled: false
       },
 
       credits: {
@@ -124,7 +89,9 @@ export default class Analytics extends Component{
       },
 
       xAxis: {
-        categories : timeArr,
+        categories: timeArr,
+        gridLineColor: '#2b313a',
+        gridLineWidth: 1,
         labels: {
           style: {
             color: '#FFF'
@@ -133,135 +100,259 @@ export default class Analytics extends Component{
       },
 
       yAxis: {
+        gridLineWidth: 1,
+        gridLineColor: '#2b313a',
         labels: {
           style: {
             color: '#FFF'
-          }
+          },
         },
         title: {
           text: null
         }
       },
 
-      series: [{
-        name: 'Data',
-        data: this.state.aqiArray,
-        fillColor: 'rgba(255,255,255, 0.1)',
-        marker: {
-          enabled: false
+      series: [
+        {
+          name: 'aqi',
+          data: this.state.aqiArray.AQI,
+          fillColor: 'rgba(255,255,255, 0.1)',
+          marker: {
+            enabled: false
+          }
         },
-
-      }]
+        {
+          name: 'co',
+          data: this.state.aqiArray.CO2,
+          fillColor: 'rgba(255,255,255, 0.1)',
+          marker: {
+            enabled: false
+          },
+          visible: false
+        },
+        {
+          name: 'so2',
+          data: this.state.aqiArray.SO2,
+          fillColor: 'rgba(255,255,255, 0.1)',
+          marker: {
+            enabled: false
+          },
+          visible: false
+        },
+        {
+          name: 'no2',
+          data: this.state.aqiArray.NO2,
+          fillColor: 'rgba(255,255,255, 0.1)',
+          marker: {
+            enabled: false
+          },
+          visible: false
+        },
+        {
+          name: 'pm10',
+          data: this.state.aqiArray.PM10,
+          fillColor: 'rgba(255,255,255, 0.1)',
+          marker: {
+            enabled: false
+          },
+          visible: false
+        },
+        {
+          name: 'pm25',
+          data: this.state.aqiArray.PM25,
+          fillColor: 'rgba(255,255,255, 0.1)',
+          marker: {
+            enabled: false
+          },
+          visible: false
+        }
+      ]
     };
-    return(
+    return (
       <div className="dashboard-home">
-        <div className="home-top-content row">
-          <span className="col-sm-6 col-xs-6">Outdoor</span>
-          <span className="col-sm-6 col-xs-6">as of: {this.displayTime()}</span>
+        <div className="row">
+          <div className="col-sm-4 text-center" style={{padding: '30px 20px', position: 'relative'}}>
+
+            <div className="aqi-status">
+              <p>Current AQI</p>
+              <strong>{latestDevice.aqi}</strong>
+              <p className="aqi-grade">
+                {
+                  latestDevice.aqi <= 50
+                    ?
+                    'Good'
+                    :
+                    (
+                      latestDevice.aqi > 50 && latestDevice.aqi < 101
+                        ?
+                        'Satisfactory'
+                        :
+                        (
+                          latestDevice.aqi > 100 && latestDevice.aqi < 201
+                            ?
+                            'Moderate'
+                            :
+                            (
+                              latestDevice.aqi > 200 && latestDevice.aqi < 301
+                                ?
+                                'Poor'
+                                :
+                                (
+                                  latestDevice.aqi > 300 && latestDevice.aqi < 401
+                                    ?
+                                    'Very Poor'
+                                    :
+                                    'Severe'
+                                )
+                            )
+                        )
+                    )
+                }
+              </p>
+            </div>
+
+            <div className="gases-details"></div>
+
+            <button className="btn btn-default knowmore-btn">Know More</button>
+          </div>
+          <div className="col-sm-8" style={{padding: '20px'}}>
+            <div className="analytics-div">
+              <div className="analytics-chart">
+                {
+                  Object.keys(this.state.aqiArray).length > 0
+                    ?
+                    <ReactHighcharts config={config} ref="highchart"></ReactHighcharts>
+                    :
+                    null
+                }
+                <ul className="chart-list list-inline" id="c-list">
+                  {
+                    this.state.chartList.map((list,index)=>{
+                      return(
+                        <li
+                          onClick={()=>{this.displayGraph(list)}}
+                          id={list}
+                          key={list}
+                          className={index===0 ? 'active' : ''}
+                        >{list}</li>
+                      )
+                    })
+                  }
+
+                </ul>
+              </div>
+
+              <div className="chart-description">
+                <DropdownButton title="AQI" id="chart-info-dropdown">
+                  <MenuItem eventKey="1">Dropdown link</MenuItem>
+                  <MenuItem eventKey="2">Dropdown link</MenuItem>
+                </DropdownButton>
+                <p>
+                  Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem
+                  Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum
+                  Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
+
         <div className="home-bottom-content">
           {
             this.props.analysisData == true
-            ?
+              ?
               <div className="analytics-chart">
 
               </div>
               :
               <div className="analytics-chart">
-                <span>Last 24 hours data</span>
                 {
                   this.state.aqiArray.length > 0
-                  ?
-                    <ReactHighcharts config = {config}></ReactHighcharts>
-                  :
+                    ?
+                    <ReactHighcharts config={config}></ReactHighcharts>
+                    :
                     null
                 }
               </div>
           }
 
+          {/*
+           <div className="average-cal">
+           <p style={{textAlign: 'center', color: 'white', fontSize: '13px'}}>Last hour Average</p>
+           <div className="row">
 
-          <div className="average-cal">
-            <p style={{textAlign: 'center', color: 'white', fontSize: '13px'}}>Last hour Average</p>
-            <div className="row">
+           {
+           this.props.realtimeData.map((gases) => {
+           return Object.keys(gases.payload.d).map((key, index) => {
+           return (
+           key != 't' && gases.payload.d[key] > 1
+           ?
+           (
+           <div className="col-sm-3 col-xs-3">
+           <div className="avg-container">
+           <p className="readings">{Math.trunc(gases.payload.d[key])}</p>
+           <p className="units">
+           {
+           key == 'temp'
+           ?
+           'C'
+           :
+           'u3/mg'
+           }
+           </p>
+           </div>
+           <p
+           style={{textAlign: 'center', fontFamily: 'Bebasneues', color: 'white', marginTop: '10px'}}>
+           {
+           key == 'pm10'
+           ?
+           'PM 10'
+           :
+           (
+           key == 'pm25'
+           ?
+           'PM 2.5'
+           :
+           (
+           key == 'hum'
+           ?
+           'Humidity'
+           :
+           (
+           key == 'so2'
+           ?
+           'SO 2'
+           :
+           (
+           key == 'no2'
+           ?
+           'NO 2'
+           :
+           (
+           key == 'o3'
+           ?
+           'O 3'
+           :
+           key
+           )
+           )
 
-                {
-                  this.props.realtimeData.map((gases) => {
-                    return Object.keys(gases.payload.d).map((key, index) => {
-                      return(
-
-                        key!='t' && gases.payload.d[key] > 1
-                        ?
-                        (
-                          <div className="col-sm-3 col-xs-3">
-                            <div className="avg-container">
-                              <p className="readings">{Math.trunc(gases.payload.d[key])}</p>
-                              <p className="units">
-                                {
-                                  key == 'temp'
-                                  ?
-                                    'C'
-                                  :
-                                    'u3/mg'
-                                }
-                              </p>
-                            </div>
-                            <p style={{textAlign: 'center', fontFamily: 'Bebasneues', color: 'white', marginTop: '10px'}}>
-                              {
-                                key == 'pm10'
-                                ?
-                                  'PM 10'
-                                :
-                                  (
-                                    key == 'pm25'
-                                    ?
-                                      'PM 2.5'
-                                    :
-                                      (
-                                        key == 'hum'
-                                        ?
-                                          'Humidity'
-                                        :
-                                          (
-                                            key == 'so2'
-                                            ?
-                                              'SO 2'
-                                            :
-                                              (
-                                                key == 'no2'
-                                                ?
-                                                  'NO 2'
-                                                :
-                                                  (
-                                                    key == 'o3'
-                                                    ?
-                                                      'O 3'
-                                                    :
-                                                      key
-                                                  )
-                                              )
-
-                                          )
-                                      )
-                                  )
-                              }
-                            </p>
-                          </div>
-                        )
-                        :
-                        null
-
-
-                      )
-                    })
-                  })
-                }
-
-
-
-
-            </div>
-          </div>
-          {/*<div style={{padding: '9px'}}></div>*/}
+           )
+           )
+           )
+           }
+           </p>
+           </div>
+           )
+           :
+           null
+           )
+           })
+           })
+           }
+           </div>
+           </div>
+          */}
 
         </div>
       </div>
