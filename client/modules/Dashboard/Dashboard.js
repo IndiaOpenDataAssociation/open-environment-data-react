@@ -4,7 +4,8 @@ import FormGroup from 'react-bootstrap/lib/FormGroup'
 import FormControl from 'react-bootstrap/lib/FormControl'
 import Dashboardhome from './pages/Home'
 import Realtime from './pages/Realtime'
-import Analytics from './pages/Analytics'
+import LatestDevice from './pages/LatestDevice'
+
 import superagent from 'superagent'
 import LoadingMap from './components/LoadingMap'
 import Map from '../Map/index'
@@ -80,8 +81,8 @@ export default class Dashboard extends Component {
       show_panel: true,
       city_label: label,
       // device_type: deviceType
-      analyticsData:[],
-      realTimeData:[],
+      analyticsData: [],
+      realTimeData: [],
       analyticsdataLoading: true,
       realTimedataLoading: true
 
@@ -196,9 +197,9 @@ export default class Dashboard extends Component {
                 {
                   this.state.show_panel
                     ?
-                    this.state.realTimedataLoading==false && this.state.analyticsdataLoading==false
+                    this.state.realTimedataLoading == false && this.state.analyticsdataLoading == false
                       ?
-                       (
+                      (
                         <div className="review-panel">
                           <div className="panel panel-default">
                             <div className="panel-heading ">
@@ -224,7 +225,7 @@ export default class Dashboard extends Component {
                             </div>
 
                             <div className="panel-body">
-                              <Analytics
+                              <LatestDevice
                                 analysisData={this.state.analyticsData}
                                 realtimeData={this.state.realTimeData}
                                 time={this.state.time}

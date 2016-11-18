@@ -1083,6 +1083,7 @@ progress[value="10"]:after {
   border-radius: 50%;
   background-color: #E5E5E5;
   position: relative;
+  margin-top: 5px;
 }
 .progress-pie-chart-gas.gt-50 {
   background-color: #00b3bf;
@@ -1143,6 +1144,23 @@ progress[value="10"]:after {
   display: table-cell;
   vertical-align: middle;
 }
+
+.chart-btn-group{
+  margin-top: 20px;
+}
+
+.chart-btn-group img{
+  width: 30px;
+  margin-right: 10px;
+  padding: 4px;
+}
+
+.chart-btn-group a.active img{
+  background: #00b3bd;
+  border-radius: 50%;
+}
+
+
     //new design
 //analytics
 @media (min-width: 370px) and (max-width: 768px) {
