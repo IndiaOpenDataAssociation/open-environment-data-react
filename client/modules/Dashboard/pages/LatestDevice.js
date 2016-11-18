@@ -1,13 +1,14 @@
 import React, {Component} from 'react'
-import Analytics from './Analytics'
-import Realtime from './Realtime'
+import GraphView from './GraphView'
+import CalendarView from './CalendarView'
 
 
 export default class LatestDevice extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {activeGraph: 'analytics'}
+    this.state = {activeGraph: 'calenderview'}
+    this.changeGraphData = this.changeGraphData.bind(this)
   }
 
   getCODegree(co) {
@@ -69,6 +70,9 @@ export default class LatestDevice extends Component {
     return obj;
   }
 
+  changeGraphData(graph){
+    this.setState({activeGraph : graph})
+  }
 
   render() {
     let latestDevice = this.props.realtimeData[0];
@@ -210,16 +214,18 @@ export default class LatestDevice extends Component {
           </div>
           <div className="col-sm-8" style={{padding: '20px'}}>
             {
-              this.state.activeGraph === 'analytics'
+              this.state.activeGraph === 'graphview'
               ?
-                <Analytics
+                <GraphView
                   analysisData={this.props.analysisData}
                   realtimeData={this.props.realtimeData}
                   time={this.props.time}
+                  activeGraph = {this.state.activeGraph}
+                  changeGraphData = {this.changeGraphData}
                 />
               :
-                <Realtime
-                  realtimeData = {this.props.realtimeData}
+                <CalendarView
+                  changeGraphData = {this.changeGraphData}
                 />
             }
 

@@ -5,7 +5,7 @@ import MenuItem from 'react-bootstrap/lib/MenuItem'
 let arr = {'AQI': []}, timeArr = [], newTime;
 
 
-export default class Analytics extends Component {
+export default class GraphView extends Component {
 
   constructor(props) {
     super(props)
@@ -193,10 +193,17 @@ export default class Analytics extends Component {
             </ul>
 
             <div className="chart-btn-group">
-              <a >
+              <a
+                className={this.props.activeGraph == 'graphview' ? 'active' : ''}
+                onClick={() => {this.props.changeGraphData('graphview')}}
+              >
                 <img src="../../../assets/images/icons/analytics_w.png"/>
               </a>
-              <a>
+              <a
+                className={this.props.activeGraph == 'calendarview' ? 'active' : ''}
+                onClick={() => {this.props.changeGraphData('calendarview')}}
+              >
+
                 <img src="./../../assets/images/calendar_w.png"/>
               </a>
             </div>
@@ -214,7 +221,6 @@ export default class Analytics extends Component {
             </p>
           </div>
         </div>
-        
       </div>
     )
   }

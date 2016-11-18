@@ -2,8 +2,6 @@ import React, {Component} from 'react'
 import Navbar from '../Navbar/Navbar'
 import FormGroup from 'react-bootstrap/lib/FormGroup'
 import FormControl from 'react-bootstrap/lib/FormControl'
-import Dashboardhome from './pages/Home'
-import Realtime from './pages/Realtime'
 import LatestDevice from './pages/LatestDevice'
 
 import superagent from 'superagent'
