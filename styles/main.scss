@@ -1215,6 +1215,9 @@ progress[value="10"]:after {
 }
 
 //highcharts
+.highcharts-button .highcharts-contextbutton .highcharts-button-normal{
+  display: none;
+}
 
 //map
 
@@ -1432,5 +1435,8 @@ progress[value="10"]:after {
   display: table-cell;
   vertical-align: middle;
 }
+
+
+//calendarview
 
 

@@ -1,14 +1,19 @@
 import React, {Component} from 'react'
 import GraphView from './GraphView'
 import CalendarView from './CalendarView'
-
-
+import superagent from 'superagent'
 export default class LatestDevice extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {activeGraph: 'calenderview'}
+    this.state = {activeGraph: 'calenderview', limits: []}
     this.changeGraphData = this.changeGraphData.bind(this)
+  }
+
+  componentDidMount(){
+    superagent.get('https://openenvironment.p.mashape.com/limits').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+      this.setState({limits: res.body})
+    }.bind(this))
   }
 
   getCODegree(co) {
@@ -226,6 +231,7 @@ export default class LatestDevice extends Component {
               :
                 <CalendarView
                   changeGraphData = {this.changeGraphData}
+                  activeGraph = {this.state.activeGraph}
                 />
             }
 

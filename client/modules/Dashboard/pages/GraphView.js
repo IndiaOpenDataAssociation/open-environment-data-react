@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
-import ReactHighcharts from 'react-highcharts/dist/ReactHighcharts.js'
 import DropdownButton from 'react-bootstrap/lib/DropdownButton'
 import MenuItem from 'react-bootstrap/lib/MenuItem'
-let arr = {'AQI': []}, timeArr = [], newTime;
+let arr = {'AQI': []}, timeArr = [], newTime, chart;
 
 
 export default class GraphView extends Component {
@@ -30,6 +29,112 @@ export default class GraphView extends Component {
         temp.PM25.unshift(e.payload.d.pm25)
       })
       this.setState({aqiArray: temp})
+
+      chart = Highcharts.chart(this.refs.highchart,{
+        chart: {
+          backgroundColor: 'transparent',
+          width: 600,
+          height: 270,
+          type: 'areaspline'
+        },
+        colors: ['#00b3bf'],
+
+        title: {
+          text: 'Analytics',
+          style: {
+            color: 'white',
+            fontSize: '14px'
+          }
+        },
+
+        legend: {
+          enabled: false
+        },
+
+        credits: {
+          enabled: false
+        },
+
+        xAxis: {
+          categories: timeArr,
+          gridLineColor: '#2b313a',
+          gridLineWidth: 1,
+          labels: {
+            style: {
+              color: '#FFF'
+            }
+          }
+        },
+
+        yAxis: {
+          gridLineWidth: 1,
+          gridLineColor: '#2b313a',
+          labels: {
+            style: {
+              color: '#FFF'
+            },
+          },
+          title: {
+            text: null
+          }
+        },
+
+        series: [
+          {
+            name: 'aqi',
+            data: this.state.aqiArray.AQI,
+            fillColor: 'rgba(255,255,255, 0.1)',
+            marker: {
+              enabled: false
+            }
+          },
+          {
+            name: 'co',
+            data: this.state.aqiArray.CO2,
+            fillColor: 'rgba(255,255,255, 0.1)',
+            marker: {
+              enabled: false
+            },
+            visible: false
+          },
+          {
+            name: 'so2',
+            data: this.state.aqiArray.SO2,
+            fillColor: 'rgba(255,255,255, 0.1)',
+            marker: {
+              enabled: false
+            },
+            visible: false
+          },
+          {
+            name: 'no2',
+            data: this.state.aqiArray.NO2,
+            fillColor: 'rgba(255,255,255, 0.1)',
+            marker: {
+              enabled: false
+            },
+            visible: false
+          },
+          {
+            name: 'pm10',
+            data: this.state.aqiArray.PM10,
+            fillColor: 'rgba(255,255,255, 0.1)',
+            marker: {
+              enabled: false
+            },
+            visible: false
+          },
+          {
+            name: 'pm25',
+            data: this.state.aqiArray.PM25,
+            fillColor: 'rgba(255,255,255, 0.1)',
+            marker: {
+              enabled: false
+            },
+            visible: false
+          }
+        ]
+      })
     }
   }
 
@@ -43,7 +148,7 @@ export default class GraphView extends Component {
         document.getElementById(e).className = ''
       }
     })
-    let chart = this.refs.highchart.getChart()
+
     chart.series.map((e)=>{
       if(e.name == tabName){
         e.setVisible(true)
@@ -60,111 +165,111 @@ export default class GraphView extends Component {
   }
 
   render() {
-    var config = {
-      chart: {
-        backgroundColor: 'transparent',
-        width: 600,
-        height: 270,
-        type: 'areaspline'
-      },
-      colors: ['#00b3bf'],
-
-      title: {
-        text: 'Analytics',
-        style: {
-          color: 'white',
-          fontSize: '14px'
-        }
-      },
-
-      legend: {
-        enabled: false
-      },
-
-      credits: {
-        enabled: false
-      },
-
-      xAxis: {
-        categories: timeArr,
-        gridLineColor: '#2b313a',
-        gridLineWidth: 1,
-        labels: {
-          style: {
-            color: '#FFF'
-          }
-        }
-      },
-
-      yAxis: {
-        gridLineWidth: 1,
-        gridLineColor: '#2b313a',
-        labels: {
-          style: {
-            color: '#FFF'
-          },
-        },
-        title: {
-          text: null
-        }
-      },
-
-      series: [
-        {
-          name: 'aqi',
-          data: this.state.aqiArray.AQI,
-          fillColor: 'rgba(255,255,255, 0.1)',
-          marker: {
-            enabled: false
-          }
-        },
-        {
-          name: 'co',
-          data: this.state.aqiArray.CO2,
-          fillColor: 'rgba(255,255,255, 0.1)',
-          marker: {
-            enabled: false
-          },
-          visible: false
-        },
-        {
-          name: 'so2',
-          data: this.state.aqiArray.SO2,
-          fillColor: 'rgba(255,255,255, 0.1)',
-          marker: {
-            enabled: false
-          },
-          visible: false
-        },
-        {
-          name: 'no2',
-          data: this.state.aqiArray.NO2,
-          fillColor: 'rgba(255,255,255, 0.1)',
-          marker: {
-            enabled: false
-          },
-          visible: false
-        },
-        {
-          name: 'pm10',
-          data: this.state.aqiArray.PM10,
-          fillColor: 'rgba(255,255,255, 0.1)',
-          marker: {
-            enabled: false
-          },
-          visible: false
-        },
-        {
-          name: 'pm25',
-          data: this.state.aqiArray.PM25,
-          fillColor: 'rgba(255,255,255, 0.1)',
-          marker: {
-            enabled: false
-          },
-          visible: false
-        }
-      ]
-    };
+    // var config = {
+    //   chart: {
+    //     backgroundColor: 'transparent',
+    //     width: 600,
+    //     height: 270,
+    //     type: 'areaspline'
+    //   },
+    //   colors: ['#00b3bf'],
+    //
+    //   title: {
+    //     text: 'Analytics',
+    //     style: {
+    //       color: 'white',
+    //       fontSize: '14px'
+    //     }
+    //   },
+    //
+    //   legend: {
+    //     enabled: false
+    //   },
+    //
+    //   credits: {
+    //     enabled: false
+    //   },
+    //
+    //   xAxis: {
+    //     categories: timeArr,
+    //     gridLineColor: '#2b313a',
+    //     gridLineWidth: 1,
+    //     labels: {
+    //       style: {
+    //         color: '#FFF'
+    //       }
+    //     }
+    //   },
+    //
+    //   yAxis: {
+    //     gridLineWidth: 1,
+    //     gridLineColor: '#2b313a',
+    //     labels: {
+    //       style: {
+    //         color: '#FFF'
+    //       },
+    //     },
+    //     title: {
+    //       text: null
+    //     }
+    //   },
+    //
+    //   series: [
+    //     {
+    //       name: 'aqi',
+    //       data: this.state.aqiArray.AQI,
+    //       fillColor: 'rgba(255,255,255, 0.1)',
+    //       marker: {
+    //         enabled: false
+    //       }
+    //     },
+    //     {
+    //       name: 'co',
+    //       data: this.state.aqiArray.CO2,
+    //       fillColor: 'rgba(255,255,255, 0.1)',
+    //       marker: {
+    //         enabled: false
+    //       },
+    //       visible: false
+    //     },
+    //     {
+    //       name: 'so2',
+    //       data: this.state.aqiArray.SO2,
+    //       fillColor: 'rgba(255,255,255, 0.1)',
+    //       marker: {
+    //         enabled: false
+    //       },
+    //       visible: false
+    //     },
+    //     {
+    //       name: 'no2',
+    //       data: this.state.aqiArray.NO2,
+    //       fillColor: 'rgba(255,255,255, 0.1)',
+    //       marker: {
+    //         enabled: false
+    //       },
+    //       visible: false
+    //     },
+    //     {
+    //       name: 'pm10',
+    //       data: this.state.aqiArray.PM10,
+    //       fillColor: 'rgba(255,255,255, 0.1)',
+    //       marker: {
+    //         enabled: false
+    //       },
+    //       visible: false
+    //     },
+    //     {
+    //       name: 'pm25',
+    //       data: this.state.aqiArray.PM25,
+    //       fillColor: 'rgba(255,255,255, 0.1)',
+    //       marker: {
+    //         enabled: false
+    //       },
+    //       visible: false
+    //     }
+    //   ]
+    // };
     return (
       <div >
         <div className="analytics-div">
@@ -172,7 +277,7 @@ export default class GraphView extends Component {
             {
               Object.keys(this.state.aqiArray).length > 0
                 ?
-                <ReactHighcharts config={config} ref="highchart"></ReactHighcharts>
+                <div ref="highchart"></div>
                 :
                 null
             }
