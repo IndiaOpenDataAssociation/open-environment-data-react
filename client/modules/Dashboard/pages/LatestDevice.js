@@ -6,7 +6,7 @@ export default class LatestDevice extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {activeGraph: 'calenderview', limits: []}
+    this.state = {activeGraph: 'graphview', limits: []}
     this.changeGraphData = this.changeGraphData.bind(this)
   }
 
@@ -41,11 +41,11 @@ export default class LatestDevice extends Component {
 
   getNODegree(no) {
     let obj = {};
-    if (no > 50) {
+    if (no > 250) {
       obj.class = 'gt-50';
     }
     var percent = no,
-      deg = 360 * percent / 100;
+      deg = 360 * percent / 500;
     obj.percent = percent;
     obj.deg = deg;
     return obj;

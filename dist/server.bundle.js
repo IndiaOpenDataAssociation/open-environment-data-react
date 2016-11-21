@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 37);
+/******/ 	return __webpack_require__(__webpack_require__.s = 40);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -65,19 +65,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Navbar = __webpack_require__(46);
+	var _Navbar = __webpack_require__(50);
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _Nav = __webpack_require__(44);
+	var _Nav = __webpack_require__(48);
 
 	var _Nav2 = _interopRequireDefault(_Nav);
 
-	var _NavItem = __webpack_require__(45);
+	var _NavItem = __webpack_require__(49);
 
 	var _NavItem2 = _interopRequireDefault(_NavItem);
 
-	var _LinkContainer = __webpack_require__(51);
+	var _LinkContainer = __webpack_require__(54);
 
 	var _LinkContainer2 = _interopRequireDefault(_LinkContainer);
 
@@ -268,31 +268,23 @@
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _FormGroup = __webpack_require__(43);
+	var _FormGroup = __webpack_require__(47);
 
 	var _FormGroup2 = _interopRequireDefault(_FormGroup);
 
-	var _FormControl = __webpack_require__(42);
+	var _FormControl = __webpack_require__(46);
 
 	var _FormControl2 = _interopRequireDefault(_FormControl);
 
-	var _Home = __webpack_require__(31);
+	var _LatestDevice = __webpack_require__(35);
 
-	var _Home2 = _interopRequireDefault(_Home);
+	var _LatestDevice2 = _interopRequireDefault(_LatestDevice);
 
-	var _Realtime = __webpack_require__(32);
-
-	var _Realtime2 = _interopRequireDefault(_Realtime);
-
-	var _Analytics = __webpack_require__(30);
-
-	var _Analytics2 = _interopRequireDefault(_Analytics);
-
-	var _superagent = __webpack_require__(60);
+	var _superagent = __webpack_require__(13);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
-	var _LoadingMap = __webpack_require__(29);
+	var _LoadingMap = __webpack_require__(32);
 
 	var _LoadingMap2 = _interopRequireDefault(_LoadingMap);
 
@@ -322,17 +314,17 @@
 	  className: 'fa fa-navicon'
 	});
 
-	var _ref6 = _jsx('br', {});
+	var _ref6 = _jsx('div', {
+	  className: 'blot'
+	}, void 0, _jsx('img', {
+	  src: '../../assets/images/blot.png'
+	}));
 
-	var _ref7 = _jsx('br', {});
-
-	var _ref8 = _jsx('i', {
+	var _ref7 = _jsx('i', {
 	  className: 'fa fa-close'
 	});
 
-	var _ref9 = _jsx(_Home2.default, {});
-
-	var _ref10 = _jsx('div', {
+	var _ref8 = _jsx('div', {
 	  className: 'dashboard-footer'
 	}, void 0, _jsx('a', {
 	  href: 'http://indiaopendata.com/',
@@ -364,6 +356,7 @@
 	    _this.analyticsData = _this.analyticsData.bind(_this);
 	    _this.handleMarkerClick = _this.handleMarkerClick.bind(_this);
 	    _this.handleMarkerClose = _this.handleMarkerClose.bind(_this);
+	    _this.displayTime = _this.displayTime.bind(_this);
 	    return _this;
 	  }
 
@@ -382,6 +375,7 @@
 	        lat: '',
 	        lng: '',
 	        realTimedataLoading: true,
+	        analyticsdataLoading: true,
 	        city_label: '',
 	        device_type: '',
 	        time: '',
@@ -423,24 +417,33 @@
 	  }, {
 	    key: 'changeDisable',
 	    value: function changeDisable(boolean, label, deviceType) {
-	      this.setState({ disable_tab: boolean, active_tab: 'realtime', show_panel: true, city_label: label, device_type: deviceType });
+	      this.setState({
+	        // disable_tab: boolean,
+	        // active_tab: 'realtime',
+	        show_panel: true,
+	        city_label: label,
+	        // device_type: deviceType
+	        analyticsData: [],
+	        realTimeData: [],
+	        analyticsdataLoading: true,
+	        realTimedataLoading: true
+
+	      });
 	    }
 	  }, {
 	    key: 'realTimeData',
 	    value: function realTimeData(id, time) {
 	      _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/data/cur/' + id).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-	        this.setState({ realTimeData: res.body, realTimedataLoading: false, time: time });
+	        this.setState({ realTimeData: res.body, time: time });
+	        this.setState({ realTimedataLoading: false });
 	      }.bind(this));
 	    }
 	  }, {
 	    key: 'analyticsData',
 	    value: function analyticsData(id, time) {
 	      _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/data/hours/24/' + id).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-	        if (res.body.message == 'No records found') {
-	          this.setState({ no_records: true });
-	        } else {
-	          this.setState({ analyticsData: res.body, time: time, no_records: false });
-	        }
+	        this.setState({ analyticsData: res.body, time: time, no_records: false });
+	        this.setState({ analyticsdataLoading: false });
 	      }.bind(this));
 	    }
 	  }, {
@@ -473,10 +476,22 @@
 	      });
 	    }
 	  }, {
+	    key: 'displayTime',
+	    value: function displayTime() {
+	      var a = new Date(this.state.time * 1000);
+
+	      var year = a.getFullYear().toString().substr(2, 2);
+	      var month = a.getMonth() + 1;
+	      var date = a.getDate();
+	      var hour = a.getHours();
+	      var min = a.getMinutes();
+	      var ampm = hour >= 12 ? 'pm' : 'am';
+	      var displayTime = hour + ':' + min;
+	      return displayTime;
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-
 	      return _jsx('div', {}, void 0, this.state.loading ? _jsx('div', {
 	        style: { marginTop: '50px' }
 	      }, void 0, _ref, _ref2) : _jsx('div', {}, void 0, _ref3, _jsx('section', {
@@ -497,7 +512,8 @@
 	        controlId: 'formControlsSelect'
 	      }, void 0, _react2.default.createElement(
 	        _FormControl2.default,
-	        { componentClass: 'select', placeholder: 'select', ref: 'cityList', className: 'select-cities', onChange: this.changeCities },
+	        { componentClass: 'select', placeholder: 'select', ref: 'cityList', className: 'select-cities',
+	          onChange: this.changeCities },
 	        _ref4,
 	        this.state.city_list.map(function (element, index) {
 	          return _jsx('option', {
@@ -509,7 +525,7 @@
 	      }, void 0, _jsx('a', {
 	        className: 'open-panel',
 	        onClick: this.openPanel
-	      }, void 0, _ref5)), this.state.show_panel ? _jsx('div', {
+	      }, void 0, _ref5)), this.state.show_panel ? this.state.realTimedataLoading == false && this.state.analyticsdataLoading == false ? _jsx('div', {
 	        className: 'review-panel'
 	      }, void 0, _jsx('div', {
 	        className: 'panel panel-default'
@@ -517,66 +533,27 @@
 	        className: 'panel-heading '
 	      }, void 0, _jsx('div', {
 	        className: 'row'
-	      }, void 0, this.state.active_tab == 'analytics' ? _jsx('div', {
+	      }, void 0, _jsx('div', {
 	        className: 'col-sm-11 col-xs-11'
-	      }, void 0, _jsx('img', {
-	        src: 'assets/images/avatar.png',
-	        style: { width: '35px' }
-	      }), _jsx('span', {
-	        style: { position: 'absolute', top: '1px', left: '19%', fontSize: '14px' }
-	      }, void 0, this.state.city_label), ' ', _ref6, _jsx('span', {
-	        style: { position: 'absolute', top: '21px', left: '19%', fontSize: '12px', fontWeight: 300 }
-	      }, void 0, this.state.device_type)) : this.state.active_tab == 'home' ? _jsx('div', {
-	        className: 'col-sm-11 col-xs-11',
-	        style: { padding: '7px 15px' }
-	      }, void 0, 'An Open India-Data Initiative') : this.state.active_tab == 'realtime' ? _jsx('div', {
-	        className: 'col-sm-11 col-xs-11'
-	      }, void 0, _jsx('img', {
-	        src: 'assets/images/avatar.png',
-	        style: { width: '35px' }
-	      }), _jsx('span', {
-	        style: { position: 'absolute', top: '1px', left: '19%', fontSize: '14px' }
-	      }, void 0, this.state.city_label), ' ', _ref7, _jsx('span', {
-	        style: { position: 'absolute', top: '21px', left: '19%', fontSize: '12px', fontWeight: 300 }
-	      }, void 0, this.state.device_type)) : '', _jsx('span', {
-	        className: 'col-sm-1 col-xs-1 close-panel',
+	      }, void 0, _jsx('div', {
+	        className: 'col-sm-7',
+	        style: { position: 'relative' }
+	      }, void 0, _ref6, _jsx('span', {
+	        className: 'city-label'
+	      }, void 0, this.state.city_label)), _jsx('div', {
+	        className: 'col-sm-5 text-right'
+	      }, void 0, _jsx('div', {
+	        className: 'last-updated'
+	      }, void 0, _jsx('span', {}, void 0, 'Last Updated: ', this.displayTime())))), _jsx('span', {
+	        className: 'col-sm-1 col-xs-1 text-right close-panel',
 	        onClick: this.closePanel
-	      }, void 0, _ref8))), _jsx('div', {
+	      }, void 0, _ref7))), _jsx('div', {
 	        className: 'panel-body'
-	      }, void 0, this.state.active_tab == 'home' ? _ref9 : '', this.state.active_tab == 'realtime' ? _jsx(_Realtime2.default, {
+	      }, void 0, _jsx(_LatestDevice2.default, {
+	        analysisData: this.state.analyticsData,
 	        realtimeData: this.state.realTimeData,
-	        loadingState: this.state.realTimedataLoading,
-	        timeStamp: this.state.time
-	      }) : '', this.state.active_tab == 'analytics' ? _jsx(_Analytics2.default, {
-	        analysisData: this.state.no_records == true ? this.state.no_records : this.state.analyticsData,
-	        timeStamp: this.state.time,
-	        realtimeData: this.state.realTimeData
-	      }) : ''), _jsx('div', {
-	        className: 'panel-footer'
-	      }, void 0, _jsx('ul', {
-	        className: 'review-panel-tab'
-	      }, void 0, _jsx('a', {
-	        onClick: function onClick() {
-	          _this2.changeTab('home');
-	        },
-	        className: this.state.active_tab == 'home' ? 'active' : ''
-	      }, void 0, _jsx('li', {}, void 0, _jsx('img', {
-	        src: this.state.active_tab == 'home' ? 'assets/images/icons/home_b.png' : 'assets/images/icons/home_g.png'
-	      }))), _jsx('a', {
-	        onClick: function onClick() {
-	          _this2.state.disable_tab ? null : _this2.changeTab('realtime');
-	        },
-	        className: this.state.active_tab == 'realtime' ? 'active' : ''
-	      }, void 0, _jsx('li', {}, void 0, _jsx('img', {
-	        src: this.state.active_tab == 'realtime' ? 'assets/images/icons/realtime_b.png' : 'assets/images/icons/realtime_g.png'
-	      }))), _jsx('a', {
-	        onClick: function onClick() {
-	          _this2.state.disable_tab ? null : _this2.changeTab('analytics');
-	        },
-	        className: this.state.active_tab == 'analytics' ? 'active' : ''
-	      }, void 0, _jsx('li', {}, void 0, _jsx('img', {
-	        src: this.state.active_tab == 'analytics' ? 'assets/images/icons/analytics_b.png' : 'assets/images/icons/analytics_g.png'
-	      }))))))) : '')), _ref10);
+	        time: this.state.time
+	      })))) : null : null)), _ref8);
 	    }
 	  }]);
 
@@ -659,20 +636,18 @@
 
 	      var infowindow = new google.maps.InfoWindow();
 	      var pins = markers.map(function (marker) {
-
 	        var loc = new google.maps.LatLng(marker.latitude, marker.longitude);
 	        var pin = new google.maps.Marker({
 	          position: loc,
 	          map: map,
 	          icon: _this2.getMarkerImage(marker.aqi)
 	        });
-
 	        pin.addListener('mouseover', function () {
 	          infowindow.setContent(this.renderInfoWindow(marker));
 	          infowindow.open(pin.get('map'), pin);
 	        }.bind(_this2));
 	        pin.addListener('click', function () {
-	          this.props.setDisable(false, marker.label, marker.deviceType);
+	          this.props.setDisable(false, marker.loc, marker.deviceType);
 	          this.props.callRealtime(marker.deviceId, marker.t);
 	          this.props.callAnalytics(marker.deviceId, marker.t);
 	        }.bind(_this2));
@@ -685,8 +660,17 @@
 	  }, {
 	    key: 'renderInfoWindow',
 	    value: function renderInfoWindow(marker) {
-	      var html = '<div class="infowindow-content">' + '<div class="infowindow-head">' + '<strong>' + marker.loc + '</strong>' + '</div>' + '<div class="infowindow-body">' + '<div class="left-content">' + '<div><i class="fa fa-map-marker"></i>' + marker.deviceType + '</div>' + '<div><i class="fa fa-map-marker"></i>' + marker.state + '</div>' + '<div><i class="fa fa-home"></i>Indoor <span style="margin-left: 20px;"> <i class="fa fa-circle" aria-hidden="true" style="color: #73C076;"></i>Online</span></div>' + '<div class="aqi">' + '<div class="progress-pie-chart ' + this.getClass250(marker.aqi) + ' ' + this.renderClass(marker.aqi) + '" id="ppc" > <div class="ppc-progress"> <div class="ppc-progress-fill ' + this.renderClass(marker.aqi) + '" style="transform: rotate(' + this.getDegree(marker.aqi).deg + 'deg)"></div> </div> <div class="ppc-percents"> <div class="pcc-percents-wrapper"> <span>' + marker.aqi + '</span></div></div></div>' + '</div></div></div></div>';
+	      var html = '<div class="infowindow-content">' + '<div class="infowindow-head">' + '<strong>' + marker.label + '</strong>' + '</div>' + '<div class="infowindow-body">' + '<div class="left-content">' + '<div><i class="fa fa-map-marker"></i>' + marker.deviceType + '</div>' + '<div><i class="fa fa-map-marker"></i>' + marker.city + '</div>' + '<div><i class="fa fa-home"></i>' + this.getIndoor(marker.deviceType) + ' <span style="margin-left: 20px;"> <i class="fa fa-circle" aria-hidden="true" style="color: #73C076;"></i>Online</span></div>' + '<div class="aqi">' + '<div class="progress-pie-chart ' + this.getClass250(marker.aqi) + ' ' + this.renderClass(marker.aqi) + '" id="ppc" > <div class="ppc-progress"> <div class="ppc-progress-fill ' + this.renderClass(marker.aqi) + '" style="transform: rotate(' + this.getDegree(marker.aqi).deg + 'deg)"></div> </div> <div class="ppc-percents"> <div class="pcc-percents-wrapper"> <span>' + marker.aqi + '</span></div></div></div>' + '</div></div></div></div>';
 	      return html;
+	    }
+	  }, {
+	    key: 'getIndoor',
+	    value: function getIndoor(device) {
+	      if (device == 'AIROWLWI' || device == 'AIROWL3G') {
+	        return 'Indoor';
+	      } else {
+	        return 'Outdoor';
+	      }
 	    }
 	  }, {
 	    key: 'getClass250',
@@ -737,7 +721,6 @@
 	    value: function getDegree(aqi) {
 	      var percent = aqi,
 	          deg = 360 * percent / 500;
-
 	      return { percent: percent, deg: deg };
 	    }
 	  }, {
@@ -859,10 +842,28 @@
 /* 10 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux");
+	module.exports = require("react-bootstrap/lib/DropdownButton");
 
 /***/ },
 /* 11 */
+/***/ function(module, exports) {
+
+	module.exports = require("react-bootstrap/lib/MenuItem");
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux");
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	module.exports = require("superagent");
+
+/***/ },
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -881,7 +882,7 @@
 
 	var _reactRouter = __webpack_require__(3);
 
-	var _App = __webpack_require__(26);
+	var _App = __webpack_require__(29);
 
 	var _App2 = _interopRequireDefault(_App);
 
@@ -889,27 +890,27 @@
 
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
-	var _About = __webpack_require__(24);
+	var _About = __webpack_require__(27);
 
 	var _About2 = _interopRequireDefault(_About);
 
-	var _Community = __webpack_require__(28);
+	var _Community = __webpack_require__(31);
 
 	var _Community2 = _interopRequireDefault(_Community);
 
-	var _Openapi = __webpack_require__(34);
+	var _Openapi = __webpack_require__(37);
 
 	var _Openapi2 = _interopRequireDefault(_Openapi);
 
-	var _Device = __webpack_require__(33);
+	var _Device = __webpack_require__(36);
 
 	var _Device2 = _interopRequireDefault(_Device);
 
-	var _Partners = __webpack_require__(35);
+	var _Partners = __webpack_require__(38);
 
 	var _Partners2 = _interopRequireDefault(_Partners);
 
-	var _Airowl = __webpack_require__(25);
+	var _Airowl = __webpack_require__(28);
 
 	var _Airowl2 = _interopRequireDefault(_Airowl);
 
@@ -999,7 +1000,7 @@
 	}));
 
 /***/ },
-/* 12 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1010,17 +1011,17 @@
 	});
 	exports.configureStore = configureStore;
 
-	var _redux = __webpack_require__(10);
+	var _redux = __webpack_require__(12);
 
-	var _reduxThunk = __webpack_require__(59);
+	var _reduxThunk = __webpack_require__(62);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-	var _DevTools = __webpack_require__(27);
+	var _DevTools = __webpack_require__(30);
 
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 
-	var _reducers = __webpack_require__(36);
+	var _reducers = __webpack_require__(39);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -1055,7 +1056,7 @@
 	}
 
 /***/ },
-/* 13 */
+/* 16 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1072,7 +1073,7 @@
 	exports.default = config;
 
 /***/ },
-/* 14 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1083,7 +1084,7 @@
 	});
 	exports.fetchComponentData = fetchComponentData;
 
-	var _promiseUtils = __webpack_require__(38);
+	var _promiseUtils = __webpack_require__(41);
 
 	function fetchComponentData(store, components, params) {
 	  var needs = components.reduce(function (prev, current) {
@@ -1099,16 +1100,16 @@
 	  */
 
 /***/ },
-/* 15 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 
 	var webpack = __webpack_require__(6);
-	var cssnext = __webpack_require__(39);
-	var postcssFocus = __webpack_require__(40);
-	var postcssReporter = __webpack_require__(41);
+	var cssnext = __webpack_require__(43);
+	var postcssFocus = __webpack_require__(44);
+	var postcssReporter = __webpack_require__(45);
 
 	module.exports = {
 	  devtool: 'cheap-module-eval-source-map',
@@ -1173,57 +1174,57 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, ""))
 
 /***/ },
-/* 16 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"main.css": "main-10f51f315f.css"
-	};
-
-/***/ },
-/* 17 */
-/***/ function(module, exports) {
-
-	module.exports = require("body-parser");
-
-/***/ },
-/* 18 */
-/***/ function(module, exports) {
-
-	module.exports = require("compression");
-
-/***/ },
 /* 19 */
 /***/ function(module, exports) {
 
-	module.exports = require("express");
+	module.exports = {
+		"main.css": "main-2c78b3771a.css"
+	};
 
 /***/ },
 /* 20 */
 /***/ function(module, exports) {
 
-	module.exports = require("path");
+	module.exports = require("body-parser");
 
 /***/ },
 /* 21 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-dom/server");
+	module.exports = require("compression");
 
 /***/ },
 /* 22 */
 /***/ function(module, exports) {
 
-	module.exports = require("webpack-dev-middleware");
+	module.exports = require("express");
 
 /***/ },
 /* 23 */
 /***/ function(module, exports) {
 
-	module.exports = require("webpack-hot-middleware");
+	module.exports = require("path");
 
 /***/ },
 /* 24 */
+/***/ function(module, exports) {
+
+	module.exports = require("react-dom/server");
+
+/***/ },
+/* 25 */
+/***/ function(module, exports) {
+
+	module.exports = require("webpack-dev-middleware");
+
+/***/ },
+/* 26 */
+/***/ function(module, exports) {
+
+	module.exports = require("webpack-hot-middleware");
+
+/***/ },
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1364,7 +1365,7 @@
 	exports.default = About;
 
 /***/ },
-/* 25 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1390,23 +1391,23 @@
 
 	var _Footer2 = _interopRequireDefault(_Footer);
 
-	var _Helmet = __webpack_require__(49);
+	var _Helmet = __webpack_require__(53);
 
 	var _Helmet2 = _interopRequireDefault(_Helmet);
 
-	var _Tab = __webpack_require__(52);
+	var _Tab = __webpack_require__(55);
 
 	var _Tab2 = _interopRequireDefault(_Tab);
 
-	var _TabList = __webpack_require__(53);
+	var _TabList = __webpack_require__(56);
 
 	var _TabList2 = _interopRequireDefault(_TabList);
 
-	var _Tabs = __webpack_require__(55);
+	var _Tabs = __webpack_require__(58);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
-	var _TabPanel = __webpack_require__(54);
+	var _TabPanel = __webpack_require__(57);
 
 	var _TabPanel2 = _interopRequireDefault(_TabPanel);
 
@@ -1855,7 +1856,7 @@
 	exports.default = Airowl;
 
 /***/ },
-/* 26 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1952,7 +1953,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 /***/ },
-/* 27 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1968,13 +1969,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reduxDevtools = __webpack_require__(56);
+	var _reduxDevtools = __webpack_require__(59);
 
-	var _reduxDevtoolsLogMonitor = __webpack_require__(58);
+	var _reduxDevtoolsLogMonitor = __webpack_require__(61);
 
 	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
 
-	var _reduxDevtoolsDockMonitor = __webpack_require__(57);
+	var _reduxDevtoolsDockMonitor = __webpack_require__(60);
 
 	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
 
@@ -1986,7 +1987,7 @@
 	}, void 0, _jsx(_reduxDevtoolsLogMonitor2.default, {})));
 
 /***/ },
-/* 28 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2149,7 +2150,7 @@
 	exports.default = Community;
 
 /***/ },
-/* 29 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2169,11 +2170,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _GoogleMapLoader = __webpack_require__(48);
+	var _GoogleMapLoader = __webpack_require__(52);
 
 	var _GoogleMapLoader2 = _interopRequireDefault(_GoogleMapLoader);
 
-	var _GoogleMap = __webpack_require__(47);
+	var _GoogleMap = __webpack_require__(51);
 
 	var _GoogleMap2 = _interopRequireDefault(_GoogleMap);
 
@@ -2250,7 +2251,7 @@
 	exports.default = LoadingMap;
 
 /***/ },
-/* 30 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2268,13 +2269,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ReactHighcharts = __webpack_require__(50);
+	var _DropdownButton = __webpack_require__(10);
 
-	var _ReactHighcharts2 = _interopRequireDefault(_ReactHighcharts);
+	var _DropdownButton2 = _interopRequireDefault(_DropdownButton);
+
+	var _MenuItem = __webpack_require__(11);
+
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
+	var _pollution = __webpack_require__(42);
+
+	var _pollution2 = _interopRequireDefault(_pollution);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2282,297 +2289,342 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var arr = [],
-	    timeArr = [],
-	    newTime = void 0;
+	var heatmap = void 0,
+	    displaydate = [],
+	    time = [],
+	    array = [];
 
-	var _ref = _jsx('span', {
-	  className: 'col-sm-6 col-xs-6'
-	}, void 0, 'Outdoor');
+	var _ref = _jsx('img', {
+	  src: '../../../assets/images/icons/analytics_w.png'
+	});
 
-	var _ref2 = _jsx('div', {
-	  className: 'analytics-chart'
-	}, void 0);
+	var _ref2 = _jsx('img', {
+	  src: './../../assets/images/calendar_w.png'
+	});
 
-	var _ref3 = _jsx('span', {}, void 0, 'Last 24 hours data');
+	var _ref3 = _jsx('div', {
+	  className: 'chart-description'
+	}, void 0, _jsx(_DropdownButton2.default, {
+	  title: 'AQI',
+	  id: 'chart-info-dropdown'
+	}, void 0, _jsx(_MenuItem2.default, {
+	  eventKey: '1'
+	}, void 0, 'Dropdown link'), _jsx(_MenuItem2.default, {
+	  eventKey: '2'
+	}, void 0, 'Dropdown link')), _jsx('p', {}, void 0, 'Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text'));
 
-	var Analytics = function (_Component) {
-	  _inherits(Analytics, _Component);
+	var CalendarView = function (_Component) {
+	  _inherits(CalendarView, _Component);
 
-	  function Analytics(props) {
-	    _classCallCheck(this, Analytics);
+	  function CalendarView(props) {
+	    _classCallCheck(this, CalendarView);
 
-	    var _this = _possibleConstructorReturn(this, (Analytics.__proto__ || Object.getPrototypeOf(Analytics)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (CalendarView.__proto__ || Object.getPrototypeOf(CalendarView)).call(this, props));
 
-	    _this.displayTime = _this.displayTime.bind(_this);
-	    _this.maxAqi = _this.maxAqi.bind(_this);
-	    _this.state = { aqiArray: [] };
-	    return _this;
-	  }
-
-	  _createClass(Analytics, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      if (this.props.analysisData.length > 0) {
-	        if (arr.length > 0) {
-	          arr = [];
-	          this.props.analysisData.map(function (e) {
-	            arr.unshift(e.aqi);
-	          });
-	        } else {
-	          this.props.analysisData.map(function (e) {
-	            arr.unshift(e.aqi);
-	          });
-	        }
-	        this.setState({ aqiArray: arr });
-
-	        this.props.analysisData.map(function (e) {
-	          newTime = new Date(e.payload.d.t * 1000);
-	          var hour = newTime.getHours();
-	          var hourVal = hour + ':00';
-	          timeArr.unshift(hourVal);
-	        });
-	      }
-	      // if(arr.length>0){
-	      //   arr = [];
-	      //   this.props.analysisData.map((e) => {
-	      //     arr.unshift(e.aqi)
-	      //   })
-	      //   this.setState({aqiArray:arr})
-	      // }
-	      // else
-	      // {
-	      //   if(this.props.analysisData.length > 0) {
-	      //
-	      //     this.props.analysisData.map((e) => {
-	      //       arr.unshift(e.aqi)
-	      //     })
-	      //     this.setState({aqiArray: arr})
-	      //   }
-	      // }
-
-	      // if(timeArr.length > 0){
-	      //   timeArr = []
-	      //
-	      //   this.props.analysisData.map((e) => {
-	      //     newTime = new Date(e.payload.d.t * 1000)
-	      //     var hour = newTime.getHours();
-	      //     var hourVal = hour + ':00';
-	      //     timeArr.unshift(hourVal)
-	      //   })
-	      // }
-	      // else {
-	      //
-	      //   if(this.props.analysisData.length > 0){
-	      //     this.props.analysisData.map((e) => {
-	      //       newTime = new Date(e.payload.d.t * 1000)
-	      //       var hour = newTime.getHours();
-	      //       var hourVal = hour + ':00';
-	      //       timeArr.unshift(hourVal)
-	      //     })
-	      //   }
-	      // }
-	    }
-	  }, {
-	    key: 'displayTime',
-	    value: function displayTime() {
-	      var a = new Date(this.props.timeStamp * 1000);
-
-	      var year = a.getFullYear().toString().substr(2, 2);
-	      var month = a.getMonth() + 1;
+	    _this.state = {
+	      dailyData: []
+	    };
+	    console.log(_pollution2.default);
+	    _pollution2.default.map(function (e, index) {
+	      var a = new Date(e.payload.d.t * 1000);
+	      var month = a.getMonth();
 	      var date = a.getDate();
 	      var hour = a.getHours();
 	      var min = a.getMinutes();
-	      var ampm = hour >= 12 ? 'pm' : 'am';
-	      var displayTime = date + '-' + month + "-" + year + ' ' + hour + ':' + min + ampm;
-	      return displayTime;
-	    }
-	  }, {
-	    key: 'maxAqi',
-	    value: function maxAqi() {
-	      return Math.max.apply(Math, _toConsumableArray(arr));
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var config = {
-	        chart: {
-	          backgroundColor: 'transparent',
-	          width: 350,
-	          height: 170,
-	          type: 'areaspline'
-	        },
-	        colors: ['#00b3bf'],
+	      var Time = hour + ':' + min;
+	      displaydate.push(date);
+	      time.push(hour);
 
-	        title: {
-	          text: 'Max AQI: ' + this.maxAqi(),
+	      _pollution2.default.map(function (e2, index2) {
+	        array.push([index, index2, e2.aqi]);
+	      });
+	    });
+	    console.log('array:', array);
+	    return _this;
+	  }
+
+	  _createClass(CalendarView, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var theme = Highcharts.theme = {
+	        colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
+	        chart: {
+	          backgroundColor: {
+	            linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+	            stops: [[0, '#2a2a2b'], [1, '#3e3e40']]
+	          },
 	          style: {
-	            color: 'white',
-	            fontSize: '14px'
+	            fontFamily: '\'Unica One\', sans-serif'
+	          },
+	          plotBorderColor: '#606063'
+	        },
+	        title: {
+	          style: {
+	            color: '#E0E0E3',
+	            textTransform: 'uppercase',
+	            fontSize: '20px'
+	          }
+	        },
+	        subtitle: {
+	          style: {
+	            color: '#E0E0E3',
+	            textTransform: 'uppercase'
+	          }
+	        },
+	        xAxis: {
+	          gridLineColor: '#707073',
+	          labels: {
+	            style: {
+	              color: '#E0E0E3'
+	            }
+	          },
+	          lineColor: '#707073',
+	          minorGridLineColor: '#505053',
+	          tickColor: '#707073',
+	          title: {
+	            style: {
+	              color: '#A0A0A3'
+
+	            }
+	          }
+	        },
+	        yAxis: {
+	          gridLineColor: '#707073',
+	          labels: {
+	            style: {
+	              color: '#E0E0E3'
+	            }
+	          },
+	          lineColor: '#707073',
+	          minorGridLineColor: '#505053',
+	          tickColor: '#707073',
+	          tickWidth: 1,
+	          title: {
+	            style: {
+	              color: '#A0A0A3'
+	            }
+	          }
+	        },
+	        tooltip: {
+	          backgroundColor: 'rgba(0, 0, 0, 0.85)',
+	          style: {
+	            color: '#F0F0F0'
+	          }
+	        },
+	        plotOptions: {
+	          series: {
+	            dataLabels: {
+	              color: '#B0B0B3'
+	            },
+	            marker: {
+	              lineColor: '#333'
+	            }
+	          },
+	          boxplot: {
+	            fillColor: '#505053'
+	          },
+	          candlestick: {
+	            lineColor: 'white'
+	          },
+	          errorbar: {
+	            color: 'white'
+	          }
+	        },
+	        legend: {
+	          itemStyle: {
+	            color: '#E0E0E3'
+	          },
+	          itemHoverStyle: {
+	            color: '#FFF'
+	          },
+	          itemHiddenStyle: {
+	            color: '#606063'
+	          }
+	        },
+	        credits: {
+	          style: {
+	            color: '#666'
+	          }
+	        },
+	        labels: {
+	          style: {
+	            color: '#707073'
 	          }
 	        },
 
-	        legend: {
-	          enabled: false
+	        drilldown: {
+	          activeAxisLabelStyle: {
+	            color: '#F0F0F3'
+	          },
+	          activeDataLabelStyle: {
+	            color: '#F0F0F3'
+	          }
 	        },
 
-	        credits: {
-	          enabled: false
+	        navigation: {
+	          buttonOptions: {
+	            symbolStroke: '#DDDDDD',
+	            theme: {
+	              fill: '#505053'
+	            }
+	          }
+	        },
+
+	        // scroll charts
+	        rangeSelector: {
+	          buttonTheme: {
+	            fill: '#505053',
+	            stroke: '#000000',
+	            style: {
+	              color: '#CCC'
+	            },
+	            states: {
+	              hover: {
+	                fill: '#707073',
+	                stroke: '#000000',
+	                style: {
+	                  color: 'white'
+	                }
+	              },
+	              select: {
+	                fill: '#000003',
+	                stroke: '#000000',
+	                style: {
+	                  color: 'white'
+	                }
+	              }
+	            }
+	          },
+	          inputBoxBorderColor: '#505053',
+	          inputStyle: {
+	            backgroundColor: '#333',
+	            color: 'silver'
+	          },
+	          labelStyle: {
+	            color: 'silver'
+	          }
+	        },
+
+	        navigator: {
+	          handles: {
+	            backgroundColor: '#666',
+	            borderColor: '#AAA'
+	          },
+	          outlineColor: '#CCC',
+	          maskFill: 'rgba(255,255,255,0.1)',
+	          series: {
+	            color: '#7798BF',
+	            lineColor: '#A6C7ED'
+	          },
+	          xAxis: {
+	            gridLineColor: '#505053'
+	          }
+	        },
+
+	        scrollbar: {
+	          barBackgroundColor: '#808083',
+	          barBorderColor: '#808083',
+	          buttonArrowColor: '#CCC',
+	          buttonBackgroundColor: '#606063',
+	          buttonBorderColor: '#606063',
+	          rifleColor: '#FFF',
+	          trackBackgroundColor: '#404043',
+	          trackBorderColor: '#404043'
+	        },
+
+	        legendBackgroundColor: 'rgba(0, 0, 0, 0.5)',
+	        background2: '#505053',
+	        dataLabelsColor: '#B0B0B3',
+	        textColor: '#C0C0C0',
+	        contrastTextColor: '#F0F0F3',
+	        maskColor: 'rgba(255,255,255,0.3)'
+	      };
+
+	      Highcharts.setOptions(theme);
+
+	      heatmap = Highcharts.chart(this.refs.heatmap, {
+	        chart: {
+	          type: 'heatmap',
+	          backgroundColor: 'transparent',
+	          width: 600,
+	          height: 400,
+	          plotBorderWidth: 1,
+	          marginTop: 40
 	        },
 
 	        xAxis: {
-	          categories: timeArr,
-	          labels: {
-	            style: {
-	              color: '#FFF'
-	            }
-	          }
+	          categories: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
 	        },
 
 	        yAxis: {
-	          labels: {
-	            style: {
-	              color: '#FFF'
-	            }
-	          },
-	          title: {
-	            text: null
-	          }
+	          categories: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36],
+	          title: null
+	        },
+
+	        colorAxis: {
+	          min: 0,
+	          minColor: '#FFFFFF',
+	          maxColor: Highcharts.getOptions().colors[0]
+	        },
+
+	        legend: {
+	          align: 'right',
+	          layout: 'vertical',
+	          margin: 0,
+	          verticalAlign: 'top',
+	          y: 25,
+	          symbolHeight: 400,
+	          enabled: false
 	        },
 
 	        series: [{
-	          name: 'Data',
-	          data: this.state.aqiArray,
-	          fillColor: 'rgba(255,255,255, 0.1)',
-	          marker: {
-	            enabled: false
+	          name: 'Sales per employee',
+	          borderWidth: 1,
+	          data: array,
+	          // data: [[0, 0, 10], [0, 1, 19], [0, 2, 8], [0, 3, 24], [0, 4, 67], [1, 0, 92], [1, 1, 58], [1, 2, 78], [1, 3, 117], [1, 4, 48], [2, 0, 35], [2, 1, 15], [2, 2, 123], [2, 3, 64], [2, 4, 52], [3, 0, 72], [3, 1, 132], [3, 2, 114], [3, 3, 19], [3, 4, 16], [4, 0, 38], [4, 1, 5], [4, 2, 8], [4, 3, 117], [4, 4, 115], [5, 0, 88], [5, 1, 32], [5, 2, 12], [5, 3, 6], [5, 4, 120], [6, 0, 13], [6, 1, 44], [6, 2, 88], [6, 3, 98], [6, 4, 96], [7, 0, 31], [7, 1, 1], [7, 2, 82], [7, 3, 32], [7, 4, 30], [8, 0, 85], [8, 1, 97], [8, 2, 123], [8, 3, 64], [8, 4, 84], [9, 0, 47], [9, 1, 114], [9, 2, 31], [9, 3, 48], [9, 4, 91]],
+	          dataLabels: {
+	            enabled: false,
+	            color: 'black',
+	            style: {
+	              textShadow: 'none'
+	            }
 	          }
-
 	        }]
-	      };
-	      return _jsx('div', {
-	        className: 'dashboard-home'
-	      }, void 0, _jsx('div', {
-	        className: 'home-top-content row'
-	      }, void 0, _ref, _jsx('span', {
-	        className: 'col-sm-6 col-xs-6'
-	      }, void 0, 'as of: ', this.displayTime())), _jsx('div', {
-	        className: 'home-bottom-content'
-	      }, void 0, this.props.analysisData == true ? _ref2 : _jsx('div', {
-	        className: 'analytics-chart'
-	      }, void 0, _ref3, this.state.aqiArray.length > 0 ? _jsx(_ReactHighcharts2.default, {
-	        config: config
-	      }) : null), _jsx('div', {
-	        className: 'average-cal'
-	      }, void 0, _jsx('p', {
-	        style: { textAlign: 'center', color: 'white', fontSize: '13px' }
-	      }, void 0, 'Last hour Average'), _jsx('div', {
-	        className: 'row'
-	      }, void 0, this.props.realtimeData.map(function (gases) {
-	        return Object.keys(gases.payload.d).map(function (key, index) {
-	          return key != 't' && gases.payload.d[key] > 1 ? _jsx('div', {
-	            className: 'col-sm-3 col-xs-3'
-	          }, void 0, _jsx('div', {
-	            className: 'avg-container'
-	          }, void 0, _jsx('p', {
-	            className: 'readings'
-	          }, void 0, Math.trunc(gases.payload.d[key])), _jsx('p', {
-	            className: 'units'
-	          }, void 0, key == 'temp' ? 'C' : 'u3/mg')), _jsx('p', {
-	            style: { textAlign: 'center', fontFamily: 'Bebasneues', color: 'white', marginTop: '10px' }
-	          }, void 0, key == 'pm10' ? 'PM 10' : key == 'pm25' ? 'PM 2.5' : key == 'hum' ? 'Humidity' : key == 'so2' ? 'SO 2' : key == 'no2' ? 'NO 2' : key == 'o3' ? 'O 3' : key)) : null;
-	        });
-	      })))));
+
+	      });
 	    }
-	  }]);
-
-	  return Analytics;
-	}(_react.Component);
-
-	exports.default = Analytics;
-
-/***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(0);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _ref = _jsx("div", {
-	  className: "home-top-content row"
-	}, void 0, _jsx("span", {
-	  className: "col-sm-6 col-xs-6"
-	}, void 0, "95 data sources"), _jsx("span", {
-	  className: "col-sm-6 col-xs-6"
-	}, void 0, "Please select one"));
-
-	var _ref2 = _jsx("div", {
-	  className: "aqiinfo"
-	}, void 0, _jsx("img", {
-	  src: "assets/img/aqiinfo.png",
-	  className: "aqiinfo-img"
-	}), _jsx("div", {
-	  className: "home-label"
-	}, void 0, _jsx("span", {}, void 0, "Air ", _jsx("br", {}), " Quality ", _jsx("br", {}), " Index")), _jsx("p", {
-	  className: "imp-of-aqi"
-	}, void 0, "Significance of AQI"));
-
-	var _ref3 = _jsx("div", {
-	  className: "aqirange"
-	}, void 0, _jsx("img", {
-	  src: "assets/images/aqi-range.png",
-	  className: "aqirange-img"
-	}));
-
-	var Dashboardhome = function (_Component) {
-	  _inherits(Dashboardhome, _Component);
-
-	  function Dashboardhome() {
-	    _classCallCheck(this, Dashboardhome);
-
-	    return _possibleConstructorReturn(this, (Dashboardhome.__proto__ || Object.getPrototypeOf(Dashboardhome)).apply(this, arguments));
-	  }
-
-	  _createClass(Dashboardhome, [{
-	    key: "render",
+	  }, {
+	    key: 'render',
 	    value: function render() {
-	      return _jsx("div", {
-	        className: "dashboard-home"
-	      }, void 0, _ref, _jsx("div", {
-	        className: "home-bottom-content"
-	      }, void 0, _ref2, _ref3, _jsx("div", {
-	        style: { padding: '9px' }
-	      })));
+	      var _this2 = this;
+
+	      return _jsx('div', {}, void 0, _jsx('div', {
+	        className: 'analytics-div'
+	      }, void 0, _jsx('div', {
+	        className: 'analytics-chart'
+	      }, void 0, _react2.default.createElement('div', { className: 'heatmap', ref: 'heatmap' }), _jsx('div', {
+	        className: 'chart-btn-group'
+	      }, void 0, _jsx('a', {
+	        className: this.props.activeGraph == 'graphview' ? 'active' : '',
+	        onClick: function onClick() {
+	          _this2.props.changeGraphData('graphview');
+	        }
+	      }, void 0, _ref), _jsx('a', {
+	        className: this.props.activeGraph == 'calendarview' ? 'active' : '',
+	        onClick: function onClick() {
+	          _this2.props.changeGraphData('calendarview');
+	        }
+	      }, void 0, _ref2))), _ref3));
 	    }
 	  }]);
 
-	  return Dashboardhome;
+	  return CalendarView;
 	}(_react.Component);
 
-	exports.default = Dashboardhome;
+	exports.default = CalendarView;
 
 /***/ },
-/* 32 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2590,6 +2642,14 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _DropdownButton = __webpack_require__(10);
+
+	var _DropdownButton2 = _interopRequireDefault(_DropdownButton);
+
+	var _MenuItem = __webpack_require__(11);
+
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2598,914 +2658,598 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _ref = _jsx('div', {
-	  className: 'dashboard-home'
-	}, void 0, _jsx('div', {
-	  className: 'home-top-content row'
-	}, void 0, _jsx('span', {
-	  className: 'col-sm-6 col-xs-6'
-	}, void 0, 'Outdoor'), _jsx('span', {
-	  className: 'col-sm-6 col-xs-6'
-	})), _jsx('div', {
-	  className: 'home-bottom-content'
-	}, void 0, _jsx('div', {
-	  className: 'aqiinfo'
-	}, void 0, _jsx('svg', {
-	  version: '1.1',
-	  id: 'Default',
-	  xmlns: 'http://www.w3.org/2000/svg',
-	  xmlnsXlink: 'http://www.w3.org/1999/xlink',
-	  x: '0px',
-	  y: '0px',
-	  width: '272px',
-	  height: '228px',
-	  viewBox: '0 0 272 228',
-	  className: 'svg-center aqiinfo-svgimg',
-	  enableBackground: 'new 0 0 272 228',
-	  xmlSpace: 'preserve'
-	}, void 0, _jsx('g', {
-	  id: 'ARC_1_'
-	}, void 0, _jsx('path', {
-	  fill: 'transparent',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M191.404,187.424l8.573,11.171c20.739-15.914,34.309-39.416,37.721-65.335l-13.961-1.838\n                  C220.813,153.638,209.183,173.782,191.404,187.424z'
-	})), _jsx('g', {
-	  id: 'ARC_2_'
-	}, void 0, _jsx('path', {
-	  fill: 'transparent',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M88.799,187.424l-8.573,11.171c-20.739-15.914-34.309-39.416-37.721-65.335l13.961-1.838\n                  C59.391,153.638,71.021,173.782,88.799,187.424z'
-	})), _jsx('g', {
-	  id: 'ARC_3_'
-	}, void 0, _jsx('path', {
-	  fill: 'transparent',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M224.2,127.022l14.038,1.104c2.051-26.061-6.335-51.871-23.313-71.75l-10.708,9.145\n                  C218.77,82.562,225.958,104.684,224.2,127.022z'
-	})), _jsx('g', {
-	  id: 'ARC_5_'
-	}, void 0, _jsx('path', {
-	  fill: 'transparent',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M211.472,52.542l-10.214,9.693c-15.425-16.254-36.675-25.715-59.075-26.302l0.369-14.077\n                  C168.686,22.542,193.477,33.579,211.472,52.542z'
-	})), _jsx('g', {
-	  id: 'ARC_7_'
-	}, void 0, _jsx('path', {
-	  fill: 'transparent',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M78.686,62.235l-10.215-9.693c17.995-18.963,42.787-30.001,68.92-30.686l0.369,14.077\n                  C115.359,36.521,94.109,45.981,78.686,62.235z'
-	})), _jsx('path', {
-	  fill: 'transparent',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M41.703,128.129c-2.027-25.758,6.14-51.643,23.315-71.751l10.708,9.145\n                  c-14.553,17.039-21.741,39.162-19.983,61.5l-14.038,1.104'
-	})))));
+	var arr = { 'AQI': [] },
+	    timeArr = [],
+	    newTime = void 0,
+	    chart = void 0;
 
-	var _ref2 = _jsx('span', {
-	  className: 'col-sm-6 col-xs-6'
-	}, void 0, 'Outdoor');
+	var _ref = _jsx('img', {
+	  src: '../../../assets/images/icons/analytics_w.png'
+	});
 
-	var _ref3 = _jsx('svg', {
-	  version: '1.1',
-	  id: 'Default',
-	  xmlns: 'http://www.w3.org/2000/svg',
-	  xmlnsXlink: 'http://www.w3.org/1999/xlink',
-	  x: '0px',
-	  y: '0px',
-	  width: '272px',
-	  height: '228px',
-	  viewBox: '0 0 272 228',
-	  className: 'svg-center aqiinfo-svgimg',
-	  enableBackground: 'new 0 0 272 228',
-	  xmlSpace: 'preserve'
-	}, void 0, _jsx('g', {
-	  id: 'ARC_1_'
-	}, void 0, _jsx('path', {
-	  fill: 'transparent',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M191.404,187.424l8.573,11.171c20.739-15.914,34.309-39.416,37.721-65.335l-13.961-1.838\n                        C220.813,153.638,209.183,173.782,191.404,187.424z'
-	})), _jsx('g', {
-	  id: 'ARC_2_'
-	}, void 0, _jsx('path', {
-	  fill: '#6ecc58',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M88.799,187.424l-8.573,11.171c-20.739-15.914-34.309-39.416-37.721-65.335l13.961-1.838\n                        C59.391,153.638,71.021,173.782,88.799,187.424z'
-	})), _jsx('g', {
-	  id: 'ARC_3_'
-	}, void 0, _jsx('path', {
-	  fill: 'transparent',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M224.2,127.022l14.038,1.104c2.051-26.061-6.335-51.871-23.313-71.75l-10.708,9.145\n                        C218.77,82.562,225.958,104.684,224.2,127.022z'
-	})), _jsx('g', {
-	  id: 'ARC_5_'
-	}, void 0, _jsx('path', {
-	  fill: 'transparent',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M211.472,52.542l-10.214,9.693c-15.425-16.254-36.675-25.715-59.075-26.302l0.369-14.077\n                        C168.686,22.542,193.477,33.579,211.472,52.542z'
-	})), _jsx('g', {
-	  id: 'ARC_7_'
-	}, void 0, _jsx('path', {
-	  fill: 'transparent',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M78.686,62.235l-10.215-9.693c17.995-18.963,42.787-30.001,68.92-30.686l0.369,14.077\n                        C115.359,36.521,94.109,45.981,78.686,62.235z'
-	})), _jsx('path', {
-	  fill: 'transparent',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M41.703,128.129c-2.027-25.758,6.14-51.643,23.315-71.751l10.708,9.145\n                          c-14.553,17.039-21.741,39.162-19.983,61.5l-14.038,1.104'
-	}));
+	var _ref2 = _jsx('img', {
+	  src: './../../assets/images/calendar_w.png'
+	});
 
-	var _ref4 = _jsx('svg', {
-	  version: '1.1',
-	  id: 'Default',
-	  xmlns: 'http://www.w3.org/2000/svg',
-	  xmlnsXlink: 'http://www.w3.org/1999/xlink',
-	  x: '0px',
-	  y: '0px',
-	  width: '272px',
-	  height: '228px',
-	  viewBox: '0 0 272 228',
-	  className: 'svg-center aqiinfo-svgimg',
-	  enableBackground: 'new 0 0 272 228',
-	  xmlSpace: 'preserve'
-	}, void 0, _jsx('g', {
-	  id: 'ARC_1_'
-	}, void 0, _jsx('path', {
-	  fill: 'transparent',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M191.404,187.424l8.573,11.171c20.739-15.914,34.309-39.416,37.721-65.335l-13.961-1.838\n                        C220.813,153.638,209.183,173.782,191.404,187.424z'
-	})), _jsx('g', {
-	  id: 'ARC_2_'
-	}, void 0, _jsx('path', {
-	  fill: '#bbcf4c',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M88.799,187.424l-8.573,11.171c-20.739-15.914-34.309-39.416-37.721-65.335l13.961-1.838\n                        C59.391,153.638,71.021,173.782,88.799,187.424z'
-	})), _jsx('g', {
-	  id: 'ARC_3_'
-	}, void 0, _jsx('path', {
-	  fill: 'transparent',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M224.2,127.022l14.038,1.104c2.051-26.061-6.335-51.871-23.313-71.75l-10.708,9.145\n                        C218.77,82.562,225.958,104.684,224.2,127.022z'
-	})), _jsx('g', {
-	  id: 'ARC_5_'
-	}, void 0, _jsx('path', {
-	  fill: 'transparent',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M211.472,52.542l-10.214,9.693c-15.425-16.254-36.675-25.715-59.075-26.302l0.369-14.077\n                        C168.686,22.542,193.477,33.579,211.472,52.542z'
-	})), _jsx('g', {
-	  id: 'ARC_7_'
-	}, void 0, _jsx('path', {
-	  fill: 'transparent',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M78.686,62.235l-10.215-9.693c17.995-18.963,42.787-30.001,68.92-30.686l0.369,14.077\n                        C115.359,36.521,94.109,45.981,78.686,62.235z'
-	})), _jsx('path', {
-	  fill: '#bbcf4c',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M41.703,128.129c-2.027-25.758,6.14-51.643,23.315-71.751l10.708,9.145\n                          c-14.553,17.039-21.741,39.162-19.983,61.5l-14.038,1.104'
-	}));
+	var _ref3 = _jsx('div', {
+	  className: 'chart-description'
+	}, void 0, _jsx(_DropdownButton2.default, {
+	  title: 'AQI',
+	  id: 'chart-info-dropdown'
+	}, void 0, _jsx(_MenuItem2.default, {
+	  eventKey: '1'
+	}, void 0, 'Dropdown link'), _jsx(_MenuItem2.default, {
+	  eventKey: '2'
+	}, void 0, 'Dropdown link')), _jsx('p', {}, void 0, 'Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text'));
 
-	var _ref5 = _jsx('svg', {
-	  version: '1.1',
-	  id: 'Default',
-	  xmlns: 'http://www.w3.org/2000/svg',
-	  xmlnsXlink: 'http://www.w3.org/1999/xlink',
-	  x: '0px',
-	  y: '0px',
-	  width: '272px',
-	  height: '228px',
-	  viewBox: '0 0 272 228',
-	  className: 'svg-center aqiinfo-svgimg',
-	  enableBackground: 'new 0 0 272 228',
-	  xmlSpace: 'preserve'
-	}, void 0, _jsx('g', {
-	  id: 'ARC_1_'
-	}, void 0, _jsx('path', {
-	  fill: 'transparent',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M191.404,187.424l8.573,11.171c20.739-15.914,34.309-39.416,37.721-65.335l-13.961-1.838\n                        C220.813,153.638,209.183,173.782,191.404,187.424z'
-	})), _jsx('g', {
-	  id: 'ARC_2_'
-	}, void 0, _jsx('path', {
-	  fill: '#eac736',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M88.799,187.424l-8.573,11.171c-20.739-15.914-34.309-39.416-37.721-65.335l13.961-1.838\n                        C59.391,153.638,71.021,173.782,88.799,187.424z'
-	})), _jsx('g', {
-	  id: 'ARC_3_'
-	}, void 0, _jsx('path', {
-	  fill: 'transparent',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M224.2,127.022l14.038,1.104c2.051-26.061-6.335-51.871-23.313-71.75l-10.708,9.145\n                        C218.77,82.562,225.958,104.684,224.2,127.022z'
-	})), _jsx('g', {
-	  id: 'ARC_5_'
-	}, void 0, _jsx('path', {
-	  fill: 'transparent',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M211.472,52.542l-10.214,9.693c-15.425-16.254-36.675-25.715-59.075-26.302l0.369-14.077\n                        C168.686,22.542,193.477,33.579,211.472,52.542z'
-	})), _jsx('g', {
-	  id: 'ARC_7_'
-	}, void 0, _jsx('path', {
-	  fill: '#eac736',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M78.686,62.235l-10.215-9.693c17.995-18.963,42.787-30.001,68.92-30.686l0.369,14.077\n                        C115.359,36.521,94.109,45.981,78.686,62.235z'
-	})), _jsx('path', {
-	  fill: '#eac736',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M41.703,128.129c-2.027-25.758,6.14-51.643,23.315-71.751l10.708,9.145\n                          c-14.553,17.039-21.741,39.162-19.983,61.5l-14.038,1.104'
-	}));
+	var GraphView = function (_Component) {
+	  _inherits(GraphView, _Component);
 
-	var _ref6 = _jsx('svg', {
-	  version: '1.1',
-	  id: 'Default',
-	  xmlns: 'http://www.w3.org/2000/svg',
-	  xmlnsXlink: 'http://www.w3.org/1999/xlink',
-	  x: '0px',
-	  y: '0px',
-	  width: '272px',
-	  height: '228px',
-	  viewBox: '0 0 272 228',
-	  className: 'svg-center aqiinfo-svgimg',
-	  enableBackground: 'new 0 0 272 228',
-	  xmlSpace: 'preserve'
-	}, void 0, _jsx('g', {
-	  id: 'ARC_1_'
-	}, void 0, _jsx('path', {
-	  fill: 'transparent',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M191.404,187.424l8.573,11.171c20.739-15.914,34.309-39.416,37.721-65.335l-13.961-1.838\n                        C220.813,153.638,209.183,173.782,191.404,187.424z'
-	})), _jsx('g', {
-	  id: 'ARC_2_'
-	}, void 0, _jsx('path', {
-	  fill: '#ed9a2e',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M88.799,187.424l-8.573,11.171c-20.739-15.914-34.309-39.416-37.721-65.335l13.961-1.838\n                        C59.391,153.638,71.021,173.782,88.799,187.424z'
-	})), _jsx('g', {
-	  id: 'ARC_3_'
-	}, void 0, _jsx('path', {
-	  fill: 'transparent',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M224.2,127.022l14.038,1.104c2.051-26.061-6.335-51.871-23.313-71.75l-10.708,9.145\n                        C218.77,82.562,225.958,104.684,224.2,127.022z'
-	})), _jsx('g', {
-	  id: 'ARC_5_'
-	}, void 0, _jsx('path', {
-	  fill: '#ed9a2e',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M211.472,52.542l-10.214,9.693c-15.425-16.254-36.675-25.715-59.075-26.302l0.369-14.077\n                        C168.686,22.542,193.477,33.579,211.472,52.542z'
-	})), _jsx('g', {
-	  id: 'ARC_7_'
-	}, void 0, _jsx('path', {
-	  fill: '#ed9a2e',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M78.686,62.235l-10.215-9.693c17.995-18.963,42.787-30.001,68.92-30.686l0.369,14.077\n                        C115.359,36.521,94.109,45.981,78.686,62.235z'
-	})), _jsx('path', {
-	  fill: '#ed9a2e',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M41.703,128.129c-2.027-25.758,6.14-51.643,23.315-71.751l10.708,9.145\n                          c-14.553,17.039-21.741,39.162-19.983,61.5l-14.038,1.104'
-	}));
+	  function GraphView(props) {
+	    _classCallCheck(this, GraphView);
 
-	var _ref7 = _jsx('svg', {
-	  version: '1.1',
-	  id: 'Default',
-	  xmlns: 'http://www.w3.org/2000/svg',
-	  xmlnsXlink: 'http://www.w3.org/1999/xlink',
-	  x: '0px',
-	  y: '0px',
-	  width: '272px',
-	  height: '228px',
-	  viewBox: '0 0 272 228',
-	  className: 'svg-center aqiinfo-svgimg',
-	  enableBackground: 'new 0 0 272 228',
-	  xmlSpace: 'preserve'
-	}, void 0, _jsx('g', {
-	  id: 'ARC_1_'
-	}, void 0, _jsx('path', {
-	  fill: 'transparent',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M191.404,187.424l8.573,11.171c20.739-15.914,34.309-39.416,37.721-65.335l-13.961-1.838\n                        C220.813,153.638,209.183,173.782,191.404,187.424z'
-	})), _jsx('g', {
-	  id: 'ARC_2_'
-	}, void 0, _jsx('path', {
-	  fill: '#e8633a',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M88.799,187.424l-8.573,11.171c-20.739-15.914-34.309-39.416-37.721-65.335l13.961-1.838\n                        C59.391,153.638,71.021,173.782,88.799,187.424z'
-	})), _jsx('g', {
-	  id: 'ARC_3_'
-	}, void 0, _jsx('path', {
-	  fill: '#e8633a',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M224.2,127.022l14.038,1.104c2.051-26.061-6.335-51.871-23.313-71.75l-10.708,9.145\n                        C218.77,82.562,225.958,104.684,224.2,127.022z'
-	})), _jsx('g', {
-	  id: 'ARC_5_'
-	}, void 0, _jsx('path', {
-	  fill: '#e8633a',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M211.472,52.542l-10.214,9.693c-15.425-16.254-36.675-25.715-59.075-26.302l0.369-14.077\n                        C168.686,22.542,193.477,33.579,211.472,52.542z'
-	})), _jsx('g', {
-	  id: 'ARC_7_'
-	}, void 0, _jsx('path', {
-	  fill: '#e8633a',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M78.686,62.235l-10.215-9.693c17.995-18.963,42.787-30.001,68.92-30.686l0.369,14.077\n                        C115.359,36.521,94.109,45.981,78.686,62.235z'
-	})), _jsx('path', {
-	  fill: '#e8633a',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M41.703,128.129c-2.027-25.758,6.14-51.643,23.315-71.751l10.708,9.145\n                          c-14.553,17.039-21.741,39.162-19.983,61.5l-14.038,1.104'
-	}));
+	    // this.maxAqi = this.maxAqi.bind(this)
 
-	var _ref8 = _jsx('svg', {
-	  version: '1.1',
-	  id: 'Default',
-	  xmlns: 'http://www.w3.org/2000/svg',
-	  xmlnsXlink: 'http://www.w3.org/1999/xlink',
-	  x: '0px',
-	  y: '0px',
-	  width: '272px',
-	  height: '228px',
-	  viewBox: '0 0 272 228',
-	  className: 'svg-center aqiinfo-svgimg',
-	  enableBackground: 'new 0 0 272 228',
-	  xmlSpace: 'preserve'
-	}, void 0, _jsx('g', {
-	  id: 'ARC_1_'
-	}, void 0, _jsx('path', {
-	  fill: '#d63636',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M191.404,187.424l8.573,11.171c20.739-15.914,34.309-39.416,37.721-65.335l-13.961-1.838\n                        C220.813,153.638,209.183,173.782,191.404,187.424z'
-	})), _jsx('g', {
-	  id: 'ARC_2_'
-	}, void 0, _jsx('path', {
-	  fill: '#d63636',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M88.799,187.424l-8.573,11.171c-20.739-15.914-34.309-39.416-37.721-65.335l13.961-1.838\n                        C59.391,153.638,71.021,173.782,88.799,187.424z'
-	})), _jsx('g', {
-	  id: 'ARC_3_'
-	}, void 0, _jsx('path', {
-	  fill: '#d63636',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M224.2,127.022l14.038,1.104c2.051-26.061-6.335-51.871-23.313-71.75l-10.708,9.145\n                        C218.77,82.562,225.958,104.684,224.2,127.022z'
-	})), _jsx('g', {
-	  id: 'ARC_5_'
-	}, void 0, _jsx('path', {
-	  fill: '#d63636',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M211.472,52.542l-10.214,9.693c-15.425-16.254-36.675-25.715-59.075-26.302l0.369-14.077\n                        C168.686,22.542,193.477,33.579,211.472,52.542z'
-	})), _jsx('g', {
-	  id: 'ARC_7_'
-	}, void 0, _jsx('path', {
-	  fill: '#d63636',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M78.686,62.235l-10.215-9.693c17.995-18.963,42.787-30.001,68.92-30.686l0.369,14.077\n                        C115.359,36.521,94.109,45.981,78.686,62.235z'
-	})), _jsx('path', {
-	  fill: '#d63636',
-	  stroke: '#ffffff',
-	  strokeWidth: '0.7087',
-	  strokeLinecap: 'round',
-	  strokeLinejoin: 'round',
-	  strokeMiterlimit: '10',
-	  d: 'M41.703,128.129c-2.027-25.758,6.14-51.643,23.315-71.751l10.708,9.145\n                          c-14.553,17.039-21.741,39.162-19.983,61.5l-14.038,1.104'
-	}));
+	    var _this = _possibleConstructorReturn(this, (GraphView.__proto__ || Object.getPrototypeOf(GraphView)).call(this, props));
 
-	var _ref9 = _jsx('br', {});
-
-	var _ref10 = _jsx('ul', {
-	  className: 'realtime-data-list'
-	}, void 0, _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/do.png'
-	})), _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/n_baby_out.png'
-	})), _jsx('li', {
-	  className: 'activity-title'
-	}, void 0, _jsx('span', {}, void 0, 'Take baby out')));
-
-	var _ref11 = _jsx('ul', {
-	  className: 'realtime-data-list'
-	}, void 0, _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/prefferd.png'
-	})), _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/p_dinner_out.png'
-	})), _jsx('li', {
-	  className: 'activity-title'
-	}, void 0, _jsx('span', {}, void 0, 'Take dinner out')));
-
-	var _ref12 = _jsx('ul', {
-	  className: 'realtime-data-list'
-	}, void 0, _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/do.png'
-	})), _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/p_pet_walk.png'
-	})), _jsx('li', {
-	  className: 'activity-title'
-	}, void 0, _jsx('span', {}, void 0, 'Take pet for walk')));
-
-	var _ref13 = _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/prefferd.png'
-	}));
-
-	var _ref14 = _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/p_photography.png'
-	}));
-
-	var _ref15 = _jsx('span', {}, void 0, 'Explore nature by photography');
-
-	var _ref16 = _jsx('div', {
-	  className: 'realtime-data'
-	}, void 0, _jsx('ul', {
-	  className: 'realtime-data-list'
-	}, void 0, _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/do.png'
-	})), _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/p_cycling.png'
-	})), _jsx('li', {
-	  className: 'activity-title'
-	}, void 0, _jsx('span', {}, void 0, 'Cycling'))), _jsx('ul', {
-	  className: 'realtime-data-list'
-	}, void 0, _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/do.png'
-	})), _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/p_jogging.png'
-	})), _jsx('li', {
-	  className: 'activity-title'
-	}, void 0, _jsx('span', {}, void 0, 'Jogging'))), _jsx('ul', {
-	  className: 'realtime-data-list'
-	}, void 0, _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/prefferd.png'
-	})), _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/p_plantation.png'
-	})), _jsx('li', {
-	  className: 'activity-title'
-	}, void 0, _jsx('span', {}, void 0, 'Take pet for walk'))), _jsx('ul', {
-	  className: 'realtime-data-list'
-	}, void 0, _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/do.png'
-	})), _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/n_use_two_wheeler.png'
-	})), _jsx('li', {
-	  className: 'activity-title'
-	}, void 0, _jsx('span', {}, void 0, 'Use two wheeler'))));
-
-	var _ref17 = _jsx('div', {
-	  className: 'realtime-data'
-	}, void 0, _jsx('ul', {
-	  className: 'realtime-data-list'
-	}, void 0, _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/dont.png'
-	})), _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/n_baby_out.png'
-	})), _jsx('li', {
-	  className: 'activity-title'
-	}, void 0, _jsx('span', {}, void 0, 'Take baby out'))), _jsx('ul', {
-	  className: 'realtime-data-list'
-	}, void 0, _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/do.png'
-	})), _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/y_use_public_transport.png'
-	})), _jsx('li', {
-	  className: 'activity-title'
-	}, void 0, _jsx('span', {}, void 0, 'Use public transport'))), _jsx('ul', {
-	  className: 'realtime-data-list'
-	}, void 0, _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/dont.png'
-	})), _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/n_smoking.png'
-	})), _jsx('li', {
-	  className: 'activity-title'
-	}, void 0, _jsx('span', {}, void 0, 'Smoking'))), _jsx('ul', {
-	  className: 'realtime-data-list'
-	}, void 0, _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/dont.png'
-	})), _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/n_fire.png'
-	})), _jsx('li', {
-	  className: 'activity-title'
-	}, void 0, _jsx('span', {}, void 0, 'Fire light'))));
-
-	var _ref18 = _jsx('div', {
-	  className: 'realtime-data'
-	}, void 0, _jsx('ul', {
-	  className: 'realtime-data-list'
-	}, void 0, _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/do.png'
-	})), _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/y_use_mask.png'
-	})), _jsx('li', {
-	  className: 'activity-title'
-	}, void 0, _jsx('span', {}, void 0, 'Use mask'))), _jsx('ul', {
-	  className: 'realtime-data-list'
-	}, void 0, _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/do.png'
-	})), _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/y_use_public_transport.png'
-	})), _jsx('li', {
-	  className: 'activity-title'
-	}, void 0, _jsx('span', {}, void 0, 'Use public transport'))), _jsx('ul', {
-	  className: 'realtime-data-list'
-	}, void 0, _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/dont.png'
-	})), _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/n_use_two_wheeler.png'
-	})), _jsx('li', {
-	  className: 'activity-title'
-	}, void 0, _jsx('span', {}, void 0, 'Use two wheeler'))), _jsx('ul', {
-	  className: 'realtime-data-list'
-	}, void 0, _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/dont.png'
-	})), _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/n_baby_out.png'
-	})), _jsx('li', {
-	  className: 'activity-title'
-	}, void 0, _jsx('span', {}, void 0, 'Take baby out'))));
-
-	var _ref19 = _jsx('div', {
-	  className: 'realtime-data'
-	}, void 0, _jsx('ul', {
-	  className: 'realtime-data-list'
-	}, void 0, _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/do.png'
-	})), _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/y_use_mask.png'
-	})), _jsx('li', {
-	  className: 'activity-title'
-	}, void 0, _jsx('span', {}, void 0, 'Use mask'))), _jsx('ul', {
-	  className: 'realtime-data-list'
-	}, void 0, _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/do.png'
-	})), _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/y_wear_protective_eye_glasses.png'
-	})), _jsx('li', {
-	  className: 'activity-title'
-	}, void 0, _jsx('span', {}, void 0, 'Wear protective eye glasses'))), _jsx('ul', {
-	  className: 'realtime-data-list'
-	}, void 0, _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/dont.png'
-	})), _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/n_use_two_wheeler.png'
-	})), _jsx('li', {
-	  className: 'activity-title'
-	}, void 0, _jsx('span', {}, void 0, 'Use two wheeler'))), _jsx('ul', {
-	  className: 'realtime-data-list'
-	}, void 0, _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/do.png'
-	})), _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/y_use_public_transport.png'
-	})), _jsx('li', {
-	  className: 'activity-title'
-	}, void 0, _jsx('span', {}, void 0, 'Use public transport'))));
-
-	var _ref20 = _jsx('div', {
-	  className: 'realtime-data'
-	}, void 0, _jsx('ul', {
-	  className: 'realtime-data-list'
-	}, void 0, _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/do.png'
-	})), _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/y_use_mask.png'
-	})), _jsx('li', {
-	  className: 'activity-title'
-	}, void 0, _jsx('span', {}, void 0, 'Use mask'))), _jsx('ul', {
-	  className: 'realtime-data-list'
-	}, void 0, _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/dont.png'
-	})), _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/n_use_two_wheeler.png'
-	})), _jsx('li', {
-	  className: 'activity-title'
-	}, void 0, _jsx('span', {}, void 0, 'Use two wheeler'))), _jsx('ul', {
-	  className: 'realtime-data-list'
-	}, void 0, _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/dont.png'
-	})), _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/n_smoking.png'
-	})), _jsx('li', {
-	  className: 'activity-title'
-	}, void 0, _jsx('span', {}, void 0, 'Smoking'))), _jsx('ul', {
-	  className: 'realtime-data-list'
-	}, void 0, _jsx('li', {
-	  className: 'sign'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/do.png'
-	})), _jsx('li', {
-	  className: 'activity-icon'
-	}, void 0, _jsx('img', {
-	  src: 'assets/images/icons/y_use_public_transport.png'
-	})), _jsx('li', {
-	  className: 'activity-title'
-	}, void 0, _jsx('span', {}, void 0, 'Use public transport'))));
-
-	var Realtime = function (_Component) {
-	  _inherits(Realtime, _Component);
-
-	  function Realtime(props) {
-	    _classCallCheck(this, Realtime);
-
-	    var _this = _possibleConstructorReturn(this, (Realtime.__proto__ || Object.getPrototypeOf(Realtime)).call(this, props));
-
-	    _this.displayTime = _this.displayTime.bind(_this);
+	    _this.state = {
+	      aqiArray: { 'AQI': [], 'CO2': [], 'SO2': [], 'NO2': [], 'PM10': [], 'PM25': [] },
+	      chartList: ['aqi', 'co', 'so2', 'no2', 'pm10', 'pm25']
+	    };
+	    _this.displayGraph = _this.displayGraph.bind(_this);
 	    return _this;
 	  }
 
-	  _createClass(Realtime, [{
-	    key: 'displayTime',
-	    value: function displayTime() {
-	      var a = new Date(this.props.timeStamp * 1000);
+	  _createClass(GraphView, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
 
-	      var year = a.getFullYear().toString().substr(2, 2);
-	      var month = a.getMonth() + 1;
-	      var date = a.getDate();
-	      var hour = a.getHours();
-	      var min = a.getMinutes();
-	      var ampm = hour >= 12 ? 'pm' : 'am';
-	      var displayTime = date + '-' + month + "-" + year + ' ' + hour + ':' + min + ampm;
-	      return displayTime;
+	      if (this.props.analysisData.length > 0) {
+	        (function () {
+	          var temp = _this2.state.aqiArray;
+	          _this2.props.analysisData.map(function (e) {
+	            temp.AQI.unshift(e.aqi);
+	            temp.CO2.unshift(e.payload.d.co);
+	            temp.SO2.unshift(e.payload.d.so2);
+	            temp.NO2.unshift(e.payload.d.no2);
+	            temp.PM10.unshift(e.payload.d.pm10);
+	            temp.PM25.unshift(e.payload.d.pm25);
+	          });
+	          _this2.setState({ aqiArray: temp });
+
+	          chart = Highcharts.chart(_this2.refs.highchart, {
+	            chart: {
+	              backgroundColor: 'transparent',
+	              width: 600,
+	              height: 270,
+	              type: 'areaspline'
+	            },
+	            colors: ['#00b3bf'],
+
+	            title: {
+	              text: 'Analytics',
+	              style: {
+	                color: 'white',
+	                fontSize: '14px'
+	              }
+	            },
+
+	            legend: {
+	              enabled: false
+	            },
+
+	            credits: {
+	              enabled: false
+	            },
+
+	            xAxis: {
+	              categories: timeArr,
+	              gridLineColor: '#2b313a',
+	              gridLineWidth: 1,
+	              labels: {
+	                style: {
+	                  color: '#FFF'
+	                }
+	              }
+	            },
+
+	            yAxis: {
+	              gridLineWidth: 1,
+	              gridLineColor: '#2b313a',
+	              labels: {
+	                style: {
+	                  color: '#FFF'
+	                }
+	              },
+	              title: {
+	                text: null
+	              }
+	            },
+
+	            series: [{
+	              name: 'aqi',
+	              data: _this2.state.aqiArray.AQI,
+	              fillColor: 'rgba(255,255,255, 0.1)',
+	              marker: {
+	                enabled: false
+	              }
+	            }, {
+	              name: 'co',
+	              data: _this2.state.aqiArray.CO2,
+	              fillColor: 'rgba(255,255,255, 0.1)',
+	              marker: {
+	                enabled: false
+	              },
+	              visible: false
+	            }, {
+	              name: 'so2',
+	              data: _this2.state.aqiArray.SO2,
+	              fillColor: 'rgba(255,255,255, 0.1)',
+	              marker: {
+	                enabled: false
+	              },
+	              visible: false
+	            }, {
+	              name: 'no2',
+	              data: _this2.state.aqiArray.NO2,
+	              fillColor: 'rgba(255,255,255, 0.1)',
+	              marker: {
+	                enabled: false
+	              },
+	              visible: false
+	            }, {
+	              name: 'pm10',
+	              data: _this2.state.aqiArray.PM10,
+	              fillColor: 'rgba(255,255,255, 0.1)',
+	              marker: {
+	                enabled: false
+	              },
+	              visible: false
+	            }, {
+	              name: 'pm25',
+	              data: _this2.state.aqiArray.PM25,
+	              fillColor: 'rgba(255,255,255, 0.1)',
+	              marker: {
+	                enabled: false
+	              },
+	              visible: false
+	            }]
+	          });
+	        })();
+	      }
+	    }
+	  }, {
+	    key: 'displayGraph',
+	    value: function displayGraph(tabName) {
+
+	      this.state.chartList.map(function (e) {
+	        if (tabName === e) {
+	          document.getElementById(tabName).className = 'active';
+	        } else {
+	          document.getElementById(e).className = '';
+	        }
+	      });
+
+	      chart.series.map(function (e) {
+	        if (e.name == tabName) {
+	          e.setVisible(true);
+	          // document.getElementById(tabName).className = 'active'
+	        } else {
+	          e.setVisible(false);
+	        }
+	      });
+
+	      // document.getElementById(tabName).className = 'active'
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return this.props.loadingState == true ? _ref : _jsx('div', {
-	        className: 'dashboard-home'
+	      var _this3 = this;
+
+	      // var config = {
+	      //   chart: {
+	      //     backgroundColor: 'transparent',
+	      //     width: 600,
+	      //     height: 270,
+	      //     type: 'areaspline'
+	      //   },
+	      //   colors: ['#00b3bf'],
+	      //
+	      //   title: {
+	      //     text: 'Analytics',
+	      //     style: {
+	      //       color: 'white',
+	      //       fontSize: '14px'
+	      //     }
+	      //   },
+	      //
+	      //   legend: {
+	      //     enabled: false
+	      //   },
+	      //
+	      //   credits: {
+	      //     enabled: false
+	      //   },
+	      //
+	      //   xAxis: {
+	      //     categories: timeArr,
+	      //     gridLineColor: '#2b313a',
+	      //     gridLineWidth: 1,
+	      //     labels: {
+	      //       style: {
+	      //         color: '#FFF'
+	      //       }
+	      //     }
+	      //   },
+	      //
+	      //   yAxis: {
+	      //     gridLineWidth: 1,
+	      //     gridLineColor: '#2b313a',
+	      //     labels: {
+	      //       style: {
+	      //         color: '#FFF'
+	      //       },
+	      //     },
+	      //     title: {
+	      //       text: null
+	      //     }
+	      //   },
+	      //
+	      //   series: [
+	      //     {
+	      //       name: 'aqi',
+	      //       data: this.state.aqiArray.AQI,
+	      //       fillColor: 'rgba(255,255,255, 0.1)',
+	      //       marker: {
+	      //         enabled: false
+	      //       }
+	      //     },
+	      //     {
+	      //       name: 'co',
+	      //       data: this.state.aqiArray.CO2,
+	      //       fillColor: 'rgba(255,255,255, 0.1)',
+	      //       marker: {
+	      //         enabled: false
+	      //       },
+	      //       visible: false
+	      //     },
+	      //     {
+	      //       name: 'so2',
+	      //       data: this.state.aqiArray.SO2,
+	      //       fillColor: 'rgba(255,255,255, 0.1)',
+	      //       marker: {
+	      //         enabled: false
+	      //       },
+	      //       visible: false
+	      //     },
+	      //     {
+	      //       name: 'no2',
+	      //       data: this.state.aqiArray.NO2,
+	      //       fillColor: 'rgba(255,255,255, 0.1)',
+	      //       marker: {
+	      //         enabled: false
+	      //       },
+	      //       visible: false
+	      //     },
+	      //     {
+	      //       name: 'pm10',
+	      //       data: this.state.aqiArray.PM10,
+	      //       fillColor: 'rgba(255,255,255, 0.1)',
+	      //       marker: {
+	      //         enabled: false
+	      //       },
+	      //       visible: false
+	      //     },
+	      //     {
+	      //       name: 'pm25',
+	      //       data: this.state.aqiArray.PM25,
+	      //       fillColor: 'rgba(255,255,255, 0.1)',
+	      //       marker: {
+	      //         enabled: false
+	      //       },
+	      //       visible: false
+	      //     }
+	      //   ]
+	      // };
+	      return _jsx('div', {}, void 0, _jsx('div', {
+	        className: 'analytics-div'
 	      }, void 0, _jsx('div', {
-	        className: 'home-top-content row'
-	      }, void 0, _ref2, _jsx('span', {
-	        className: 'col-sm-6 col-xs-6'
-	      }, void 0, 'as of: ', this.displayTime())), _jsx('div', {
-	        className: 'home-bottom-content'
-	      }, void 0, _jsx('div', {
-	        className: 'aqiinfo'
-	      }, void 0, this.props.realtimeData[0].aqi <= 50 ? _ref3 : this.props.realtimeData[0].aqi > 50 && this.props.realtimeData[0].aqi < 101 ? _ref4 : this.props.realtimeData[0].aqi > 100 && this.props.realtimeData[0].aqi < 201 ? _ref5 : this.props.realtimeData[0].aqi > 200 && this.props.realtimeData[0].aqi < 301 ? _ref6 : this.props.realtimeData[0].aqi > 300 && this.props.realtimeData[0].aqi < 401 ? _ref7 : _ref8, _jsx('div', {
-	        className: 'realtime-label'
-	      }, void 0, _jsx('span', {
-	        style: { color: 'white', fontSize: '56px', fontFamily: 'Bebasneues' }
-	      }, void 0, this.props.realtimeData[0].aqi), _ref9, _jsx('span', {
-	        style: { color: 'white', fontSize: '20px' }
-	      }, void 0, this.props.realtimeData[0].aqi <= 50 ? 'Good' : this.props.realtimeData[0].aqi > 50 && this.props.realtimeData[0].aqi < 101 ? 'Satisfactory' : this.props.realtimeData[0].aqi > 100 && this.props.realtimeData[0].aqi < 201 ? 'Moderate' : this.props.realtimeData[0].aqi > 200 && this.props.realtimeData[0].aqi < 301 ? 'Poor' : this.props.realtimeData[0].aqi > 300 && this.props.realtimeData[0].aqi < 401 ? 'Very Poor' : 'Severe'))), this.props.realtimeData[0].aqi <= 50 ? _jsx('div', {
-	        className: 'realtime-data'
-	      }, void 0, _ref10, _ref11, _ref12, _jsx('ul', {
-	        className: 'realtime-data-list'
-	      }, void 0, _ref13, _ref14, _jsx('li', {
-	        className: 'activity-title',
-	        style: { padding: '12px 5px 15px' }
-	      }, void 0, _ref15))) : this.props.realtimeData[0].aqi > 50 && this.props.realtimeData[0].aqi < 101 ? _ref16 : this.props.realtimeData[0].aqi > 100 && this.props.realtimeData[0].aqi < 201 ? _ref17 : this.props.realtimeData[0].aqi > 200 && this.props.realtimeData[0].aqi < 301 ? _ref18 : this.props.realtimeData[0].aqi > 300 && this.props.realtimeData[0].aqi < 401 ? _ref19 : _ref20));
+	        className: 'analytics-chart'
+	      }, void 0, Object.keys(this.state.aqiArray).length > 0 ? _react2.default.createElement('div', { ref: 'highchart' }) : null, _jsx('ul', {
+	        className: 'chart-list list-inline',
+	        id: 'c-list'
+	      }, void 0, this.state.chartList.map(function (list, index) {
+	        return _jsx('li', {
+	          onClick: function onClick() {
+	            _this3.displayGraph(list);
+	          },
+	          id: list,
+	          className: index === 0 ? 'active' : ''
+	        }, list, list);
+	      })), _jsx('div', {
+	        className: 'chart-btn-group'
+	      }, void 0, _jsx('a', {
+	        className: this.props.activeGraph == 'graphview' ? 'active' : '',
+	        onClick: function onClick() {
+	          _this3.props.changeGraphData('graphview');
+	        }
+	      }, void 0, _ref), _jsx('a', {
+	        className: this.props.activeGraph == 'calendarview' ? 'active' : '',
+	        onClick: function onClick() {
+	          _this3.props.changeGraphData('calendarview');
+	        }
+	      }, void 0, _ref2))), _ref3));
 	    }
 	  }]);
 
-	  return Realtime;
+	  return GraphView;
 	}(_react.Component);
 
-	exports.default = Realtime;
+	exports.default = GraphView;
 
 /***/ },
-/* 33 */
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(0);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _GraphView = __webpack_require__(34);
+
+	var _GraphView2 = _interopRequireDefault(_GraphView);
+
+	var _CalendarView = __webpack_require__(33);
+
+	var _CalendarView2 = _interopRequireDefault(_CalendarView);
+
+	var _superagent = __webpack_require__(13);
+
+	var _superagent2 = _interopRequireDefault(_superagent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _ref = _jsx('p', {}, void 0, 'Current AQI');
+
+	var _ref2 = _jsx('span', {
+	  className: 'ppc-title'
+	}, void 0, 'CO', _jsx('sub', {}, void 0, '2'));
+
+	var _ref3 = _jsx('span', {
+	  className: 'ppc-title'
+	}, void 0, 'SO', _jsx('sub', {}, void 0, '2'));
+
+	var _ref4 = _jsx('span', {
+	  className: 'ppc-title'
+	}, void 0, 'NO', _jsx('sub', {}, void 0, '2'));
+
+	var _ref5 = _jsx('span', {
+	  className: 'ppc-title'
+	}, void 0, 'PM10');
+
+	var _ref6 = _jsx('span', {
+	  className: 'ppc-title'
+	}, void 0, 'PM2.5');
+
+	var _ref7 = _jsx('button', {
+	  className: 'btn btn-default knowmore-btn'
+	}, void 0, 'Know More');
+
+	var LatestDevice = function (_Component) {
+	  _inherits(LatestDevice, _Component);
+
+	  function LatestDevice(props) {
+	    _classCallCheck(this, LatestDevice);
+
+	    var _this = _possibleConstructorReturn(this, (LatestDevice.__proto__ || Object.getPrototypeOf(LatestDevice)).call(this, props));
+
+	    _this.state = { activeGraph: 'graphview', limits: [] };
+	    _this.changeGraphData = _this.changeGraphData.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(LatestDevice, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      _superagent2.default.get('https://openenvironment.p.mashape.com/limits').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+	        this.setState({ limits: res.body });
+	      }.bind(this));
+	    }
+	  }, {
+	    key: 'getCODegree',
+	    value: function getCODegree(co) {
+	      var obj = {};
+	      if (co > 25) {
+	        obj.class = 'gt-50';
+	      }
+	      var percent = co,
+	          deg = 360 * percent / 50;
+	      obj.percent = percent;
+	      obj.deg = deg;
+	      return obj;
+	    }
+	  }, {
+	    key: 'getSODegree',
+	    value: function getSODegree(so) {
+	      var obj = {};
+	      if (so > 50) {
+	        obj.class = 'gt-50';
+	      }
+	      var percent = so,
+	          deg = 360 * percent / 100;
+	      obj.percent = percent;
+	      obj.deg = deg;
+	      return obj;
+	    }
+	  }, {
+	    key: 'getNODegree',
+	    value: function getNODegree(no) {
+	      var obj = {};
+	      if (no > 250) {
+	        obj.class = 'gt-50';
+	      }
+	      var percent = no,
+	          deg = 360 * percent / 500;
+	      obj.percent = percent;
+	      obj.deg = deg;
+	      return obj;
+	    }
+	  }, {
+	    key: 'getPM10Degree',
+	    value: function getPM10Degree(pm10) {
+	      var obj = {};
+	      if (pm10 > 75) {
+	        obj.class = 'gt-50';
+	      }
+	      var percent = pm10,
+	          deg = 360 * percent / 150;
+	      obj.percent = percent;
+	      obj.deg = deg;
+	      return obj;
+	    }
+	  }, {
+	    key: 'getPM25Degree',
+	    value: function getPM25Degree(pm25) {
+	      var obj = {};
+	      if (pm25 > 250) {
+	        obj.class = 'gt-50';
+	      }
+	      var percent = pm25,
+	          deg = 360 * percent / 500;
+	      obj.percent = percent;
+	      obj.deg = deg;
+	      return obj;
+	    }
+	  }, {
+	    key: 'changeGraphData',
+	    value: function changeGraphData(graph) {
+	      this.setState({ activeGraph: graph });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var latestDevice = this.props.realtimeData[0];
+	      return _jsx('div', {
+	        className: 'dashboard-home'
+	      }, void 0, _jsx('div', {
+	        className: 'row'
+	      }, void 0, _jsx('div', {
+	        className: 'col-sm-4 text-center',
+	        style: { padding: '30px 0px 30px 20px', position: 'relative' }
+	      }, void 0, _jsx('div', {
+	        className: 'aqi-status'
+	      }, void 0, _ref, _jsx('strong', {}, void 0, latestDevice.aqi), _jsx('p', {
+	        className: 'aqi-grade'
+	      }, void 0, latestDevice.aqi <= 50 ? 'Good' : latestDevice.aqi > 50 && latestDevice.aqi < 101 ? 'Satisfactory' : latestDevice.aqi > 100 && latestDevice.aqi < 201 ? 'Moderate' : latestDevice.aqi > 200 && latestDevice.aqi < 301 ? 'Poor' : latestDevice.aqi > 300 && latestDevice.aqi < 401 ? 'Very Poor' : 'Severe')), _jsx('div', {
+	        className: 'gases-details'
+	      }, void 0, _jsx('div', {
+	        className: 'row'
+	      }, void 0, _jsx('div', {
+	        className: 'col-md-3 text-center'
+	      }, void 0, _jsx('div', {
+	        className: 'progress-pie-chart-gas ' + this.getCODegree(latestDevice.payload.d.co).class
+	      }, void 0, _jsx('div', {
+	        className: 'ppc-progress-gas'
+	      }, void 0, _jsx('div', {
+	        className: 'ppc-progress-fill-gas',
+	        style: { transform: 'rotate(' + this.getCODegree(latestDevice.payload.d.co).deg + 'deg)' }
+	      })), _jsx('div', {
+	        className: 'ppc-percents-gas'
+	      }, void 0, _jsx('div', {
+	        className: 'pcc-percents-wrapper-gas'
+	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.co)))), _ref2), _jsx('div', {
+	        className: 'col-md-3'
+	      }, void 0, _jsx('div', {
+	        className: 'progress-pie-chart-gas ' + this.getSODegree(latestDevice.payload.d.so2).class
+	      }, void 0, _jsx('div', {
+	        className: 'ppc-progress-gas'
+	      }, void 0, _jsx('div', {
+	        className: 'ppc-progress-fill-gas',
+	        style: { transform: 'rotate(' + this.getSODegree(latestDevice.payload.d.so2).deg + 'deg)' }
+	      }, void 0)), _jsx('div', {
+	        className: 'ppc-percents-gas'
+	      }, void 0, _jsx('div', {
+	        className: 'pcc-percents-wrapper-gas'
+	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.so2)))), _ref3), _jsx('div', {
+	        className: 'col-md-3'
+	      }, void 0, _jsx('div', {
+	        className: 'progress-pie-chart-gas ' + this.getNODegree(latestDevice.payload.d.no2).class
+	      }, void 0, _jsx('div', {
+	        className: 'ppc-progress-gas'
+	      }, void 0, _jsx('div', {
+	        className: 'ppc-progress-fill-gas',
+	        style: { transform: 'rotate(' + this.getNODegree(latestDevice.payload.d.no2).deg + 'deg)' }
+	      }, void 0)), _jsx('div', {
+	        className: 'ppc-percents-gas'
+	      }, void 0, _jsx('div', {
+	        className: 'pcc-percents-wrapper-gas'
+	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.no2)))), _ref4), _jsx('div', {
+	        className: 'col-md-3'
+	      }, void 0, _jsx('div', {
+	        className: 'progress-pie-chart-gas ' + this.getPM10Degree(latestDevice.payload.d.pm10).class
+	      }, void 0, _jsx('div', {
+	        className: 'ppc-progress-gas'
+	      }, void 0, _jsx('div', {
+	        className: 'ppc-progress-fill-gas',
+	        style: { transform: 'rotate(' + this.getPM10Degree(latestDevice.payload.d.pm10).deg + 'deg)' }
+	      }, void 0)), _jsx('div', {
+	        className: 'ppc-percents-gas'
+	      }, void 0, _jsx('div', {
+	        className: 'pcc-percents-wrapper-gas'
+	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.pm10)))), _ref5), _jsx('div', {
+	        className: 'col-md-3'
+	      }, void 0, _jsx('div', {
+	        className: 'progress-pie-chart-gas ' + this.getPM25Degree(latestDevice.payload.d.pm25).class
+	      }, void 0, _jsx('div', {
+	        className: 'ppc-progress-gas'
+	      }, void 0, _jsx('div', {
+	        className: 'ppc-progress-fill-gas',
+	        style: { transform: 'rotate(' + this.getPM25Degree(latestDevice.payload.d.pm25).deg + 'deg)' }
+	      }, void 0)), _jsx('div', {
+	        className: 'ppc-percents-gas'
+	      }, void 0, _jsx('div', {
+	        className: 'pcc-percents-wrapper-gas'
+	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.pm25)))), _ref6))), _ref7), _jsx('div', {
+	        className: 'col-sm-8',
+	        style: { padding: '20px' }
+	      }, void 0, this.state.activeGraph === 'graphview' ? _jsx(_GraphView2.default, {
+	        analysisData: this.props.analysisData,
+	        realtimeData: this.props.realtimeData,
+	        time: this.props.time,
+	        activeGraph: this.state.activeGraph,
+	        changeGraphData: this.changeGraphData
+	      }) : _jsx(_CalendarView2.default, {
+	        changeGraphData: this.changeGraphData,
+	        activeGraph: this.state.activeGraph
+	      }))));
+	    }
+	  }]);
+
+	  return LatestDevice;
+	}(_react.Component);
+
+	exports.default = LatestDevice;
+
+/***/ },
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3612,7 +3356,7 @@
 	exports.default = Device;
 
 /***/ },
-/* 34 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3741,7 +3485,7 @@
 	exports.default = Openapi;
 
 /***/ },
-/* 35 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4105,7 +3849,7 @@
 	exports.default = Partner;
 
 /***/ },
-/* 36 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4115,7 +3859,7 @@
 	  value: true
 	});
 
-	var _redux = __webpack_require__(10);
+	var _redux = __webpack_require__(12);
 
 	// Import Reducers
 
@@ -4126,7 +3870,7 @@
 	                                                    */
 
 /***/ },
-/* 37 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4141,19 +3885,19 @@
 	// Webpack Requirements
 
 
-	var _express = __webpack_require__(19);
+	var _express = __webpack_require__(22);
 
 	var _express2 = _interopRequireDefault(_express);
 
-	var _compression = __webpack_require__(18);
+	var _compression = __webpack_require__(21);
 
 	var _compression2 = _interopRequireDefault(_compression);
 
-	var _bodyParser = __webpack_require__(17);
+	var _bodyParser = __webpack_require__(20);
 
 	var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-	var _path = __webpack_require__(20);
+	var _path = __webpack_require__(23);
 
 	var _path2 = _interopRequireDefault(_path);
 
@@ -4161,19 +3905,19 @@
 
 	var _webpack2 = _interopRequireDefault(_webpack);
 
-	var _webpackConfig = __webpack_require__(15);
+	var _webpackConfig = __webpack_require__(18);
 
 	var _webpackConfig2 = _interopRequireDefault(_webpackConfig);
 
-	var _webpackDevMiddleware = __webpack_require__(22);
+	var _webpackDevMiddleware = __webpack_require__(25);
 
 	var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 
-	var _webpackHotMiddleware = __webpack_require__(23);
+	var _webpackHotMiddleware = __webpack_require__(26);
 
 	var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 
-	var _store = __webpack_require__(12);
+	var _store = __webpack_require__(15);
 
 	var _reactRedux = __webpack_require__(5);
 
@@ -4181,7 +3925,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _server = __webpack_require__(21);
+	var _server = __webpack_require__(24);
 
 	var _reactRouter = __webpack_require__(3);
 
@@ -4189,13 +3933,13 @@
 
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 
-	var _routes = __webpack_require__(11);
+	var _routes = __webpack_require__(14);
 
 	var _routes2 = _interopRequireDefault(_routes);
 
-	var _fetchData = __webpack_require__(14);
+	var _fetchData = __webpack_require__(17);
 
-	var _config = __webpack_require__(13);
+	var _config = __webpack_require__(16);
 
 	var _config2 = _interopRequireDefault(_config);
 
@@ -4230,9 +3974,9 @@
 	  // Import Manifests
 	  var assetsManifest = process.env.webpackAssets && JSON.parse(process.env.webpackAssets);
 	  var chunkManifest = process.env.webpackChunkAssets && JSON.parse(process.env.webpackChunkAssets);
-	  var refManifest = __webpack_require__(16);
+	  var refManifest = __webpack_require__(19);
 	  var styleSrc = '/' + refManifest['main.css'];
-	  return '\n    <!doctype html>\n    <html>\n      <head>\n        ' + head.base.toString() + '\n        ' + head.title.toString() + '\n        ' + head.meta.toString() + '\n        ' + head.link.toString() + '\n        ' + head.script.toString() + '\n\n        ' + (process.env.NODE_ENV === 'production' ? '<link rel=\'stylesheet\' href=\'' + assetsManifest['/app.css'] + '\' />' : '') + '\n        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">\n        <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/png" />\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">\n        <link rel="stylesheet" href=\'' + (process.env.NODE_ENV === 'production' ? styleSrc : '/main.css') + '\' type="text/css" media="screen" charset="utf-8">\n        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing&key=AIzaSyBr3jBMT0Q4j0TnWxajkWt159n5lROYsh0"></script>      \n         <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">\n    </script>\n      </head>\n      <body>\n        <div id="root">' + html + '</div>\n        <script>\n          window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + ';\n          ' + (process.env.NODE_ENV === 'production' ? '//<![CDATA[\n          window.webpackManifest = ' + JSON.stringify(chunkManifest) + ';\n          //]]>' : '') + '\n        </script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/vendor.js'] : '/vendor.js') + '\'></script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/app.js'] : '/app.js') + '\'></script>\n      </body>\n    </html>\n  ';
+	  return '\n    <!doctype html>\n    <html>\n      <head>\n        ' + head.base.toString() + '\n        ' + head.title.toString() + '\n        ' + head.meta.toString() + '\n        ' + head.link.toString() + '\n        ' + head.script.toString() + '\n\n        ' + (process.env.NODE_ENV === 'production' ? '<link rel=\'stylesheet\' href=\'' + assetsManifest['/app.css'] + '\' />' : '') + '\n        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">\n        <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/png" />\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">\n        <link rel="stylesheet" href=\'' + (process.env.NODE_ENV === 'production' ? styleSrc : '/main.css') + '\' type="text/css" media="screen" charset="utf-8">\n        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing&key=AIzaSyBr3jBMT0Q4j0TnWxajkWt159n5lROYsh0"></script>      \n        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>\n        <script src="http://code.highcharts.com/highcharts.js"></script>\n        <script src="http://code.highcharts.com/modules/heatmap.js" ></script>\n        <script src="http://code.highcharts.com/modules/exporting.js"></script>\n      </head>\n      <body>\n        <div id="root">' + html + '</div>\n        <script>\n          window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + ';\n          ' + (process.env.NODE_ENV === 'production' ? '//<![CDATA[\n          window.webpackManifest = ' + JSON.stringify(chunkManifest) + ';\n          //]]>' : '') + '\n        </script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/vendor.js'] : '/vendor.js') + '\'></script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/app.js'] : '/app.js') + '\'></script>\n      </body>\n    </html>\n  ';
 	};
 
 	var renderError = function renderError(err) {
@@ -4282,7 +4026,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, "server"))
 
 /***/ },
-/* 38 */
+/* 41 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4313,136 +4057,1019 @@
 	}
 
 /***/ },
-/* 39 */
-/***/ function(module, exports) {
-
-	module.exports = require("postcss-cssnext");
-
-/***/ },
-/* 40 */
-/***/ function(module, exports) {
-
-	module.exports = require("postcss-focus");
-
-/***/ },
-/* 41 */
-/***/ function(module, exports) {
-
-	module.exports = require("postcss-reporter");
-
-/***/ },
 /* 42 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/FormControl");
+	module.exports = [
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 296,
+			"payload": {
+				"d": {
+					"t": "1479340800",
+					"noise": [
+						"30",
+						"24",
+						"1",
+						"1",
+						"0"
+					],
+					"g1": 451,
+					"g2": 0.156,
+					"g3": 0.934,
+					"g4": 0.154,
+					"p1": "119",
+					"p2": "140",
+					"temp": 28,
+					"hum": 33
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 300,
+			"payload": {
+				"d": {
+					"t": "1479254400",
+					"noise": [
+						"45",
+						"29",
+						"2",
+						"1",
+						"0"
+					],
+					"g1": 463,
+					"g2": 0.05,
+					"g3": 0.0015,
+					"g4": 0.0495,
+					"p1": "120",
+					"p2": "135",
+					"temp": 28,
+					"hum": 30
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 312,
+			"payload": {
+				"d": {
+					"t": "1479168000",
+					"noise": [
+						"49",
+						"29",
+						"1",
+						"1",
+						"0"
+					],
+					"g1": 470,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "136",
+					"p2": "162",
+					"temp": 28,
+					"hum": 32
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 133,
+			"payload": {
+				"d": {
+					"t": "1479081600",
+					"noise": [
+						"44",
+						"20",
+						"1",
+						"0",
+						"0"
+					],
+					"g1": 448,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "70",
+					"p2": "84",
+					"temp": 29,
+					"hum": 36
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 183,
+			"payload": {
+				"d": {
+					"t": "1478995200",
+					"noise": [
+						"48",
+						"26",
+						"1",
+						"1",
+						"0"
+					],
+					"g1": 460,
+					"g2": 0.0375,
+					"g3": 0.000375,
+					"g4": 0.305,
+					"p1": "85",
+					"p2": "104",
+					"temp": 30,
+					"hum": 31
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 196,
+			"payload": {
+				"d": {
+					"t": "1478908800",
+					"noise": [
+						"41",
+						"30",
+						"2",
+						"1",
+						"0"
+					],
+					"g1": 461,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "89",
+					"p2": "102",
+					"temp": 29,
+					"hum": 32
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 260,
+			"payload": {
+				"d": {
+					"t": "1478822400",
+					"noise": [
+						"44",
+						"33",
+						"1",
+						"1",
+						"0"
+					],
+					"g1": 476,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "108",
+					"p2": "125",
+					"temp": 30,
+					"hum": 30
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 210,
+			"payload": {
+				"d": {
+					"t": "1478736000",
+					"noise": [
+						"49",
+						"32",
+						"2",
+						"1",
+						"0"
+					],
+					"g1": 478,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "93",
+					"p2": "109",
+					"temp": 30,
+					"hum": 26
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 216,
+			"payload": {
+				"d": {
+					"t": "1478649600",
+					"noise": [
+						"33",
+						"28",
+						"2",
+						"2",
+						"2"
+					],
+					"g1": 447,
+					"g2": 4.24,
+					"g3": 0.00875,
+					"g4": 0.247,
+					"p1": "95",
+					"p2": "116",
+					"temp": 31,
+					"hum": 25
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 260,
+			"payload": {
+				"d": {
+					"t": "1478563200",
+					"noise": [
+						"50",
+						"29",
+						"1",
+						"0",
+						"0"
+					],
+					"g1": 473,
+					"g2": 0.222,
+					"g3": 0.0246,
+					"g4": 2.72,
+					"p1": "108",
+					"p2": "122",
+					"temp": 30,
+					"hum": 31
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 386,
+			"payload": {
+				"d": {
+					"t": "1478476801",
+					"noise": [
+						"59",
+						"29",
+						"1",
+						"1",
+						"0"
+					],
+					"g1": 488,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "232",
+					"p2": "249",
+					"temp": 30,
+					"hum": 39
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 352,
+			"payload": {
+				"d": {
+					"t": "1478390401",
+					"noise": [
+						"48",
+						"39",
+						"1",
+						"1",
+						"0"
+					],
+					"g1": 510,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "188",
+					"p2": "202",
+					"temp": 29,
+					"hum": 38
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 319,
+			"payload": {
+				"d": {
+					"t": "1478304001",
+					"noise": [
+						"55",
+						"38",
+						"1",
+						"1",
+						"0"
+					],
+					"g1": 523,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "145",
+					"p2": "153",
+					"temp": 30,
+					"hum": 31
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 286,
+			"payload": {
+				"d": {
+					"t": "1478217601",
+					"noise": [
+						"45",
+						"43",
+						"1",
+						"1",
+						"0"
+					],
+					"g1": 468,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "116",
+					"p2": "124",
+					"temp": 29,
+					"hum": 31
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 309,
+			"payload": {
+				"d": {
+					"t": "1478131200",
+					"noise": [
+						"52",
+						"37",
+						"1",
+						"1",
+						"0"
+					],
+					"g1": 491,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "132",
+					"p2": "143",
+					"temp": 29,
+					"hum": 32
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 266,
+			"payload": {
+				"d": {
+					"t": "1478044800",
+					"noise": [
+						"68",
+						"25",
+						"1",
+						"1",
+						"0"
+					],
+					"g1": 489,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "110",
+					"p2": "118",
+					"temp": 30,
+					"hum": 28
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 216,
+			"payload": {
+				"d": {
+					"t": "1477958400",
+					"noise": [
+						"59",
+						"31",
+						"1",
+						"1",
+						"0"
+					],
+					"g1": 475,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "95",
+					"p2": "102",
+					"temp": 30,
+					"hum": 30
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 280,
+			"payload": {
+				"d": {
+					"t": "1477872000",
+					"noise": [
+						"56",
+						"36",
+						"1",
+						"1",
+						"0"
+					],
+					"g1": 484,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "114",
+					"p2": "122",
+					"temp": 31,
+					"hum": 32
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 300,
+			"payload": {
+				"d": {
+					"t": "1477785600",
+					"noise": [
+						"51",
+						"38",
+						"1",
+						"1",
+						"0"
+					],
+					"g1": 489,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "120",
+					"p2": "133",
+					"temp": 31,
+					"hum": 32
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 156,
+			"payload": {
+				"d": {
+					"t": "1477699200",
+					"noise": [
+						"60",
+						"31",
+						"2",
+						"1",
+						"0"
+					],
+					"g1": 474,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "77",
+					"p2": "89",
+					"temp": 32,
+					"hum": 27
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 173,
+			"payload": {
+				"d": {
+					"t": "1477612800",
+					"noise": [
+						"58",
+						"34",
+						"2",
+						"1",
+						"0"
+					],
+					"g1": 493,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "82",
+					"p2": "91",
+					"temp": 32,
+					"hum": 32
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 220,
+			"payload": {
+				"d": {
+					"t": "1477526401",
+					"noise": [
+						"66",
+						"28",
+						"1",
+						"1",
+						"0"
+					],
+					"g1": 525,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "96",
+					"p2": "104",
+					"temp": 29,
+					"hum": 42
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 136,
+			"payload": {
+				"d": {
+					"t": "1477440001",
+					"noise": [
+						"45",
+						"35",
+						"1",
+						"1",
+						"3"
+					],
+					"g1": 477,
+					"g2": 0.030899999999999997,
+					"g3": 0.000915,
+					"g4": 0.0443,
+					"p1": "71",
+					"p2": "76",
+					"temp": 30,
+					"hum": 51
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 116,
+			"payload": {
+				"d": {
+					"t": "1477353600",
+					"noise": [
+						"37",
+						"53",
+						"1",
+						"1",
+						"0"
+					],
+					"g1": 493,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "65",
+					"p2": "73",
+					"temp": 30,
+					"hum": 45
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 130,
+			"payload": {
+				"d": {
+					"t": "1477267200",
+					"noise": [
+						"29",
+						"62",
+						"1",
+						"1",
+						"0"
+					],
+					"g1": 507,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "69",
+					"p2": "75",
+					"temp": 30,
+					"hum": 47
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 110,
+			"payload": {
+				"d": {
+					"t": "1477180800",
+					"noise": [
+						"33",
+						"57",
+						"2",
+						"1",
+						"0"
+					],
+					"g1": 488,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "63",
+					"p2": "70",
+					"temp": 31,
+					"hum": 47
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 160,
+			"payload": {
+				"d": {
+					"t": "1477094400",
+					"noise": [
+						"32",
+						"10",
+						"1",
+						"0",
+						"0"
+					],
+					"g1": 474,
+					"g2": 0.667,
+					"g3": 0.12,
+					"g4": 0.847,
+					"p1": "78",
+					"p2": "88",
+					"temp": 26,
+					"hum": 67
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 81,
+			"payload": {
+				"d": {
+					"t": "1477008001",
+					"noise": [
+						"59",
+						"24",
+						"1",
+						"1",
+						"0"
+					],
+					"g1": 465,
+					"g2": 0.8909999999999999,
+					"g3": 1.55,
+					"g4": 2.27,
+					"p1": "49",
+					"p2": "56",
+					"temp": 32,
+					"hum": 33
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 71,
+			"payload": {
+				"d": {
+					"t": "1476921601",
+					"noise": [
+						"57",
+						"36",
+						"1",
+						"1",
+						"0"
+					],
+					"g1": 472,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "43",
+					"p2": "51",
+					"temp": 34,
+					"hum": 27
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 81,
+			"payload": {
+				"d": {
+					"t": "1476835201",
+					"noise": [
+						"49",
+						"38",
+						"1",
+						"0",
+						"0"
+					],
+					"g1": 4.96,
+					"g2": 1,
+					"g3": 5.25,
+					"g4": 3.07,
+					"p1": "49",
+					"p2": "58",
+					"temp": 35,
+					"hum": 29
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 250,
+			"payload": {
+				"d": {
+					"t": "1476748801",
+					"noise": [
+						"33",
+						"59",
+						"1",
+						"1",
+						"0"
+					],
+					"g1": 547,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "105",
+					"p2": "120",
+					"temp": 32,
+					"hum": 41
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 176,
+			"payload": {
+				"d": {
+					"t": "1476662401",
+					"noise": [
+						"29",
+						"62",
+						"1",
+						"1",
+						"0"
+					],
+					"g1": 544,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "83",
+					"p2": "97",
+					"temp": 30,
+					"hum": 46
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 173,
+			"payload": {
+				"d": {
+					"t": "1476576001",
+					"noise": [
+						"39",
+						"53",
+						"1",
+						"1",
+						"0"
+					],
+					"g1": 493,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "82",
+					"p2": "94",
+					"temp": 33,
+					"hum": 41
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 213,
+			"payload": {
+				"d": {
+					"t": "1476489601",
+					"noise": [
+						"57",
+						"36",
+						"1",
+						"1",
+						"0"
+					],
+					"g1": 500,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "94",
+					"p2": "104",
+					"temp": 32,
+					"hum": 54
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 163,
+			"payload": {
+				"d": {
+					"t": "1476403201",
+					"noise": [
+						"18",
+						"54",
+						"1",
+						"0",
+						"0"
+					],
+					"g1": 166,
+					"g2": 0.75,
+					"g3": 0.33,
+					"g4": 0.907,
+					"p1": "79",
+					"p2": "97",
+					"temp": 26,
+					"hum": 97
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 98,
+			"payload": {
+				"d": {
+					"t": "1476316801",
+					"noise": [
+						"21",
+						"68",
+						"6",
+						"0",
+						"1"
+					],
+					"g1": 500,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "59",
+					"p2": "73",
+					"temp": 29,
+					"hum": 63
+				}
+			}
+		},
+		{
+			"deviceId": "OZ_POLLUDRON_006",
+			"aqi": 91,
+			"payload": {
+				"d": {
+					"t": "1476230400",
+					"noise": [
+						"7",
+						"87",
+						"3",
+						"0",
+						"1"
+					],
+					"g1": 508,
+					"g2": 0,
+					"g3": 0,
+					"g4": 0,
+					"p1": "55",
+					"p2": "66",
+					"temp": 28,
+					"hum": 75
+				}
+			}
+		}
+	];
 
 /***/ },
 /* 43 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/FormGroup");
+	module.exports = require("postcss-cssnext");
 
 /***/ },
 /* 44 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/Nav");
+	module.exports = require("postcss-focus");
 
 /***/ },
 /* 45 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/NavItem");
+	module.exports = require("postcss-reporter");
 
 /***/ },
 /* 46 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/Navbar");
+	module.exports = require("react-bootstrap/lib/FormControl");
 
 /***/ },
 /* 47 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-google-maps/lib/GoogleMap");
+	module.exports = require("react-bootstrap/lib/FormGroup");
 
 /***/ },
 /* 48 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-google-maps/lib/GoogleMapLoader");
+	module.exports = require("react-bootstrap/lib/Nav");
 
 /***/ },
 /* 49 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-helmet/lib/Helmet");
+	module.exports = require("react-bootstrap/lib/NavItem");
 
 /***/ },
 /* 50 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-highcharts/dist/ReactHighcharts.js");
+	module.exports = require("react-bootstrap/lib/Navbar");
 
 /***/ },
 /* 51 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-router-bootstrap/lib/LinkContainer");
+	module.exports = require("react-google-maps/lib/GoogleMap");
 
 /***/ },
 /* 52 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/Tab");
+	module.exports = require("react-google-maps/lib/GoogleMapLoader");
 
 /***/ },
 /* 53 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/TabList");
+	module.exports = require("react-helmet/lib/Helmet");
 
 /***/ },
 /* 54 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/TabPanel");
+	module.exports = require("react-router-bootstrap/lib/LinkContainer");
 
 /***/ },
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/Tabs");
+	module.exports = require("react-tabs/lib/components/Tab");
 
 /***/ },
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools");
+	module.exports = require("react-tabs/lib/components/TabList");
 
 /***/ },
 /* 57 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-dock-monitor");
+	module.exports = require("react-tabs/lib/components/TabPanel");
 
 /***/ },
 /* 58 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-log-monitor");
+	module.exports = require("react-tabs/lib/components/Tabs");
 
 /***/ },
 /* 59 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-thunk");
+	module.exports = require("redux-devtools");
 
 /***/ },
 /* 60 */
 /***/ function(module, exports) {
 
-	module.exports = require("superagent");
+	module.exports = require("redux-devtools-dock-monitor");
+
+/***/ },
+/* 61 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-devtools-log-monitor");
+
+/***/ },
+/* 62 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-thunk");
 
 /***/ }
 /******/ ]);
