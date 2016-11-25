@@ -65,19 +65,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Navbar = __webpack_require__(50);
+	var _Navbar = __webpack_require__(49);
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _Nav = __webpack_require__(48);
+	var _Nav = __webpack_require__(47);
 
 	var _Nav2 = _interopRequireDefault(_Nav);
 
-	var _NavItem = __webpack_require__(49);
+	var _NavItem = __webpack_require__(48);
 
 	var _NavItem2 = _interopRequireDefault(_NavItem);
 
-	var _LinkContainer = __webpack_require__(54);
+	var _LinkContainer = __webpack_require__(53);
 
 	var _LinkContainer2 = _interopRequireDefault(_LinkContainer);
 
@@ -229,22 +229,28 @@
 /* 4 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-helmet");
+	module.exports = require("superagent");
 
 /***/ },
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-redux");
+	module.exports = require("react-helmet");
 
 /***/ },
 /* 6 */
 /***/ function(module, exports) {
 
-	module.exports = require("webpack");
+	module.exports = require("react-redux");
 
 /***/ },
 /* 7 */
+/***/ function(module, exports) {
+
+	module.exports = require("webpack");
+
+/***/ },
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -268,11 +274,11 @@
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _FormGroup = __webpack_require__(47);
+	var _FormGroup = __webpack_require__(46);
 
 	var _FormGroup2 = _interopRequireDefault(_FormGroup);
 
-	var _FormControl = __webpack_require__(46);
+	var _FormControl = __webpack_require__(45);
 
 	var _FormControl2 = _interopRequireDefault(_FormControl);
 
@@ -280,7 +286,7 @@
 
 	var _LatestDevice2 = _interopRequireDefault(_LatestDevice);
 
-	var _superagent = __webpack_require__(13);
+	var _superagent = __webpack_require__(4);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -288,7 +294,7 @@
 
 	var _LoadingMap2 = _interopRequireDefault(_LoadingMap);
 
-	var _index = __webpack_require__(8);
+	var _index = __webpack_require__(9);
 
 	var _index2 = _interopRequireDefault(_index);
 
@@ -381,7 +387,8 @@
 	        time: '',
 	        no_records: false,
 	        iscity_changed: false,
-	        city_list: []
+	        city_list: [],
+	        marker_id: ''
 	      };
 	    }
 	  }, {
@@ -434,7 +441,7 @@
 	    key: 'realTimeData',
 	    value: function realTimeData(id, time) {
 	      _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/data/cur/' + id).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-	        this.setState({ realTimeData: res.body, time: time });
+	        this.setState({ realTimeData: res.body, time: time, marker_id: id });
 	        this.setState({ realTimedataLoading: false });
 	      }.bind(this));
 	    }
@@ -552,7 +559,8 @@
 	      }, void 0, _jsx(_LatestDevice2.default, {
 	        analysisData: this.state.analyticsData,
 	        realtimeData: this.state.realTimeData,
-	        time: this.state.time
+	        time: this.state.time,
+	        markerId: this.state.marker_id
 	      })))) : null : null)), _ref8);
 	    }
 	  }]);
@@ -563,7 +571,7 @@
 	exports.default = Dashboard;
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -579,7 +587,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Mapstyle = __webpack_require__(9);
+	var _Mapstyle = __webpack_require__(10);
 
 	var _Mapstyle2 = _interopRequireDefault(_Mapstyle);
 
@@ -741,7 +749,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement('div', { ref: 'map', style: { height: '100vh', width: '100%' } });
+	      return _react2.default.createElement('div', { ref: 'map', style: { height: '92vh', width: '100%' } });
 	    }
 	  }]);
 
@@ -751,7 +759,7 @@
 	exports.default = Map;
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -839,28 +847,22 @@
 	];
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-bootstrap/lib/DropdownButton");
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-bootstrap/lib/MenuItem");
 
 /***/ },
-/* 12 */
-/***/ function(module, exports) {
-
-	module.exports = require("redux");
-
-/***/ },
 /* 13 */
 /***/ function(module, exports) {
 
-	module.exports = require("superagent");
+	module.exports = require("redux");
 
 /***/ },
 /* 14 */
@@ -886,7 +888,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _Dashboard = __webpack_require__(7);
+	var _Dashboard = __webpack_require__(8);
 
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
@@ -914,7 +916,7 @@
 
 	var _Airowl2 = _interopRequireDefault(_Airowl);
 
-	var _index = __webpack_require__(8);
+	var _index = __webpack_require__(9);
 
 	var _index2 = _interopRequireDefault(_index);
 
@@ -933,7 +935,7 @@
 	 */
 	if (process.env.NODE_ENV !== 'production') {
 	  // Require async routes only in development for react-hot-reloader to work.
-	  __webpack_require__(7);
+	  __webpack_require__(8);
 	  // require('./modules/Post/pages/PostDetailPage/PostDetailPage');
 	}
 
@@ -1011,9 +1013,9 @@
 	});
 	exports.configureStore = configureStore;
 
-	var _redux = __webpack_require__(12);
+	var _redux = __webpack_require__(13);
 
-	var _reduxThunk = __webpack_require__(62);
+	var _reduxThunk = __webpack_require__(61);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -1106,10 +1108,10 @@
 	"use strict";
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 
-	var webpack = __webpack_require__(6);
-	var cssnext = __webpack_require__(43);
-	var postcssFocus = __webpack_require__(44);
-	var postcssReporter = __webpack_require__(45);
+	var webpack = __webpack_require__(7);
+	var cssnext = __webpack_require__(42);
+	var postcssFocus = __webpack_require__(43);
+	var postcssReporter = __webpack_require__(44);
 
 	module.exports = {
 	  devtool: 'cheap-module-eval-source-map',
@@ -1178,7 +1180,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"main.css": "main-2c78b3771a.css"
+		"main.css": "main-c85ccbb0ec.css"
 	};
 
 /***/ },
@@ -1391,23 +1393,23 @@
 
 	var _Footer2 = _interopRequireDefault(_Footer);
 
-	var _Helmet = __webpack_require__(53);
+	var _Helmet = __webpack_require__(52);
 
 	var _Helmet2 = _interopRequireDefault(_Helmet);
 
-	var _Tab = __webpack_require__(55);
+	var _Tab = __webpack_require__(54);
 
 	var _Tab2 = _interopRequireDefault(_Tab);
 
-	var _TabList = __webpack_require__(56);
+	var _TabList = __webpack_require__(55);
 
 	var _TabList2 = _interopRequireDefault(_TabList);
 
-	var _Tabs = __webpack_require__(58);
+	var _Tabs = __webpack_require__(57);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
-	var _TabPanel = __webpack_require__(57);
+	var _TabPanel = __webpack_require__(56);
 
 	var _TabPanel2 = _interopRequireDefault(_TabPanel);
 
@@ -1875,7 +1877,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(5);
+	var _reactRedux = __webpack_require__(6);
 
 	var _App = {
 	  "container": "App__container__4uEyK"
@@ -1883,7 +1885,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _reactHelmet = __webpack_require__(4);
+	var _reactHelmet = __webpack_require__(5);
 
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 
@@ -1969,13 +1971,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reduxDevtools = __webpack_require__(59);
+	var _reduxDevtools = __webpack_require__(58);
 
-	var _reduxDevtoolsLogMonitor = __webpack_require__(61);
+	var _reduxDevtoolsLogMonitor = __webpack_require__(60);
 
 	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
 
-	var _reduxDevtoolsDockMonitor = __webpack_require__(60);
+	var _reduxDevtoolsDockMonitor = __webpack_require__(59);
 
 	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
 
@@ -2170,15 +2172,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _GoogleMapLoader = __webpack_require__(52);
+	var _GoogleMapLoader = __webpack_require__(51);
 
 	var _GoogleMapLoader2 = _interopRequireDefault(_GoogleMapLoader);
 
-	var _GoogleMap = __webpack_require__(51);
+	var _GoogleMap = __webpack_require__(50);
 
 	var _GoogleMap2 = _interopRequireDefault(_GoogleMap);
 
-	var _Mapstyle = __webpack_require__(9);
+	var _Mapstyle = __webpack_require__(10);
 
 	var _Mapstyle2 = _interopRequireDefault(_Mapstyle);
 
@@ -2269,17 +2271,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _DropdownButton = __webpack_require__(10);
+	var _DropdownButton = __webpack_require__(11);
 
 	var _DropdownButton2 = _interopRequireDefault(_DropdownButton);
 
-	var _MenuItem = __webpack_require__(11);
+	var _MenuItem = __webpack_require__(12);
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-	var _pollution = __webpack_require__(42);
+	var _superagent = __webpack_require__(4);
 
-	var _pollution2 = _interopRequireDefault(_pollution);
+	var _superagent2 = _interopRequireDefault(_superagent);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2288,6 +2290,8 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	// import data from '../components/pollution.json'
+
 
 	var heatmap = void 0,
 	    displaydate = [],
@@ -2322,277 +2326,123 @@
 	    var _this = _possibleConstructorReturn(this, (CalendarView.__proto__ || Object.getPrototypeOf(CalendarView)).call(this, props));
 
 	    _this.state = {
-	      dailyData: []
+	      dailyData: [],
+	      dailyDataLoading: true,
+	      noDailyData: false
 	    };
-	    console.log(_pollution2.default);
-	    _pollution2.default.map(function (e, index) {
-	      var a = new Date(e.payload.d.t * 1000);
-	      var month = a.getMonth();
-	      var date = a.getDate();
-	      var hour = a.getHours();
-	      var min = a.getMinutes();
-	      var Time = hour + ':' + min;
-	      displaydate.push(date);
-	      time.push(hour);
+	    _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/analytics/range/' + _this.props.markerId + '?gte=1479457910&lte=1479977064').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+	      if (res.statusText != "Not Found") {
+	        this.setState({ dailyData: res.body });
+	        this.setState({ dailyDataLoading: false });
+	        array = [];
+	        this.state.dailyData.map(function (e) {
+	          var a = new Date(e.time * 1000);
+	          var month = a.getMonth();
+	          var date = a.getDate();
+	          var hour = a.getHours();
+	          var min = a.getMinutes();
+	          var Time = hour + ':' + min;
+	          displaydate.push(date + 'th');
+	          time.push(hour + ':00');
+	          array.push([hour, date, e.aqi]);
+	        });
 
-	      _pollution2.default.map(function (e2, index2) {
-	        array.push([index, index2, e2.aqi]);
-	      });
-	    });
-	    console.log('array:', array);
+	        // let theme = Highcharts.theme = {
+	        //   // colors: ['#0C6657', '#60E5D7'],
+	        //
+	        //   // colors: ['red', 'blue', 'yellow', 'orange', 'white', 'green', 'gray'],
+	        // };
+
+	        // Highcharts.setOptions(theme)
+
+	        heatmap = Highcharts.chart(this.refs.heatmap, {
+	          chart: {
+	            type: 'heatmap',
+	            backgroundColor: 'transparent',
+	            width: 600,
+	            height: 400,
+	            plotBorderWidth: 1,
+	            marginTop: 80
+	          },
+
+	          title: {
+	            text: ''
+	          },
+
+	          xAxis: {
+	            categories: time,
+	            labels: {
+	              style: {
+	                color: '#E0E0E3'
+	              }
+	            },
+	            gridLineColor: 'transparent'
+	          },
+
+	          yAxis: {
+	            title: null,
+	            categories: displaydate,
+	            labels: {
+	              style: {
+	                color: '#E0E0E3'
+	              }
+	            },
+	            gridLineColor: 'transparent'
+	          },
+
+	          colors: ['#0C6657', '#1BCCAC', '#60E5D7'],
+	          colorAxis: {
+	            dataClassColor: 'category',
+	            dataClasses: [{
+	              to: 500
+	            }, {
+	              from: 170,
+	              to: 340
+	            }, {
+	              from: 170
+	            }]
+	          },
+
+	          // colorAxis: {
+	          // min: 0,
+	          // max: 600,
+	          // stops: [
+	          //   [0.1,'green'],
+	          //   [0.5,'orange'],
+	          //   [0.9,'red']
+	          // ],
+	          // minColor: Highcharts.getOptions().colors[1],
+	          // maxColor: Highcharts.getOptions().colors[0]
+	          // },
+
+	          legend: {
+	            enabled: false
+	          },
+	          series: [{
+	            name: 'AQI per day',
+	            borderWidth: 1,
+	            borderColor: '#eee',
+	            data: array,
+	            dataLabels: {
+	              enabled: false,
+	              color: 'black',
+	              style: {
+	                textShadow: 'none'
+	              }
+	            }
+	          }]
+
+	        });
+	      } else {
+	        this.setState({ noDailyData: true });
+	      }
+	    }.bind(_this));
 	    return _this;
 	  }
 
 	  _createClass(CalendarView, [{
 	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var theme = Highcharts.theme = {
-	        colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
-	        chart: {
-	          backgroundColor: {
-	            linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
-	            stops: [[0, '#2a2a2b'], [1, '#3e3e40']]
-	          },
-	          style: {
-	            fontFamily: '\'Unica One\', sans-serif'
-	          },
-	          plotBorderColor: '#606063'
-	        },
-	        title: {
-	          style: {
-	            color: '#E0E0E3',
-	            textTransform: 'uppercase',
-	            fontSize: '20px'
-	          }
-	        },
-	        subtitle: {
-	          style: {
-	            color: '#E0E0E3',
-	            textTransform: 'uppercase'
-	          }
-	        },
-	        xAxis: {
-	          gridLineColor: '#707073',
-	          labels: {
-	            style: {
-	              color: '#E0E0E3'
-	            }
-	          },
-	          lineColor: '#707073',
-	          minorGridLineColor: '#505053',
-	          tickColor: '#707073',
-	          title: {
-	            style: {
-	              color: '#A0A0A3'
-
-	            }
-	          }
-	        },
-	        yAxis: {
-	          gridLineColor: '#707073',
-	          labels: {
-	            style: {
-	              color: '#E0E0E3'
-	            }
-	          },
-	          lineColor: '#707073',
-	          minorGridLineColor: '#505053',
-	          tickColor: '#707073',
-	          tickWidth: 1,
-	          title: {
-	            style: {
-	              color: '#A0A0A3'
-	            }
-	          }
-	        },
-	        tooltip: {
-	          backgroundColor: 'rgba(0, 0, 0, 0.85)',
-	          style: {
-	            color: '#F0F0F0'
-	          }
-	        },
-	        plotOptions: {
-	          series: {
-	            dataLabels: {
-	              color: '#B0B0B3'
-	            },
-	            marker: {
-	              lineColor: '#333'
-	            }
-	          },
-	          boxplot: {
-	            fillColor: '#505053'
-	          },
-	          candlestick: {
-	            lineColor: 'white'
-	          },
-	          errorbar: {
-	            color: 'white'
-	          }
-	        },
-	        legend: {
-	          itemStyle: {
-	            color: '#E0E0E3'
-	          },
-	          itemHoverStyle: {
-	            color: '#FFF'
-	          },
-	          itemHiddenStyle: {
-	            color: '#606063'
-	          }
-	        },
-	        credits: {
-	          style: {
-	            color: '#666'
-	          }
-	        },
-	        labels: {
-	          style: {
-	            color: '#707073'
-	          }
-	        },
-
-	        drilldown: {
-	          activeAxisLabelStyle: {
-	            color: '#F0F0F3'
-	          },
-	          activeDataLabelStyle: {
-	            color: '#F0F0F3'
-	          }
-	        },
-
-	        navigation: {
-	          buttonOptions: {
-	            symbolStroke: '#DDDDDD',
-	            theme: {
-	              fill: '#505053'
-	            }
-	          }
-	        },
-
-	        // scroll charts
-	        rangeSelector: {
-	          buttonTheme: {
-	            fill: '#505053',
-	            stroke: '#000000',
-	            style: {
-	              color: '#CCC'
-	            },
-	            states: {
-	              hover: {
-	                fill: '#707073',
-	                stroke: '#000000',
-	                style: {
-	                  color: 'white'
-	                }
-	              },
-	              select: {
-	                fill: '#000003',
-	                stroke: '#000000',
-	                style: {
-	                  color: 'white'
-	                }
-	              }
-	            }
-	          },
-	          inputBoxBorderColor: '#505053',
-	          inputStyle: {
-	            backgroundColor: '#333',
-	            color: 'silver'
-	          },
-	          labelStyle: {
-	            color: 'silver'
-	          }
-	        },
-
-	        navigator: {
-	          handles: {
-	            backgroundColor: '#666',
-	            borderColor: '#AAA'
-	          },
-	          outlineColor: '#CCC',
-	          maskFill: 'rgba(255,255,255,0.1)',
-	          series: {
-	            color: '#7798BF',
-	            lineColor: '#A6C7ED'
-	          },
-	          xAxis: {
-	            gridLineColor: '#505053'
-	          }
-	        },
-
-	        scrollbar: {
-	          barBackgroundColor: '#808083',
-	          barBorderColor: '#808083',
-	          buttonArrowColor: '#CCC',
-	          buttonBackgroundColor: '#606063',
-	          buttonBorderColor: '#606063',
-	          rifleColor: '#FFF',
-	          trackBackgroundColor: '#404043',
-	          trackBorderColor: '#404043'
-	        },
-
-	        legendBackgroundColor: 'rgba(0, 0, 0, 0.5)',
-	        background2: '#505053',
-	        dataLabelsColor: '#B0B0B3',
-	        textColor: '#C0C0C0',
-	        contrastTextColor: '#F0F0F3',
-	        maskColor: 'rgba(255,255,255,0.3)'
-	      };
-
-	      Highcharts.setOptions(theme);
-
-	      heatmap = Highcharts.chart(this.refs.heatmap, {
-	        chart: {
-	          type: 'heatmap',
-	          backgroundColor: 'transparent',
-	          width: 600,
-	          height: 400,
-	          plotBorderWidth: 1,
-	          marginTop: 40
-	        },
-
-	        xAxis: {
-	          categories: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
-	        },
-
-	        yAxis: {
-	          categories: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36],
-	          title: null
-	        },
-
-	        colorAxis: {
-	          min: 0,
-	          minColor: '#FFFFFF',
-	          maxColor: Highcharts.getOptions().colors[0]
-	        },
-
-	        legend: {
-	          align: 'right',
-	          layout: 'vertical',
-	          margin: 0,
-	          verticalAlign: 'top',
-	          y: 25,
-	          symbolHeight: 400,
-	          enabled: false
-	        },
-
-	        series: [{
-	          name: 'Sales per employee',
-	          borderWidth: 1,
-	          data: array,
-	          // data: [[0, 0, 10], [0, 1, 19], [0, 2, 8], [0, 3, 24], [0, 4, 67], [1, 0, 92], [1, 1, 58], [1, 2, 78], [1, 3, 117], [1, 4, 48], [2, 0, 35], [2, 1, 15], [2, 2, 123], [2, 3, 64], [2, 4, 52], [3, 0, 72], [3, 1, 132], [3, 2, 114], [3, 3, 19], [3, 4, 16], [4, 0, 38], [4, 1, 5], [4, 2, 8], [4, 3, 117], [4, 4, 115], [5, 0, 88], [5, 1, 32], [5, 2, 12], [5, 3, 6], [5, 4, 120], [6, 0, 13], [6, 1, 44], [6, 2, 88], [6, 3, 98], [6, 4, 96], [7, 0, 31], [7, 1, 1], [7, 2, 82], [7, 3, 32], [7, 4, 30], [8, 0, 85], [8, 1, 97], [8, 2, 123], [8, 3, 64], [8, 4, 84], [9, 0, 47], [9, 1, 114], [9, 2, 31], [9, 3, 48], [9, 4, 91]],
-	          dataLabels: {
-	            enabled: false,
-	            color: 'black',
-	            style: {
-	              textShadow: 'none'
-	            }
-	          }
-	        }]
-
-	      });
-	    }
+	    value: function componentDidMount() {}
 	  }, {
 	    key: 'render',
 	    value: function render() {
@@ -2602,7 +2452,14 @@
 	        className: 'analytics-div'
 	      }, void 0, _jsx('div', {
 	        className: 'analytics-chart'
-	      }, void 0, _react2.default.createElement('div', { className: 'heatmap', ref: 'heatmap' }), _jsx('div', {
+	      }, void 0, this.state.noDailyData == false ? this.state.dailyDataLoading ? _jsx('div', {
+	        style: { height: '400px' }
+	      }, void 0, _jsx('i', {
+	        className: 'fa fa-spinner fa-spin',
+	        style: { fontSize: '30px', color: '#00B3BF', lineHeight: '400px' }
+	      })) : _react2.default.createElement('div', { className: 'heatmap', ref: 'heatmap' }) : _jsx('div', {
+	        style: { fontSize: '30px', color: '#00B3BF', lineHeight: '400px' }
+	      }, void 0, 'No data available'), _jsx('div', {
 	        className: 'chart-btn-group'
 	      }, void 0, _jsx('a', {
 	        className: this.props.activeGraph == 'graphview' ? 'active' : '',
@@ -2642,11 +2499,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _DropdownButton = __webpack_require__(10);
+	var _DropdownButton = __webpack_require__(11);
 
 	var _DropdownButton2 = _interopRequireDefault(_DropdownButton);
 
-	var _MenuItem = __webpack_require__(11);
+	var _MenuItem = __webpack_require__(12);
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
@@ -2722,7 +2579,7 @@
 	            chart: {
 	              backgroundColor: 'transparent',
 	              width: 600,
-	              height: 270,
+	              height: 350,
 	              type: 'areaspline'
 	            },
 	            colors: ['#00b3bf'],
@@ -3015,7 +2872,7 @@
 
 	var _CalendarView2 = _interopRequireDefault(_CalendarView);
 
-	var _superagent = __webpack_require__(13);
+	var _superagent = __webpack_require__(4);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -3090,11 +2947,11 @@
 	    key: 'getSODegree',
 	    value: function getSODegree(so) {
 	      var obj = {};
-	      if (so > 50) {
+	      if (so > 800) {
 	        obj.class = 'gt-50';
 	      }
 	      var percent = so,
-	          deg = 360 * percent / 100;
+	          deg = 360 * percent / 1600;
 	      obj.percent = percent;
 	      obj.deg = deg;
 	      return obj;
@@ -3116,11 +2973,11 @@
 	    key: 'getPM10Degree',
 	    value: function getPM10Degree(pm10) {
 	      var obj = {};
-	      if (pm10 > 75) {
+	      if (pm10 > 215) {
 	        obj.class = 'gt-50';
 	      }
 	      var percent = pm10,
-	          deg = 360 * percent / 150;
+	          deg = 360 * percent / 430;
 	      obj.percent = percent;
 	      obj.deg = deg;
 	      return obj;
@@ -3129,11 +2986,11 @@
 	    key: 'getPM25Degree',
 	    value: function getPM25Degree(pm25) {
 	      var obj = {};
-	      if (pm25 > 250) {
+	      if (pm25 > 125) {
 	        obj.class = 'gt-50';
 	      }
 	      var percent = pm25,
-	          deg = 360 * percent / 500;
+	          deg = 360 * percent / 250;
 	      obj.percent = percent;
 	      obj.deg = deg;
 	      return obj;
@@ -3238,7 +3095,8 @@
 	        changeGraphData: this.changeGraphData
 	      }) : _jsx(_CalendarView2.default, {
 	        changeGraphData: this.changeGraphData,
-	        activeGraph: this.state.activeGraph
+	        activeGraph: this.state.activeGraph,
+	        markerId: this.props.markerId
 	      }))));
 	    }
 	  }]);
@@ -3859,7 +3717,7 @@
 	  value: true
 	});
 
-	var _redux = __webpack_require__(12);
+	var _redux = __webpack_require__(13);
 
 	// Import Reducers
 
@@ -3901,7 +3759,7 @@
 
 	var _path2 = _interopRequireDefault(_path);
 
-	var _webpack = __webpack_require__(6);
+	var _webpack = __webpack_require__(7);
 
 	var _webpack2 = _interopRequireDefault(_webpack);
 
@@ -3919,7 +3777,7 @@
 
 	var _store = __webpack_require__(15);
 
-	var _reactRedux = __webpack_require__(5);
+	var _reactRedux = __webpack_require__(6);
 
 	var _react = __webpack_require__(0);
 
@@ -3929,7 +3787,7 @@
 
 	var _reactRouter = __webpack_require__(3);
 
-	var _reactHelmet = __webpack_require__(4);
+	var _reactHelmet = __webpack_require__(5);
 
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 
@@ -4060,1013 +3918,118 @@
 /* 42 */
 /***/ function(module, exports) {
 
-	module.exports = [
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 296,
-			"payload": {
-				"d": {
-					"t": "1479340800",
-					"noise": [
-						"30",
-						"24",
-						"1",
-						"1",
-						"0"
-					],
-					"g1": 451,
-					"g2": 0.156,
-					"g3": 0.934,
-					"g4": 0.154,
-					"p1": "119",
-					"p2": "140",
-					"temp": 28,
-					"hum": 33
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 300,
-			"payload": {
-				"d": {
-					"t": "1479254400",
-					"noise": [
-						"45",
-						"29",
-						"2",
-						"1",
-						"0"
-					],
-					"g1": 463,
-					"g2": 0.05,
-					"g3": 0.0015,
-					"g4": 0.0495,
-					"p1": "120",
-					"p2": "135",
-					"temp": 28,
-					"hum": 30
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 312,
-			"payload": {
-				"d": {
-					"t": "1479168000",
-					"noise": [
-						"49",
-						"29",
-						"1",
-						"1",
-						"0"
-					],
-					"g1": 470,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "136",
-					"p2": "162",
-					"temp": 28,
-					"hum": 32
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 133,
-			"payload": {
-				"d": {
-					"t": "1479081600",
-					"noise": [
-						"44",
-						"20",
-						"1",
-						"0",
-						"0"
-					],
-					"g1": 448,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "70",
-					"p2": "84",
-					"temp": 29,
-					"hum": 36
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 183,
-			"payload": {
-				"d": {
-					"t": "1478995200",
-					"noise": [
-						"48",
-						"26",
-						"1",
-						"1",
-						"0"
-					],
-					"g1": 460,
-					"g2": 0.0375,
-					"g3": 0.000375,
-					"g4": 0.305,
-					"p1": "85",
-					"p2": "104",
-					"temp": 30,
-					"hum": 31
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 196,
-			"payload": {
-				"d": {
-					"t": "1478908800",
-					"noise": [
-						"41",
-						"30",
-						"2",
-						"1",
-						"0"
-					],
-					"g1": 461,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "89",
-					"p2": "102",
-					"temp": 29,
-					"hum": 32
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 260,
-			"payload": {
-				"d": {
-					"t": "1478822400",
-					"noise": [
-						"44",
-						"33",
-						"1",
-						"1",
-						"0"
-					],
-					"g1": 476,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "108",
-					"p2": "125",
-					"temp": 30,
-					"hum": 30
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 210,
-			"payload": {
-				"d": {
-					"t": "1478736000",
-					"noise": [
-						"49",
-						"32",
-						"2",
-						"1",
-						"0"
-					],
-					"g1": 478,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "93",
-					"p2": "109",
-					"temp": 30,
-					"hum": 26
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 216,
-			"payload": {
-				"d": {
-					"t": "1478649600",
-					"noise": [
-						"33",
-						"28",
-						"2",
-						"2",
-						"2"
-					],
-					"g1": 447,
-					"g2": 4.24,
-					"g3": 0.00875,
-					"g4": 0.247,
-					"p1": "95",
-					"p2": "116",
-					"temp": 31,
-					"hum": 25
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 260,
-			"payload": {
-				"d": {
-					"t": "1478563200",
-					"noise": [
-						"50",
-						"29",
-						"1",
-						"0",
-						"0"
-					],
-					"g1": 473,
-					"g2": 0.222,
-					"g3": 0.0246,
-					"g4": 2.72,
-					"p1": "108",
-					"p2": "122",
-					"temp": 30,
-					"hum": 31
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 386,
-			"payload": {
-				"d": {
-					"t": "1478476801",
-					"noise": [
-						"59",
-						"29",
-						"1",
-						"1",
-						"0"
-					],
-					"g1": 488,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "232",
-					"p2": "249",
-					"temp": 30,
-					"hum": 39
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 352,
-			"payload": {
-				"d": {
-					"t": "1478390401",
-					"noise": [
-						"48",
-						"39",
-						"1",
-						"1",
-						"0"
-					],
-					"g1": 510,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "188",
-					"p2": "202",
-					"temp": 29,
-					"hum": 38
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 319,
-			"payload": {
-				"d": {
-					"t": "1478304001",
-					"noise": [
-						"55",
-						"38",
-						"1",
-						"1",
-						"0"
-					],
-					"g1": 523,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "145",
-					"p2": "153",
-					"temp": 30,
-					"hum": 31
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 286,
-			"payload": {
-				"d": {
-					"t": "1478217601",
-					"noise": [
-						"45",
-						"43",
-						"1",
-						"1",
-						"0"
-					],
-					"g1": 468,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "116",
-					"p2": "124",
-					"temp": 29,
-					"hum": 31
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 309,
-			"payload": {
-				"d": {
-					"t": "1478131200",
-					"noise": [
-						"52",
-						"37",
-						"1",
-						"1",
-						"0"
-					],
-					"g1": 491,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "132",
-					"p2": "143",
-					"temp": 29,
-					"hum": 32
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 266,
-			"payload": {
-				"d": {
-					"t": "1478044800",
-					"noise": [
-						"68",
-						"25",
-						"1",
-						"1",
-						"0"
-					],
-					"g1": 489,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "110",
-					"p2": "118",
-					"temp": 30,
-					"hum": 28
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 216,
-			"payload": {
-				"d": {
-					"t": "1477958400",
-					"noise": [
-						"59",
-						"31",
-						"1",
-						"1",
-						"0"
-					],
-					"g1": 475,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "95",
-					"p2": "102",
-					"temp": 30,
-					"hum": 30
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 280,
-			"payload": {
-				"d": {
-					"t": "1477872000",
-					"noise": [
-						"56",
-						"36",
-						"1",
-						"1",
-						"0"
-					],
-					"g1": 484,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "114",
-					"p2": "122",
-					"temp": 31,
-					"hum": 32
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 300,
-			"payload": {
-				"d": {
-					"t": "1477785600",
-					"noise": [
-						"51",
-						"38",
-						"1",
-						"1",
-						"0"
-					],
-					"g1": 489,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "120",
-					"p2": "133",
-					"temp": 31,
-					"hum": 32
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 156,
-			"payload": {
-				"d": {
-					"t": "1477699200",
-					"noise": [
-						"60",
-						"31",
-						"2",
-						"1",
-						"0"
-					],
-					"g1": 474,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "77",
-					"p2": "89",
-					"temp": 32,
-					"hum": 27
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 173,
-			"payload": {
-				"d": {
-					"t": "1477612800",
-					"noise": [
-						"58",
-						"34",
-						"2",
-						"1",
-						"0"
-					],
-					"g1": 493,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "82",
-					"p2": "91",
-					"temp": 32,
-					"hum": 32
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 220,
-			"payload": {
-				"d": {
-					"t": "1477526401",
-					"noise": [
-						"66",
-						"28",
-						"1",
-						"1",
-						"0"
-					],
-					"g1": 525,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "96",
-					"p2": "104",
-					"temp": 29,
-					"hum": 42
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 136,
-			"payload": {
-				"d": {
-					"t": "1477440001",
-					"noise": [
-						"45",
-						"35",
-						"1",
-						"1",
-						"3"
-					],
-					"g1": 477,
-					"g2": 0.030899999999999997,
-					"g3": 0.000915,
-					"g4": 0.0443,
-					"p1": "71",
-					"p2": "76",
-					"temp": 30,
-					"hum": 51
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 116,
-			"payload": {
-				"d": {
-					"t": "1477353600",
-					"noise": [
-						"37",
-						"53",
-						"1",
-						"1",
-						"0"
-					],
-					"g1": 493,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "65",
-					"p2": "73",
-					"temp": 30,
-					"hum": 45
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 130,
-			"payload": {
-				"d": {
-					"t": "1477267200",
-					"noise": [
-						"29",
-						"62",
-						"1",
-						"1",
-						"0"
-					],
-					"g1": 507,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "69",
-					"p2": "75",
-					"temp": 30,
-					"hum": 47
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 110,
-			"payload": {
-				"d": {
-					"t": "1477180800",
-					"noise": [
-						"33",
-						"57",
-						"2",
-						"1",
-						"0"
-					],
-					"g1": 488,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "63",
-					"p2": "70",
-					"temp": 31,
-					"hum": 47
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 160,
-			"payload": {
-				"d": {
-					"t": "1477094400",
-					"noise": [
-						"32",
-						"10",
-						"1",
-						"0",
-						"0"
-					],
-					"g1": 474,
-					"g2": 0.667,
-					"g3": 0.12,
-					"g4": 0.847,
-					"p1": "78",
-					"p2": "88",
-					"temp": 26,
-					"hum": 67
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 81,
-			"payload": {
-				"d": {
-					"t": "1477008001",
-					"noise": [
-						"59",
-						"24",
-						"1",
-						"1",
-						"0"
-					],
-					"g1": 465,
-					"g2": 0.8909999999999999,
-					"g3": 1.55,
-					"g4": 2.27,
-					"p1": "49",
-					"p2": "56",
-					"temp": 32,
-					"hum": 33
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 71,
-			"payload": {
-				"d": {
-					"t": "1476921601",
-					"noise": [
-						"57",
-						"36",
-						"1",
-						"1",
-						"0"
-					],
-					"g1": 472,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "43",
-					"p2": "51",
-					"temp": 34,
-					"hum": 27
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 81,
-			"payload": {
-				"d": {
-					"t": "1476835201",
-					"noise": [
-						"49",
-						"38",
-						"1",
-						"0",
-						"0"
-					],
-					"g1": 4.96,
-					"g2": 1,
-					"g3": 5.25,
-					"g4": 3.07,
-					"p1": "49",
-					"p2": "58",
-					"temp": 35,
-					"hum": 29
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 250,
-			"payload": {
-				"d": {
-					"t": "1476748801",
-					"noise": [
-						"33",
-						"59",
-						"1",
-						"1",
-						"0"
-					],
-					"g1": 547,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "105",
-					"p2": "120",
-					"temp": 32,
-					"hum": 41
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 176,
-			"payload": {
-				"d": {
-					"t": "1476662401",
-					"noise": [
-						"29",
-						"62",
-						"1",
-						"1",
-						"0"
-					],
-					"g1": 544,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "83",
-					"p2": "97",
-					"temp": 30,
-					"hum": 46
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 173,
-			"payload": {
-				"d": {
-					"t": "1476576001",
-					"noise": [
-						"39",
-						"53",
-						"1",
-						"1",
-						"0"
-					],
-					"g1": 493,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "82",
-					"p2": "94",
-					"temp": 33,
-					"hum": 41
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 213,
-			"payload": {
-				"d": {
-					"t": "1476489601",
-					"noise": [
-						"57",
-						"36",
-						"1",
-						"1",
-						"0"
-					],
-					"g1": 500,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "94",
-					"p2": "104",
-					"temp": 32,
-					"hum": 54
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 163,
-			"payload": {
-				"d": {
-					"t": "1476403201",
-					"noise": [
-						"18",
-						"54",
-						"1",
-						"0",
-						"0"
-					],
-					"g1": 166,
-					"g2": 0.75,
-					"g3": 0.33,
-					"g4": 0.907,
-					"p1": "79",
-					"p2": "97",
-					"temp": 26,
-					"hum": 97
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 98,
-			"payload": {
-				"d": {
-					"t": "1476316801",
-					"noise": [
-						"21",
-						"68",
-						"6",
-						"0",
-						"1"
-					],
-					"g1": 500,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "59",
-					"p2": "73",
-					"temp": 29,
-					"hum": 63
-				}
-			}
-		},
-		{
-			"deviceId": "OZ_POLLUDRON_006",
-			"aqi": 91,
-			"payload": {
-				"d": {
-					"t": "1476230400",
-					"noise": [
-						"7",
-						"87",
-						"3",
-						"0",
-						"1"
-					],
-					"g1": 508,
-					"g2": 0,
-					"g3": 0,
-					"g4": 0,
-					"p1": "55",
-					"p2": "66",
-					"temp": 28,
-					"hum": 75
-				}
-			}
-		}
-	];
+	module.exports = require("postcss-cssnext");
 
 /***/ },
 /* 43 */
 /***/ function(module, exports) {
 
-	module.exports = require("postcss-cssnext");
+	module.exports = require("postcss-focus");
 
 /***/ },
 /* 44 */
 /***/ function(module, exports) {
 
-	module.exports = require("postcss-focus");
+	module.exports = require("postcss-reporter");
 
 /***/ },
 /* 45 */
 /***/ function(module, exports) {
 
-	module.exports = require("postcss-reporter");
+	module.exports = require("react-bootstrap/lib/FormControl");
 
 /***/ },
 /* 46 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/FormControl");
+	module.exports = require("react-bootstrap/lib/FormGroup");
 
 /***/ },
 /* 47 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/FormGroup");
+	module.exports = require("react-bootstrap/lib/Nav");
 
 /***/ },
 /* 48 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/Nav");
+	module.exports = require("react-bootstrap/lib/NavItem");
 
 /***/ },
 /* 49 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/NavItem");
+	module.exports = require("react-bootstrap/lib/Navbar");
 
 /***/ },
 /* 50 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/Navbar");
+	module.exports = require("react-google-maps/lib/GoogleMap");
 
 /***/ },
 /* 51 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-google-maps/lib/GoogleMap");
+	module.exports = require("react-google-maps/lib/GoogleMapLoader");
 
 /***/ },
 /* 52 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-google-maps/lib/GoogleMapLoader");
+	module.exports = require("react-helmet/lib/Helmet");
 
 /***/ },
 /* 53 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-helmet/lib/Helmet");
+	module.exports = require("react-router-bootstrap/lib/LinkContainer");
 
 /***/ },
 /* 54 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-router-bootstrap/lib/LinkContainer");
+	module.exports = require("react-tabs/lib/components/Tab");
 
 /***/ },
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/Tab");
+	module.exports = require("react-tabs/lib/components/TabList");
 
 /***/ },
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/TabList");
+	module.exports = require("react-tabs/lib/components/TabPanel");
 
 /***/ },
 /* 57 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/TabPanel");
+	module.exports = require("react-tabs/lib/components/Tabs");
 
 /***/ },
 /* 58 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/Tabs");
+	module.exports = require("redux-devtools");
 
 /***/ },
 /* 59 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools");
+	module.exports = require("redux-devtools-dock-monitor");
 
 /***/ },
 /* 60 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-dock-monitor");
-
-/***/ },
-/* 61 */
-/***/ function(module, exports) {
-
 	module.exports = require("redux-devtools-log-monitor");
 
 /***/ },
-/* 62 */
+/* 61 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-thunk");
