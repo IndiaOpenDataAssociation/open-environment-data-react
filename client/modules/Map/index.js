@@ -141,7 +141,7 @@ export default class Map extends Component {
       deg = 360*percent/500;
     return {percent: percent,deg: deg};
   }
-  
+
   componentDidMount() {
 
     var mapOptions = {
@@ -158,7 +158,7 @@ export default class Map extends Component {
 
   render() {
     return (
-      <div ref="map" style={{height: '100vh',width: '100%'}}>
+      <div ref="map" style={{height: '92vh',width: '100%'}}>
       </div>
     )
   }

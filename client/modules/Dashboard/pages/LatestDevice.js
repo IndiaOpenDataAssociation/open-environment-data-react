@@ -29,11 +29,11 @@ export default class LatestDevice extends Component {
 
   getSODegree(so) {
     let obj = {};
-    if (so > 50) {
+    if (so > 800) {
       obj.class = 'gt-50';
     }
     var percent = so,
-      deg = 360 * percent / 100;
+      deg = 360 * percent / 1600;
     obj.percent = percent;
     obj.deg = deg;
     return obj;
@@ -53,11 +53,11 @@ export default class LatestDevice extends Component {
 
   getPM10Degree(pm10) {
     let obj = {};
-    if (pm10 > 75) {
+    if (pm10 > 215) {
       obj.class = 'gt-50';
     }
     var percent = pm10,
-      deg = 360 * percent / 150;
+      deg = 360 * percent / 430;
     obj.percent = percent;
     obj.deg = deg;
     return obj;
@@ -65,11 +65,11 @@ export default class LatestDevice extends Component {
 
   getPM25Degree(pm25) {
     let obj = {};
-    if (pm25 > 250) {
+    if (pm25 > 125) {
       obj.class = 'gt-50';
     }
     var percent = pm25,
-      deg = 360 * percent / 500;
+      deg = 360 * percent / 250;
     obj.percent = percent;
     obj.deg = deg;
     return obj;
@@ -232,6 +232,7 @@ export default class LatestDevice extends Component {
                 <CalendarView
                   changeGraphData = {this.changeGraphData}
                   activeGraph = {this.state.activeGraph}
+                  markerId={this.props.markerId}
                 />
             }
 

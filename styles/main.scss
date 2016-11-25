@@ -1160,6 +1160,17 @@ progress[value="10"]:after {
   border-radius: 50%;
 }
 
+.highcharts-button-box{
+  fill: #00b3bf;
+}
+
+.heatmap .highcharts-plot-border, .heatmap .highcharts-xaxis, .highcharts-credits{
+  display: none;
+}
+
+.heatmap .highcharts-xaxis-labels{
+  transform: translate(0, -310px);
+}
 
     //new design
 //analytics

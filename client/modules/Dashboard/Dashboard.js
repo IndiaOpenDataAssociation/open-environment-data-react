@@ -42,6 +42,7 @@ export default class Dashboard extends Component {
       no_records: false,
       iscity_changed: false,
       city_list: [],
+      marker_id: '',
     }
   }
 
@@ -86,10 +87,9 @@ export default class Dashboard extends Component {
     })
   }
 
-
   realTimeData(id, time) {
     superagent.get('https://openenvironment.p.mashape.com/all/public/data/cur/' + id).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-      this.setState({realTimeData: res.body, time: time})
+      this.setState({realTimeData: res.body, time: time, marker_id : id})
       this.setState({realTimedataLoading: false})
     }.bind(this))
   }
@@ -226,6 +226,7 @@ export default class Dashboard extends Component {
                                 analysisData={this.state.analyticsData}
                                 realtimeData={this.state.realTimeData}
                                 time={this.state.time}
+                                markerId={this.state.marker_id}
                               />
                             </div>
 
