@@ -44,7 +44,7 @@ export default class CalendarView extends Component{
             type: 'heatmap',
             backgroundColor: 'transparent',
             width: 600,
-            height: 400,
+            height: 300,
             plotBorderWidth: 1,
             marginTop: 80
           },
@@ -145,8 +145,8 @@ export default class CalendarView extends Component{
                 (
                 this.state.dailyDataLoading
                 ?
-                  <div style={{height: '400px'}}>
-                    <i className="fa fa-spinner fa-spin" style={{fontSize: '30px', color: '#00B3BF', lineHeight: '400px'}}></i>
+                  <div style={{height: '300px'}}>
+                    <i className="fa fa-spinner fa-spin" style={{fontSize: '30px', color: '#00B3BF', lineHeight: '300px'}}></i>
                   </div>
                 :
                   <div className="heatmap" ref="heatmap">

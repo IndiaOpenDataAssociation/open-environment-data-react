@@ -34,7 +34,7 @@ export default class GraphView extends Component {
         chart: {
           backgroundColor: 'transparent',
           width: 600,
-          height: 350,
+          height: 300,
           type: 'areaspline',
         },
         colors: ['#00b3bf'],
