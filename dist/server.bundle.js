@@ -1180,7 +1180,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"main.css": "main-c85ccbb0ec.css"
+		"main.css": "main-71b8123791.css"
 	};
 
 /***/ },
@@ -2360,7 +2360,7 @@
 	            type: 'heatmap',
 	            backgroundColor: 'transparent',
 	            width: 600,
-	            height: 400,
+	            height: 300,
 	            plotBorderWidth: 1,
 	            marginTop: 80
 	          },
@@ -2453,10 +2453,10 @@
 	      }, void 0, _jsx('div', {
 	        className: 'analytics-chart'
 	      }, void 0, this.state.noDailyData == false ? this.state.dailyDataLoading ? _jsx('div', {
-	        style: { height: '400px' }
+	        style: { height: '300px' }
 	      }, void 0, _jsx('i', {
 	        className: 'fa fa-spinner fa-spin',
-	        style: { fontSize: '30px', color: '#00B3BF', lineHeight: '400px' }
+	        style: { fontSize: '30px', color: '#00B3BF', lineHeight: '300px' }
 	      })) : _react2.default.createElement('div', { className: 'heatmap', ref: 'heatmap' }) : _jsx('div', {
 	        style: { fontSize: '30px', color: '#00B3BF', lineHeight: '400px' }
 	      }, void 0, 'No data available'), _jsx('div', {
@@ -2579,7 +2579,7 @@
 	            chart: {
 	              backgroundColor: 'transparent',
 	              width: 600,
-	              height: 350,
+	              height: 300,
 	              type: 'areaspline'
 	            },
 	            colors: ['#00b3bf'],
