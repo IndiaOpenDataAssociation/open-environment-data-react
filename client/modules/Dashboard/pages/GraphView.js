@@ -316,13 +316,10 @@ export default class GraphView extends Component {
 
           <div className="chart-description">
             <DropdownButton title="AQI" id="chart-info-dropdown">
-              <MenuItem eventKey="1">Dropdown link</MenuItem>
-              <MenuItem eventKey="2">Dropdown link</MenuItem>
+              <MenuItem eventKey="1">AQI</MenuItem>
             </DropdownButton>
             <p>
-              Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem
-              Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum
-              Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text
+              An air quality index (AQI) is a number used by government agencies to communicate to the public how polluted the air currently is or how polluted it is forecast to become. As the AQI increases, an increasingly large percentage of the population is likely to experience increasingly severe adverse health effects.
             </p>
           </div>
         </div>

@@ -215,7 +215,6 @@ export default class LatestDevice extends Component {
 
             </div>
 
-            <button className="btn btn-default knowmore-btn">Know More</button>
           </div>
           <div className="col-sm-8" style={{padding: '20px'}}>
             {
@@ -242,4 +241,5 @@ export default class LatestDevice extends Component {
     )
   }
 }
+
 
