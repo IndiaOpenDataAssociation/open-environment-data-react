@@ -139,7 +139,7 @@ export default class Dashboard extends Component {
     var hour = a.getHours();
     var min = a.getMinutes();
     var ampm = hour >= 12 ? 'pm' : 'am'
-    let displayTime = hour + ':' + min
+    let displayTime = hour + ':' + min + " " + ampm + " " + date + "-" + month + "-" + year; 
     return displayTime
   }
 
