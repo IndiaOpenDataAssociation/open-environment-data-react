@@ -125,92 +125,121 @@ export default class LatestDevice extends Component {
 
             <div className="gases-details">
               <div className="row">
-                <div className="col-md-3 text-center">
-                  <div className={`progress-pie-chart-gas ${this.getCODegree(latestDevice.payload.d.co).class}`}>
-                    <div className="ppc-progress-gas">
-                      <div className="ppc-progress-fill-gas"
-                           style={{transform: 'rotate('+this.getCODegree(latestDevice.payload.d.co).deg+'deg)'}}></div>
-                    </div>
-                    <div className="ppc-percents-gas">
-                      <div className="pcc-percents-wrapper-gas">
-                        <span>{latestDevice.payload.d.co}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <span className="ppc-title">CO<sub>2</sub></span>
-                </div>
+                {
+                  latestDevice.payload.d.co != undefined
+                    ?
+                    <div className="col-md-3 text-center">
 
+                      <div className={`progress-pie-chart-gas ${this.getCODegree(latestDevice.payload.d.co).class}`}>
+                        <div className="ppc-progress-gas">
+                          <div className="ppc-progress-fill-gas"
+                               style={{transform: 'rotate('+this.getCODegree(latestDevice.payload.d.co).deg+'deg)'}}></div>
+                        </div>
+                        <div className="ppc-percents-gas">
+                          <div className="pcc-percents-wrapper-gas">
+                            <span>{latestDevice.payload.d.co}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <span className="ppc-title">CO<sub>2</sub></span>
+                    </div>
+                    :
+                    null
+                }
 
-                <div className="col-md-3">
-                  <div className={`progress-pie-chart-gas ${this.getSODegree(latestDevice.payload.d.so2).class}`}>
-                    <div className="ppc-progress-gas">
-                      <div className="ppc-progress-fill-gas"
-                           style={{transform: 'rotate('+this.getSODegree(latestDevice.payload.d.so2).deg+'deg)'}}
-                      >
+                {
+                  latestDevice.payload.d.so2 != undefined
+                    ?
+                    <div className="col-md-3">
+                      <div className={`progress-pie-chart-gas ${this.getSODegree(latestDevice.payload.d.so2).class}`}>
+                        <div className="ppc-progress-gas">
+                          <div className="ppc-progress-fill-gas"
+                               style={{transform: 'rotate('+this.getSODegree(latestDevice.payload.d.so2).deg+'deg)'}}
+                          >
+                          </div>
+                        </div>
+                        <div className="ppc-percents-gas">
+                          <div className="pcc-percents-wrapper-gas">
+                            <span>{latestDevice.payload.d.so2}</span>
+                          </div>
+                        </div>
                       </div>
+                      <span className="ppc-title">SO<sub>2</sub></span>
                     </div>
-                    <div className="ppc-percents-gas">
-                      <div className="pcc-percents-wrapper-gas">
-                        <span>{latestDevice.payload.d.so2}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <span className="ppc-title">SO<sub>2</sub></span>
-                </div>
+                    :
+                    null
+                }
 
-                <div className="col-md-3">
-                  <div className={`progress-pie-chart-gas ${this.getNODegree(latestDevice.payload.d.no2).class}`}>
-                    <div className="ppc-progress-gas">
-                      <div className="ppc-progress-fill-gas"
-                           style={{transform: 'rotate('+this.getNODegree(latestDevice.payload.d.no2).deg+'deg)'}}
-                      >
+                {
+                  latestDevice.payload.d.no2 != undefined
+                    ?
+                    <div className="col-md-3">
+                      <div className={`progress-pie-chart-gas ${this.getNODegree(latestDevice.payload.d.no2).class}`}>
+                        <div className="ppc-progress-gas">
+                          <div className="ppc-progress-fill-gas"
+                               style={{transform: 'rotate('+this.getNODegree(latestDevice.payload.d.no2).deg+'deg)'}}
+                          >
+                          </div>
+                        </div>
+                        <div className="ppc-percents-gas">
+                          <div className="pcc-percents-wrapper-gas">
+                            <span>{latestDevice.payload.d.no2}</span>
+                          </div>
+                        </div>
                       </div>
+                      <span className="ppc-title">NO<sub>2</sub></span>
                     </div>
-                    <div className="ppc-percents-gas">
-                      <div className="pcc-percents-wrapper-gas">
-                        <span>{latestDevice.payload.d.no2}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <span className="ppc-title">NO<sub>2</sub></span>
-                </div>
+                    :
+                    null
+                }
 
-
-                <div className="col-md-3">
-                  <div className={`progress-pie-chart-gas ${this.getPM10Degree(latestDevice.payload.d.pm10).class}`}>
-                    <div className="ppc-progress-gas">
-                      <div className="ppc-progress-fill-gas"
-                           style={{transform: 'rotate('+this.getPM10Degree(latestDevice.payload.d.pm10).deg+'deg)'}}
-                      >
+                {
+                  latestDevice.payload.d.pm10 != undefined
+                    ?
+                    <div className="col-md-3">
+                      <div
+                        className={`progress-pie-chart-gas ${this.getPM10Degree(latestDevice.payload.d.pm10).class}`}>
+                        <div className="ppc-progress-gas">
+                          <div className="ppc-progress-fill-gas"
+                               style={{transform: 'rotate('+this.getPM10Degree(latestDevice.payload.d.pm10).deg+'deg)'}}
+                          >
+                          </div>
+                        </div>
+                        <div className="ppc-percents-gas">
+                          <div className="pcc-percents-wrapper-gas">
+                            <span>{latestDevice.payload.d.pm10}</span>
+                          </div>
+                        </div>
                       </div>
+                      <span className="ppc-title">PM10</span>
                     </div>
-                    <div className="ppc-percents-gas">
-                      <div className="pcc-percents-wrapper-gas">
-                        <span>{latestDevice.payload.d.pm10}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <span className="ppc-title">PM10</span>
-                </div>
+                    :
+                    null
+                }
 
-                <div className="col-md-3">
-                  <div className={`progress-pie-chart-gas ${this.getPM25Degree(latestDevice.payload.d.pm25).class}`}>
-                    <div className="ppc-progress-gas">
-                      <div className="ppc-progress-fill-gas"
-                           style={{transform: 'rotate('+this.getPM25Degree(latestDevice.payload.d.pm25).deg+'deg)'}}
-                      >
+                {
+                  latestDevice.payload.d.pm25 != undefined
+                    ?
+                    <div className="col-md-3">
+                      <div
+                        className={`progress-pie-chart-gas ${this.getPM25Degree(latestDevice.payload.d.pm25).class}`}>
+                        <div className="ppc-progress-gas">
+                          <div className="ppc-progress-fill-gas"
+                               style={{transform: 'rotate('+this.getPM25Degree(latestDevice.payload.d.pm25).deg+'deg)'}}
+                          >
+                          </div>
+                        </div>
+                        <div className="ppc-percents-gas">
+                          <div className="pcc-percents-wrapper-gas">
+                            <span>{latestDevice.payload.d.pm25}</span>
+                          </div>
+                        </div>
                       </div>
+                      <span className="ppc-title">PM2.5</span>
                     </div>
-                    <div className="ppc-percents-gas">
-                      <div className="pcc-percents-wrapper-gas">
-                        <span>{latestDevice.payload.d.pm25}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <span className="ppc-title">PM2.5</span>
-                </div>
-
-
+                    :
+                    null
+                }
               </div>
 
             </div>
