@@ -493,7 +493,7 @@
 	      var hour = a.getHours();
 	      var min = a.getMinutes();
 	      var ampm = hour >= 12 ? 'pm' : 'am';
-	      var displayTime = hour + ':' + min;
+	      var displayTime = hour + ':' + min + " " + ampm + " " + date + "-" + month + "-" + year;
 	      return displayTime;
 	    }
 	  }, {
@@ -1927,8 +1927,8 @@
 	    key: 'render',
 	    value: function render() {
 	      return _jsx('div', {}, void 0, _jsx('div', {}, void 0, _jsx(_reactHelmet2.default, {
-	        title: 'India Open Data',
-	        titleTemplate: '%s - Blog App',
+	        title: 'Open Environment Data Project - India Open Data Association',
+	        titleTemplate: '%s',
 	        meta: [{ charset: 'utf-8' }, {
 	          'http-equiv': 'X-UA-Compatible',
 	          content: 'IE=edge'
@@ -2313,9 +2313,7 @@
 	  id: 'chart-info-dropdown'
 	}, void 0, _jsx(_MenuItem2.default, {
 	  eventKey: '1'
-	}, void 0, 'Dropdown link'), _jsx(_MenuItem2.default, {
-	  eventKey: '2'
-	}, void 0, 'Dropdown link')), _jsx('p', {}, void 0, 'Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text'));
+	}, void 0, 'AQI')), _jsx('p', {}, void 0, 'An air quality index (AQI) is a number used by government agencies to communicate to the public how polluted the air currently is or how polluted it is forecast to become. As the AQI increases, an increasingly large percentage of the population is likely to experience increasingly severe adverse health effects.'));
 
 	var CalendarView = function (_Component) {
 	  _inherits(CalendarView, _Component);
@@ -2341,9 +2339,16 @@
 	          var date = a.getDate();
 	          var hour = a.getHours();
 	          var min = a.getMinutes();
+	          if (min < 10) {
+	            min = '0' + min;
+	          }
 	          var Time = hour + ':' + min;
+	          if (hour >= 12) {
+	            time.push(Time + 'pm');
+	          } else {
+	            time.push(Time + 'am');
+	          }
 	          displaydate.push(date + 'th');
-	          time.push(hour + ':00');
 	          array.push([hour, date, e.aqi]);
 	        });
 
@@ -2535,9 +2540,7 @@
 	  id: 'chart-info-dropdown'
 	}, void 0, _jsx(_MenuItem2.default, {
 	  eventKey: '1'
-	}, void 0, 'Dropdown link'), _jsx(_MenuItem2.default, {
-	  eventKey: '2'
-	}, void 0, 'Dropdown link')), _jsx('p', {}, void 0, 'Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text Lorem Ipsum Dummy Text'));
+	}, void 0, 'AQI')), _jsx('p', {}, void 0, 'An air quality index (AQI) is a number used by government agencies to communicate to the public how polluted the air currently is or how polluted it is forecast to become. As the AQI increases, an increasingly large percentage of the population is likely to experience increasingly severe adverse health effects.'));
 
 	var GraphView = function (_Component) {
 	  _inherits(GraphView, _Component);
@@ -2566,6 +2569,20 @@
 	        (function () {
 	          var temp = _this2.state.aqiArray;
 	          _this2.props.analysisData.map(function (e) {
+	            var a = new Date(e.payload.d.t * 1000);
+	            var month = a.getMonth();
+	            var date = a.getDate();
+	            var hour = a.getHours();
+	            var min = a.getMinutes();
+	            if (min < 10) {
+	              min = '0' + min;
+	            }
+	            var Time = hour + ':' + min;
+	            if (hour >= 12) {
+	              timeArr.unshift(Time + 'pm');
+	            } else {
+	              timeArr.unshift(Time + 'am');
+	            }
 	            temp.AQI.unshift(e.aqi);
 	            temp.CO2.unshift(e.payload.d.co);
 	            temp.SO2.unshift(e.payload.d.so2);
@@ -2906,10 +2923,6 @@
 	  className: 'ppc-title'
 	}, void 0, 'PM2.5');
 
-	var _ref7 = _jsx('button', {
-	  className: 'btn btn-default knowmore-btn'
-	}, void 0, 'Know More');
-
 	var LatestDevice = function (_Component) {
 	  _inherits(LatestDevice, _Component);
 
@@ -3019,7 +3032,7 @@
 	        className: 'gases-details'
 	      }, void 0, _jsx('div', {
 	        className: 'row'
-	      }, void 0, _jsx('div', {
+	      }, void 0, latestDevice.payload.d.co != undefined ? _jsx('div', {
 	        className: 'col-md-3 text-center'
 	      }, void 0, _jsx('div', {
 	        className: 'progress-pie-chart-gas ' + this.getCODegree(latestDevice.payload.d.co).class
@@ -3032,7 +3045,7 @@
 	        className: 'ppc-percents-gas'
 	      }, void 0, _jsx('div', {
 	        className: 'pcc-percents-wrapper-gas'
-	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.co)))), _ref2), _jsx('div', {
+	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.co)))), _ref2) : null, latestDevice.payload.d.so2 != undefined ? _jsx('div', {
 	        className: 'col-md-3'
 	      }, void 0, _jsx('div', {
 	        className: 'progress-pie-chart-gas ' + this.getSODegree(latestDevice.payload.d.so2).class
@@ -3045,7 +3058,7 @@
 	        className: 'ppc-percents-gas'
 	      }, void 0, _jsx('div', {
 	        className: 'pcc-percents-wrapper-gas'
-	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.so2)))), _ref3), _jsx('div', {
+	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.so2)))), _ref3) : null, latestDevice.payload.d.no2 != undefined ? _jsx('div', {
 	        className: 'col-md-3'
 	      }, void 0, _jsx('div', {
 	        className: 'progress-pie-chart-gas ' + this.getNODegree(latestDevice.payload.d.no2).class
@@ -3058,7 +3071,7 @@
 	        className: 'ppc-percents-gas'
 	      }, void 0, _jsx('div', {
 	        className: 'pcc-percents-wrapper-gas'
-	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.no2)))), _ref4), _jsx('div', {
+	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.no2)))), _ref4) : null, latestDevice.payload.d.pm10 != undefined ? _jsx('div', {
 	        className: 'col-md-3'
 	      }, void 0, _jsx('div', {
 	        className: 'progress-pie-chart-gas ' + this.getPM10Degree(latestDevice.payload.d.pm10).class
@@ -3071,7 +3084,7 @@
 	        className: 'ppc-percents-gas'
 	      }, void 0, _jsx('div', {
 	        className: 'pcc-percents-wrapper-gas'
-	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.pm10)))), _ref5), _jsx('div', {
+	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.pm10)))), _ref5) : null, latestDevice.payload.d.pm25 != undefined ? _jsx('div', {
 	        className: 'col-md-3'
 	      }, void 0, _jsx('div', {
 	        className: 'progress-pie-chart-gas ' + this.getPM25Degree(latestDevice.payload.d.pm25).class
@@ -3084,7 +3097,7 @@
 	        className: 'ppc-percents-gas'
 	      }, void 0, _jsx('div', {
 	        className: 'pcc-percents-wrapper-gas'
-	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.pm25)))), _ref6))), _ref7), _jsx('div', {
+	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.pm25)))), _ref6) : null))), _jsx('div', {
 	        className: 'col-sm-8',
 	        style: { padding: '20px' }
 	      }, void 0, this.state.activeGraph === 'graphview' ? _jsx(_GraphView2.default, {
