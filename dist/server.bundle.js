@@ -1180,7 +1180,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"main.css": "main-71b8123791.css"
+		"main.css": "main-c5b21eee44.css"
 	};
 
 /***/ },
@@ -2328,7 +2328,11 @@
 	      dailyDataLoading: true,
 	      noDailyData: false
 	    };
-	    _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/analytics/range/' + _this.props.markerId + '?gte=1479457910&lte=1479977064').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+
+	    var lte = new Date().getTime() / 1000;
+	    var today = new Date();
+	    var gte = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).getTime() / 1000;
+	    _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/analytics/range/' + _this.props.markerId + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
 	      if (res.statusText != "Not Found") {
 	        this.setState({ dailyData: res.body });
 	        this.setState({ dailyDataLoading: false });
@@ -2367,7 +2371,7 @@
 	            width: 600,
 	            height: 300,
 	            plotBorderWidth: 1,
-	            marginTop: 80
+	            marginTop: 90
 	          },
 
 	          title: {
