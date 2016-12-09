@@ -23,10 +23,18 @@ export default class CalendarView extends Component{
           var month = a.getMonth();
           var date = a.getDate();
           var hour = a.getHours();
-          var min = a.getMinutes();
+          let min = a.getMinutes();
+          if(min < 10){
+            min = '0'+min
+          }
           let Time = hour + ':' + min
+          if(hour >= 12){
+            time.push(Time+'pm')
+          }
+          else{
+            time.push(Time+'am')
+          }
           displaydate.push(date + 'th')
-          time.push(hour + ':00')
           array.push([hour, date, e.aqi])
         })
 

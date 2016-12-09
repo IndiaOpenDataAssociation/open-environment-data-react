@@ -21,6 +21,21 @@ export default class GraphView extends Component {
     if (this.props.analysisData.length > 0) {
       let temp = this.state.aqiArray
       this.props.analysisData.map((e) => {
+        let a = new Date(e.payload.d.t * 1000)
+        var month = a.getMonth();
+        var date = a.getDate();
+        var hour = a.getHours();
+        var min = a.getMinutes();
+        if(min < 10){
+          min = '0'+min
+        }
+        let Time = hour + ':' + min
+        if(hour >= 12){
+          timeArr.unshift(Time+'pm')
+        }
+        else{
+          timeArr.unshift(Time+'am')
+        }
         temp.AQI.unshift(e.aqi)
         temp.CO2.unshift(e.payload.d.co)
         temp.SO2.unshift(e.payload.d.so2)
