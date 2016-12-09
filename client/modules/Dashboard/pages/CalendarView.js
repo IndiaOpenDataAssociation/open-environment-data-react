@@ -13,7 +13,11 @@ export default class CalendarView extends Component{
       dailyDataLoading : true,
       noDailyData: false
     }
-    superagent.get('https://openenvironment.p.mashape.com/all/public/analytics/range/'+this.props.markerId+'?gte=1479457910&lte=1479977064').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+
+    let lte = new Date().getTime()/1000
+    var today = new Date()
+    var gte= new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).getTime()/1000;
+    superagent.get('https://openenvironment.p.mashape.com/all/public/analytics/range/'+this.props.markerId+'?gte='+gte+'&lte='+lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
       if(res.statusText != "Not Found") {
         this.setState({dailyData: res.body})
         this.setState({dailyDataLoading: false})
@@ -54,7 +58,7 @@ export default class CalendarView extends Component{
             width: 600,
             height: 300,
             plotBorderWidth: 1,
-            marginTop: 80
+            marginTop: 90
           },
 
           title: {
