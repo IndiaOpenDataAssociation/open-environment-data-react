@@ -1173,6 +1173,10 @@ progress[value="10"]:after {
   transform: translate(0, -200px);
 }
 
+.heatmap .highcharts-yaxis-labels tspan:before{
+  content: 'th';
+}
+
     //new design
 //analytics
 @media (min-width: 370px) and (max-width: 768px) {
