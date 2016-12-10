@@ -2296,7 +2296,8 @@
 	var heatmap = void 0,
 	    displaydate = [],
 	    time = [],
-	    array = [];
+	    array = [],
+	    dateUniq = [];
 
 	var _ref = _jsx('img', {
 	  src: '../../../assets/images/icons/analytics_w.png'
@@ -2352,7 +2353,9 @@
 	          } else {
 	            time.push(Time + 'am');
 	          }
-	          displaydate.push(date + 'th');
+	          if (displaydate.indexOf(date) === -1) {
+	            displaydate.push(date);
+	          }
 	          array.push([hour, date, e.aqi]);
 	        });
 
@@ -2442,6 +2445,8 @@
 	          }]
 
 	        });
+
+	        heatmap.yAxis[0].setTitle({ text: "Date" });
 	      } else {
 	        this.setState({ noDailyData: true });
 	      }

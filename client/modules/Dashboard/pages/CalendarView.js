@@ -3,7 +3,6 @@ import DropdownButton from 'react-bootstrap/lib/DropdownButton'
 import MenuItem from 'react-bootstrap/lib/MenuItem'
 // import data from '../components/pollution.json'
 import superagent from 'superagent'
-import _ from 'lodash'
 
 
 let heatmap, displaydate = [], time = [], array = [], dateUniq = [];
@@ -40,12 +39,11 @@ export default class CalendarView extends Component {
           else {
             time.push(Time + 'am')
           }
-          if (displaydate.indexOf(date+'th') === -1) {
-            displaydate.push(date+'th')
+          if (displaydate.indexOf(date) === -1) {
+            displaydate.push(date)
           }
           array.push([hour, date, e.aqi])
         })
-
 
         // let theme = Highcharts.theme = {
         //   // colors: ['#0C6657', '#60E5D7'],
@@ -136,6 +134,8 @@ export default class CalendarView extends Component {
           ]
 
         })
+
+        heatmap.yAxis[0].setTitle({ text: "Date" });
       }
       else {
         this.setState({noDailyData: true})
