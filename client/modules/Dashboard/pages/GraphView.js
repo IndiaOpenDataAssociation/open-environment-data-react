@@ -312,6 +312,8 @@ export default class GraphView extends Component {
 
             </ul>
 
+            
+
             <div className="chart-btn-group">
               <a
                 className={this.props.activeGraph == 'graphview' ? 'active' : ''}

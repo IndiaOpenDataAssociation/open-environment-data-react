@@ -1180,7 +1180,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"main.css": "main-c5b21eee44.css"
+		"main.css": "main-7f8297d404.css"
 	};
 
 /***/ },
@@ -2299,15 +2299,31 @@
 	    array = [],
 	    dateUniq = [];
 
-	var _ref = _jsx('img', {
+	var _ref = _jsx('div', {
+	  className: 'chart-indicator'
+	}, void 0, _jsx('table', {}, void 0, _jsx('tbody', {}, void 0, _jsx('tr', {}, void 0, _jsx('td', {}, void 0, _jsx('span', {})), _jsx('td', {}, void 0, _jsx('span', {
+	  className: 'good'
+	})), _jsx('td', {}, void 0, _jsx('span', {
+	  className: 'satisfactory'
+	})), _jsx('td', {}, void 0, _jsx('span', {
+	  className: 'moderate'
+	})), _jsx('td', {}, void 0, _jsx('span', {
+	  className: 'poor'
+	})), _jsx('td', {}, void 0, _jsx('span', {
+	  className: 'vpoor'
+	})), _jsx('td', {}, void 0, _jsx('span', {
+	  className: 'severe'
+	}))), _jsx('tr', {}, void 0, _jsx('td', {}, void 0, '0'), _jsx('td', {}, void 0, '50'), _jsx('td', {}, void 0, '100'), _jsx('td', {}, void 0, '200'), _jsx('td', {}, void 0, '300'), _jsx('td', {}, void 0, '400'), _jsx('td', {}, void 0, '500')))));
+
+	var _ref2 = _jsx('img', {
 	  src: '../../../assets/images/icons/analytics_w.png'
 	});
 
-	var _ref2 = _jsx('img', {
+	var _ref3 = _jsx('img', {
 	  src: './../../assets/images/calendar_w.png'
 	});
 
-	var _ref3 = _jsx('div', {
+	var _ref4 = _jsx('div', {
 	  className: 'chart-description'
 	}, void 0, _jsx(_DropdownButton2.default, {
 	  title: 'AQI',
@@ -2402,16 +2418,38 @@
 	            gridLineColor: 'transparent'
 	          },
 
-	          colors: ['#0C6657', '#1BCCAC', '#60E5D7'],
+	          // colors: ['#6ecc58', '#bbcf4c', '#eac736', '#ed9a2e', '#e8633a', '#d63636'],
 	          colorAxis: {
-	            dataClassColor: 'category',
 	            dataClasses: [{
-	              to: 500
+	              from: 0,
+	              to: 50,
+	              color: '#6ecc58',
+	              name: 'good'
 	            }, {
-	              from: 170,
-	              to: 340
+	              from: 50,
+	              to: 100,
+	              color: '#bbcf4c',
+	              name: 'satisfactory'
 	            }, {
-	              from: 170
+	              from: 100,
+	              to: 200,
+	              color: '#eac736',
+	              name: 'moderate'
+	            }, {
+	              from: 200,
+	              to: 300,
+	              color: '#ed9a2e',
+	              name: 'poor'
+	            }, {
+	              from: 300,
+	              to: 400,
+	              color: '#e8633a',
+	              name: 'verypoor'
+	            }, {
+	              from: 400,
+	              to: 500,
+	              color: '#d63636',
+	              name: 'severe'
 	            }]
 	          },
 
@@ -2473,19 +2511,19 @@
 	        style: { fontSize: '30px', color: '#00B3BF', lineHeight: '300px' }
 	      })) : _react2.default.createElement('div', { className: 'heatmap', ref: 'heatmap' }) : _jsx('div', {
 	        style: { fontSize: '30px', color: '#00B3BF', lineHeight: '400px' }
-	      }, void 0, 'No data available'), _jsx('div', {
+	      }, void 0, 'No data available'), _ref, _jsx('div', {
 	        className: 'chart-btn-group'
 	      }, void 0, _jsx('a', {
 	        className: this.props.activeGraph == 'graphview' ? 'active' : '',
 	        onClick: function onClick() {
 	          _this2.props.changeGraphData('graphview');
 	        }
-	      }, void 0, _ref), _jsx('a', {
+	      }, void 0, _ref2), _jsx('a', {
 	        className: this.props.activeGraph == 'calendarview' ? 'active' : '',
 	        onClick: function onClick() {
 	          _this2.props.changeGraphData('calendarview');
 	        }
-	      }, void 0, _ref2))), _ref3));
+	      }, void 0, _ref3))), _ref4));
 	    }
 	  }]);
 

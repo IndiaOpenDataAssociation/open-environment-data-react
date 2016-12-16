@@ -88,17 +88,47 @@ export default class CalendarView extends Component {
             gridLineColor: 'transparent',
           },
 
-          colors: ['#0C6657', '#1BCCAC', '#60E5D7'],
+          // colors: ['#6ecc58', '#bbcf4c', '#eac736', '#ed9a2e', '#e8633a', '#d63636'],
           colorAxis: {
-            dataClassColor: 'category',
-            dataClasses: [{
-              to: 500,
-            }, {
-              from: 170,
-              to: 340
-            }, {
-              from: 170,
-            }
+            dataClasses: [
+              {
+                from: 0,
+                to: 50,
+                color: '#6ecc58',
+                name: 'good'
+              },
+              {
+                from: 50,
+                to: 100,
+                color: '#bbcf4c',
+                name: 'satisfactory'
+              },
+              {
+                from: 100,
+                to: 200,
+                color: '#eac736',
+                name: 'moderate'
+              },
+              {
+                from: 200,
+                to: 300,
+                color: '#ed9a2e',
+                name: 'poor'
+              },
+              {
+                from: 300,
+                to: 400,
+                color: '#e8633a',
+                name: 'verypoor'
+              },
+              {
+                from: 400,
+                to: 500,
+                color: '#d63636',
+                name: 'severe'
+              },
+
+
             ]
           },
 
@@ -176,6 +206,30 @@ export default class CalendarView extends Component {
                 </div>
             }
 
+            <div className="chart-indicator">
+              <table>
+                <tbody>
+                  <tr>
+                    <td><span></span></td>
+                    <td><span className="good"></span></td>
+                    <td><span className="satisfactory"></span></td>
+                    <td><span className="moderate"></span></td>
+                    <td><span className="poor"></span></td>
+                    <td><span className="vpoor"></span></td>
+                    <td><span className="severe"></span></td>
+                  </tr>
+                  <tr>
+                    <td>0</td>
+                    <td>50</td>
+                    <td>100</td>
+                    <td>200</td>
+                    <td>300</td>
+                    <td>400</td>
+                    <td>500</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
             <div className="chart-btn-group">
               <a
                 className={this.props.activeGraph == 'graphview' ? 'active' : ''}

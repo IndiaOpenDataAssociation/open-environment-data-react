@@ -1173,6 +1173,55 @@ progress[value="10"]:after {
   transform: translate(0, -200px);
 }
 
+.chart-indicator{
+  table{
+    margin: auto;
+    tbody{
+      tr{
+        &:hover{
+          background: transparent !important;
+        }
+        td{
+          width: 70px;
+          border-right: 2px solid transparent;
+          span{
+            height: 10px;
+            display: block;
+          }
+          .good {
+            background: #6ecc58;
+          }
+          .satisfactory{
+            background: #bbcf4c;
+          }
+          .moderate{
+            background: #eac736;
+          }
+          .poor{
+            background: #ed9a2e ;
+          }
+          .vpoor{
+            background: #e8633a;
+          }
+          .severe{
+            background: #d63636;
+          }
+        }
+        td:first-child{
+          width: 0;
+        }
+      }
+
+      tr:nth-of-type(2){
+        td{
+          color: white;
+          text-align: right;
+        }
+      }
+    }
+  }
+}
+
 //.heatmap .highcharts-yaxis-labels text tspan{
 //  color: red;
 //}
