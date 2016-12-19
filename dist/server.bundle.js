@@ -2929,7 +2929,7 @@
 	          },
 	          id: list,
 	          className: index === 0 ? 'active' : ''
-	        }, list, list);
+	        }, list, list == 'co' ? list + '2' : list);
 	      })), _jsx('div', {
 	        className: 'chart-btn-group'
 	      }, void 0, _jsx('a', {

@@ -334,7 +334,7 @@ export default class GraphView extends Component {
                       id={list}
                       key={list}
                       className={index===0 ? 'active' : ''}
-                    >{list}</li>
+                    >{list == 'co' ? list+'2' : list}</li>
                   )
                 })
               }
