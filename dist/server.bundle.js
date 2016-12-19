@@ -738,7 +738,17 @@
 	      var mapOptions = {
 	        center: this.mapCenterLatLng(),
 	        zoom: this.state.zoom,
-	        styles: _Mapstyle2.default
+	        styles: _Mapstyle2.default,
+	        zoomControl: true,
+	        zoomControlOptions: {
+	          style: google.maps.ZoomControlStyle.LARGE,
+	          position: google.maps.ControlPosition.LEFT_CENTER
+	        },
+	        mapTypeControl: false,
+	        scaleControl: false,
+	        streetViewControl: false,
+	        rotateControl: false,
+	        fullscreenControl: false
 	      };
 	      this.map = new google.maps.Map(this.refs.map, mapOptions);
 	      {
@@ -1180,7 +1190,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"main.css": "main-7f8297d404.css"
+		"main.css": "main-2dcdf8d988.css"
 	};
 
 /***/ },
@@ -2450,6 +2460,11 @@
 	              to: 500,
 	              color: '#d63636',
 	              name: 'severe'
+	            }, {
+	              from: 500,
+	              to: 1000,
+	              color: '#d63636',
+	              name: 'extreme'
 	            }]
 	          },
 
@@ -2636,6 +2651,37 @@
 	            temp.NO2.unshift(e.payload.d.no2);
 	            temp.PM10.unshift(e.payload.d.pm10);
 	            temp.PM25.unshift(e.payload.d.pm25);
+
+	            if (e.payload.d.pm10 == undefined) {
+	              var i = _this2.state.chartList.indexOf("pm10");
+	              if (i != -1) {
+	                _this2.state.chartList.splice(i, 1);
+	              }
+	            }
+	            if (e.payload.d.co == undefined) {
+	              var i = _this2.state.chartList.indexOf("co");
+	              if (i != -1) {
+	                _this2.state.chartList.splice(i, 1);
+	              }
+	            }
+	            if (e.payload.d.so2 == undefined) {
+	              var i = _this2.state.chartList.indexOf("so2");
+	              if (i != -1) {
+	                _this2.state.chartList.splice(i, 1);
+	              }
+	            }
+	            if (e.payload.d.no2 == undefined) {
+	              var i = _this2.state.chartList.indexOf("no2");
+	              if (i != -1) {
+	                _this2.state.chartList.splice(i, 1);
+	              }
+	            }
+	            if (e.payload.d.pm25 == undefined) {
+	              var i = _this2.state.chartList.indexOf("pm25");
+	              if (i != -1) {
+	                _this2.state.chartList.splice(i, 1);
+	              }
+	            }
 	          });
 	          _this2.setState({ aqiArray: temp });
 
@@ -2743,7 +2789,6 @@
 	  }, {
 	    key: 'displayGraph',
 	    value: function displayGraph(tabName) {
-
 	      this.state.chartList.map(function (e) {
 	        if (tabName === e) {
 	          document.getElementById(tabName).className = 'active';
@@ -2755,13 +2800,10 @@
 	      chart.series.map(function (e) {
 	        if (e.name == tabName) {
 	          e.setVisible(true);
-	          // document.getElementById(tabName).className = 'active'
 	        } else {
 	          e.setVisible(false);
 	        }
 	      });
-
-	      // document.getElementById(tabName).className = 'active'
 	    }
 	  }, {
 	    key: 'render',
@@ -3149,7 +3191,6 @@
 	        style: { padding: '20px' }
 	      }, void 0, this.state.activeGraph === 'graphview' ? _jsx(_GraphView2.default, {
 	        analysisData: this.props.analysisData,
-	        realtimeData: this.props.realtimeData,
 	        time: this.props.time,
 	        activeGraph: this.state.activeGraph,
 	        changeGraphData: this.changeGraphData
@@ -3894,7 +3935,7 @@
 	  var chunkManifest = process.env.webpackChunkAssets && JSON.parse(process.env.webpackChunkAssets);
 	  var refManifest = __webpack_require__(19);
 	  var styleSrc = '/' + refManifest['main.css'];
-	  return '\n    <!doctype html>\n    <html>\n      <head>\n        ' + head.base.toString() + '\n        ' + head.title.toString() + '\n        ' + head.meta.toString() + '\n        ' + head.link.toString() + '\n        ' + head.script.toString() + '\n\n        ' + (process.env.NODE_ENV === 'production' ? '<link rel=\'stylesheet\' href=\'' + assetsManifest['/app.css'] + '\' />' : '') + '\n        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">\n        <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/png" />\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">\n        <link rel="stylesheet" href=\'' + (process.env.NODE_ENV === 'production' ? styleSrc : '/main.css') + '\' type="text/css" media="screen" charset="utf-8">\n        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing&key=AIzaSyBr3jBMT0Q4j0TnWxajkWt159n5lROYsh0"></script>      \n        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>\n        <script src="http://code.highcharts.com/highcharts.js"></script>\n        <script src="http://code.highcharts.com/modules/heatmap.js" ></script>\n        <script src="http://code.highcharts.com/modules/exporting.js"></script>\n      </head>\n      <body>\n        <div id="root">' + html + '</div>\n        <script>\n          window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + ';\n          ' + (process.env.NODE_ENV === 'production' ? '//<![CDATA[\n          window.webpackManifest = ' + JSON.stringify(chunkManifest) + ';\n          //]]>' : '') + '\n        </script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/vendor.js'] : '/vendor.js') + '\'></script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/app.js'] : '/app.js') + '\'></script>\n      </body>\n    </html>\n  ';
+	  return '\n    <!doctype html>\n    <html>\n      <head>\n        ' + head.base.toString() + '\n        ' + head.title.toString() + '\n        ' + head.meta.toString() + '\n        ' + head.link.toString() + '\n        ' + head.script.toString() + '\n\n        ' + (process.env.NODE_ENV === 'production' ? '<link rel=\'stylesheet\' href=\'' + assetsManifest['/app.css'] + '\' />' : '') + '\n        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">\n        <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/png" />\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">\n        <link rel="stylesheet" href=\'' + (process.env.NODE_ENV === 'production' ? styleSrc : '/main.css') + '\' type="text/css" media="screen" charset="utf-8">\n        \n        <script src=\'https://maps.googleapis.com/maps/api/js?key=AIzaSyAnK8lYEkj7mwTu7AWDP4GwiWI8SX9QHwM&extension=.js\'></script>\n        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>\n        <script src="http://code.highcharts.com/highcharts.js"></script>\n        <script src="http://code.highcharts.com/modules/heatmap.js" ></script>\n        <script src="http://code.highcharts.com/modules/exporting.js"></script>\n      </head>\n      <body>\n        <div id="root">' + html + '</div>\n        <script>\n          window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + ';\n          ' + (process.env.NODE_ENV === 'production' ? '//<![CDATA[\n          window.webpackManifest = ' + JSON.stringify(chunkManifest) + ';\n          //]]>' : '') + '\n        </script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/vendor.js'] : '/vendor.js') + '\'></script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/app.js'] : '/app.js') + '\'></script>\n      </body>\n    </html>\n  ';
 	};
 
 	var renderError = function renderError(err) {
