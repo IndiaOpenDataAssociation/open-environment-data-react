@@ -619,7 +619,7 @@ hr#whitelong {
 
 //dashboardhome
 .gmnoprint{
-  display: none;
+  display: block;
 }
 
 .cluster,.gm-style > div > div:nth-child(4) > div:nth-child(3) div{
@@ -1311,9 +1311,9 @@ progress[value="10"]:after {
 .gmnoprint a, .gmnoprint span, .gm-style-cc {
   display:none;
 }
-.gmnoprint div {
-  background:none !important;
-}/* white background and box outline */
+//.gmnoprint div {
+//  background:none !important;
+//}/* white background and box outline */
 .gm-style > div:first-child > div + div > div:last-child > div > div:first-child > div
 {
   /* we have to use !important because we are overwritng inline styles */

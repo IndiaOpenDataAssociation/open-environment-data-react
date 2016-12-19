@@ -150,8 +150,14 @@ export default class Map extends Component {
       styles: mapStyle,
       zoomControl: true,
       zoomControlOptions: {
-        style: google.maps.ZoomControlStyle.DEFAULT,
+        style: google.maps.ZoomControlStyle.LARGE,
+        position: google.maps.ControlPosition.LEFT_CENTER
       },
+      mapTypeControl: false,
+      scaleControl: false,
+      streetViewControl: false,
+      rotateControl: false,
+      fullscreenControl: false
     }
     this.map = new google.maps.Map(this.refs.map, mapOptions);
     {
