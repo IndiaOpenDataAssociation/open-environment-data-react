@@ -12,7 +12,7 @@ export default class GraphView extends Component {
 
     this.state = {
       aqiArray: {'AQI': [], 'CO2':[], 'SO2':[], 'NO2':[], 'PM10':[], 'PM25':[]},
-      chartList : ['aqi', 'co', 'so2', 'no2', 'pm10','pm25']
+      chartList : ['aqi', 'co', 'so2', 'no2', 'pm10','pm25'],
     }
     this.displayGraph = this.displayGraph.bind(this)
   }
@@ -42,6 +42,38 @@ export default class GraphView extends Component {
         temp.NO2.unshift(e.payload.d.no2)
         temp.PM10.unshift(e.payload.d.pm10)
         temp.PM25.unshift(e.payload.d.pm25)
+
+        if(e.payload.d.pm10 == undefined){
+          var i = this.state.chartList.indexOf("pm10");
+          if(i != -1) {
+            this.state.chartList.splice(i, 1);
+          }
+        }
+        if(e.payload.d.co == undefined){
+          var i = this.state.chartList.indexOf("co");
+          if(i != -1) {
+            this.state.chartList.splice(i, 1);
+          }
+        }
+        if(e.payload.d.so2 == undefined){
+          var i = this.state.chartList.indexOf("so2");
+          if(i != -1) {
+            this.state.chartList.splice(i, 1);
+          }
+        }
+        if(e.payload.d.no2 == undefined){
+          var i = this.state.chartList.indexOf("no2");
+          if(i != -1) {
+            this.state.chartList.splice(i, 1);
+          }
+        }
+        if(e.payload.d.pm25 == undefined){
+          var i = this.state.chartList.indexOf("pm25");
+          if(i != -1) {
+            this.state.chartList.splice(i, 1);
+          }
+        }
+
       })
       this.setState({aqiArray: temp})
 
@@ -154,7 +186,6 @@ export default class GraphView extends Component {
   }
 
   displayGraph(tabName){
-
     this.state.chartList.map((e)=>{
       if(tabName === e){
         document.getElementById(tabName).className = 'active'
@@ -165,9 +196,9 @@ export default class GraphView extends Component {
     })
 
     chart.series.map((e)=>{
+
       if(e.name == tabName){
         e.setVisible(true)
-        // document.getElementById(tabName).className = 'active'
       }
       else{
         e.setVisible(false)
@@ -175,7 +206,6 @@ export default class GraphView extends Component {
     })
 
 
-    // document.getElementById(tabName).className = 'active'
 
   }
 
@@ -309,10 +339,9 @@ export default class GraphView extends Component {
                   )
                 })
               }
-
             </ul>
 
-            
+
 
             <div className="chart-btn-group">
               <a

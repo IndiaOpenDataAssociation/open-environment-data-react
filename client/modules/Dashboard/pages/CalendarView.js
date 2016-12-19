@@ -127,6 +127,12 @@ export default class CalendarView extends Component {
                 color: '#d63636',
                 name: 'severe'
               },
+              {
+                from: 500,
+                to: 1000,
+                color: '#d63636',
+                name: 'extreme'
+              },
 
 
             ]

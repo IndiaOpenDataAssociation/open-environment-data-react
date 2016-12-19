@@ -147,7 +147,11 @@ export default class Map extends Component {
     var mapOptions = {
       center: this.mapCenterLatLng(),
       zoom: this.state.zoom,
-      styles: mapStyle
+      styles: mapStyle,
+      zoomControl: true,
+      zoomControlOptions: {
+        style: google.maps.ZoomControlStyle.DEFAULT,
+      },
     }
     this.map = new google.maps.Map(this.refs.map, mapOptions);
     {

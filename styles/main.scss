@@ -1350,6 +1350,8 @@ progress[value="10"]:after {
   text-align: center;
 }
 
+//.gmnoprint img { max-width: none; }
+
 .infowindow-content::after{
     content:'';
     //position: absolute;
