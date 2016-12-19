@@ -251,7 +251,6 @@ export default class LatestDevice extends Component {
               ?
                 <GraphView
                   analysisData={this.props.analysisData}
-                  realtimeData={this.props.realtimeData}
                   time={this.props.time}
                   activeGraph = {this.state.activeGraph}
                   changeGraphData = {this.changeGraphData}

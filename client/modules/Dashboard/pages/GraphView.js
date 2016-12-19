@@ -196,7 +196,6 @@ export default class GraphView extends Component {
     })
 
     chart.series.map((e)=>{
-
       if(e.name == tabName){
         e.setVisible(true)
       }
