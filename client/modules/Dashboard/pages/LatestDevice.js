@@ -8,12 +8,27 @@ export default class LatestDevice extends Component {
     super(props)
     this.state = {activeGraph: 'graphview', limits: []}
     this.changeGraphData = this.changeGraphData.bind(this)
+    this.displayTime = this.displayTime.bind(this)
   }
 
   componentDidMount(){
     superagent.get('https://openenvironment.p.mashape.com/limits').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
       this.setState({limits: res.body})
     }.bind(this))
+  }
+
+
+  displayTime() {
+    let a = new Date(this.props.time * 1000)
+
+    var year = a.getFullYear().toString().substr(2, 2);
+    var month = a.getMonth() + 1;
+    var date = a.getDate();
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    var ampm = hour >= 12 ? 'pm' : 'am'
+    let displayTime = hour + ':' + min + " " + ampm + " " + date + "-" + month + "-" + year;
+    return displayTime
   }
 
   getCODegree(co) {
@@ -87,8 +102,73 @@ export default class LatestDevice extends Component {
           <div className="col-sm-4 text-center" style={{padding: '30px 0px 30px 20px', position: 'relative'}}>
             <div className="aqi-status">
               <p>Current AQI</p>
-              <strong>{latestDevice.aqi}</strong>
-              <p className="aqi-grade">
+              <strong className=
+                {
+                  latestDevice.aqi <= 50
+                    ?
+                    'good'
+                    :
+                    (
+                      latestDevice.aqi > 50 && latestDevice.aqi < 101
+                        ?
+                        'satisfactory'
+                        :
+                        (
+                          latestDevice.aqi > 100 && latestDevice.aqi < 201
+                            ?
+                            'moderate'
+                            :
+                            (
+                              latestDevice.aqi > 200 && latestDevice.aqi < 301
+                                ?
+                                'poor'
+                                :
+                                (
+                                  latestDevice.aqi > 300 && latestDevice.aqi < 401
+                                    ?
+                                    'vpoor'
+                                    :
+                                    'severe'
+                                )
+                            )
+                        )
+                    )
+
+              }>
+                {latestDevice.aqi}
+              </strong>
+
+              <p className={`aqi-grade
+                ${latestDevice.aqi <= 50
+                    ?
+                    'good'
+                    :
+                    (
+                      latestDevice.aqi > 50 && latestDevice.aqi < 101
+                        ?
+                        'satisfactory'
+                        :
+                        (
+                          latestDevice.aqi > 100 && latestDevice.aqi < 201
+                            ?
+                            'moderate'
+                            :
+                            (
+                              latestDevice.aqi > 200 && latestDevice.aqi < 301
+                                ?
+                                'poor'
+                                :
+                                (
+                                  latestDevice.aqi > 300 && latestDevice.aqi < 401
+                                    ?
+                                    'vpoor'
+                                    :
+                                    'severe'
+                                )
+                            )
+                        )
+                    )
+              }`}>
                 {
                   latestDevice.aqi <= 50
                     ?
@@ -121,6 +201,10 @@ export default class LatestDevice extends Component {
                     )
                 }
               </p>
+
+              <div className="last-updated">
+                <span>Last Updated: {this.displayTime()}</span>
+              </div>
             </div>
 
             <div className="gases-details">
@@ -142,6 +226,7 @@ export default class LatestDevice extends Component {
                         </div>
                       </div>
                       <span className="ppc-title">CO<sub>2</sub></span>
+                      <small>(ug/m3)</small>
                     </div>
                     :
                     null
@@ -165,6 +250,7 @@ export default class LatestDevice extends Component {
                         </div>
                       </div>
                       <span className="ppc-title">SO<sub>2</sub></span>
+                      <small>(ug/m3)</small>
                     </div>
                     :
                     null
@@ -188,6 +274,7 @@ export default class LatestDevice extends Component {
                         </div>
                       </div>
                       <span className="ppc-title">NO<sub>2</sub></span>
+                      <small>(ug/m3)</small>
                     </div>
                     :
                     null
@@ -212,6 +299,7 @@ export default class LatestDevice extends Component {
                         </div>
                       </div>
                       <span className="ppc-title">PM10</span>
+                      <small>(ug/m3)</small>
                     </div>
                     :
                     null
@@ -236,6 +324,7 @@ export default class LatestDevice extends Component {
                         </div>
                       </div>
                       <span className="ppc-title">PM2.5</span>
+                      <small>(ug/m3)</small>
                     </div>
                     :
                     null

@@ -6,6 +6,7 @@ import LatestDevice from './pages/LatestDevice'
 import superagent from 'superagent'
 import LoadingMap from './components/LoadingMap'
 import Map from '../Map/index'
+import Datetime from 'react-datetime'
 export default class Dashboard extends Component {
   constructor(props) {
     super(props)
@@ -19,7 +20,6 @@ export default class Dashboard extends Component {
     this.analyticsData = this.analyticsData.bind(this)
     this.handleMarkerClick = this.handleMarkerClick.bind(this);
     this.handleMarkerClose = this.handleMarkerClose.bind(this);
-    this.displayTime = this.displayTime.bind(this)
   }
 
   getState() {
@@ -98,7 +98,9 @@ export default class Dashboard extends Component {
     superagent.get('https://openenvironment.p.mashape.com/all/public/data/hours/24/' + id).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
       this.setState({analyticsData: res.body, time: time, no_records: false})
       this.setState({analyticsdataLoading: false})
+
     }.bind(this))
+
   }
 
   handleMarkerClick(targetMarker, index) {
@@ -130,18 +132,6 @@ export default class Dashboard extends Component {
     });
   }
 
-  displayTime() {
-    let a = new Date(this.state.time * 1000)
-
-    var year = a.getFullYear().toString().substr(2, 2);
-    var month = a.getMonth() + 1;
-    var date = a.getDate();
-    var hour = a.getHours();
-    var min = a.getMinutes();
-    var ampm = hour >= 12 ? 'pm' : 'am'
-    let displayTime = hour + ':' + min + " " + ampm + " " + date + "-" + month + "-" + year;
-    return displayTime
-  }
 
   render() {
     return (
@@ -202,18 +192,35 @@ export default class Dashboard extends Component {
                             <div className="panel-heading ">
                               <div className="row">
                                 <div className="col-sm-11 col-xs-11">
-                                  <div className="col-sm-7" style={{position: 'relative'}}>
+                                  <div className="col-sm-5" style={{position: 'relative'}}>
                                     <div className="blot">
-                                      <img src="../../assets/images/blot.png"/>
+                                      {
+                                        this.state.realTimeData[0].type == 'CPCB'
+                                        ?
+                                          <img src="../../assets/images/CPCB.png"/>
+                                        :
+                                          (
+                                            this.state.realTimeData[0].type == 'AIROWL3G' || this.state.realTimeData[0].type == 'AIROWLWI'
+                                              ?
+                                              <img src="../../assets/images/AIROWL3G.png"/>
+                                              :
+                                              <img src="../../assets/images/POLLLUDRON_PUBLIC.png"/>
+
+                                          )
+                                      }
+
                                     </div>
-                                <span className="city-label">
-                                  {this.state.city_label}
-                                </span>
+                                    <span className="device-label">
+                                      {this.state.realTimeData[0].label}, { this.state.realTimeData[0].city}, { this.state.realTimeData[0].country }
+                                    </span><br/>
+                                    <small className="device-type">
+                                      {this.state.realTimeData[0].type}
+                                    </small><br/>
+
                                   </div>
-                                  <div className="col-sm-5 text-right">
-                                    <div className="last-updated">
-                                      <span>Last Updated: {this.displayTime()}</span>
-                                    </div>
+                                  <div className="col-sm-7 dtpicker">
+                                    <small>From</small><Datetime className="fromDt"/>
+                                    <small>To</small><Datetime className="toDt"/>
                                   </div>
                                 </div>
                                 <span className="col-sm-1 col-xs-1 text-right close-panel" onClick={this.closePanel}><i

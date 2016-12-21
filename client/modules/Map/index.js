@@ -65,7 +65,7 @@ export default class Map extends Component {
             +'</div>'
             +'<div class="infowindow-body">'
             +'<div class="left-content">'
-            +'<div><i class="fa fa-map-marker"></i>'+marker.deviceType+'</div>'
+            +'<div><i class="fa fa-map-marker"></i>'+marker.type+'</div>'
             +'<div><i class="fa fa-map-marker"></i>'+marker.city+'</div>'
             +'<div><i class="fa fa-home"></i>'+this.getIndoor(marker.deviceType)+' <span style="margin-left: 20px;"> <i class="fa fa-circle" aria-hidden="true" style="color: #73C076;"></i>Online</span></div>'
             +'<div class="aqi">'
