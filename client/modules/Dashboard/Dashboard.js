@@ -204,7 +204,7 @@ export default class Dashboard extends Component {
                                               ?
                                               <img src="../../assets/images/AIROWL3G.png"/>
                                               :
-                                              <img src="../../assets/images/POLLLUDRON_PUBLIC.png"/>
+                                              <img src="../../assets/images/POLLUDRON_PUBLIC.png"/>
 
                                           )
                                       }

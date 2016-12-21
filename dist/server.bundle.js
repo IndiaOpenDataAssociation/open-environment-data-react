@@ -77,7 +77,7 @@
 
 	var _NavItem2 = _interopRequireDefault(_NavItem);
 
-	var _LinkContainer = __webpack_require__(53);
+	var _LinkContainer = __webpack_require__(54);
 
 	var _LinkContainer2 = _interopRequireDefault(_LinkContainer);
 
@@ -298,6 +298,10 @@
 
 	var _index2 = _interopRequireDefault(_index);
 
+	var _reactDatetime = __webpack_require__(50);
+
+	var _reactDatetime2 = _interopRequireDefault(_reactDatetime);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -320,17 +324,35 @@
 	  className: 'fa fa-navicon'
 	});
 
-	var _ref6 = _jsx('div', {
-	  className: 'blot'
-	}, void 0, _jsx('img', {
-	  src: '../../assets/images/blot.png'
+	var _ref6 = _jsx('img', {
+	  src: '../../assets/images/CPCB.png'
+	});
+
+	var _ref7 = _jsx('img', {
+	  src: '../../assets/images/AIROWL3G.png'
+	});
+
+	var _ref8 = _jsx('img', {
+	  src: '../../assets/images/POLLUDRON_PUBLIC.png'
+	});
+
+	var _ref9 = _jsx('br', {});
+
+	var _ref10 = _jsx('br', {});
+
+	var _ref11 = _jsx('div', {
+	  className: 'col-sm-7 dtpicker'
+	}, void 0, _jsx('small', {}, void 0, 'From'), _jsx(_reactDatetime2.default, {
+	  className: 'fromDt'
+	}), _jsx('small', {}, void 0, 'To'), _jsx(_reactDatetime2.default, {
+	  className: 'toDt'
 	}));
 
-	var _ref7 = _jsx('i', {
+	var _ref12 = _jsx('i', {
 	  className: 'fa fa-close'
 	});
 
-	var _ref8 = _jsx('div', {
+	var _ref13 = _jsx('div', {
 	  className: 'dashboard-footer'
 	}, void 0, _jsx('a', {
 	  href: 'http://indiaopendata.com/',
@@ -362,7 +384,6 @@
 	    _this.analyticsData = _this.analyticsData.bind(_this);
 	    _this.handleMarkerClick = _this.handleMarkerClick.bind(_this);
 	    _this.handleMarkerClose = _this.handleMarkerClose.bind(_this);
-	    _this.displayTime = _this.displayTime.bind(_this);
 	    return _this;
 	  }
 
@@ -483,20 +504,6 @@
 	      });
 	    }
 	  }, {
-	    key: 'displayTime',
-	    value: function displayTime() {
-	      var a = new Date(this.state.time * 1000);
-
-	      var year = a.getFullYear().toString().substr(2, 2);
-	      var month = a.getMonth() + 1;
-	      var date = a.getDate();
-	      var hour = a.getHours();
-	      var min = a.getMinutes();
-	      var ampm = hour >= 12 ? 'pm' : 'am';
-	      var displayTime = hour + ':' + min + " " + ampm + " " + date + "-" + month + "-" + year;
-	      return displayTime;
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _jsx('div', {}, void 0, this.state.loading ? _jsx('div', {
@@ -543,25 +550,25 @@
 	      }, void 0, _jsx('div', {
 	        className: 'col-sm-11 col-xs-11'
 	      }, void 0, _jsx('div', {
-	        className: 'col-sm-7',
+	        className: 'col-sm-5',
 	        style: { position: 'relative' }
-	      }, void 0, _ref6, _jsx('span', {
-	        className: 'city-label'
-	      }, void 0, this.state.city_label)), _jsx('div', {
-	        className: 'col-sm-5 text-right'
 	      }, void 0, _jsx('div', {
-	        className: 'last-updated'
-	      }, void 0, _jsx('span', {}, void 0, 'Last Updated: ', this.displayTime())))), _jsx('span', {
+	        className: 'blot'
+	      }, void 0, this.state.realTimeData[0].type == 'CPCB' ? _ref6 : this.state.realTimeData[0].type == 'AIROWL3G' || this.state.realTimeData[0].type == 'AIROWLWI' ? _ref7 : _ref8), _jsx('span', {
+	        className: 'device-label'
+	      }, void 0, this.state.realTimeData[0].label, ', ', this.state.realTimeData[0].city, ', ', this.state.realTimeData[0].country), _ref9, _jsx('small', {
+	        className: 'device-type'
+	      }, void 0, this.state.realTimeData[0].type), _ref10), _ref11), _jsx('span', {
 	        className: 'col-sm-1 col-xs-1 text-right close-panel',
 	        onClick: this.closePanel
-	      }, void 0, _ref7))), _jsx('div', {
+	      }, void 0, _ref12))), _jsx('div', {
 	        className: 'panel-body'
 	      }, void 0, _jsx(_LatestDevice2.default, {
 	        analysisData: this.state.analyticsData,
 	        realtimeData: this.state.realTimeData,
 	        time: this.state.time,
 	        markerId: this.state.marker_id
-	      })))) : null : null)), _ref8);
+	      })))) : null : null)), _ref13);
 	    }
 	  }]);
 
@@ -668,7 +675,7 @@
 	  }, {
 	    key: 'renderInfoWindow',
 	    value: function renderInfoWindow(marker) {
-	      var html = '<div class="infowindow-content">' + '<div class="infowindow-head">' + '<strong>' + marker.label + '</strong>' + '</div>' + '<div class="infowindow-body">' + '<div class="left-content">' + '<div><i class="fa fa-map-marker"></i>' + marker.deviceType + '</div>' + '<div><i class="fa fa-map-marker"></i>' + marker.city + '</div>' + '<div><i class="fa fa-home"></i>' + this.getIndoor(marker.deviceType) + ' <span style="margin-left: 20px;"> <i class="fa fa-circle" aria-hidden="true" style="color: #73C076;"></i>Online</span></div>' + '<div class="aqi">' + '<div class="progress-pie-chart ' + this.getClass250(marker.aqi) + ' ' + this.renderClass(marker.aqi) + '" id="ppc" > <div class="ppc-progress"> <div class="ppc-progress-fill ' + this.renderClass(marker.aqi) + '" style="transform: rotate(' + this.getDegree(marker.aqi).deg + 'deg)"></div> </div> <div class="ppc-percents"> <div class="pcc-percents-wrapper"> <span>' + marker.aqi + '</span></div></div></div>' + '</div></div></div></div>';
+	      var html = '<div class="infowindow-content">' + '<div class="infowindow-head">' + '<strong>' + marker.label + '</strong>' + '</div>' + '<div class="infowindow-body">' + '<div class="left-content">' + '<div><i class="fa fa-map-marker"></i>' + marker.type + '</div>' + '<div><i class="fa fa-map-marker"></i>' + marker.city + '</div>' + '<div><i class="fa fa-home"></i>' + this.getIndoor(marker.deviceType) + ' <span style="margin-left: 20px;"> <i class="fa fa-circle" aria-hidden="true" style="color: #73C076;"></i>Online</span></div>' + '<div class="aqi">' + '<div class="progress-pie-chart ' + this.getClass250(marker.aqi) + ' ' + this.renderClass(marker.aqi) + '" id="ppc" > <div class="ppc-progress"> <div class="ppc-progress-fill ' + this.renderClass(marker.aqi) + '" style="transform: rotate(' + this.getDegree(marker.aqi).deg + 'deg)"></div> </div> <div class="ppc-percents"> <div class="pcc-percents-wrapper"> <span>' + marker.aqi + '</span></div></div></div>' + '</div></div></div></div>';
 	      return html;
 	    }
 	  }, {
@@ -1025,7 +1032,7 @@
 
 	var _redux = __webpack_require__(13);
 
-	var _reduxThunk = __webpack_require__(61);
+	var _reduxThunk = __webpack_require__(62);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -1190,7 +1197,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"main.css": "main-2dcdf8d988.css"
+		"main.css": "main-b038c907c0.css"
 	};
 
 /***/ },
@@ -1403,23 +1410,23 @@
 
 	var _Footer2 = _interopRequireDefault(_Footer);
 
-	var _Helmet = __webpack_require__(52);
+	var _Helmet = __webpack_require__(53);
 
 	var _Helmet2 = _interopRequireDefault(_Helmet);
 
-	var _Tab = __webpack_require__(54);
+	var _Tab = __webpack_require__(55);
 
 	var _Tab2 = _interopRequireDefault(_Tab);
 
-	var _TabList = __webpack_require__(55);
+	var _TabList = __webpack_require__(56);
 
 	var _TabList2 = _interopRequireDefault(_TabList);
 
-	var _Tabs = __webpack_require__(57);
+	var _Tabs = __webpack_require__(58);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
-	var _TabPanel = __webpack_require__(56);
+	var _TabPanel = __webpack_require__(57);
 
 	var _TabPanel2 = _interopRequireDefault(_TabPanel);
 
@@ -1981,13 +1988,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reduxDevtools = __webpack_require__(58);
+	var _reduxDevtools = __webpack_require__(59);
 
-	var _reduxDevtoolsLogMonitor = __webpack_require__(60);
+	var _reduxDevtoolsLogMonitor = __webpack_require__(61);
 
 	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
 
-	var _reduxDevtoolsDockMonitor = __webpack_require__(59);
+	var _reduxDevtoolsDockMonitor = __webpack_require__(60);
 
 	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
 
@@ -2182,11 +2189,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _GoogleMapLoader = __webpack_require__(51);
+	var _GoogleMapLoader = __webpack_require__(52);
 
 	var _GoogleMapLoader2 = _interopRequireDefault(_GoogleMapLoader);
 
-	var _GoogleMap = __webpack_require__(50);
+	var _GoogleMap = __webpack_require__(51);
 
 	var _GoogleMap2 = _interopRequireDefault(_GoogleMap);
 
@@ -2596,13 +2603,28 @@
 	});
 
 	var _ref3 = _jsx('div', {
-	  className: 'chart-description'
-	}, void 0, _jsx(_DropdownButton2.default, {
-	  title: 'AQI',
-	  id: 'chart-info-dropdown'
-	}, void 0, _jsx(_MenuItem2.default, {
-	  eventKey: '1'
-	}, void 0, 'AQI')), _jsx('p', {}, void 0, 'An air quality index (AQI) is a number used by government agencies to communicate to the public how polluted the air currently is or how polluted it is forecast to become. As the AQI increases, an increasingly large percentage of the population is likely to experience increasingly severe adverse health effects.'));
+	  className: 'gases-info'
+	}, void 0, _jsx('p', {}, void 0, 'An air quality index (AQI) is a number used by government agencies to communicate to the public how polluted the air currently is or how polluted it is forecast to become. As the AQI increases, an increasingly large percentage of the population is likely to experience increasingly severe adverse health effects.'));
+
+	var _ref4 = _jsx('div', {
+	  className: 'gases-info'
+	}, void 0, _jsx('h5', {}, void 0, 'Carbon Oxides :'), _jsx('p', {}, void 0, 'Carbon Monoxide (CO), Carbon Dioxide (CO2)'), _jsx('h5', {}, void 0, 'Importance of Carbon Dioxide / Monoxide Monitoring :'), _jsx('p', {}, void 0, 'Carbon monoxide (CO) is an extremely toxic gas resulting from incomplete combustion of carbon and carbonaceous products. Carbon Dioxide (CO2) is present in the atmosphere but it is not a toxic gas.'), _jsx('h5', {}, void 0, 'Sources of Carbon Dioxide / Monoxide :'), _jsx('p', {}, void 0, 'Thermal Power Plants, Vehicle Fuel Emission, Open Fire, Solid Waste Sites etc.'), _jsx('h5', {}, void 0, 'Health Hazard of Carbon Dioxide / Monoxide :'), _jsx('p', {}, void 0, 'Carbon monoxide is colorless, odorless, and tasteless, but highly toxic. It combines with hemoglobin to produce carboxyhemoglobin, which usurps the space in hemoglobin that normally carries oxygen, but is ineffective for delivering oxygen to bodily tissues.'));
+
+	var _ref5 = _jsx('div', {
+	  className: 'gases-info'
+	}, void 0, _jsx('h5', {}, void 0, 'Importance of Nitrides Monitoring :'), _jsx('p', {}, void 0, 'Nitric oxide (NO), Nitrogen Dioxide (NO2), Ammonia (NH3) The nitric oxide (NO) molecule is quite reactive and unstable. In ambient air, it reacts with oxygen to form the toxic nitrogen dioxide (NO2). Ammonia (NH3) is present in the atmosphere naturally as well as an industrial pollution.'), _jsx('h5', {}, void 0, 'Sources of Nitrides :'), _jsx('p', {}, void 0, 'Thermal Power Plants, Vehicle Fuel Emission, Industries, Fertilizers, Nitrogenous animal and vegetable matter.'), _jsx('h5', {}, void 0, 'Health Hazard of Nitrides :'), _jsx('p', {}, void 0, 'Respiratory disease, such as emphysema and bronchitis, and can aggravate existing heart disease, leading to increased hospital admissions and premature death. Nitrogen oxide causes a multitude of symptoms, primarily in the lungs but also in other organs such as the spleen and liver.'), _jsx('h5', {}, void 0, 'Regulations for Nitrides :'), _jsx('p', {}, void 0, 'The U. S. Occupational Safety and Health Administration (OSHA) has set a 15-minute exposure limit for gaseous ammonia of 35 ppm by volume in the environmental air and an 8-hour exposure limit of 25 ppm by volume. The U.S. Environmental Protection Agency (EPA) has set safety levels for environmental exposure to NO2 at 100 ppb, averaged over one hour, and 53 ppb, averaged annually.'));
+
+	var _ref6 = _jsx('div', {
+	  className: 'gases-info'
+	}, void 0, _jsx('h5', {}, void 0, 'Importance of Sulfide Monitoring :'), _jsx('p', {}, void 0, 'Sulfur Dioxide (SO2), Hydrogen Sulfide (H2S)Sulfur dioxide (SO2) is an acid-forming, colorless, foul-smelling and toxic gas. The toxicity of Hydrogen Sulfide (H2S) is comparable with that of carbon monoxide.'), _jsx('h5', {}, void 0, 'Sources of Sulfides :'), _jsx('p', {}, void 0, 'Industrial Waste, Petroleum Refineries, Vehicle Emission, Volcanos etc.'), _jsx('h5', {}, void 0, 'Health Hazard of Sulfides :'), _jsx('p', {}, void 0, 'Sulfides poison several different systems in the body, although the nervous system is most affected. It causes increased respiratory symptoms and disease, difficulty in breathing, and premature death.'), _jsx('h5', {}, void 0, 'Regulations for Sulfides :'), _jsx('p', {}, void 0, '10 ppm is the U. S. Occupational Safety and Health Administration (OSHA) permissible exposure limit (PEL) (8 hour time-weighted average) for H2S and 5 ppm (13 mg/m3) time-weighted average for SO2.'));
+
+	var _ref7 = _jsx('div', {
+	  className: 'gases-info'
+	}, void 0, _jsx('h5', {}, void 0, 'Importance of Ozone Monitoring :'), _jsx('p', {}, void 0, 'Ozone (O3) is a highly toxic corrosive substance and a common pollutant. In low concentration it is a normal component of ambient air. Highly concentrated it is an aggressive irritant gas and at ground level it affects humans and nature.'), _jsx('h5', {}, void 0, 'Sources of Ozone :'), _jsx('p', {}, void 0, 'Naturally through reaction of nitrogen oxides, hydrocarbons, and sunlight; Industrial and vehicular emission.'), _jsx('h5', {}, void 0, 'Health Hazard of Ozone :'), _jsx('p', {}, void 0, 'Ground level ozone harms lung function and irritate the respiratory system. It also causes premature death, asthma, bronchitis, heart attack, and other cardiopulmonary problems.'), _jsx('h5', {}, void 0, 'Regulations for Ozone :'), _jsx('p', {}, void 0, 'U.S. Occupational Safety and Health Administration (OSHA) has established a permissible exposure limit (PEL) of 0.1 umol/mol calculated as an 8-hour time weighted average. Higher concentrations are especially hazardous and National Institute for Occupational Safety and Health (NIOSH) has established an Immediately Dangerous to Life and Health Limit (IDLH) of 5 umol/mol'));
+
+	var _ref8 = _jsx('div', {
+	  className: 'gases-info'
+	}, void 0, _jsx('h5', {}, void 0, 'Importance of HydroCarbons Monitoring :'), _jsx('p', {}, void 0, 'Hydrocarbon monitoring like Methane (CH4), Propane (C3H8), Butane (C4H10) presence has an important role in ambient Air-Quality Monitoring and Environmental Assessment. Presence of Hydrocarbons in environment reveals important informations about the source of pollution.'), _jsx('h5', {}, void 0, 'Sources of HydroCarbons :'), _jsx('p', {}, void 0, 'Biological Decomposition, Natural Sources, Industrial Emission, Vehicular Emission etc.'), _jsx('h5', {}, void 0, 'Regulations for HydroCarbons :'), _jsx('p', {}, void 0, 'Methane is also one of the principal components in natural gas. These days, methaneis often in the news because it is one of the primary "greenhouse gases." It is second only to carbon dioxide in its contribution to global warming.'));
 
 	var GraphView = function (_Component) {
 	  _inherits(GraphView, _Component);
@@ -2616,7 +2638,8 @@
 
 	    _this.state = {
 	      aqiArray: { 'AQI': [], 'CO2': [], 'SO2': [], 'NO2': [], 'PM10': [], 'PM25': [] },
-	      chartList: ['aqi', 'co', 'so2', 'no2', 'pm10', 'pm25']
+	      chartList: ['aqi', 'co', 'so2', 'no2', 'pm10', 'pm25'],
+	      gasesInfo: 'AQI'
 	    };
 	    _this.displayGraph = _this.displayGraph.bind(_this);
 	    return _this;
@@ -2690,7 +2713,7 @@
 	              backgroundColor: 'transparent',
 	              width: 600,
 	              height: 300,
-	              type: 'areaspline'
+	              type: 'column'
 	            },
 	            colors: ['#00b3bf'],
 
@@ -2942,7 +2965,42 @@
 	        onClick: function onClick() {
 	          _this3.props.changeGraphData('calendarview');
 	        }
-	      }, void 0, _ref2))), _ref3));
+	      }, void 0, _ref2))), _jsx('div', {
+	        className: 'chart-description'
+	      }, void 0, _jsx(_DropdownButton2.default, {
+	        title: this.state.gasesInfo,
+	        id: 'chart-info-dropdown'
+	      }, void 0, _jsx(_MenuItem2.default, {
+	        eventKey: '1',
+	        onSelect: function onSelect() {
+	          _this3.setState({ gasesInfo: 'AQI' });
+	        }
+	      }, void 0, 'AQI'), _jsx(_MenuItem2.default, {
+	        eventKey: '2',
+	        onSelect: function onSelect() {
+	          _this3.setState({ gasesInfo: 'Carbon Oxides' });
+	        }
+	      }, void 0, 'Carbon Oxides'), _jsx(_MenuItem2.default, {
+	        eventKey: '3',
+	        onSelect: function onSelect() {
+	          _this3.setState({ gasesInfo: 'Nitrides' });
+	        }
+	      }, void 0, 'Nitrides'), _jsx(_MenuItem2.default, {
+	        eventKey: '4',
+	        onSelect: function onSelect() {
+	          _this3.setState({ gasesInfo: 'Sulfides' });
+	        }
+	      }, void 0, 'Sulfides'), _jsx(_MenuItem2.default, {
+	        eventKey: '6',
+	        onSelect: function onSelect() {
+	          _this3.setState({ gasesInfo: 'Ozone' });
+	        }
+	      }, void 0, 'Ozone'), _jsx(_MenuItem2.default, {
+	        eventKey: '7',
+	        onSelect: function onSelect() {
+	          _this3.setState({ gasesInfo: 'HydroCarbons' });
+	        }
+	      }, void 0, 'HydroCarbons')), this.state.gasesInfo == 'AQI' ? _ref3 : this.state.gasesInfo == 'Carbon Oxides' ? _ref4 : this.state.gasesInfo == 'Nitrides' ? _ref5 : this.state.gasesInfo == 'Sulfides' ? _ref6 : this.state.gasesInfo == 'Ozone' ? _ref7 : this.state.gasesInfo == 'HydroCarbons' ? _ref8 : null)));
 	    }
 	  }]);
 
@@ -2996,21 +3054,31 @@
 	  className: 'ppc-title'
 	}, void 0, 'CO', _jsx('sub', {}, void 0, '2'));
 
-	var _ref3 = _jsx('span', {
-	  className: 'ppc-title'
-	}, void 0, 'SO', _jsx('sub', {}, void 0, '2'));
+	var _ref3 = _jsx('small', {}, void 0, '(ug/m3)');
 
 	var _ref4 = _jsx('span', {
 	  className: 'ppc-title'
-	}, void 0, 'NO', _jsx('sub', {}, void 0, '2'));
+	}, void 0, 'SO', _jsx('sub', {}, void 0, '2'));
 
-	var _ref5 = _jsx('span', {
-	  className: 'ppc-title'
-	}, void 0, 'PM10');
+	var _ref5 = _jsx('small', {}, void 0, '(ug/m3)');
 
 	var _ref6 = _jsx('span', {
 	  className: 'ppc-title'
+	}, void 0, 'NO', _jsx('sub', {}, void 0, '2'));
+
+	var _ref7 = _jsx('small', {}, void 0, '(ug/m3)');
+
+	var _ref8 = _jsx('span', {
+	  className: 'ppc-title'
+	}, void 0, 'PM10');
+
+	var _ref9 = _jsx('small', {}, void 0, '(ug/m3)');
+
+	var _ref10 = _jsx('span', {
+	  className: 'ppc-title'
 	}, void 0, 'PM2.5');
+
+	var _ref11 = _jsx('small', {}, void 0, '(ug/m3)');
 
 	var LatestDevice = function (_Component) {
 	  _inherits(LatestDevice, _Component);
@@ -3022,6 +3090,7 @@
 
 	    _this.state = { activeGraph: 'graphview', limits: [] };
 	    _this.changeGraphData = _this.changeGraphData.bind(_this);
+	    _this.displayTime = _this.displayTime.bind(_this);
 	    return _this;
 	  }
 
@@ -3031,6 +3100,20 @@
 	      _superagent2.default.get('https://openenvironment.p.mashape.com/limits').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
 	        this.setState({ limits: res.body });
 	      }.bind(this));
+	    }
+	  }, {
+	    key: 'displayTime',
+	    value: function displayTime() {
+	      var a = new Date(this.props.time * 1000);
+
+	      var year = a.getFullYear().toString().substr(2, 2);
+	      var month = a.getMonth() + 1;
+	      var date = a.getDate();
+	      var hour = a.getHours();
+	      var min = a.getMinutes();
+	      var ampm = hour >= 12 ? 'pm' : 'am';
+	      var displayTime = hour + ':' + min + " " + ampm + " " + date + "-" + month + "-" + year;
+	      return displayTime;
 	    }
 	  }, {
 	    key: 'getCODegree',
@@ -3115,9 +3198,13 @@
 	        style: { padding: '30px 0px 30px 20px', position: 'relative' }
 	      }, void 0, _jsx('div', {
 	        className: 'aqi-status'
-	      }, void 0, _ref, _jsx('strong', {}, void 0, latestDevice.aqi), _jsx('p', {
-	        className: 'aqi-grade'
-	      }, void 0, latestDevice.aqi <= 50 ? 'Good' : latestDevice.aqi > 50 && latestDevice.aqi < 101 ? 'Satisfactory' : latestDevice.aqi > 100 && latestDevice.aqi < 201 ? 'Moderate' : latestDevice.aqi > 200 && latestDevice.aqi < 301 ? 'Poor' : latestDevice.aqi > 300 && latestDevice.aqi < 401 ? 'Very Poor' : 'Severe')), _jsx('div', {
+	      }, void 0, _ref, _jsx('strong', {
+	        className: latestDevice.aqi <= 50 ? 'good' : latestDevice.aqi > 50 && latestDevice.aqi < 101 ? 'satisfactory' : latestDevice.aqi > 100 && latestDevice.aqi < 201 ? 'moderate' : latestDevice.aqi > 200 && latestDevice.aqi < 301 ? 'poor' : latestDevice.aqi > 300 && latestDevice.aqi < 401 ? 'vpoor' : 'severe'
+	      }, void 0, latestDevice.aqi), _jsx('p', {
+	        className: 'aqi-grade\n                ' + (latestDevice.aqi <= 50 ? 'good' : latestDevice.aqi > 50 && latestDevice.aqi < 101 ? 'satisfactory' : latestDevice.aqi > 100 && latestDevice.aqi < 201 ? 'moderate' : latestDevice.aqi > 200 && latestDevice.aqi < 301 ? 'poor' : latestDevice.aqi > 300 && latestDevice.aqi < 401 ? 'vpoor' : 'severe')
+	      }, void 0, latestDevice.aqi <= 50 ? 'Good' : latestDevice.aqi > 50 && latestDevice.aqi < 101 ? 'Satisfactory' : latestDevice.aqi > 100 && latestDevice.aqi < 201 ? 'Moderate' : latestDevice.aqi > 200 && latestDevice.aqi < 301 ? 'Poor' : latestDevice.aqi > 300 && latestDevice.aqi < 401 ? 'Very Poor' : 'Severe'), _jsx('div', {
+	        className: 'last-updated'
+	      }, void 0, _jsx('span', {}, void 0, 'Last Updated: ', this.displayTime()))), _jsx('div', {
 	        className: 'gases-details'
 	      }, void 0, _jsx('div', {
 	        className: 'row'
@@ -3134,7 +3221,7 @@
 	        className: 'ppc-percents-gas'
 	      }, void 0, _jsx('div', {
 	        className: 'pcc-percents-wrapper-gas'
-	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.co)))), _ref2) : null, latestDevice.payload.d.so2 != undefined ? _jsx('div', {
+	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.co)))), _ref2, _ref3) : null, latestDevice.payload.d.so2 != undefined ? _jsx('div', {
 	        className: 'col-md-3'
 	      }, void 0, _jsx('div', {
 	        className: 'progress-pie-chart-gas ' + this.getSODegree(latestDevice.payload.d.so2).class
@@ -3147,7 +3234,7 @@
 	        className: 'ppc-percents-gas'
 	      }, void 0, _jsx('div', {
 	        className: 'pcc-percents-wrapper-gas'
-	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.so2)))), _ref3) : null, latestDevice.payload.d.no2 != undefined ? _jsx('div', {
+	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.so2)))), _ref4, _ref5) : null, latestDevice.payload.d.no2 != undefined ? _jsx('div', {
 	        className: 'col-md-3'
 	      }, void 0, _jsx('div', {
 	        className: 'progress-pie-chart-gas ' + this.getNODegree(latestDevice.payload.d.no2).class
@@ -3160,7 +3247,7 @@
 	        className: 'ppc-percents-gas'
 	      }, void 0, _jsx('div', {
 	        className: 'pcc-percents-wrapper-gas'
-	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.no2)))), _ref4) : null, latestDevice.payload.d.pm10 != undefined ? _jsx('div', {
+	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.no2)))), _ref6, _ref7) : null, latestDevice.payload.d.pm10 != undefined ? _jsx('div', {
 	        className: 'col-md-3'
 	      }, void 0, _jsx('div', {
 	        className: 'progress-pie-chart-gas ' + this.getPM10Degree(latestDevice.payload.d.pm10).class
@@ -3173,7 +3260,7 @@
 	        className: 'ppc-percents-gas'
 	      }, void 0, _jsx('div', {
 	        className: 'pcc-percents-wrapper-gas'
-	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.pm10)))), _ref5) : null, latestDevice.payload.d.pm25 != undefined ? _jsx('div', {
+	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.pm10)))), _ref8, _ref9) : null, latestDevice.payload.d.pm25 != undefined ? _jsx('div', {
 	        className: 'col-md-3'
 	      }, void 0, _jsx('div', {
 	        className: 'progress-pie-chart-gas ' + this.getPM25Degree(latestDevice.payload.d.pm25).class
@@ -3186,7 +3273,7 @@
 	        className: 'ppc-percents-gas'
 	      }, void 0, _jsx('div', {
 	        className: 'pcc-percents-wrapper-gas'
-	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.pm25)))), _ref6) : null))), _jsx('div', {
+	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.pm25)))), _ref10, _ref11) : null))), _jsx('div', {
 	        className: 'col-sm-8',
 	        style: { padding: '20px' }
 	      }, void 0, this.state.activeGraph === 'graphview' ? _jsx(_GraphView2.default, {
@@ -4067,70 +4154,76 @@
 /* 50 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-google-maps/lib/GoogleMap");
+	module.exports = require("react-datetime");
 
 /***/ },
 /* 51 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-google-maps/lib/GoogleMapLoader");
+	module.exports = require("react-google-maps/lib/GoogleMap");
 
 /***/ },
 /* 52 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-helmet/lib/Helmet");
+	module.exports = require("react-google-maps/lib/GoogleMapLoader");
 
 /***/ },
 /* 53 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-router-bootstrap/lib/LinkContainer");
+	module.exports = require("react-helmet/lib/Helmet");
 
 /***/ },
 /* 54 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/Tab");
+	module.exports = require("react-router-bootstrap/lib/LinkContainer");
 
 /***/ },
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/TabList");
+	module.exports = require("react-tabs/lib/components/Tab");
 
 /***/ },
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/TabPanel");
+	module.exports = require("react-tabs/lib/components/TabList");
 
 /***/ },
 /* 57 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/Tabs");
+	module.exports = require("react-tabs/lib/components/TabPanel");
 
 /***/ },
 /* 58 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools");
+	module.exports = require("react-tabs/lib/components/Tabs");
 
 /***/ },
 /* 59 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-dock-monitor");
+	module.exports = require("redux-devtools");
 
 /***/ },
 /* 60 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-log-monitor");
+	module.exports = require("redux-devtools-dock-monitor");
 
 /***/ },
 /* 61 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-devtools-log-monitor");
+
+/***/ },
+/* 62 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-thunk");
