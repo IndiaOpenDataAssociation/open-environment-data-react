@@ -1056,6 +1056,11 @@ progress[value="10"]:after {
 
 .chart-description{
   padding: 20px;
+
+  .dropdown-menu{
+    bottom: 100%;
+    top: inherit !important;
+  }
 }
 
 
@@ -1071,7 +1076,7 @@ progress[value="10"]:after {
 }
 
 .gases-info{
-  height: 130px;
+  height: 86px;
   overflow-y: scroll;
 
   h5{
@@ -1563,10 +1568,20 @@ progress[value="10"]:after {
   small{
     padding: 8px;
   }
+
+  button{
+    margin-left: 10px;
+    background: #00b3bf;
+    border: 0;
+    padding: 0px 6px;
+    border-radius: 4px;
+    position: relative;
+    top: 1px;
+  }
 }
 .rdt {
   position: relative;
-  width: 41%;
+  width: 37%;
   display: inline-block;
   .form-control{
     box-shadow: none;

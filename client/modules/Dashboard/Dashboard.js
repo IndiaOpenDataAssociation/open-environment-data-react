@@ -221,6 +221,7 @@ export default class Dashboard extends Component {
                                   <div className="col-sm-7 dtpicker">
                                     <small>From</small><Datetime className="fromDt"/>
                                     <small>To</small><Datetime className="toDt"/>
+                                    <button><i className="fa fa-arrow-right"></i></button>
                                   </div>
                                 </div>
                                 <span className="col-sm-1 col-xs-1 text-right close-panel" onClick={this.closePanel}><i
