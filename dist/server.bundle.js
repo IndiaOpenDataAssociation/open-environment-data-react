@@ -346,7 +346,9 @@
 	  className: 'fromDt'
 	}), _jsx('small', {}, void 0, 'To'), _jsx(_reactDatetime2.default, {
 	  className: 'toDt'
-	}));
+	}), _jsx('button', {}, void 0, _jsx('i', {
+	  className: 'fa fa-arrow-right'
+	})));
 
 	var _ref12 = _jsx('i', {
 	  className: 'fa fa-close'
@@ -1197,7 +1199,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"main.css": "main-b038c907c0.css"
+		"main.css": "main-acea88c1e6.css"
 	};
 
 /***/ },
@@ -2341,13 +2343,28 @@
 	});
 
 	var _ref4 = _jsx('div', {
-	  className: 'chart-description'
-	}, void 0, _jsx(_DropdownButton2.default, {
-	  title: 'AQI',
-	  id: 'chart-info-dropdown'
-	}, void 0, _jsx(_MenuItem2.default, {
-	  eventKey: '1'
-	}, void 0, 'AQI')), _jsx('p', {}, void 0, 'An air quality index (AQI) is a number used by government agencies to communicate to the public how polluted the air currently is or how polluted it is forecast to become. As the AQI increases, an increasingly large percentage of the population is likely to experience increasingly severe adverse health effects.'));
+	  className: 'gases-info'
+	}, void 0, _jsx('p', {}, void 0, 'An air quality index (AQI) is a number used by government agencies to communicate to the public how polluted the air currently is or how polluted it is forecast to become. As the AQI increases, an increasingly large percentage of the population is likely to experience increasingly severe adverse health effects.'));
+
+	var _ref5 = _jsx('div', {
+	  className: 'gases-info'
+	}, void 0, _jsx('h5', {}, void 0, 'Carbon Oxides :'), _jsx('p', {}, void 0, 'Carbon Monoxide (CO), Carbon Dioxide (CO2)'), _jsx('h5', {}, void 0, 'Importance of Carbon Dioxide / Monoxide Monitoring :'), _jsx('p', {}, void 0, 'Carbon monoxide (CO) is an extremely toxic gas resulting from incomplete combustion of carbon and carbonaceous products. Carbon Dioxide (CO2) is present in the atmosphere but it is not a toxic gas.'), _jsx('h5', {}, void 0, 'Sources of Carbon Dioxide / Monoxide :'), _jsx('p', {}, void 0, 'Thermal Power Plants, Vehicle Fuel Emission, Open Fire, Solid Waste Sites etc.'), _jsx('h5', {}, void 0, 'Health Hazard of Carbon Dioxide / Monoxide :'), _jsx('p', {}, void 0, 'Carbon monoxide is colorless, odorless, and tasteless, but highly toxic. It combines with hemoglobin to produce carboxyhemoglobin, which usurps the space in hemoglobin that normally carries oxygen, but is ineffective for delivering oxygen to bodily tissues.'));
+
+	var _ref6 = _jsx('div', {
+	  className: 'gases-info'
+	}, void 0, _jsx('h5', {}, void 0, 'Importance of Nitrides Monitoring :'), _jsx('p', {}, void 0, 'Nitric oxide (NO), Nitrogen Dioxide (NO2), Ammonia (NH3) The nitric oxide (NO) molecule is quite reactive and unstable. In ambient air, it reacts with oxygen to form the toxic nitrogen dioxide (NO2). Ammonia (NH3) is present in the atmosphere naturally as well as an industrial pollution.'), _jsx('h5', {}, void 0, 'Sources of Nitrides :'), _jsx('p', {}, void 0, 'Thermal Power Plants, Vehicle Fuel Emission, Industries, Fertilizers, Nitrogenous animal and vegetable matter.'), _jsx('h5', {}, void 0, 'Health Hazard of Nitrides :'), _jsx('p', {}, void 0, 'Respiratory disease, such as emphysema and bronchitis, and can aggravate existing heart disease, leading to increased hospital admissions and premature death. Nitrogen oxide causes a multitude of symptoms, primarily in the lungs but also in other organs such as the spleen and liver.'), _jsx('h5', {}, void 0, 'Regulations for Nitrides :'), _jsx('p', {}, void 0, 'The U. S. Occupational Safety and Health Administration (OSHA) has set a 15-minute exposure limit for gaseous ammonia of 35 ppm by volume in the environmental air and an 8-hour exposure limit of 25 ppm by volume. The U.S. Environmental Protection Agency (EPA) has set safety levels for environmental exposure to NO2 at 100 ppb, averaged over one hour, and 53 ppb, averaged annually.'));
+
+	var _ref7 = _jsx('div', {
+	  className: 'gases-info'
+	}, void 0, _jsx('h5', {}, void 0, 'Importance of Sulfide Monitoring :'), _jsx('p', {}, void 0, 'Sulfur Dioxide (SO2), Hydrogen Sulfide (H2S)Sulfur dioxide (SO2) is an acid-forming, colorless, foul-smelling and toxic gas. The toxicity of Hydrogen Sulfide (H2S) is comparable with that of carbon monoxide.'), _jsx('h5', {}, void 0, 'Sources of Sulfides :'), _jsx('p', {}, void 0, 'Industrial Waste, Petroleum Refineries, Vehicle Emission, Volcanos etc.'), _jsx('h5', {}, void 0, 'Health Hazard of Sulfides :'), _jsx('p', {}, void 0, 'Sulfides poison several different systems in the body, although the nervous system is most affected. It causes increased respiratory symptoms and disease, difficulty in breathing, and premature death.'), _jsx('h5', {}, void 0, 'Regulations for Sulfides :'), _jsx('p', {}, void 0, '10 ppm is the U. S. Occupational Safety and Health Administration (OSHA) permissible exposure limit (PEL) (8 hour time-weighted average) for H2S and 5 ppm (13 mg/m3) time-weighted average for SO2.'));
+
+	var _ref8 = _jsx('div', {
+	  className: 'gases-info'
+	}, void 0, _jsx('h5', {}, void 0, 'Importance of Ozone Monitoring :'), _jsx('p', {}, void 0, 'Ozone (O3) is a highly toxic corrosive substance and a common pollutant. In low concentration it is a normal component of ambient air. Highly concentrated it is an aggressive irritant gas and at ground level it affects humans and nature.'), _jsx('h5', {}, void 0, 'Sources of Ozone :'), _jsx('p', {}, void 0, 'Naturally through reaction of nitrogen oxides, hydrocarbons, and sunlight; Industrial and vehicular emission.'), _jsx('h5', {}, void 0, 'Health Hazard of Ozone :'), _jsx('p', {}, void 0, 'Ground level ozone harms lung function and irritate the respiratory system. It also causes premature death, asthma, bronchitis, heart attack, and other cardiopulmonary problems.'), _jsx('h5', {}, void 0, 'Regulations for Ozone :'), _jsx('p', {}, void 0, 'U.S. Occupational Safety and Health Administration (OSHA) has established a permissible exposure limit (PEL) of 0.1 umol/mol calculated as an 8-hour time weighted average. Higher concentrations are especially hazardous and National Institute for Occupational Safety and Health (NIOSH) has established an Immediately Dangerous to Life and Health Limit (IDLH) of 5 umol/mol'));
+
+	var _ref9 = _jsx('div', {
+	  className: 'gases-info'
+	}, void 0, _jsx('h5', {}, void 0, 'Importance of HydroCarbons Monitoring :'), _jsx('p', {}, void 0, 'Hydrocarbon monitoring like Methane (CH4), Propane (C3H8), Butane (C4H10) presence has an important role in ambient Air-Quality Monitoring and Environmental Assessment. Presence of Hydrocarbons in environment reveals important informations about the source of pollution.'), _jsx('h5', {}, void 0, 'Sources of HydroCarbons :'), _jsx('p', {}, void 0, 'Biological Decomposition, Natural Sources, Industrial Emission, Vehicular Emission etc.'), _jsx('h5', {}, void 0, 'Regulations for HydroCarbons :'), _jsx('p', {}, void 0, 'Methane is also one of the principal components in natural gas. These days, methaneis often in the news because it is one of the primary "greenhouse gases." It is second only to carbon dioxide in its contribution to global warming.'));
 
 	var CalendarView = function (_Component) {
 	  _inherits(CalendarView, _Component);
@@ -2360,7 +2377,8 @@
 	    _this.state = {
 	      dailyData: [],
 	      dailyDataLoading: true,
-	      noDailyData: false
+	      noDailyData: false,
+	      gasesInfo: 'AQI'
 	    };
 
 	    var lte = new Date().getTime() / 1000;
@@ -2545,7 +2563,42 @@
 	        onClick: function onClick() {
 	          _this2.props.changeGraphData('calendarview');
 	        }
-	      }, void 0, _ref3))), _ref4));
+	      }, void 0, _ref3))), _jsx('div', {
+	        className: 'chart-description'
+	      }, void 0, _jsx(_DropdownButton2.default, {
+	        title: this.state.gasesInfo,
+	        id: 'chart-info-dropdown'
+	      }, void 0, _jsx(_MenuItem2.default, {
+	        eventKey: '1',
+	        onSelect: function onSelect() {
+	          _this2.setState({ gasesInfo: 'AQI' });
+	        }
+	      }, void 0, 'AQI'), _jsx(_MenuItem2.default, {
+	        eventKey: '2',
+	        onSelect: function onSelect() {
+	          _this2.setState({ gasesInfo: 'Carbon Oxides' });
+	        }
+	      }, void 0, 'Carbon Oxides'), _jsx(_MenuItem2.default, {
+	        eventKey: '3',
+	        onSelect: function onSelect() {
+	          _this2.setState({ gasesInfo: 'Nitrides' });
+	        }
+	      }, void 0, 'Nitrides'), _jsx(_MenuItem2.default, {
+	        eventKey: '4',
+	        onSelect: function onSelect() {
+	          _this2.setState({ gasesInfo: 'Sulfides' });
+	        }
+	      }, void 0, 'Sulfides'), _jsx(_MenuItem2.default, {
+	        eventKey: '6',
+	        onSelect: function onSelect() {
+	          _this2.setState({ gasesInfo: 'Ozone' });
+	        }
+	      }, void 0, 'Ozone'), _jsx(_MenuItem2.default, {
+	        eventKey: '7',
+	        onSelect: function onSelect() {
+	          _this2.setState({ gasesInfo: 'HydroCarbons' });
+	        }
+	      }, void 0, 'HydroCarbons')), this.state.gasesInfo == 'AQI' ? _ref4 : this.state.gasesInfo == 'Carbon Oxides' ? _ref5 : this.state.gasesInfo == 'Nitrides' ? _ref6 : this.state.gasesInfo == 'Sulfides' ? _ref7 : this.state.gasesInfo == 'Ozone' ? _ref8 : this.state.gasesInfo == 'HydroCarbons' ? _ref9 : null)));
 	    }
 	  }]);
 
