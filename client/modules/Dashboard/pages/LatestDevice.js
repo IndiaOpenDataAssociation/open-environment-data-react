@@ -343,6 +343,8 @@ export default class LatestDevice extends Component {
                   time={this.props.time}
                   activeGraph = {this.state.activeGraph}
                   changeGraphData = {this.changeGraphData}
+                  fromDate={this.props.fromDate}
+                  toDate={this.props.toDate}
                 />
               :
                 <CalendarView

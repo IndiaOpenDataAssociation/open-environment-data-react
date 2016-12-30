@@ -7,6 +7,8 @@ import superagent from 'superagent'
 import LoadingMap from './components/LoadingMap'
 import Map from '../Map/index'
 import Datetime from 'react-datetime'
+
+let toDate, fromDate
 export default class Dashboard extends Component {
   constructor(props) {
     super(props)
@@ -20,6 +22,9 @@ export default class Dashboard extends Component {
     this.analyticsData = this.analyticsData.bind(this)
     this.handleMarkerClick = this.handleMarkerClick.bind(this);
     this.handleMarkerClose = this.handleMarkerClose.bind(this);
+    this.handleFromDt = this.handleFromDt.bind(this)
+    this.handleToDt = this.handleToDt.bind(this)
+    this.handleDtChange = this.handleDtChange.bind(this)
   }
 
   getState() {
@@ -43,6 +48,8 @@ export default class Dashboard extends Component {
       iscity_changed: false,
       city_list: [],
       marker_id: '',
+      fromDate:'',
+      toDate: ''
     }
   }
 
@@ -95,7 +102,10 @@ export default class Dashboard extends Component {
   }
 
   analyticsData(id, time) {
-    superagent.get('https://openenvironment.p.mashape.com/all/public/data/hours/24/' + id).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+    let lte = new Date().getTime() / 1000
+    var today = new Date()
+    var gte = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).getTime() / 1000;
+    superagent.get('https://openenvironment.p.mashape.com/all/public/data/range/' + id + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
       this.setState({analyticsData: res.body, time: time, no_records: false})
       this.setState({analyticsdataLoading: false})
 
@@ -132,7 +142,21 @@ export default class Dashboard extends Component {
     });
   }
 
+  handleFromDt(obj)
+  {
 
+    fromDate = obj.format('Do/MM/YYYY')
+
+  }
+  handleToDt(obj)
+  {
+    toDate = obj.format('Do/MM/YYYY')
+  }
+
+  handleDtChange(){
+    this.setState({toDate: toDate})
+    this.setState({fromDate: fromDate})
+  }
   render() {
     return (
       <div>
@@ -156,6 +180,7 @@ export default class Dashboard extends Component {
                   setDisable={this.changeDisable}
                   callRealtime={this.realTimeData}
                   callAnalytics={this.analyticsData}
+                  callTimeRange={this.timeRange}
                   cities={this.state.city_list}
                   onMarkerClick={this.handleMarkerClick}
                   onMarkerClose={this.handleMarkerClose}
@@ -218,10 +243,11 @@ export default class Dashboard extends Component {
                                     </small><br/>
 
                                   </div>
+
                                   <div className="col-sm-7 dtpicker">
-                                    <small>From</small><Datetime className="fromDt"/>
-                                    <small>To</small><Datetime className="toDt"/>
-                                    <button><i className="fa fa-arrow-right"></i></button>
+                                    <small>From</small><Datetime className="fromDt" onChange={this.handleFromDt}/>
+                                    <small>To</small><Datetime className="toDt" onChange={this.handleToDt}/>
+                                    <button onClick={this.handleDtChange}><i className="fa fa-arrow-right"></i></button>
                                   </div>
                                 </div>
                                 <span className="col-sm-1 col-xs-1 text-right close-panel" onClick={this.closePanel}><i
@@ -235,6 +261,8 @@ export default class Dashboard extends Component {
                                 realtimeData={this.state.realTimeData}
                                 time={this.state.time}
                                 markerId={this.state.marker_id}
+                                fromDate={this.state.fromDate}
+                                toDate={this.state.toDate}
                               />
                             </div>
 
