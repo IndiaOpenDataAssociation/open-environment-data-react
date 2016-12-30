@@ -65,19 +65,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Navbar = __webpack_require__(49);
+	var _Navbar = __webpack_require__(51);
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _Nav = __webpack_require__(47);
+	var _Nav = __webpack_require__(49);
 
 	var _Nav2 = _interopRequireDefault(_Nav);
 
-	var _NavItem = __webpack_require__(48);
+	var _NavItem = __webpack_require__(50);
 
 	var _NavItem2 = _interopRequireDefault(_NavItem);
 
-	var _LinkContainer = __webpack_require__(54);
+	var _LinkContainer = __webpack_require__(56);
 
 	var _LinkContainer2 = _interopRequireDefault(_LinkContainer);
 
@@ -274,11 +274,11 @@
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _FormGroup = __webpack_require__(46);
+	var _FormGroup = __webpack_require__(48);
 
 	var _FormGroup2 = _interopRequireDefault(_FormGroup);
 
-	var _FormControl = __webpack_require__(45);
+	var _FormControl = __webpack_require__(47);
 
 	var _FormControl2 = _interopRequireDefault(_FormControl);
 
@@ -298,7 +298,7 @@
 
 	var _index2 = _interopRequireDefault(_index);
 
-	var _reactDatetime = __webpack_require__(50);
+	var _reactDatetime = __webpack_require__(52);
 
 	var _reactDatetime2 = _interopRequireDefault(_reactDatetime);
 
@@ -309,6 +309,9 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var toDate = void 0,
+	    fromDate = void 0;
 
 	var _ref = _jsx(_Navbar2.default, {});
 
@@ -340,21 +343,19 @@
 
 	var _ref10 = _jsx('br', {});
 
-	var _ref11 = _jsx('div', {
-	  className: 'col-sm-7 dtpicker'
-	}, void 0, _jsx('small', {}, void 0, 'From'), _jsx(_reactDatetime2.default, {
-	  className: 'fromDt'
-	}), _jsx('small', {}, void 0, 'To'), _jsx(_reactDatetime2.default, {
-	  className: 'toDt'
-	}), _jsx('button', {}, void 0, _jsx('i', {
-	  className: 'fa fa-arrow-right'
-	})));
+	var _ref11 = _jsx('small', {}, void 0, 'From');
 
-	var _ref12 = _jsx('i', {
+	var _ref12 = _jsx('small', {}, void 0, 'To');
+
+	var _ref13 = _jsx('i', {
+	  className: 'fa fa-arrow-right'
+	});
+
+	var _ref14 = _jsx('i', {
 	  className: 'fa fa-close'
 	});
 
-	var _ref13 = _jsx('div', {
+	var _ref15 = _jsx('div', {
 	  className: 'dashboard-footer'
 	}, void 0, _jsx('a', {
 	  href: 'http://indiaopendata.com/',
@@ -386,6 +387,9 @@
 	    _this.analyticsData = _this.analyticsData.bind(_this);
 	    _this.handleMarkerClick = _this.handleMarkerClick.bind(_this);
 	    _this.handleMarkerClose = _this.handleMarkerClose.bind(_this);
+	    _this.handleFromDt = _this.handleFromDt.bind(_this);
+	    _this.handleToDt = _this.handleToDt.bind(_this);
+	    _this.handleDtChange = _this.handleDtChange.bind(_this);
 	    return _this;
 	  }
 
@@ -411,7 +415,9 @@
 	        no_records: false,
 	        iscity_changed: false,
 	        city_list: [],
-	        marker_id: ''
+	        marker_id: '',
+	        fromDate: '',
+	        toDate: ''
 	      };
 	    }
 	  }, {
@@ -471,7 +477,10 @@
 	  }, {
 	    key: 'analyticsData',
 	    value: function analyticsData(id, time) {
-	      _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/data/hours/24/' + id).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+	      var lte = new Date().getTime() / 1000;
+	      var today = new Date();
+	      var gte = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).getTime() / 1000;
+	      _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/data/range/' + id + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
 	        this.setState({ analyticsData: res.body, time: time, no_records: false });
 	        this.setState({ analyticsdataLoading: false });
 	      }.bind(this));
@@ -506,6 +515,23 @@
 	      });
 	    }
 	  }, {
+	    key: 'handleFromDt',
+	    value: function handleFromDt(obj) {
+
+	      fromDate = obj.format('Do/MM/YYYY');
+	    }
+	  }, {
+	    key: 'handleToDt',
+	    value: function handleToDt(obj) {
+	      toDate = obj.format('Do/MM/YYYY');
+	    }
+	  }, {
+	    key: 'handleDtChange',
+	    value: function handleDtChange() {
+	      this.setState({ toDate: toDate });
+	      this.setState({ fromDate: fromDate });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _jsx('div', {}, void 0, this.state.loading ? _jsx('div', {
@@ -519,6 +545,7 @@
 	        setDisable: this.changeDisable,
 	        callRealtime: this.realTimeData,
 	        callAnalytics: this.analyticsData,
+	        callTimeRange: this.timeRange,
 	        cities: this.state.city_list,
 	        onMarkerClick: this.handleMarkerClick,
 	        onMarkerClose: this.handleMarkerClose
@@ -560,17 +587,29 @@
 	        className: 'device-label'
 	      }, void 0, this.state.realTimeData[0].label, ', ', this.state.realTimeData[0].city, ', ', this.state.realTimeData[0].country), _ref9, _jsx('small', {
 	        className: 'device-type'
-	      }, void 0, this.state.realTimeData[0].type), _ref10), _ref11), _jsx('span', {
+	      }, void 0, this.state.realTimeData[0].type), _ref10), _jsx('div', {
+	        className: 'col-sm-7 dtpicker'
+	      }, void 0, _ref11, _jsx(_reactDatetime2.default, {
+	        className: 'fromDt',
+	        onChange: this.handleFromDt
+	      }), _ref12, _jsx(_reactDatetime2.default, {
+	        className: 'toDt',
+	        onChange: this.handleToDt
+	      }), _jsx('button', {
+	        onClick: this.handleDtChange
+	      }, void 0, _ref13))), _jsx('span', {
 	        className: 'col-sm-1 col-xs-1 text-right close-panel',
 	        onClick: this.closePanel
-	      }, void 0, _ref12))), _jsx('div', {
+	      }, void 0, _ref14))), _jsx('div', {
 	        className: 'panel-body'
 	      }, void 0, _jsx(_LatestDevice2.default, {
 	        analysisData: this.state.analyticsData,
 	        realtimeData: this.state.realTimeData,
 	        time: this.state.time,
-	        markerId: this.state.marker_id
-	      })))) : null : null)), _ref13);
+	        markerId: this.state.marker_id,
+	        fromDate: this.state.fromDate,
+	        toDate: this.state.toDate
+	      })))) : null : null)), _ref15);
 	    }
 	  }]);
 
@@ -1034,7 +1073,7 @@
 
 	var _redux = __webpack_require__(13);
 
-	var _reduxThunk = __webpack_require__(62);
+	var _reduxThunk = __webpack_require__(64);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -1128,9 +1167,9 @@
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 
 	var webpack = __webpack_require__(7);
-	var cssnext = __webpack_require__(42);
-	var postcssFocus = __webpack_require__(43);
-	var postcssReporter = __webpack_require__(44);
+	var cssnext = __webpack_require__(44);
+	var postcssFocus = __webpack_require__(45);
+	var postcssReporter = __webpack_require__(46);
 
 	module.exports = {
 	  devtool: 'cheap-module-eval-source-map',
@@ -1199,7 +1238,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"main.css": "main-acea88c1e6.css"
+		"main.css": "main-5217761ad2.css"
 	};
 
 /***/ },
@@ -1412,23 +1451,23 @@
 
 	var _Footer2 = _interopRequireDefault(_Footer);
 
-	var _Helmet = __webpack_require__(53);
+	var _Helmet = __webpack_require__(55);
 
 	var _Helmet2 = _interopRequireDefault(_Helmet);
 
-	var _Tab = __webpack_require__(55);
+	var _Tab = __webpack_require__(57);
 
 	var _Tab2 = _interopRequireDefault(_Tab);
 
-	var _TabList = __webpack_require__(56);
+	var _TabList = __webpack_require__(58);
 
 	var _TabList2 = _interopRequireDefault(_TabList);
 
-	var _Tabs = __webpack_require__(58);
+	var _Tabs = __webpack_require__(60);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
-	var _TabPanel = __webpack_require__(57);
+	var _TabPanel = __webpack_require__(59);
 
 	var _TabPanel2 = _interopRequireDefault(_TabPanel);
 
@@ -1990,13 +2029,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reduxDevtools = __webpack_require__(59);
+	var _reduxDevtools = __webpack_require__(61);
 
-	var _reduxDevtoolsLogMonitor = __webpack_require__(61);
+	var _reduxDevtoolsLogMonitor = __webpack_require__(63);
 
 	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
 
-	var _reduxDevtoolsDockMonitor = __webpack_require__(60);
+	var _reduxDevtoolsDockMonitor = __webpack_require__(62);
 
 	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
 
@@ -2191,11 +2230,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _GoogleMapLoader = __webpack_require__(52);
+	var _GoogleMapLoader = __webpack_require__(54);
 
 	var _GoogleMapLoader2 = _interopRequireDefault(_GoogleMapLoader);
 
-	var _GoogleMap = __webpack_require__(51);
+	var _GoogleMap = __webpack_require__(53);
 
 	var _GoogleMap2 = _interopRequireDefault(_GoogleMap);
 
@@ -2634,6 +2673,14 @@
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
+	var _moment = __webpack_require__(43);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
+	var _lodash = __webpack_require__(42);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2645,7 +2692,8 @@
 	var arr = { 'AQI': [] },
 	    timeArr = [],
 	    newTime = void 0,
-	    chart = void 0;
+	    chart = void 0,
+	    diffDayArray = [];
 
 	var _ref = _jsx('img', {
 	  src: '../../../assets/images/icons/analytics_w.png'
@@ -2699,6 +2747,9 @@
 	  }
 
 	  _createClass(GraphView, [{
+	    key: 'mapAnalysis',
+	    value: function mapAnalysis() {}
+	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      var _this2 = this;
@@ -2706,10 +2757,12 @@
 	      if (this.props.analysisData.length > 0) {
 	        (function () {
 	          var temp = _this2.state.aqiArray;
+	          var todayDt = parseInt(new Date().getTime() / 1000);
 	          _this2.props.analysisData.map(function (e) {
 	            var a = new Date(e.payload.d.t * 1000);
 	            var month = a.getMonth();
-	            var date = a.getDate();
+	            var date = a.getDate() + 'th';
+	            var year = a.getFullYear();
 	            var hour = a.getHours();
 	            var min = a.getMinutes();
 	            if (min < 10) {
@@ -2721,12 +2774,16 @@
 	            } else {
 	              timeArr.unshift(Time + 'am');
 	            }
-	            temp.AQI.unshift(e.aqi);
-	            temp.CO2.unshift(e.payload.d.co);
-	            temp.SO2.unshift(e.payload.d.so2);
-	            temp.NO2.unshift(e.payload.d.no2);
-	            temp.PM10.unshift(e.payload.d.pm10);
-	            temp.PM25.unshift(e.payload.d.pm25);
+	            var fullDate = date + '/' + month + '/' + year;
+
+	            if ((0, _moment2.default)().format('Do') == date) {
+	              temp.AQI.unshift(e.aqi);
+	              temp.CO2.unshift(e.payload.d.co);
+	              temp.SO2.unshift(e.payload.d.so2);
+	              temp.NO2.unshift(e.payload.d.no2);
+	              temp.PM10.unshift(e.payload.d.pm10);
+	              temp.PM25.unshift(e.payload.d.pm25);
+	            }
 
 	            if (e.payload.d.pm10 == undefined) {
 	              var i = _this2.state.chartList.indexOf("pm10");
@@ -2863,6 +2920,156 @@
 	      }
 	    }
 	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+
+	      var diff = (0, _moment2.default)(nextProps.toDate, "DD/MM/YYYY").diff((0, _moment2.default)(nextProps.fromDate, "DD/MM/YYYY"));
+	      diff = _moment2.default.duration(diff);
+	      var diffN = diff.asDays();
+	      var temp = this.state.aqiArray;
+	      if (diff.asDays() > 1) {
+	        diffDayArray = [];
+	        for (var i = 0; i < diffN; i++) {
+	          var incre = (0, _moment2.default)(nextProps.fromDate, "DD-MM-YYYY").add(i, 'days');
+	          diffDayArray.push(incre.format('Do/MM/YYYY'));
+	        }
+
+	        this.props.analysisData.map(function (e) {
+	          var a = new Date(e.payload.d.t * 1000);
+	          var month = a.getMonth();
+	          var date = a.getDate() + 'th';
+	          var year = a.getFullYear();
+	          var hour = a.getHours();
+	          var min = a.getMinutes();
+	          if (min < 10) {
+	            min = '0' + min;
+	          }
+	          var Time = hour + ':' + min;
+	          if (hour >= 12) {
+	            timeArr.unshift(Time + 'pm');
+	          } else {
+	            timeArr.unshift(Time + 'am');
+	          }
+	          var fullDate = date + '/' + month + '/' + year;
+	          var pos = diffDayArray.indexOf(fullDate);
+	          if (pos > -1) {
+	            temp.AQI.unshift(e.aqi);
+	            temp.CO2.unshift(e.payload.d.co);
+	            temp.SO2.unshift(e.payload.d.so2);
+	            temp.NO2.unshift(e.payload.d.no2);
+	            temp.PM10.unshift(e.payload.d.pm10);
+	            temp.PM25.unshift(e.payload.d.pm25);
+	          } else {
+	            temp.AQI = [];
+	            temp.CO2 = [];
+	            temp.SO2 = [];
+	            temp.NO2 = [];
+	            temp.PM10 = [];
+	            temp.PM25 = [];
+	          }
+	        });
+	        this.setState({ aqiArray: temp });
+	        chart = Highcharts.chart(this.refs.highchart, {
+	          chart: {
+	            backgroundColor: 'transparent',
+	            width: 600,
+	            height: 300,
+	            type: 'column'
+	          },
+	          colors: ['#00b3bf'],
+
+	          title: {
+	            text: 'Analytics',
+	            style: {
+	              color: 'white',
+	              fontSize: '14px'
+	            }
+	          },
+
+	          legend: {
+	            enabled: false
+	          },
+
+	          credits: {
+	            enabled: false
+	          },
+
+	          xAxis: {
+	            categories: timeArr,
+	            gridLineColor: '#2b313a',
+	            gridLineWidth: 1,
+	            labels: {
+	              style: {
+	                color: '#FFF'
+	              }
+	            }
+	          },
+
+	          yAxis: {
+	            gridLineWidth: 1,
+	            gridLineColor: '#2b313a',
+	            labels: {
+	              style: {
+	                color: '#FFF'
+	              }
+	            },
+	            title: {
+	              text: null
+	            }
+	          },
+
+	          series: [{
+	            name: 'aqi',
+	            data: this.state.aqiArray.AQI,
+	            fillColor: 'rgba(255,255,255, 0.1)',
+	            marker: {
+	              enabled: false
+	            }
+	          }, {
+	            name: 'co',
+	            data: this.state.aqiArray.CO2,
+	            fillColor: 'rgba(255,255,255, 0.1)',
+	            marker: {
+	              enabled: false
+	            },
+	            visible: false
+	          }, {
+	            name: 'so2',
+	            data: this.state.aqiArray.SO2,
+	            fillColor: 'rgba(255,255,255, 0.1)',
+	            marker: {
+	              enabled: false
+	            },
+	            visible: false
+	          }, {
+	            name: 'no2',
+	            data: this.state.aqiArray.NO2,
+	            fillColor: 'rgba(255,255,255, 0.1)',
+	            marker: {
+	              enabled: false
+	            },
+	            visible: false
+	          }, {
+	            name: 'pm10',
+	            data: this.state.aqiArray.PM10,
+	            fillColor: 'rgba(255,255,255, 0.1)',
+	            marker: {
+	              enabled: false
+	            },
+	            visible: false
+	          }, {
+	            name: 'pm25',
+	            data: this.state.aqiArray.PM25,
+	            fillColor: 'rgba(255,255,255, 0.1)',
+	            marker: {
+	              enabled: false
+	            },
+	            visible: false
+	          }]
+	        });
+	      }
+	    }
+	  }, {
 	    key: 'displayGraph',
 	    value: function displayGraph(tabName) {
 	      this.state.chartList.map(function (e) {
@@ -2886,111 +3093,6 @@
 	    value: function render() {
 	      var _this3 = this;
 
-	      // var config = {
-	      //   chart: {
-	      //     backgroundColor: 'transparent',
-	      //     width: 600,
-	      //     height: 270,
-	      //     type: 'areaspline'
-	      //   },
-	      //   colors: ['#00b3bf'],
-	      //
-	      //   title: {
-	      //     text: 'Analytics',
-	      //     style: {
-	      //       color: 'white',
-	      //       fontSize: '14px'
-	      //     }
-	      //   },
-	      //
-	      //   legend: {
-	      //     enabled: false
-	      //   },
-	      //
-	      //   credits: {
-	      //     enabled: false
-	      //   },
-	      //
-	      //   xAxis: {
-	      //     categories: timeArr,
-	      //     gridLineColor: '#2b313a',
-	      //     gridLineWidth: 1,
-	      //     labels: {
-	      //       style: {
-	      //         color: '#FFF'
-	      //       }
-	      //     }
-	      //   },
-	      //
-	      //   yAxis: {
-	      //     gridLineWidth: 1,
-	      //     gridLineColor: '#2b313a',
-	      //     labels: {
-	      //       style: {
-	      //         color: '#FFF'
-	      //       },
-	      //     },
-	      //     title: {
-	      //       text: null
-	      //     }
-	      //   },
-	      //
-	      //   series: [
-	      //     {
-	      //       name: 'aqi',
-	      //       data: this.state.aqiArray.AQI,
-	      //       fillColor: 'rgba(255,255,255, 0.1)',
-	      //       marker: {
-	      //         enabled: false
-	      //       }
-	      //     },
-	      //     {
-	      //       name: 'co',
-	      //       data: this.state.aqiArray.CO2,
-	      //       fillColor: 'rgba(255,255,255, 0.1)',
-	      //       marker: {
-	      //         enabled: false
-	      //       },
-	      //       visible: false
-	      //     },
-	      //     {
-	      //       name: 'so2',
-	      //       data: this.state.aqiArray.SO2,
-	      //       fillColor: 'rgba(255,255,255, 0.1)',
-	      //       marker: {
-	      //         enabled: false
-	      //       },
-	      //       visible: false
-	      //     },
-	      //     {
-	      //       name: 'no2',
-	      //       data: this.state.aqiArray.NO2,
-	      //       fillColor: 'rgba(255,255,255, 0.1)',
-	      //       marker: {
-	      //         enabled: false
-	      //       },
-	      //       visible: false
-	      //     },
-	      //     {
-	      //       name: 'pm10',
-	      //       data: this.state.aqiArray.PM10,
-	      //       fillColor: 'rgba(255,255,255, 0.1)',
-	      //       marker: {
-	      //         enabled: false
-	      //       },
-	      //       visible: false
-	      //     },
-	      //     {
-	      //       name: 'pm25',
-	      //       data: this.state.aqiArray.PM25,
-	      //       fillColor: 'rgba(255,255,255, 0.1)',
-	      //       marker: {
-	      //         enabled: false
-	      //       },
-	      //       visible: false
-	      //     }
-	      //   ]
-	      // };
 	      return _jsx('div', {}, void 0, _jsx('div', {
 	        className: 'analytics-div'
 	      }, void 0, _jsx('div', {
@@ -3333,7 +3435,9 @@
 	        analysisData: this.props.analysisData,
 	        time: this.props.time,
 	        activeGraph: this.state.activeGraph,
-	        changeGraphData: this.changeGraphData
+	        changeGraphData: this.changeGraphData,
+	        fromDate: this.props.fromDate,
+	        toDate: this.props.toDate
 	      }) : _jsx(_CalendarView2.default, {
 	        changeGraphData: this.changeGraphData,
 	        activeGraph: this.state.activeGraph,
@@ -4159,124 +4263,136 @@
 /* 42 */
 /***/ function(module, exports) {
 
-	module.exports = require("postcss-cssnext");
+	module.exports = require("lodash");
 
 /***/ },
 /* 43 */
 /***/ function(module, exports) {
 
-	module.exports = require("postcss-focus");
+	module.exports = require("moment");
 
 /***/ },
 /* 44 */
 /***/ function(module, exports) {
 
-	module.exports = require("postcss-reporter");
+	module.exports = require("postcss-cssnext");
 
 /***/ },
 /* 45 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/FormControl");
+	module.exports = require("postcss-focus");
 
 /***/ },
 /* 46 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/FormGroup");
+	module.exports = require("postcss-reporter");
 
 /***/ },
 /* 47 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/Nav");
+	module.exports = require("react-bootstrap/lib/FormControl");
 
 /***/ },
 /* 48 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/NavItem");
+	module.exports = require("react-bootstrap/lib/FormGroup");
 
 /***/ },
 /* 49 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/Navbar");
+	module.exports = require("react-bootstrap/lib/Nav");
 
 /***/ },
 /* 50 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-datetime");
+	module.exports = require("react-bootstrap/lib/NavItem");
 
 /***/ },
 /* 51 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-google-maps/lib/GoogleMap");
+	module.exports = require("react-bootstrap/lib/Navbar");
 
 /***/ },
 /* 52 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-google-maps/lib/GoogleMapLoader");
+	module.exports = require("react-datetime");
 
 /***/ },
 /* 53 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-helmet/lib/Helmet");
+	module.exports = require("react-google-maps/lib/GoogleMap");
 
 /***/ },
 /* 54 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-router-bootstrap/lib/LinkContainer");
+	module.exports = require("react-google-maps/lib/GoogleMapLoader");
 
 /***/ },
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/Tab");
+	module.exports = require("react-helmet/lib/Helmet");
 
 /***/ },
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/TabList");
+	module.exports = require("react-router-bootstrap/lib/LinkContainer");
 
 /***/ },
 /* 57 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/TabPanel");
+	module.exports = require("react-tabs/lib/components/Tab");
 
 /***/ },
 /* 58 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/Tabs");
+	module.exports = require("react-tabs/lib/components/TabList");
 
 /***/ },
 /* 59 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools");
+	module.exports = require("react-tabs/lib/components/TabPanel");
 
 /***/ },
 /* 60 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-dock-monitor");
+	module.exports = require("react-tabs/lib/components/Tabs");
 
 /***/ },
 /* 61 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-log-monitor");
+	module.exports = require("redux-devtools");
 
 /***/ },
 /* 62 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-devtools-dock-monitor");
+
+/***/ },
+/* 63 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-devtools-log-monitor");
+
+/***/ },
+/* 64 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-thunk");
