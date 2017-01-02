@@ -12,18 +12,15 @@ export default class GraphView extends Component {
     super(props)
     // this.maxAqi = this.maxAqi.bind(this)
 
-    console.log('hi')
     this.state = {
       aqiArray: {'AQI': [], 'CO2': [], 'SO2': [], 'NO2': [], 'PM10': [], 'PM25': []},
       chartList: ['aqi', 'co', 'so2', 'no2', 'pm10', 'pm25'],
       gasesInfo: 'AQI'
     }
-    console.log(this.state.aqiArray)
     this.displayGraph = this.displayGraph.bind(this)
   }
 
   componentDidMount() {
-    console.log('mount')
     if (this.props.analysisData.length > 0) {
       let temp = this.state.aqiArray
       let todayDt = parseInt(new Date().getTime() / 1000)
@@ -89,7 +86,6 @@ export default class GraphView extends Component {
 
       })
       this.setState({aqiArray: temp})
-
 
       chart = Highcharts.chart(this.refs.highchart, {
         chart: {
@@ -200,167 +196,169 @@ export default class GraphView extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if(this.props.fromDate != nextProps.fromDate || this.props.toDate != nextProps.toDate) {
 
-    var diff = moment(nextProps.toDate, "DD/MM/YYYY").diff(moment(nextProps.fromDate, "DD/MM/YYYY"))
-    diff = moment.duration(diff)
-    var diffN = diff.asDays()
-    let temp = this.state.aqiArray
-    let changeData = false
-    if(diff.asDays() > 1) {
-      diffDayArray = []
-      for (let i = 0; i <= diffN; i++) {
-        var incre = moment(nextProps.fromDate, "DD-MM-YYYY").add(i, 'days')
-        diffDayArray.push(incre.format('Do/MM/YYYY'));
-      }
-
-      this.props.analysisData.map((e) => {
-        let a = new Date(e.payload.d.t * 1000)
-        var month = a.getMonth();
-        var date = a.getDate() + 'th';
-        var year = a.getFullYear()
-        var hour = a.getHours();
-        var min = a.getMinutes();
-        if (min < 10) {
-          min = '0' + min
+      var diff = moment(nextProps.toDate, "DD/MM/YYYY").diff(moment(nextProps.fromDate, "DD/MM/YYYY"))
+      diff = moment.duration(diff)
+      var diffN = diff.asDays()
+      let temp = this.state.aqiArray
+      let changeData = false
+      if (diff.asDays() > 1) {
+        diffDayArray = []
+        for (let i = 0; i <= diffN; i++) {
+          var incre = moment(nextProps.fromDate, "DD-MM-YYYY").add(i, 'days')
+          diffDayArray.push(incre.format('Do/MM/YYYY'));
         }
-        let Time = hour + ':' + min
-        if (hour >= 12) {
-          timeArr.unshift(Time + 'pm')
+
+        this.props.analysisData.map((e) => {
+          let a = new Date(e.payload.d.t * 1000)
+          var month = a.getMonth();
+          var date = a.getDate() + 'th';
+          var year = a.getFullYear()
+          var hour = a.getHours();
+          var min = a.getMinutes();
+          if (min < 10) {
+            min = '0' + min
+          }
+          let Time = hour + ':' + min
+          if (hour >= 12) {
+            timeArr.unshift(Time + 'pm')
+          }
+          else {
+            timeArr.unshift(Time + 'am')
+          }
+          let fullDate = moment.unix(e.payload.d.t).format('Do/MM/YYYY')
+          var pos = diffDayArray.indexOf(fullDate)
+          if (pos > -1) {
+            changeData = true
+            temp.AQI.unshift(e.aqi)
+            temp.CO2.unshift(e.payload.d.co)
+            temp.SO2.unshift(e.payload.d.so2)
+            temp.NO2.unshift(e.payload.d.no2)
+            temp.PM10.unshift(e.payload.d.pm10)
+            temp.PM25.unshift(e.payload.d.pm25)
+          }
+        })
+        if (changeData == true) {
+          this.setState({aqiArray: temp})
         }
         else {
-          timeArr.unshift(Time + 'am')
+          let aqiArray = this.state.aqiArray
+          aqiArray.AQI = []
+          aqiArray.CO2 = []
+          aqiArray.SO2 = []
+          aqiArray.NO2 = []
+          aqiArray.PM10 = []
+          aqiArray.PM25 = []
+
+          this.setState({aqiArray: aqiArray})
         }
-        let fullDate = moment.unix(e.payload.d.t).format('Do/MM/YYYY')
-        var pos = diffDayArray.indexOf(fullDate)
-        if (pos > -1) {
-          changeData = true
-          temp.AQI.unshift(e.aqi)
-          temp.CO2.unshift(e.payload.d.co)
-          temp.SO2.unshift(e.payload.d.so2)
-          temp.NO2.unshift(e.payload.d.no2)
-          temp.PM10.unshift(e.payload.d.pm10)
-          temp.PM25.unshift(e.payload.d.pm25)
-        }
-      })
-      if( changeData == true){
-        this.setState({aqiArray: temp})
-      }
-      else{
-        let aqiArray = this.state.aqiArray
-        aqiArray.AQI = []
-        aqiArray.CO2= []
-        aqiArray.SO2= []
-        aqiArray.NO2= []
-        aqiArray.PM10= []
-        aqiArray.PM25= []
-
-        this.setState({aqiArray: aqiArray})
-      }
-      chart = Highcharts.chart(this.refs.highchart, {
-        chart: {
-          backgroundColor: 'transparent',
-          width: 600,
-          height: 300,
-          type: 'column',
-        },
-        colors: ['#00b3bf'],
-
-        title: {
-          text: 'Analytics',
-          style: {
-            color: 'white',
-            fontSize: '14px'
-          }
-        },
-
-        legend: {
-          enabled: false
-        },
-
-        credits: {
-          enabled: false
-        },
-
-        xAxis: {
-          categories: timeArr,
-          gridLineColor: '#2b313a',
-          gridLineWidth: 1,
-          labels: {
-            style: {
-              color: '#FFF'
-            }
-          }
-        },
-
-        yAxis: {
-          gridLineWidth: 1,
-          gridLineColor: '#2b313a',
-          labels: {
-            style: {
-              color: '#FFF'
-            },
+        chart = Highcharts.chart(this.refs.highchart, {
+          chart: {
+            backgroundColor: 'transparent',
+            width: 600,
+            height: 300,
+            type: 'column',
           },
+          colors: ['#00b3bf'],
+
           title: {
-            text: null
-          }
-        },
-
-        series: [
-          {
-            name: 'aqi',
-            data: this.state.aqiArray.AQI,
-            fillColor: 'rgba(255,255,255, 0.1)',
-            marker: {
-              enabled: false
+            text: 'Analytics',
+            style: {
+              color: 'white',
+              fontSize: '14px'
             }
           },
-          {
-            name: 'co',
-            data: this.state.aqiArray.CO2,
-            fillColor: 'rgba(255,255,255, 0.1)',
-            marker: {
-              enabled: false
-            },
-            visible: false
+
+          legend: {
+            enabled: false
           },
-          {
-            name: 'so2',
-            data: this.state.aqiArray.SO2,
-            fillColor: 'rgba(255,255,255, 0.1)',
-            marker: {
-              enabled: false
-            },
-            visible: false
+
+          credits: {
+            enabled: false
           },
-          {
-            name: 'no2',
-            data: this.state.aqiArray.NO2,
-            fillColor: 'rgba(255,255,255, 0.1)',
-            marker: {
-              enabled: false
-            },
-            visible: false
+
+          xAxis: {
+            categories: timeArr,
+            gridLineColor: '#2b313a',
+            gridLineWidth: 1,
+            labels: {
+              style: {
+                color: '#FFF'
+              }
+            }
           },
-          {
-            name: 'pm10',
-            data: this.state.aqiArray.PM10,
-            fillColor: 'rgba(255,255,255, 0.1)',
-            marker: {
-              enabled: false
+
+          yAxis: {
+            gridLineWidth: 1,
+            gridLineColor: '#2b313a',
+            labels: {
+              style: {
+                color: '#FFF'
+              },
             },
-            visible: false
+            title: {
+              text: null
+            }
           },
-          {
-            name: 'pm25',
-            data: this.state.aqiArray.PM25,
-            fillColor: 'rgba(255,255,255, 0.1)',
-            marker: {
-              enabled: false
+
+          series: [
+            {
+              name: 'aqi',
+              data: this.state.aqiArray.AQI,
+              fillColor: 'rgba(255,255,255, 0.1)',
+              marker: {
+                enabled: false
+              }
             },
-            visible: false
-          }
-        ]
-      })
+            {
+              name: 'co',
+              data: this.state.aqiArray.CO2,
+              fillColor: 'rgba(255,255,255, 0.1)',
+              marker: {
+                enabled: false
+              },
+              visible: false
+            },
+            {
+              name: 'so2',
+              data: this.state.aqiArray.SO2,
+              fillColor: 'rgba(255,255,255, 0.1)',
+              marker: {
+                enabled: false
+              },
+              visible: false
+            },
+            {
+              name: 'no2',
+              data: this.state.aqiArray.NO2,
+              fillColor: 'rgba(255,255,255, 0.1)',
+              marker: {
+                enabled: false
+              },
+              visible: false
+            },
+            {
+              name: 'pm10',
+              data: this.state.aqiArray.PM10,
+              fillColor: 'rgba(255,255,255, 0.1)',
+              marker: {
+                enabled: false
+              },
+              visible: false
+            },
+            {
+              name: 'pm25',
+              data: this.state.aqiArray.PM25,
+              fillColor: 'rgba(255,255,255, 0.1)',
+              marker: {
+                enabled: false
+              },
+              visible: false
+            }
+          ]
+        })
+      }
     }
 
   }

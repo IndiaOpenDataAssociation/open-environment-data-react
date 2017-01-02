@@ -477,9 +477,9 @@
 	  }, {
 	    key: 'analyticsData',
 	    value: function analyticsData(id, time) {
-	      var lte = new Date().getTime() / 1000;
+	      var lte = parseInt(new Date().getTime() / 1000);
 	      var today = new Date();
-	      var gte = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).getTime() / 1000;
+	      var gte = parseInt(new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).getTime() / 1000);
 	      _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/data/range/' + id + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
 	        this.setState({ analyticsData: res.body, time: time, no_records: false });
 	        this.setState({ analyticsdataLoading: false });
@@ -2747,9 +2747,6 @@
 	  }
 
 	  _createClass(GraphView, [{
-	    key: 'mapAnalysis',
-	    value: function mapAnalysis() {}
-	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      var _this2 = this;
@@ -2761,13 +2758,14 @@
 	          _this2.props.analysisData.map(function (e) {
 	            var a = new Date(e.payload.d.t * 1000);
 	            var month = a.getMonth();
-	            var date = a.getDate() + 'th';
+	            var date = a.getDate();
 	            var year = a.getFullYear();
 	            var hour = a.getHours();
 	            var min = a.getMinutes();
 	            if (min < 10) {
 	              min = '0' + min;
 	            }
+
 	            var Time = hour + ':' + min;
 	            if (hour >= 12) {
 	              timeArr.unshift(Time + 'pm');
@@ -2775,8 +2773,7 @@
 	              timeArr.unshift(Time + 'am');
 	            }
 	            var fullDate = date + '/' + month + '/' + year;
-
-	            if ((0, _moment2.default)().format('Do') == date) {
+	            if ((0, _moment2.default)().format('Do/MM/YYYY') == _moment2.default.unix(e.payload.d.t).format('Do/MM/YYYY')) {
 	              temp.AQI.unshift(e.aqi);
 	              temp.CO2.unshift(e.payload.d.co);
 	              temp.SO2.unshift(e.payload.d.so2);
@@ -2922,151 +2919,170 @@
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
+	      var _this3 = this;
 
-	      var diff = (0, _moment2.default)(nextProps.toDate, "DD/MM/YYYY").diff((0, _moment2.default)(nextProps.fromDate, "DD/MM/YYYY"));
-	      diff = _moment2.default.duration(diff);
-	      var diffN = diff.asDays();
-	      var temp = this.state.aqiArray;
-	      if (diff.asDays() > 1) {
-	        diffDayArray = [];
-	        for (var i = 0; i < diffN; i++) {
-	          var incre = (0, _moment2.default)(nextProps.fromDate, "DD-MM-YYYY").add(i, 'days');
-	          diffDayArray.push(incre.format('Do/MM/YYYY'));
-	        }
+	      if (this.props.fromDate != nextProps.fromDate || this.props.toDate != nextProps.toDate) {
+	        var diff;
+	        var diffN;
+	        var incre;
 
-	        this.props.analysisData.map(function (e) {
-	          var a = new Date(e.payload.d.t * 1000);
-	          var month = a.getMonth();
-	          var date = a.getDate() + 'th';
-	          var year = a.getFullYear();
-	          var hour = a.getHours();
-	          var min = a.getMinutes();
-	          if (min < 10) {
-	            min = '0' + min;
-	          }
-	          var Time = hour + ':' + min;
-	          if (hour >= 12) {
-	            timeArr.unshift(Time + 'pm');
-	          } else {
-	            timeArr.unshift(Time + 'am');
-	          }
-	          var fullDate = date + '/' + month + '/' + year;
-	          var pos = diffDayArray.indexOf(fullDate);
-	          if (pos > -1) {
-	            temp.AQI.unshift(e.aqi);
-	            temp.CO2.unshift(e.payload.d.co);
-	            temp.SO2.unshift(e.payload.d.so2);
-	            temp.NO2.unshift(e.payload.d.no2);
-	            temp.PM10.unshift(e.payload.d.pm10);
-	            temp.PM25.unshift(e.payload.d.pm25);
-	          } else {
-	            temp.AQI = [];
-	            temp.CO2 = [];
-	            temp.SO2 = [];
-	            temp.NO2 = [];
-	            temp.PM10 = [];
-	            temp.PM25 = [];
-	          }
-	        });
-	        this.setState({ aqiArray: temp });
-	        chart = Highcharts.chart(this.refs.highchart, {
-	          chart: {
-	            backgroundColor: 'transparent',
-	            width: 600,
-	            height: 300,
-	            type: 'column'
-	          },
-	          colors: ['#00b3bf'],
+	        (function () {
+	          diff = (0, _moment2.default)(nextProps.toDate, "DD/MM/YYYY").diff((0, _moment2.default)(nextProps.fromDate, "DD/MM/YYYY"));
 
-	          title: {
-	            text: 'Analytics',
-	            style: {
-	              color: 'white',
-	              fontSize: '14px'
+	          diff = _moment2.default.duration(diff);
+	          diffN = diff.asDays();
+
+	          var temp = _this3.state.aqiArray;
+	          var changeData = false;
+	          if (diff.asDays() > 1) {
+	            diffDayArray = [];
+	            for (var i = 0; i <= diffN; i++) {
+	              incre = (0, _moment2.default)(nextProps.fromDate, "DD-MM-YYYY").add(i, 'days');
+
+	              diffDayArray.push(incre.format('Do/MM/YYYY'));
 	            }
-	          },
 
-	          legend: {
-	            enabled: false
-	          },
-
-	          credits: {
-	            enabled: false
-	          },
-
-	          xAxis: {
-	            categories: timeArr,
-	            gridLineColor: '#2b313a',
-	            gridLineWidth: 1,
-	            labels: {
-	              style: {
-	                color: '#FFF'
+	            _this3.props.analysisData.map(function (e) {
+	              var a = new Date(e.payload.d.t * 1000);
+	              var month = a.getMonth();
+	              var date = a.getDate() + 'th';
+	              var year = a.getFullYear();
+	              var hour = a.getHours();
+	              var min = a.getMinutes();
+	              if (min < 10) {
+	                min = '0' + min;
 	              }
-	            }
-	          },
-
-	          yAxis: {
-	            gridLineWidth: 1,
-	            gridLineColor: '#2b313a',
-	            labels: {
-	              style: {
-	                color: '#FFF'
+	              var Time = hour + ':' + min;
+	              if (hour >= 12) {
+	                timeArr.unshift(Time + 'pm');
+	              } else {
+	                timeArr.unshift(Time + 'am');
 	              }
-	            },
-	            title: {
-	              text: null
-	            }
-	          },
+	              var fullDate = _moment2.default.unix(e.payload.d.t).format('Do/MM/YYYY');
+	              var pos = diffDayArray.indexOf(fullDate);
+	              if (pos > -1) {
+	                changeData = true;
+	                temp.AQI.unshift(e.aqi);
+	                temp.CO2.unshift(e.payload.d.co);
+	                temp.SO2.unshift(e.payload.d.so2);
+	                temp.NO2.unshift(e.payload.d.no2);
+	                temp.PM10.unshift(e.payload.d.pm10);
+	                temp.PM25.unshift(e.payload.d.pm25);
+	              }
+	            });
+	            if (changeData == true) {
+	              _this3.setState({ aqiArray: temp });
+	            } else {
+	              var aqiArray = _this3.state.aqiArray;
+	              aqiArray.AQI = [];
+	              aqiArray.CO2 = [];
+	              aqiArray.SO2 = [];
+	              aqiArray.NO2 = [];
+	              aqiArray.PM10 = [];
+	              aqiArray.PM25 = [];
 
-	          series: [{
-	            name: 'aqi',
-	            data: this.state.aqiArray.AQI,
-	            fillColor: 'rgba(255,255,255, 0.1)',
-	            marker: {
-	              enabled: false
+	              _this3.setState({ aqiArray: aqiArray });
 	            }
-	          }, {
-	            name: 'co',
-	            data: this.state.aqiArray.CO2,
-	            fillColor: 'rgba(255,255,255, 0.1)',
-	            marker: {
-	              enabled: false
-	            },
-	            visible: false
-	          }, {
-	            name: 'so2',
-	            data: this.state.aqiArray.SO2,
-	            fillColor: 'rgba(255,255,255, 0.1)',
-	            marker: {
-	              enabled: false
-	            },
-	            visible: false
-	          }, {
-	            name: 'no2',
-	            data: this.state.aqiArray.NO2,
-	            fillColor: 'rgba(255,255,255, 0.1)',
-	            marker: {
-	              enabled: false
-	            },
-	            visible: false
-	          }, {
-	            name: 'pm10',
-	            data: this.state.aqiArray.PM10,
-	            fillColor: 'rgba(255,255,255, 0.1)',
-	            marker: {
-	              enabled: false
-	            },
-	            visible: false
-	          }, {
-	            name: 'pm25',
-	            data: this.state.aqiArray.PM25,
-	            fillColor: 'rgba(255,255,255, 0.1)',
-	            marker: {
-	              enabled: false
-	            },
-	            visible: false
-	          }]
-	        });
+	            chart = Highcharts.chart(_this3.refs.highchart, {
+	              chart: {
+	                backgroundColor: 'transparent',
+	                width: 600,
+	                height: 300,
+	                type: 'column'
+	              },
+	              colors: ['#00b3bf'],
+
+	              title: {
+	                text: 'Analytics',
+	                style: {
+	                  color: 'white',
+	                  fontSize: '14px'
+	                }
+	              },
+
+	              legend: {
+	                enabled: false
+	              },
+
+	              credits: {
+	                enabled: false
+	              },
+
+	              xAxis: {
+	                categories: timeArr,
+	                gridLineColor: '#2b313a',
+	                gridLineWidth: 1,
+	                labels: {
+	                  style: {
+	                    color: '#FFF'
+	                  }
+	                }
+	              },
+
+	              yAxis: {
+	                gridLineWidth: 1,
+	                gridLineColor: '#2b313a',
+	                labels: {
+	                  style: {
+	                    color: '#FFF'
+	                  }
+	                },
+	                title: {
+	                  text: null
+	                }
+	              },
+
+	              series: [{
+	                name: 'aqi',
+	                data: _this3.state.aqiArray.AQI,
+	                fillColor: 'rgba(255,255,255, 0.1)',
+	                marker: {
+	                  enabled: false
+	                }
+	              }, {
+	                name: 'co',
+	                data: _this3.state.aqiArray.CO2,
+	                fillColor: 'rgba(255,255,255, 0.1)',
+	                marker: {
+	                  enabled: false
+	                },
+	                visible: false
+	              }, {
+	                name: 'so2',
+	                data: _this3.state.aqiArray.SO2,
+	                fillColor: 'rgba(255,255,255, 0.1)',
+	                marker: {
+	                  enabled: false
+	                },
+	                visible: false
+	              }, {
+	                name: 'no2',
+	                data: _this3.state.aqiArray.NO2,
+	                fillColor: 'rgba(255,255,255, 0.1)',
+	                marker: {
+	                  enabled: false
+	                },
+	                visible: false
+	              }, {
+	                name: 'pm10',
+	                data: _this3.state.aqiArray.PM10,
+	                fillColor: 'rgba(255,255,255, 0.1)',
+	                marker: {
+	                  enabled: false
+	                },
+	                visible: false
+	              }, {
+	                name: 'pm25',
+	                data: _this3.state.aqiArray.PM25,
+	                fillColor: 'rgba(255,255,255, 0.1)',
+	                marker: {
+	                  enabled: false
+	                },
+	                visible: false
+	              }]
+	            });
+	          }
+	        })();
 	      }
 	    }
 	  }, {
@@ -3091,7 +3107,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this3 = this;
+	      var _this4 = this;
 
 	      return _jsx('div', {}, void 0, _jsx('div', {
 	        className: 'analytics-div'
@@ -3103,7 +3119,7 @@
 	      }, void 0, this.state.chartList.map(function (list, index) {
 	        return _jsx('li', {
 	          onClick: function onClick() {
-	            _this3.displayGraph(list);
+	            _this4.displayGraph(list);
 	          },
 	          id: list,
 	          className: index === 0 ? 'active' : ''
@@ -3113,12 +3129,12 @@
 	      }, void 0, _jsx('a', {
 	        className: this.props.activeGraph == 'graphview' ? 'active' : '',
 	        onClick: function onClick() {
-	          _this3.props.changeGraphData('graphview');
+	          _this4.props.changeGraphData('graphview');
 	        }
 	      }, void 0, _ref), _jsx('a', {
 	        className: this.props.activeGraph == 'calendarview' ? 'active' : '',
 	        onClick: function onClick() {
-	          _this3.props.changeGraphData('calendarview');
+	          _this4.props.changeGraphData('calendarview');
 	        }
 	      }, void 0, _ref2))), _jsx('div', {
 	        className: 'chart-description'
@@ -3128,32 +3144,32 @@
 	      }, void 0, _jsx(_MenuItem2.default, {
 	        eventKey: '1',
 	        onSelect: function onSelect() {
-	          _this3.setState({ gasesInfo: 'AQI' });
+	          _this4.setState({ gasesInfo: 'AQI' });
 	        }
 	      }, void 0, 'AQI'), _jsx(_MenuItem2.default, {
 	        eventKey: '2',
 	        onSelect: function onSelect() {
-	          _this3.setState({ gasesInfo: 'Carbon Oxides' });
+	          _this4.setState({ gasesInfo: 'Carbon Oxides' });
 	        }
 	      }, void 0, 'Carbon Oxides'), _jsx(_MenuItem2.default, {
 	        eventKey: '3',
 	        onSelect: function onSelect() {
-	          _this3.setState({ gasesInfo: 'Nitrides' });
+	          _this4.setState({ gasesInfo: 'Nitrides' });
 	        }
 	      }, void 0, 'Nitrides'), _jsx(_MenuItem2.default, {
 	        eventKey: '4',
 	        onSelect: function onSelect() {
-	          _this3.setState({ gasesInfo: 'Sulfides' });
+	          _this4.setState({ gasesInfo: 'Sulfides' });
 	        }
 	      }, void 0, 'Sulfides'), _jsx(_MenuItem2.default, {
 	        eventKey: '6',
 	        onSelect: function onSelect() {
-	          _this3.setState({ gasesInfo: 'Ozone' });
+	          _this4.setState({ gasesInfo: 'Ozone' });
 	        }
 	      }, void 0, 'Ozone'), _jsx(_MenuItem2.default, {
 	        eventKey: '7',
 	        onSelect: function onSelect() {
-	          _this3.setState({ gasesInfo: 'HydroCarbons' });
+	          _this4.setState({ gasesInfo: 'HydroCarbons' });
 	        }
 	      }, void 0, 'HydroCarbons')), this.state.gasesInfo == 'AQI' ? _ref3 : this.state.gasesInfo == 'Carbon Oxides' ? _ref4 : this.state.gasesInfo == 'Nitrides' ? _ref5 : this.state.gasesInfo == 'Sulfides' ? _ref6 : this.state.gasesInfo == 'Ozone' ? _ref7 : this.state.gasesInfo == 'HydroCarbons' ? _ref8 : null)));
 	    }
