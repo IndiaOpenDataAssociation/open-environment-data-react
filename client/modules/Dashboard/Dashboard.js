@@ -102,9 +102,9 @@ export default class Dashboard extends Component {
   }
 
   analyticsData(id, time) {
-    let lte = new Date().getTime() / 1000
+    let lte = parseInt(new Date().getTime() / 1000)
     var today = new Date()
-    var gte = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).getTime() / 1000;
+    var gte = parseInt(new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).getTime() / 1000);
     superagent.get('https://openenvironment.p.mashape.com/all/public/data/range/' + id + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
       this.setState({analyticsData: res.body, time: time, no_records: false})
       this.setState({analyticsdataLoading: false})
@@ -142,14 +142,13 @@ export default class Dashboard extends Component {
     });
   }
 
-  handleFromDt(obj)
-  {
+  handleFromDt(obj) {
 
     fromDate = obj.format('Do/MM/YYYY')
 
   }
-  handleToDt(obj)
-  {
+
+  handleToDt(obj) {
     toDate = obj.format('Do/MM/YYYY')
   }
 

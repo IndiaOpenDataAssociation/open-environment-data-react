@@ -12,31 +12,32 @@ export default class GraphView extends Component {
     super(props)
     // this.maxAqi = this.maxAqi.bind(this)
 
+    console.log('hi')
     this.state = {
       aqiArray: {'AQI': [], 'CO2': [], 'SO2': [], 'NO2': [], 'PM10': [], 'PM25': []},
       chartList: ['aqi', 'co', 'so2', 'no2', 'pm10', 'pm25'],
       gasesInfo: 'AQI'
     }
+    console.log(this.state.aqiArray)
     this.displayGraph = this.displayGraph.bind(this)
   }
 
-  mapAnalysis(){
-
-  }
   componentDidMount() {
+    console.log('mount')
     if (this.props.analysisData.length > 0) {
       let temp = this.state.aqiArray
       let todayDt = parseInt(new Date().getTime() / 1000)
       this.props.analysisData.map((e) => {
         let a = new Date(e.payload.d.t * 1000)
         var month = a.getMonth();
-        var date = a.getDate() + 'th';
+        var date = a.getDate();
         var year = a.getFullYear()
         var hour = a.getHours();
         var min = a.getMinutes();
         if (min < 10) {
           min = '0' + min
         }
+
         let Time = hour + ':' + min
         if (hour >= 12) {
           timeArr.unshift(Time + 'pm')
@@ -45,8 +46,7 @@ export default class GraphView extends Component {
           timeArr.unshift(Time + 'am')
         }
         let fullDate = date+'/'+month+'/'+year
-
-        if (moment().format('Do') == date) {
+        if (moment().format('Do/MM/YYYY') == moment.unix(e.payload.d.t).format('Do/MM/YYYY')) {
           temp.AQI.unshift(e.aqi)
           temp.CO2.unshift(e.payload.d.co)
           temp.SO2.unshift(e.payload.d.so2)
@@ -205,9 +205,10 @@ export default class GraphView extends Component {
     diff = moment.duration(diff)
     var diffN = diff.asDays()
     let temp = this.state.aqiArray
+    let changeData = false
     if(diff.asDays() > 1) {
       diffDayArray = []
-      for (let i = 0; i < diffN; i++) {
+      for (let i = 0; i <= diffN; i++) {
         var incre = moment(nextProps.fromDate, "DD-MM-YYYY").add(i, 'days')
         diffDayArray.push(incre.format('Do/MM/YYYY'));
       }
@@ -229,9 +230,10 @@ export default class GraphView extends Component {
         else {
           timeArr.unshift(Time + 'am')
         }
-        let fullDate = date + '/' + month + '/' + year
+        let fullDate = moment.unix(e.payload.d.t).format('Do/MM/YYYY')
         var pos = diffDayArray.indexOf(fullDate)
         if (pos > -1) {
+          changeData = true
           temp.AQI.unshift(e.aqi)
           temp.CO2.unshift(e.payload.d.co)
           temp.SO2.unshift(e.payload.d.so2)
@@ -239,16 +241,21 @@ export default class GraphView extends Component {
           temp.PM10.unshift(e.payload.d.pm10)
           temp.PM25.unshift(e.payload.d.pm25)
         }
-        else {
-          temp.AQI = []
-          temp.CO2 = []
-          temp.SO2 = []
-          temp.NO2 = []
-          temp.PM10 = []
-          temp.PM25 = []
-        }
       })
-      this.setState({aqiArray: temp})
+      if( changeData == true){
+        this.setState({aqiArray: temp})
+      }
+      else{
+        let aqiArray = this.state.aqiArray
+        aqiArray.AQI = []
+        aqiArray.CO2= []
+        aqiArray.SO2= []
+        aqiArray.NO2= []
+        aqiArray.PM10= []
+        aqiArray.PM25= []
+
+        this.setState({aqiArray: aqiArray})
+      }
       chart = Highcharts.chart(this.refs.highchart, {
         chart: {
           backgroundColor: 'transparent',
