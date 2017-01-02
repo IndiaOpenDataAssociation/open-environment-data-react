@@ -217,30 +217,31 @@ export default class Dashboard extends Component {
                               <div className="row">
                                 <div className="col-sm-11 col-xs-11">
                                   <div className="col-sm-5" style={{position: 'relative'}}>
-                                    <div className="blot">
-                                      {
-                                        this.state.realTimeData[0].type == 'CPCB'
-                                        ?
-                                          <img src="../../assets/images/CPCB.png"/>
-                                        :
-                                          (
-                                            this.state.realTimeData[0].type == 'AIROWL3G' || this.state.realTimeData[0].type == 'AIROWLWI'
-                                              ?
-                                              <img src="../../assets/images/AIROWL3G.png"/>
-                                              :
-                                              <img src="../../assets/images/POLLUDRON_PUBLIC.png"/>
+                                    <div className="inner-block">
+                                      <div className="blot">
+                                        {
+                                          this.state.realTimeData[0].type == 'CPCB'
+                                          ?
+                                            <img src="../../assets/images/CPCB.png"/>
+                                          :
+                                            (
+                                              this.state.realTimeData[0].type == 'AIROWL3G' || this.state.realTimeData[0].type == 'AIROWLWI'
+                                                ?
+                                                <img src="../../assets/images/AIROWL3G.png"/>
+                                                :
+                                                <img src="../../assets/images/POLLUDRON_PUBLIC.png"/>
 
-                                          )
-                                      }
+                                            )
+                                        }
 
+                                      </div>
+                                      <span className="device-label">
+                                        {this.state.realTimeData[0].label}, { this.state.realTimeData[0].city}, { this.state.realTimeData[0].country }
+                                      </span><br/>
+                                      <small className="device-type">
+                                        {this.state.realTimeData[0].type}
+                                      </small><br/>
                                     </div>
-                                    <span className="device-label">
-                                      {this.state.realTimeData[0].label}, { this.state.realTimeData[0].city}, { this.state.realTimeData[0].country }
-                                    </span><br/>
-                                    <small className="device-type">
-                                      {this.state.realTimeData[0].type}
-                                    </small><br/>
-
                                   </div>
 
                                   <div className="col-sm-7 dtpicker">

@@ -582,12 +582,14 @@
 	        className: 'col-sm-5',
 	        style: { position: 'relative' }
 	      }, void 0, _jsx('div', {
+	        className: 'inner-block'
+	      }, void 0, _jsx('div', {
 	        className: 'blot'
 	      }, void 0, this.state.realTimeData[0].type == 'CPCB' ? _ref6 : this.state.realTimeData[0].type == 'AIROWL3G' || this.state.realTimeData[0].type == 'AIROWLWI' ? _ref7 : _ref8), _jsx('span', {
 	        className: 'device-label'
 	      }, void 0, this.state.realTimeData[0].label, ', ', this.state.realTimeData[0].city, ', ', this.state.realTimeData[0].country), _ref9, _jsx('small', {
 	        className: 'device-type'
-	      }, void 0, this.state.realTimeData[0].type), _ref10), _jsx('div', {
+	      }, void 0, this.state.realTimeData[0].type), _ref10)), _jsx('div', {
 	        className: 'col-sm-7 dtpicker'
 	      }, void 0, _ref11, _jsx(_reactDatetime2.default, {
 	        className: 'fromDt',
@@ -1238,7 +1240,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"main.css": "main-5217761ad2.css"
+		"main.css": "main-6543bfbfa9.css"
 	};
 
 /***/ },
