@@ -1811,3 +1811,19 @@ td.rdtYear:hover {
   white-space: nowrap;
   color: #00b3bd;
 }
+
+//download csv
+.download-csv{
+  margin-left: 10px;
+  background: #00b3bf;
+  margin: 9px 0;
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+
+  i{
+    margin-right: 6px;
+  }
+}

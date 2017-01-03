@@ -313,6 +313,10 @@
 	var toDate = void 0,
 	    fromDate = void 0;
 
+	var lte = parseInt(new Date().getTime() / 1000);
+	var today = new Date();
+	var gte = parseInt(new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).getTime() / 1000);
+
 	var _ref = _jsx(_Navbar2.default, {});
 
 	var _ref2 = _jsx(_LoadingMap2.default, {});
@@ -352,10 +356,14 @@
 	});
 
 	var _ref14 = _jsx('i', {
+	  className: 'fa fa-download'
+	});
+
+	var _ref15 = _jsx('i', {
 	  className: 'fa fa-close'
 	});
 
-	var _ref15 = _jsx('div', {
+	var _ref16 = _jsx('div', {
 	  className: 'dashboard-footer'
 	}, void 0, _jsx('a', {
 	  href: 'http://indiaopendata.com/',
@@ -390,6 +398,7 @@
 	    _this.handleFromDt = _this.handleFromDt.bind(_this);
 	    _this.handleToDt = _this.handleToDt.bind(_this);
 	    _this.handleDtChange = _this.handleDtChange.bind(_this);
+	    _this.handleDownload = _this.handleDownload.bind(_this);
 	    return _this;
 	  }
 
@@ -477,9 +486,7 @@
 	  }, {
 	    key: 'analyticsData',
 	    value: function analyticsData(id, time) {
-	      var lte = parseInt(new Date().getTime() / 1000);
-	      var today = new Date();
-	      var gte = parseInt(new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).getTime() / 1000);
+
 	      _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/data/range/' + id + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
 	        this.setState({ analyticsData: res.body, time: time, no_records: false });
 	        this.setState({ analyticsdataLoading: false });
@@ -532,6 +539,13 @@
 	      this.setState({ fromDate: fromDate });
 	    }
 	  }, {
+	    key: 'handleDownload',
+	    value: function handleDownload() {
+	      if (typeof window !== 'undefined') {
+	        window.open('http://159.122.85.130:8080/csv/retrive/' + this.state.marker_id + '/' + gte + '/' + lte, '_self');
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _jsx('div', {}, void 0, this.state.loading ? _jsx('div', {
@@ -579,7 +593,7 @@
 	      }, void 0, _jsx('div', {
 	        className: 'col-sm-11 col-xs-11'
 	      }, void 0, _jsx('div', {
-	        className: 'col-sm-5',
+	        className: 'col-sm-4',
 	        style: { position: 'relative' }
 	      }, void 0, _jsx('div', {
 	        className: 'inner-block'
@@ -599,10 +613,13 @@
 	        onChange: this.handleToDt
 	      }), _jsx('button', {
 	        onClick: this.handleDtChange
-	      }, void 0, _ref13))), _jsx('span', {
+	      }, void 0, _ref13)), _jsx('span', {
+	        className: 'download-csv',
+	        onClick: this.handleDownload
+	      }, void 0, _ref14, 'CSV')), _jsx('span', {
 	        className: 'col-sm-1 col-xs-1 text-right close-panel',
 	        onClick: this.closePanel
-	      }, void 0, _ref14))), _jsx('div', {
+	      }, void 0, _ref15))), _jsx('div', {
 	        className: 'panel-body'
 	      }, void 0, _jsx(_LatestDevice2.default, {
 	        analysisData: this.state.analyticsData,
@@ -611,7 +628,7 @@
 	        markerId: this.state.marker_id,
 	        fromDate: this.state.fromDate,
 	        toDate: this.state.toDate
-	      })))) : null : null)), _ref15);
+	      })))) : null : null)), _ref16);
 	    }
 	  }]);
 
@@ -1240,7 +1257,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"main.css": "main-6543bfbfa9.css"
+		"main.css": "main-6b2667ec66.css"
 	};
 
 /***/ },

@@ -9,6 +9,10 @@ import Map from '../Map/index'
 import Datetime from 'react-datetime'
 
 let toDate, fromDate
+
+let lte = parseInt(new Date().getTime() / 1000)
+let today = new Date()
+let gte = parseInt(new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).getTime() / 1000);
 export default class Dashboard extends Component {
   constructor(props) {
     super(props)
@@ -25,6 +29,7 @@ export default class Dashboard extends Component {
     this.handleFromDt = this.handleFromDt.bind(this)
     this.handleToDt = this.handleToDt.bind(this)
     this.handleDtChange = this.handleDtChange.bind(this)
+    this.handleDownload = this. handleDownload.bind(this)
   }
 
   getState() {
@@ -102,9 +107,7 @@ export default class Dashboard extends Component {
   }
 
   analyticsData(id, time) {
-    let lte = parseInt(new Date().getTime() / 1000)
-    var today = new Date()
-    var gte = parseInt(new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).getTime() / 1000);
+
     superagent.get('https://openenvironment.p.mashape.com/all/public/data/range/' + id + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
       this.setState({analyticsData: res.body, time: time, no_records: false})
       this.setState({analyticsdataLoading: false})
@@ -155,6 +158,12 @@ export default class Dashboard extends Component {
   handleDtChange(){
     this.setState({toDate: toDate})
     this.setState({fromDate: fromDate})
+  }
+
+  handleDownload(){
+    if (typeof window !== 'undefined') {
+      window.open(`http://159.122.85.130:8080/csv/retrive/${this.state.marker_id}/${gte}/${lte}`, '_self');
+    }
   }
   render() {
     return (
@@ -216,7 +225,7 @@ export default class Dashboard extends Component {
                             <div className="panel-heading ">
                               <div className="row">
                                 <div className="col-sm-11 col-xs-11">
-                                  <div className="col-sm-5" style={{position: 'relative'}}>
+                                  <div className="col-sm-4" style={{position: 'relative'}}>
                                     <div className="inner-block">
                                       <div className="blot">
                                         {
@@ -249,6 +258,7 @@ export default class Dashboard extends Component {
                                     <small>To</small><Datetime className="toDt" onChange={this.handleToDt}/>
                                     <button onClick={this.handleDtChange}><i className="fa fa-arrow-right"></i></button>
                                   </div>
+                                  <span className="download-csv" onClick={this.handleDownload}><i className="fa fa-download"></i>CSV</span>
                                 </div>
                                 <span className="col-sm-1 col-xs-1 text-right close-panel" onClick={this.closePanel}><i
                                   className="fa fa-close"></i></span>
