@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 40);
+/******/ 	return __webpack_require__(__webpack_require__.s = 41);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -282,7 +282,7 @@
 
 	var _FormControl2 = _interopRequireDefault(_FormControl);
 
-	var _LatestDevice = __webpack_require__(35);
+	var _LatestDevice = __webpack_require__(36);
 
 	var _LatestDevice2 = _interopRequireDefault(_LatestDevice);
 
@@ -290,7 +290,7 @@
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
-	var _LoadingMap = __webpack_require__(32);
+	var _LoadingMap = __webpack_require__(33);
 
 	var _LoadingMap2 = _interopRequireDefault(_LoadingMap);
 
@@ -302,6 +302,10 @@
 
 	var _reactDatetime2 = _interopRequireDefault(_reactDatetime);
 
+	var _moment = __webpack_require__(11);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -312,10 +316,6 @@
 
 	var toDate = void 0,
 	    fromDate = void 0;
-
-	var lte = parseInt(new Date().getTime() / 1000);
-	var today = new Date();
-	var gte = parseInt(new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).getTime() / 1000);
 
 	var _ref = _jsx(_Navbar2.default, {});
 
@@ -426,7 +426,9 @@
 	        city_list: [],
 	        marker_id: '',
 	        fromDate: '',
-	        toDate: ''
+	        toDate: '',
+	        gte: '',
+	        lte: ''
 	      };
 	    }
 	  }, {
@@ -486,7 +488,9 @@
 	  }, {
 	    key: 'analyticsData',
 	    value: function analyticsData(id, time) {
-
+	      var lte = parseInt(new Date().getTime() / 1000);
+	      var today = new Date();
+	      var gte = parseInt(new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).getTime() / 1000);
 	      _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/data/range/' + id + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
 	        this.setState({ analyticsData: res.body, time: time, no_records: false });
 	        this.setState({ analyticsdataLoading: false });
@@ -526,11 +530,15 @@
 	    value: function handleFromDt(obj) {
 
 	      fromDate = obj.format('Do/MM/YYYY');
+	      var gte = obj.unix();
+	      this.setState({ gte: gte });
 	    }
 	  }, {
 	    key: 'handleToDt',
 	    value: function handleToDt(obj) {
 	      toDate = obj.format('Do/MM/YYYY');
+	      var lte = obj.unix();
+	      this.setState({ lte: lte });
 	    }
 	  }, {
 	    key: 'handleDtChange',
@@ -542,7 +550,7 @@
 	    key: 'handleDownload',
 	    value: function handleDownload() {
 	      if (typeof window !== 'undefined') {
-	        window.open('http://159.122.85.130:8080/csv/retrive/' + this.state.marker_id + '/' + gte + '/' + lte, '_self');
+	        window.open('http://159.122.85.130:8080/csv/retrive/' + this.state.marker_id + '/' + this.state.gte + '/' + this.state.lte, '_self');
 	      }
 	    }
 	  }, {
@@ -927,22 +935,28 @@
 /* 11 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/DropdownButton");
+	module.exports = require("moment");
 
 /***/ },
 /* 12 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/MenuItem");
+	module.exports = require("react-bootstrap/lib/DropdownButton");
 
 /***/ },
 /* 13 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux");
+	module.exports = require("react-bootstrap/lib/MenuItem");
 
 /***/ },
 /* 14 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux");
+
+/***/ },
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -961,7 +975,7 @@
 
 	var _reactRouter = __webpack_require__(3);
 
-	var _App = __webpack_require__(29);
+	var _App = __webpack_require__(30);
 
 	var _App2 = _interopRequireDefault(_App);
 
@@ -969,27 +983,27 @@
 
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
-	var _About = __webpack_require__(27);
+	var _About = __webpack_require__(28);
 
 	var _About2 = _interopRequireDefault(_About);
 
-	var _Community = __webpack_require__(31);
+	var _Community = __webpack_require__(32);
 
 	var _Community2 = _interopRequireDefault(_Community);
 
-	var _Openapi = __webpack_require__(37);
+	var _Openapi = __webpack_require__(38);
 
 	var _Openapi2 = _interopRequireDefault(_Openapi);
 
-	var _Device = __webpack_require__(36);
+	var _Device = __webpack_require__(37);
 
 	var _Device2 = _interopRequireDefault(_Device);
 
-	var _Partners = __webpack_require__(38);
+	var _Partners = __webpack_require__(39);
 
 	var _Partners2 = _interopRequireDefault(_Partners);
 
-	var _Airowl = __webpack_require__(28);
+	var _Airowl = __webpack_require__(29);
 
 	var _Airowl2 = _interopRequireDefault(_Airowl);
 
@@ -1079,7 +1093,7 @@
 	}));
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1090,17 +1104,17 @@
 	});
 	exports.configureStore = configureStore;
 
-	var _redux = __webpack_require__(13);
+	var _redux = __webpack_require__(14);
 
 	var _reduxThunk = __webpack_require__(64);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-	var _DevTools = __webpack_require__(30);
+	var _DevTools = __webpack_require__(31);
 
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 
-	var _reducers = __webpack_require__(39);
+	var _reducers = __webpack_require__(40);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -1135,7 +1149,7 @@
 	}
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1152,7 +1166,7 @@
 	exports.default = config;
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1163,7 +1177,7 @@
 	});
 	exports.fetchComponentData = fetchComponentData;
 
-	var _promiseUtils = __webpack_require__(41);
+	var _promiseUtils = __webpack_require__(42);
 
 	function fetchComponentData(store, components, params) {
 	  var needs = components.reduce(function (prev, current) {
@@ -1179,7 +1193,7 @@
 	  */
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1253,7 +1267,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, ""))
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -1261,49 +1275,49 @@
 	};
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
 	module.exports = require("body-parser");
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports) {
 
 	module.exports = require("compression");
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 	module.exports = require("express");
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports) {
 
 	module.exports = require("path");
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-dom/server");
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-dev-middleware");
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-hot-middleware");
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1444,7 +1458,7 @@
 	exports.default = About;
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1935,7 +1949,7 @@
 	exports.default = Airowl;
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2032,7 +2046,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2066,7 +2080,7 @@
 	}, void 0, _jsx(_reduxDevtoolsLogMonitor2.default, {})));
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2229,7 +2243,7 @@
 	exports.default = Community;
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2330,7 +2344,7 @@
 	exports.default = LoadingMap;
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2348,11 +2362,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _DropdownButton = __webpack_require__(11);
+	var _DropdownButton = __webpack_require__(12);
 
 	var _DropdownButton2 = _interopRequireDefault(_DropdownButton);
 
-	var _MenuItem = __webpack_require__(12);
+	var _MenuItem = __webpack_require__(13);
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
@@ -2666,7 +2680,7 @@
 	exports.default = CalendarView;
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2684,19 +2698,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _DropdownButton = __webpack_require__(11);
+	var _DropdownButton = __webpack_require__(12);
 
 	var _DropdownButton2 = _interopRequireDefault(_DropdownButton);
 
-	var _MenuItem = __webpack_require__(12);
+	var _MenuItem = __webpack_require__(13);
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-	var _moment = __webpack_require__(43);
+	var _moment = __webpack_require__(11);
 
 	var _moment2 = _interopRequireDefault(_moment);
 
-	var _lodash = __webpack_require__(42);
+	var _lodash = __webpack_require__(43);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -3200,7 +3214,7 @@
 	exports.default = GraphView;
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3218,11 +3232,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _GraphView = __webpack_require__(34);
+	var _GraphView = __webpack_require__(35);
 
 	var _GraphView2 = _interopRequireDefault(_GraphView);
 
-	var _CalendarView = __webpack_require__(33);
+	var _CalendarView = __webpack_require__(34);
 
 	var _CalendarView2 = _interopRequireDefault(_CalendarView);
 
@@ -3487,7 +3501,7 @@
 	exports.default = LatestDevice;
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3594,7 +3608,7 @@
 	exports.default = Device;
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3723,7 +3737,7 @@
 	exports.default = Openapi;
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4087,7 +4101,7 @@
 	exports.default = Partner;
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4097,7 +4111,7 @@
 	  value: true
 	});
 
-	var _redux = __webpack_require__(13);
+	var _redux = __webpack_require__(14);
 
 	// Import Reducers
 
@@ -4108,7 +4122,7 @@
 	                                                    */
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4123,19 +4137,19 @@
 	// Webpack Requirements
 
 
-	var _express = __webpack_require__(22);
+	var _express = __webpack_require__(23);
 
 	var _express2 = _interopRequireDefault(_express);
 
-	var _compression = __webpack_require__(21);
+	var _compression = __webpack_require__(22);
 
 	var _compression2 = _interopRequireDefault(_compression);
 
-	var _bodyParser = __webpack_require__(20);
+	var _bodyParser = __webpack_require__(21);
 
 	var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-	var _path = __webpack_require__(23);
+	var _path = __webpack_require__(24);
 
 	var _path2 = _interopRequireDefault(_path);
 
@@ -4143,19 +4157,19 @@
 
 	var _webpack2 = _interopRequireDefault(_webpack);
 
-	var _webpackConfig = __webpack_require__(18);
+	var _webpackConfig = __webpack_require__(19);
 
 	var _webpackConfig2 = _interopRequireDefault(_webpackConfig);
 
-	var _webpackDevMiddleware = __webpack_require__(25);
+	var _webpackDevMiddleware = __webpack_require__(26);
 
 	var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 
-	var _webpackHotMiddleware = __webpack_require__(26);
+	var _webpackHotMiddleware = __webpack_require__(27);
 
 	var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 
-	var _store = __webpack_require__(15);
+	var _store = __webpack_require__(16);
 
 	var _reactRedux = __webpack_require__(6);
 
@@ -4163,7 +4177,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _server = __webpack_require__(24);
+	var _server = __webpack_require__(25);
 
 	var _reactRouter = __webpack_require__(3);
 
@@ -4171,13 +4185,13 @@
 
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 
-	var _routes = __webpack_require__(14);
+	var _routes = __webpack_require__(15);
 
 	var _routes2 = _interopRequireDefault(_routes);
 
-	var _fetchData = __webpack_require__(17);
+	var _fetchData = __webpack_require__(18);
 
-	var _config = __webpack_require__(16);
+	var _config = __webpack_require__(17);
 
 	var _config2 = _interopRequireDefault(_config);
 
@@ -4212,7 +4226,7 @@
 	  // Import Manifests
 	  var assetsManifest = process.env.webpackAssets && JSON.parse(process.env.webpackAssets);
 	  var chunkManifest = process.env.webpackChunkAssets && JSON.parse(process.env.webpackChunkAssets);
-	  var refManifest = __webpack_require__(19);
+	  var refManifest = __webpack_require__(20);
 	  var styleSrc = '/' + refManifest['main.css'];
 	  return '\n    <!doctype html>\n    <html>\n      <head>\n        ' + head.base.toString() + '\n        ' + head.title.toString() + '\n        ' + head.meta.toString() + '\n        ' + head.link.toString() + '\n        ' + head.script.toString() + '\n\n        ' + (process.env.NODE_ENV === 'production' ? '<link rel=\'stylesheet\' href=\'' + assetsManifest['/app.css'] + '\' />' : '') + '\n        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">\n        <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/png" />\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">\n        <link rel="stylesheet" href=\'' + (process.env.NODE_ENV === 'production' ? styleSrc : '/main.css') + '\' type="text/css" media="screen" charset="utf-8">\n        \n        <script src=\'https://maps.googleapis.com/maps/api/js?key=AIzaSyAnK8lYEkj7mwTu7AWDP4GwiWI8SX9QHwM&extension=.js\'></script>\n        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>\n        <script src="http://code.highcharts.com/highcharts.js"></script>\n        <script src="http://code.highcharts.com/modules/heatmap.js" ></script>\n        <script src="http://code.highcharts.com/modules/exporting.js"></script>\n      </head>\n      <body>\n        <div id="root">' + html + '</div>\n        <script>\n          window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + ';\n          ' + (process.env.NODE_ENV === 'production' ? '//<![CDATA[\n          window.webpackManifest = ' + JSON.stringify(chunkManifest) + ';\n          //]]>' : '') + '\n        </script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/vendor.js'] : '/vendor.js') + '\'></script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/app.js'] : '/app.js') + '\'></script>\n      </body>\n    </html>\n  ';
 	};
@@ -4264,7 +4278,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, "server"))
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4295,16 +4309,10 @@
 	}
 
 /***/ },
-/* 42 */
-/***/ function(module, exports) {
-
-	module.exports = require("lodash");
-
-/***/ },
 /* 43 */
 /***/ function(module, exports) {
 
-	module.exports = require("moment");
+	module.exports = require("lodash");
 
 /***/ },
 /* 44 */

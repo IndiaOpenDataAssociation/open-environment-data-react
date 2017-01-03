@@ -7,12 +7,12 @@ import superagent from 'superagent'
 import LoadingMap from './components/LoadingMap'
 import Map from '../Map/index'
 import Datetime from 'react-datetime'
+import moment from 'moment'
+
 
 let toDate, fromDate
 
-let lte = parseInt(new Date().getTime() / 1000)
-let today = new Date()
-let gte = parseInt(new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).getTime() / 1000);
+
 export default class Dashboard extends Component {
   constructor(props) {
     super(props)
@@ -54,7 +54,9 @@ export default class Dashboard extends Component {
       city_list: [],
       marker_id: '',
       fromDate:'',
-      toDate: ''
+      toDate: '',
+      gte: '',
+      lte: ''
     }
   }
 
@@ -107,7 +109,9 @@ export default class Dashboard extends Component {
   }
 
   analyticsData(id, time) {
-
+    let lte = parseInt(new Date().getTime() / 1000)
+    let today = new Date()
+    let gte = parseInt(new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).getTime() / 1000);
     superagent.get('https://openenvironment.p.mashape.com/all/public/data/range/' + id + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
       this.setState({analyticsData: res.body, time: time, no_records: false})
       this.setState({analyticsdataLoading: false})
@@ -148,11 +152,15 @@ export default class Dashboard extends Component {
   handleFromDt(obj) {
 
     fromDate = obj.format('Do/MM/YYYY')
+    let gte = obj.unix()
+    this.setState({gte: gte })
 
   }
 
   handleToDt(obj) {
     toDate = obj.format('Do/MM/YYYY')
+    let lte = obj.unix()
+    this.setState({lte: lte })
   }
 
   handleDtChange(){
@@ -162,7 +170,7 @@ export default class Dashboard extends Component {
 
   handleDownload(){
     if (typeof window !== 'undefined') {
-      window.open(`http://159.122.85.130:8080/csv/retrive/${this.state.marker_id}/${gte}/${lte}`, '_self');
+      window.open(`http://159.122.85.130:8080/csv/retrive/${this.state.marker_id}/${this.state.gte}/${this.state.lte}`, '_self');
     }
   }
   render() {
