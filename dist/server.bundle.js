@@ -229,28 +229,34 @@
 /* 4 */
 /***/ function(module, exports) {
 
-	module.exports = require("superagent");
+	module.exports = require("moment");
 
 /***/ },
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-helmet");
+	module.exports = require("superagent");
 
 /***/ },
 /* 6 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-redux");
+	module.exports = require("react-helmet");
 
 /***/ },
 /* 7 */
 /***/ function(module, exports) {
 
-	module.exports = require("webpack");
+	module.exports = require("react-redux");
 
 /***/ },
 /* 8 */
+/***/ function(module, exports) {
+
+	module.exports = require("webpack");
+
+/***/ },
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -286,7 +292,7 @@
 
 	var _LatestDevice2 = _interopRequireDefault(_LatestDevice);
 
-	var _superagent = __webpack_require__(4);
+	var _superagent = __webpack_require__(5);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -294,7 +300,7 @@
 
 	var _LoadingMap2 = _interopRequireDefault(_LoadingMap);
 
-	var _index = __webpack_require__(9);
+	var _index = __webpack_require__(10);
 
 	var _index2 = _interopRequireDefault(_index);
 
@@ -302,7 +308,7 @@
 
 	var _reactDatetime2 = _interopRequireDefault(_reactDatetime);
 
-	var _moment = __webpack_require__(11);
+	var _moment = __webpack_require__(4);
 
 	var _moment2 = _interopRequireDefault(_moment);
 
@@ -434,6 +440,11 @@
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
+	      this.setState({
+	        gte: (0, _moment2.default)().unix(),
+	        lte: (0, _moment2.default)().subtract(5, 'days').unix()
+	      });
+
 	      _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/devices').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
 	        this.setState({ loading: false, markers: res.body });
 	      }.bind(this));
@@ -550,7 +561,7 @@
 	    key: 'handleDownload',
 	    value: function handleDownload() {
 	      if (typeof window !== 'undefined') {
-	        window.open('http://159.122.85.130:8080/csv/retrive/' + this.state.marker_id + '/' + this.state.gte + '/' + this.state.lte, '_self');
+	        window.open('http://api.airpollution.online/csv/retrive/' + this.state.marker_id + '/' + this.state.gte + '/' + this.state.lte, '_self');
 	      }
 	    }
 	  }, {
@@ -646,7 +657,7 @@
 	exports.default = Dashboard;
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -662,7 +673,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Mapstyle = __webpack_require__(10);
+	var _Mapstyle = __webpack_require__(11);
 
 	var _Mapstyle2 = _interopRequireDefault(_Mapstyle);
 
@@ -844,7 +855,7 @@
 	exports.default = Map;
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -932,12 +943,6 @@
 	];
 
 /***/ },
-/* 11 */
-/***/ function(module, exports) {
-
-	module.exports = require("moment");
-
-/***/ },
 /* 12 */
 /***/ function(module, exports) {
 
@@ -979,7 +984,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _Dashboard = __webpack_require__(8);
+	var _Dashboard = __webpack_require__(9);
 
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
@@ -1007,7 +1012,7 @@
 
 	var _Airowl2 = _interopRequireDefault(_Airowl);
 
-	var _index = __webpack_require__(9);
+	var _index = __webpack_require__(10);
 
 	var _index2 = _interopRequireDefault(_index);
 
@@ -1026,7 +1031,7 @@
 	 */
 	if (process.env.NODE_ENV !== 'production') {
 	  // Require async routes only in development for react-hot-reloader to work.
-	  __webpack_require__(8);
+	  __webpack_require__(9);
 	  // require('./modules/Post/pages/PostDetailPage/PostDetailPage');
 	}
 
@@ -1199,7 +1204,7 @@
 	"use strict";
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 
-	var webpack = __webpack_require__(7);
+	var webpack = __webpack_require__(8);
 	var cssnext = __webpack_require__(44);
 	var postcssFocus = __webpack_require__(45);
 	var postcssReporter = __webpack_require__(46);
@@ -1968,7 +1973,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(6);
+	var _reactRedux = __webpack_require__(7);
 
 	var _App = {
 	  "container": "App__container__4uEyK"
@@ -1976,7 +1981,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _reactHelmet = __webpack_require__(5);
+	var _reactHelmet = __webpack_require__(6);
 
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 
@@ -2271,7 +2276,7 @@
 
 	var _GoogleMap2 = _interopRequireDefault(_GoogleMap);
 
-	var _Mapstyle = __webpack_require__(10);
+	var _Mapstyle = __webpack_require__(11);
 
 	var _Mapstyle2 = _interopRequireDefault(_Mapstyle);
 
@@ -2370,9 +2375,13 @@
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-	var _superagent = __webpack_require__(4);
+	var _superagent = __webpack_require__(5);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
+
+	var _moment = __webpack_require__(4);
+
+	var _moment2 = _interopRequireDefault(_moment);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2388,7 +2397,9 @@
 	    displaydate = [],
 	    time = [],
 	    array = [],
-	    dateUniq = [];
+	    dateUniq = [],
+	    diffDateArray = [],
+	    dataHour = [];
 
 	var _ref = _jsx('div', {
 	  className: 'chart-indicator'
@@ -2456,30 +2467,30 @@
 	    var lte = new Date().getTime() / 1000;
 	    var today = new Date();
 	    var gte = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).getTime() / 1000;
+
+	    diffDateArray = [];
+	    for (var i = 0; i < 7; i++) {
+	      var incre = (0, _moment2.default)().subtract(i, 'days').format('D');
+	      diffDateArray.push(parseInt(incre));
+	    }
+
 	    _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/analytics/range/' + _this.props.markerId + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
 	      if (res.statusText != "Not Found") {
 	        this.setState({ dailyData: res.body });
 	        this.setState({ dailyDataLoading: false });
 	        array = [];
 	        this.state.dailyData.map(function (e) {
-	          var a = new Date(e.time * 1000);
-	          var month = a.getMonth();
-	          var date = a.getDate();
-	          var hour = a.getHours();
-	          var min = a.getMinutes();
-	          if (min < 10) {
-	            min = '0' + min;
+	          var hour = _moment2.default.unix(e.time).format('hh:mm');
+	          var date = parseInt(_moment2.default.unix(e.time).format('D'));
+	          var dateIndex = diffDateArray.indexOf(date);
+	          // dataHour.push(hour)
+	          if (dataHour.indexOf(hour) === -1) {
+	            dataHour.push(hour);
 	          }
-	          var Time = hour + ':' + min;
-	          if (hour >= 12) {
-	            time.push(Time + 'pm');
-	          } else {
-	            time.push(Time + 'am');
-	          }
-	          if (displaydate.indexOf(date) === -1) {
-	            displaydate.push(date);
-	          }
-	          array.push([hour, date, e.aqi]);
+	          var hourIndex = dataHour.indexOf(hour);
+
+	          time.push(hour);
+	          array.push([hourIndex, dateIndex, e.aqi]);
 	        });
 
 	        // let theme = Highcharts.theme = {
@@ -2505,7 +2516,7 @@
 	          },
 
 	          xAxis: {
-	            categories: time,
+	            categories: dataHour,
 	            labels: {
 	              style: {
 	                color: '#E0E0E3'
@@ -2516,7 +2527,8 @@
 
 	          yAxis: {
 	            title: null,
-	            categories: displaydate,
+	            categories: diffDateArray,
+	            // type: 'datetime',
 	            labels: {
 	              style: {
 	                color: '#E0E0E3'
@@ -2706,7 +2718,7 @@
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-	var _moment = __webpack_require__(11);
+	var _moment = __webpack_require__(4);
 
 	var _moment2 = _interopRequireDefault(_moment);
 
@@ -3240,7 +3252,7 @@
 
 	var _CalendarView2 = _interopRequireDefault(_CalendarView);
 
-	var _superagent = __webpack_require__(4);
+	var _superagent = __webpack_require__(5);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -4153,7 +4165,7 @@
 
 	var _path2 = _interopRequireDefault(_path);
 
-	var _webpack = __webpack_require__(7);
+	var _webpack = __webpack_require__(8);
 
 	var _webpack2 = _interopRequireDefault(_webpack);
 
@@ -4171,7 +4183,7 @@
 
 	var _store = __webpack_require__(16);
 
-	var _reactRedux = __webpack_require__(6);
+	var _reactRedux = __webpack_require__(7);
 
 	var _react = __webpack_require__(0);
 
@@ -4181,7 +4193,7 @@
 
 	var _reactRouter = __webpack_require__(3);
 
-	var _reactHelmet = __webpack_require__(5);
+	var _reactHelmet = __webpack_require__(6);
 
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 
