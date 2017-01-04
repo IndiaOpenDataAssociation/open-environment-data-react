@@ -61,12 +61,18 @@ export default class Dashboard extends Component {
   }
 
   componentDidMount() {
+    this.setState({
+      gte: moment().unix(),
+      lte: moment().subtract(5, 'days').unix()
+    })
+
     superagent.get('https://openenvironment.p.mashape.com/all/public/devices').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
       this.setState({loading: false, markers: res.body})
     }.bind(this))
     superagent.get('https://openenvironment.p.mashape.com/all/public/devices/citiesloc').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
       this.setState({city_list: res.body})
     }.bind(this))
+
   }
 
   changeCities(e) {
@@ -170,7 +176,7 @@ export default class Dashboard extends Component {
 
   handleDownload(){
     if (typeof window !== 'undefined') {
-      window.open(`http://159.122.85.130:8080/csv/retrive/${this.state.marker_id}/${this.state.gte}/${this.state.lte}`, '_self');
+      window.open(`http://api.airpollution.online/csv/retrive/${this.state.marker_id}/${this.state.gte}/${this.state.lte}`, '_self');
     }
   }
   render() {

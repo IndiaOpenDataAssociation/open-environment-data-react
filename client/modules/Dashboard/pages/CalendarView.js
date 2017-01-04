@@ -3,9 +3,10 @@ import DropdownButton from 'react-bootstrap/lib/DropdownButton'
 import MenuItem from 'react-bootstrap/lib/MenuItem'
 // import data from '../components/pollution.json'
 import superagent from 'superagent'
+import moment from 'moment'
 
 
-let heatmap, displaydate = [], time = [], array = [], dateUniq = [];
+let heatmap, displaydate = [], time = [], array = [], dateUniq = [],diffDateArray=[], dataHour =[];
 export default class CalendarView extends Component {
   constructor(props) {
     super(props)
@@ -19,31 +20,32 @@ export default class CalendarView extends Component {
     let lte = new Date().getTime() / 1000
     var today = new Date()
     var gte = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).getTime() / 1000;
+
+
+
+    diffDateArray = []
+    for (let i = 0; i < 7; i++) {
+      var incre = moment().subtract(i, 'days').format('D')
+      diffDateArray.push(parseInt(incre));
+    }
+
     superagent.get('https://openenvironment.p.mashape.com/all/public/analytics/range/' + this.props.markerId + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
       if (res.statusText != "Not Found") {
         this.setState({dailyData: res.body})
         this.setState({dailyDataLoading: false})
         array = []
         this.state.dailyData.map((e)=> {
-          let a = new Date(e.time * 1000)
-          var month = a.getMonth();
-          var date = a.getDate();
-          var hour = a.getHours();
-          let min = a.getMinutes();
-          if (min < 10) {
-            min = '0' + min
+          let hour = moment.unix(e.time).format('hh:mm')
+          let date = parseInt(moment.unix(e.time).format('D'))
+          let dateIndex = diffDateArray.indexOf(date)
+          // dataHour.push(hour)
+          if(dataHour.indexOf(hour) === -1){
+            dataHour.push(hour)
           }
-          let Time = hour + ':' + min
-          if (hour >= 12) {
-            time.push(Time + 'pm')
-          }
-          else {
-            time.push(Time + 'am')
-          }
-          if (displaydate.indexOf(date) === -1) {
-            displaydate.push(date)
-          }
-          array.push([hour, date, e.aqi])
+          let hourIndex = dataHour.indexOf(hour)
+
+          time.push(hour)
+          array.push([hourIndex,dateIndex,e.aqi])
         })
 
         // let theme = Highcharts.theme = {
@@ -69,7 +71,7 @@ export default class CalendarView extends Component {
           },
 
           xAxis: {
-            categories: time,
+            categories: dataHour,
             labels: {
               style: {
                 color: '#E0E0E3'
@@ -80,7 +82,8 @@ export default class CalendarView extends Component {
 
           yAxis: {
             title: null,
-            categories: displaydate,
+            categories: diffDateArray,
+            // type: 'datetime',
             labels: {
               style: {
                 color: '#E0E0E3'
