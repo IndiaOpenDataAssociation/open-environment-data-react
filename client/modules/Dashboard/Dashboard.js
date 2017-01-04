@@ -117,7 +117,7 @@ export default class Dashboard extends Component {
   analyticsData(id, time) {
     let lte = parseInt(new Date().getTime() / 1000)
     let today = new Date()
-    let gte = parseInt(new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).getTime() / 1000);
+    let gte = parseInt(new Date(today.getTime() - 1 * 24 * 60 * 60 * 1000).getTime() / 1000);
     superagent.get('https://openenvironment.p.mashape.com/all/public/data/range/' + id + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
       this.setState({analyticsData: res.body, time: time, no_records: false})
       this.setState({analyticsdataLoading: false})
