@@ -3,7 +3,7 @@ import DropdownButton from 'react-bootstrap/lib/DropdownButton'
 import MenuItem from 'react-bootstrap/lib/MenuItem'
 import moment from 'moment'
 import _ from 'lodash'
-let arr = {'AQI': []}, timeArr = [], newTime, chart, diffDayArray=[];
+let arr = {'AQI': []}, newTime, chart, diffDayArray=[];
 
 
 export default class GraphView extends Component {
@@ -13,7 +13,7 @@ export default class GraphView extends Component {
     // this.maxAqi = this.maxAqi.bind(this)
 
     this.state = {
-      aqiArray: {'AQI': [], 'CO2': [], 'SO2': [], 'NO2': [], 'PM10': [], 'PM25': []},
+      aqiArray: {'AQI': [], 'co': [], 'SO2': [], 'NO2': [], 'PM10': [], 'PM25': []},
       chartList: ['aqi', 'co', 'so2', 'no2', 'pm10', 'pm25'],
       gasesInfo: 'AQI'
     }
@@ -25,32 +25,14 @@ export default class GraphView extends Component {
       let temp = this.state.aqiArray
       let todayDt = parseInt(new Date().getTime() / 1000)
       this.props.analysisData.map((e) => {
-        let a = new Date(e.payload.d.t * 1000)
-        var month = a.getMonth();
-        var date = a.getDate();
-        var year = a.getFullYear()
-        var hour = a.getHours();
-        var min = a.getMinutes();
-        if (min < 10) {
-          min = '0' + min
-        }
+        let a = (19800 + parseInt(e.payload.d.t))*1000;
 
-        let Time = hour + ':' + min
-        if (hour >= 12) {
-          timeArr.unshift(Time + 'pm')
-        }
-        else {
-          timeArr.unshift(Time + 'am')
-        }
-        let fullDate = date+'/'+month+'/'+year
-        if (moment().format('Do/MM/YYYY') == moment.unix(e.payload.d.t).format('Do/MM/YYYY')) {
-          temp.AQI.unshift(e.aqi)
-          temp.CO2.unshift(e.payload.d.co)
-          temp.SO2.unshift(e.payload.d.so2)
-          temp.NO2.unshift(e.payload.d.no2)
-          temp.PM10.unshift(e.payload.d.pm10)
-          temp.PM25.unshift(e.payload.d.pm25)
-        }
+        temp.AQI.unshift([a,e.aqi])
+        temp.co.unshift([a,e.payload.d.co])
+        temp.SO2.unshift([a,e.payload.d.so2])
+        temp.NO2.unshift([a,e.payload.d.no2])
+        temp.PM10.unshift([a,e.payload.d.pm10])
+        temp.PM25.unshift([a,e.payload.d.pm25])
 
 
         if (e.payload.d.pm10 == undefined) {
@@ -85,7 +67,9 @@ export default class GraphView extends Component {
         }
 
       })
-      this.setState({aqiArray: temp})
+      this.setState({
+        aqiArray: temp
+      });
 
       chart = Highcharts.chart(this.refs.highchart, {
         chart: {
@@ -112,10 +96,14 @@ export default class GraphView extends Component {
           enabled: false
         },
 
+        global: {
+            useUTC: false
+        },
+
         xAxis: {
-          categories: timeArr,
           gridLineColor: '#2b313a',
           gridLineWidth: 1,
+          type: 'datetime',
           labels: {
             style: {
               color: '#FFF'
@@ -147,7 +135,7 @@ export default class GraphView extends Component {
           },
           {
             name: 'co',
-            data: this.state.aqiArray.CO2,
+            data: this.state.aqiArray.co,
             fillColor: 'rgba(255,255,255, 0.1)',
             marker: {
               enabled: false
@@ -211,33 +199,16 @@ export default class GraphView extends Component {
         }
 
         this.props.analysisData.map((e) => {
-          let a = new Date(e.payload.d.t * 1000)
-          var month = a.getMonth();
-          var date = a.getDate() + 'th';
-          var year = a.getFullYear()
-          var hour = a.getHours();
-          var min = a.getMinutes();
-          if (min < 10) {
-            min = '0' + min
-          }
-          let Time = hour + ':' + min
-          if (hour >= 12) {
-            timeArr.unshift(Time + 'pm')
-          }
-          else {
-            timeArr.unshift(Time + 'am')
-          }
-          let fullDate = moment.unix(e.payload.d.t).format('Do/MM/YYYY')
-          var pos = diffDayArray.indexOf(fullDate)
-          if (pos > -1) {
-            changeData = true
-            temp.AQI.unshift(e.aqi)
-            temp.CO2.unshift(e.payload.d.co)
-            temp.SO2.unshift(e.payload.d.so2)
-            temp.NO2.unshift(e.payload.d.no2)
-            temp.PM10.unshift(e.payload.d.pm10)
-            temp.PM25.unshift(e.payload.d.pm25)
-          }
+
+          let a = (19800 + parseInt(e.payload.d.t))*1000;
+
+          changeData = true
+          temp.AQI.unshift([a,e.aqi])
+          temp.co.unshift([a,e.payload.d.co])
+          temp.SO2.unshift([a,e.payload.d.so2])
+          temp.NO2.unshift([a,e.payload.d.no2])
+          temp.PM10.unshift([a,e.payload.d.pm10])
+          temp.PM25.unshift([a,e.payload.d.pm25])
         })
         if (changeData == true) {
           this.setState({aqiArray: temp})
@@ -245,7 +216,7 @@ export default class GraphView extends Component {
         else {
           let aqiArray = this.state.aqiArray
           aqiArray.AQI = []
-          aqiArray.CO2 = []
+          aqiArray.co = []
           aqiArray.SO2 = []
           aqiArray.NO2 = []
           aqiArray.PM10 = []
@@ -279,7 +250,7 @@ export default class GraphView extends Component {
           },
 
           xAxis: {
-            categories: timeArr,
+            type: 'datetime',
             gridLineColor: '#2b313a',
             gridLineWidth: 1,
             labels: {
@@ -313,7 +284,7 @@ export default class GraphView extends Component {
             },
             {
               name: 'co',
-              data: this.state.aqiArray.CO2,
+              data: this.state.aqiArray.co,
               fillColor: 'rgba(255,255,255, 0.1)',
               marker: {
                 enabled: false
@@ -406,7 +377,7 @@ export default class GraphView extends Component {
                       id={list}
                       key={list}
                       className={index===0 ? 'active' : ''}
-                    >{list == 'co' ? list + '2' : list}</li>
+                    >{list == 'co' ? list : list}</li>
                   )
                 })
               }
@@ -458,12 +429,12 @@ export default class GraphView extends Component {
                     ?
                     <div className="gases-info">
                       <h5>Carbon Oxides :</h5>
-                      <p>Carbon Monoxide (CO), Carbon Dioxide (CO2)</p>
+                      <p>Carbon Monoxide (CO), Carbon Dioxide (co)</p>
 
                       <h5>Importance of Carbon Dioxide / Monoxide Monitoring :</h5>
                       <p>
                         Carbon monoxide (CO) is an extremely toxic gas resulting from incomplete combustion of carbon
-                        and carbonaceous products. Carbon Dioxide (CO2) is present in the atmosphere but it is not a
+                        and carbonaceous products. Carbon Dioxide (co) is present in the atmosphere but it is not a
                         toxic gas.
                       </p>
 

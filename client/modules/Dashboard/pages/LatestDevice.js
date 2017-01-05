@@ -225,7 +225,7 @@ export default class LatestDevice extends Component {
                           </div>
                         </div>
                       </div>
-                      <span className="ppc-title">CO<sub>2</sub></span>
+                      <span className="ppc-title">CO<sub></sub></span>
                       <small>(ug/m3)</small>
                     </div>
                     :
