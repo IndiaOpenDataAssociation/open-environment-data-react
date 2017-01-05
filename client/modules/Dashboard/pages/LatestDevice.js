@@ -345,6 +345,7 @@ export default class LatestDevice extends Component {
                   changeGraphData = {this.changeGraphData}
                   fromDate={this.props.fromDate}
                   toDate={this.props.toDate}
+                  id={this.props.markerId}
                 />
               :
                 <CalendarView

@@ -126,7 +126,6 @@ export default class Dashboard extends Component {
 
   }
 
-
   handleMarkerClick(targetMarker, index) {
 
     this.setState({
@@ -269,8 +268,8 @@ export default class Dashboard extends Component {
                                   </div>
 
                                   <div className="col-sm-7 dtpicker">
-                                    <small>From</small><Datetime className="fromDt" onChange={this.handleFromDt}/>
-                                    <small>To</small><Datetime className="toDt" onChange={this.handleToDt}/>
+                                    <small>From</small><Datetime className="fromDt" timeFormat={false} onChange={this.handleFromDt}/>
+                                    <small>To</small><Datetime className="toDt" timeFormat={false}onChange={this.handleToDt}/>
                                     <button onClick={this.handleDtChange}><i className="fa fa-arrow-right"></i></button>
                                   </div>
                                   <span className="download-csv" onClick={this.handleDownload}><i className="fa fa-download"></i>CSV</span>

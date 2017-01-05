@@ -2,8 +2,13 @@ import React, {Component} from 'react'
 import DropdownButton from 'react-bootstrap/lib/DropdownButton'
 import MenuItem from 'react-bootstrap/lib/MenuItem'
 import moment from 'moment'
+import superagent from 'superagent'
+
 import _ from 'lodash'
-let arr = {'AQI': []}, newTime, chart, diffDayArray=[];
+let arr = {'AQI': []}, newTime, chart, diffDayArray=[], changedTimeArray = [];
+
+let changeData = false
+
 
 
 export default class GraphView extends Component {
@@ -18,6 +23,7 @@ export default class GraphView extends Component {
       gasesInfo: 'AQI'
     }
     this.displayGraph = this.displayGraph.bind(this)
+    this.renderChartOnData = this.renderChartOnData.bind(this)
   }
 
   componentDidMount() {
@@ -183,152 +189,189 @@ export default class GraphView extends Component {
     }
   }
 
+  // sortedPush( timeArray, value ) {
+  //   timeArray.splice( _.sortedIndex( timeArray, value ), 0, value );
+  //   return timeArray;
+  // }
+
+  renderChartOnData(Data){
+    chart = Highcharts.chart(this.refs.highchart, {
+      chart: {
+        backgroundColor: 'transparent',
+        width: 600,
+        height: 300,
+        type: 'column',
+      },
+      colors: ['#00b3bf'],
+
+      title: {
+        text: 'Analytics',
+        style: {
+          color: 'white',
+          fontSize: '14px'
+        }
+      },
+
+      legend: {
+        enabled: false
+      },
+
+      credits: {
+        enabled: false
+      },
+
+      xAxis: {
+        type: 'datetime',
+        gridLineColor: '#2b313a',
+        gridLineWidth: 1,
+        labels: {
+          style: {
+            color: '#FFF'
+          }
+        }
+      },
+
+      yAxis: {
+        gridLineWidth: 1,
+        gridLineColor: '#2b313a',
+        labels: {
+          style: {
+            color: '#FFF'
+          },
+        },
+        title: {
+          text: null
+        }
+      },
+
+      series: [
+        {
+          name: 'aqi',
+          data: this.state.aqiArray.AQI,
+          fillColor: 'rgba(255,255,255, 0.1)',
+          marker: {
+            enabled: false
+          }
+        },
+        {
+          name: 'co',
+          data: this.state.aqiArray.co,
+          fillColor: 'rgba(255,255,255, 0.1)',
+          marker: {
+            enabled: false
+          },
+          visible: false
+        },
+        {
+          name: 'so2',
+          data: this.state.aqiArray.SO2,
+          fillColor: 'rgba(255,255,255, 0.1)',
+          marker: {
+            enabled: false
+          },
+          visible: false
+        },
+        {
+          name: 'no2',
+          data: this.state.aqiArray.NO2,
+          fillColor: 'rgba(255,255,255, 0.1)',
+          marker: {
+            enabled: false
+          },
+          visible: false
+        },
+        {
+          name: 'pm10',
+          data: this.state.aqiArray.PM10,
+          fillColor: 'rgba(255,255,255, 0.1)',
+          marker: {
+            enabled: false
+          },
+          visible: false
+        },
+        {
+          name: 'pm25',
+          data: this.state.aqiArray.PM25,
+          fillColor: 'rgba(255,255,255, 0.1)',
+          marker: {
+            enabled: false
+          },
+          visible: false
+        }
+      ]
+    })
+  }
   componentWillReceiveProps(nextProps) {
     if(this.props.fromDate != nextProps.fromDate || this.props.toDate != nextProps.toDate) {
-
       var diff = moment(nextProps.toDate, "DD/MM/YYYY").diff(moment(nextProps.fromDate, "DD/MM/YYYY"))
       diff = moment.duration(diff)
       var diffN = diff.asDays()
-      let temp = this.state.aqiArray
-      let changeData = false
-      if (diff.asDays() > 1) {
+      if (diff.asDays() > 0) {
         diffDayArray = []
         for (let i = 0; i <= diffN; i++) {
-          var incre = moment(nextProps.fromDate, "DD-MM-YYYY").add(i, 'days')
-          diffDayArray.push(incre.format('Do/MM/YYYY'));
+          var incre = moment(nextProps.fromDate, "DD-MM-YYYY").add(i, 'days');
+          diffDayArray.push((19800 + incre.unix())*1000);
         }
 
-        this.props.analysisData.map((e) => {
+        console.log('diff',diffDayArray)
+        let Data = [];
+        if(diffN >= 3){
+          let lte = parseInt(new Date().getTime() / 1000)
+          let today = new Date()
+          let gte = parseInt(new Date(today.getTime() - 1 * 24 * 60 * 60 * 1000).getTime() / 1000);
+          console.log(this.props.id, gte, lte)
+          superagent.get('https://openenvironment.p.mashape.com/all/public/data/daily/' + this.props.id + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+            Data = res.body
+            let a = (19800 + parseInt(Data[0].payload.d.t))*1000;
+            let aqiArray = this.state.aqiArray
+            aqiArray.AQI = [a,Data[0].aqi]
+            aqiArray.co = [a,Data[0].payload.d.co]
+            aqiArray.SO2 = [a,Data[0].payload.d.so2]
+            aqiArray.NO2 = [a,Data[0].payload.d.no2]
+            aqiArray.PM10 = [a,Data[0].payload.d.pm10]
+            aqiArray.PM25 = [a,Data[0].payload.d.pm25]
 
-          let a = (19800 + parseInt(e.payload.d.t))*1000;
+            this.setState({aqiArray: aqiArray})
 
-          changeData = true
-          temp.AQI.unshift([a,e.aqi])
-          temp.co.unshift([a,e.payload.d.co])
-          temp.SO2.unshift([a,e.payload.d.so2])
-          temp.NO2.unshift([a,e.payload.d.no2])
-          temp.PM10.unshift([a,e.payload.d.pm10])
-          temp.PM25.unshift([a,e.payload.d.pm25])
-        })
-        if (changeData == true) {
-          this.setState({aqiArray: temp})
+            this.renderChartOnData()
+          }.bind(this))
         }
-        else {
-          let aqiArray = this.state.aqiArray
-          aqiArray.AQI = []
-          aqiArray.co = []
-          aqiArray.SO2 = []
-          aqiArray.NO2 = []
-          aqiArray.PM10 = []
-          aqiArray.PM25 = []
+      else{
+          Data = this.props.analysisData;
 
-          this.setState({aqiArray: aqiArray})
+          let temp = this.state.aqiArray
+          Data.map((e) => {
+            console.log(e)
+            // // let xaxis = (19800 + parseInt(e.payload.d.t))*1000;
+            // let date = moment.unix(e.payload.d.t).format('Do/MM/YYYY');
+            // let a = (19800 + moment(date, 'DD/MM/YYYY').unix())*1000;
+            // changedTimeArray = this.sortedPush(changedTimeArray, a);
+            let a = (19800 + parseInt(e.payload.d.t))*1000;
+            changeData = true
+            temp.AQI.unshift([a,e.aqi])
+            temp.co.unshift([a,e.payload.d.co])
+            temp.SO2.unshift([a,e.payload.d.so2])
+            temp.NO2.unshift([a,e.payload.d.no2])
+            temp.PM10.unshift([a,e.payload.d.pm10])
+            temp.PM25.unshift([a,e.payload.d.pm25])
+          })
+          if (changeData == true) {
+            this.setState({aqiArray: temp})
+          }
+          else {
+            let aqiArray = this.state.aqiArray
+            aqiArray.AQI = []
+            aqiArray.co = []
+            aqiArray.SO2 = []
+            aqiArray.NO2 = []
+            aqiArray.PM10 = []
+            aqiArray.PM25 = []
+
+            this.setState({aqiArray: aqiArray})
+          }
+          this.renderChartOnData()
         }
-        chart = Highcharts.chart(this.refs.highchart, {
-          chart: {
-            backgroundColor: 'transparent',
-            width: 600,
-            height: 300,
-            type: 'column',
-          },
-          colors: ['#00b3bf'],
 
-          title: {
-            text: 'Analytics',
-            style: {
-              color: 'white',
-              fontSize: '14px'
-            }
-          },
-
-          legend: {
-            enabled: false
-          },
-
-          credits: {
-            enabled: false
-          },
-
-          xAxis: {
-            type: 'datetime',
-            gridLineColor: '#2b313a',
-            gridLineWidth: 1,
-            labels: {
-              style: {
-                color: '#FFF'
-              }
-            }
-          },
-
-          yAxis: {
-            gridLineWidth: 1,
-            gridLineColor: '#2b313a',
-            labels: {
-              style: {
-                color: '#FFF'
-              },
-            },
-            title: {
-              text: null
-            }
-          },
-
-          series: [
-            {
-              name: 'aqi',
-              data: this.state.aqiArray.AQI,
-              fillColor: 'rgba(255,255,255, 0.1)',
-              marker: {
-                enabled: false
-              }
-            },
-            {
-              name: 'co',
-              data: this.state.aqiArray.co,
-              fillColor: 'rgba(255,255,255, 0.1)',
-              marker: {
-                enabled: false
-              },
-              visible: false
-            },
-            {
-              name: 'so2',
-              data: this.state.aqiArray.SO2,
-              fillColor: 'rgba(255,255,255, 0.1)',
-              marker: {
-                enabled: false
-              },
-              visible: false
-            },
-            {
-              name: 'no2',
-              data: this.state.aqiArray.NO2,
-              fillColor: 'rgba(255,255,255, 0.1)',
-              marker: {
-                enabled: false
-              },
-              visible: false
-            },
-            {
-              name: 'pm10',
-              data: this.state.aqiArray.PM10,
-              fillColor: 'rgba(255,255,255, 0.1)',
-              marker: {
-                enabled: false
-              },
-              visible: false
-            },
-            {
-              name: 'pm25',
-              data: this.state.aqiArray.PM25,
-              fillColor: 'rgba(255,255,255, 0.1)',
-              marker: {
-                enabled: false
-              },
-              visible: false
-            }
-          ]
-        })
       }
     }
 
