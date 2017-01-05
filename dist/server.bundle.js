@@ -229,13 +229,13 @@
 /* 4 */
 /***/ function(module, exports) {
 
-	module.exports = require("moment");
+	module.exports = require("superagent");
 
 /***/ },
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = require("superagent");
+	module.exports = require("moment");
 
 /***/ },
 /* 6 */
@@ -292,7 +292,7 @@
 
 	var _LatestDevice2 = _interopRequireDefault(_LatestDevice);
 
-	var _superagent = __webpack_require__(5);
+	var _superagent = __webpack_require__(4);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -308,7 +308,7 @@
 
 	var _reactDatetime2 = _interopRequireDefault(_reactDatetime);
 
-	var _moment = __webpack_require__(4);
+	var _moment = __webpack_require__(5);
 
 	var _moment2 = _interopRequireDefault(_moment);
 
@@ -626,9 +626,11 @@
 	        className: 'col-sm-7 dtpicker'
 	      }, void 0, _ref11, _jsx(_reactDatetime2.default, {
 	        className: 'fromDt',
+	        timeFormat: false,
 	        onChange: this.handleFromDt
 	      }), _ref12, _jsx(_reactDatetime2.default, {
 	        className: 'toDt',
+	        timeFormat: false,
 	        onChange: this.handleToDt
 	      }), _jsx('button', {
 	        onClick: this.handleDtChange
@@ -2375,11 +2377,11 @@
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-	var _superagent = __webpack_require__(5);
+	var _superagent = __webpack_require__(4);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
-	var _moment = __webpack_require__(4);
+	var _moment = __webpack_require__(5);
 
 	var _moment2 = _interopRequireDefault(_moment);
 
@@ -2718,9 +2720,13 @@
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-	var _moment = __webpack_require__(4);
+	var _moment = __webpack_require__(5);
 
 	var _moment2 = _interopRequireDefault(_moment);
+
+	var _superagent = __webpack_require__(4);
+
+	var _superagent2 = _interopRequireDefault(_superagent);
 
 	var _lodash = __webpack_require__(43);
 
@@ -2737,7 +2743,10 @@
 	var arr = { 'AQI': [] },
 	    newTime = void 0,
 	    chart = void 0,
-	    diffDayArray = [];
+	    diffDayArray = [],
+	    changedTimeArray = [];
+
+	var changeData = false;
 
 	var _ref = _jsx('img', {
 	  src: '../../../assets/images/icons/analytics_w.png'
@@ -2787,6 +2796,7 @@
 	      gasesInfo: 'AQI'
 	    };
 	    _this.displayGraph = _this.displayGraph.bind(_this);
+	    _this.renderChartOnData = _this.renderChartOnData.bind(_this);
 	    return _this;
 	  }
 
@@ -2949,157 +2959,194 @@
 	        })();
 	      }
 	    }
+
+	    // sortedPush( timeArray, value ) {
+	    //   timeArray.splice( _.sortedIndex( timeArray, value ), 0, value );
+	    //   return timeArray;
+	    // }
+
+	  }, {
+	    key: 'renderChartOnData',
+	    value: function renderChartOnData(Data) {
+	      chart = Highcharts.chart(this.refs.highchart, {
+	        chart: {
+	          backgroundColor: 'transparent',
+	          width: 600,
+	          height: 300,
+	          type: 'column'
+	        },
+	        colors: ['#00b3bf'],
+
+	        title: {
+	          text: 'Analytics',
+	          style: {
+	            color: 'white',
+	            fontSize: '14px'
+	          }
+	        },
+
+	        legend: {
+	          enabled: false
+	        },
+
+	        credits: {
+	          enabled: false
+	        },
+
+	        xAxis: {
+	          type: 'datetime',
+	          gridLineColor: '#2b313a',
+	          gridLineWidth: 1,
+	          labels: {
+	            style: {
+	              color: '#FFF'
+	            }
+	          }
+	        },
+
+	        yAxis: {
+	          gridLineWidth: 1,
+	          gridLineColor: '#2b313a',
+	          labels: {
+	            style: {
+	              color: '#FFF'
+	            }
+	          },
+	          title: {
+	            text: null
+	          }
+	        },
+
+	        series: [{
+	          name: 'aqi',
+	          data: this.state.aqiArray.AQI,
+	          fillColor: 'rgba(255,255,255, 0.1)',
+	          marker: {
+	            enabled: false
+	          }
+	        }, {
+	          name: 'co',
+	          data: this.state.aqiArray.co,
+	          fillColor: 'rgba(255,255,255, 0.1)',
+	          marker: {
+	            enabled: false
+	          },
+	          visible: false
+	        }, {
+	          name: 'so2',
+	          data: this.state.aqiArray.SO2,
+	          fillColor: 'rgba(255,255,255, 0.1)',
+	          marker: {
+	            enabled: false
+	          },
+	          visible: false
+	        }, {
+	          name: 'no2',
+	          data: this.state.aqiArray.NO2,
+	          fillColor: 'rgba(255,255,255, 0.1)',
+	          marker: {
+	            enabled: false
+	          },
+	          visible: false
+	        }, {
+	          name: 'pm10',
+	          data: this.state.aqiArray.PM10,
+	          fillColor: 'rgba(255,255,255, 0.1)',
+	          marker: {
+	            enabled: false
+	          },
+	          visible: false
+	        }, {
+	          name: 'pm25',
+	          data: this.state.aqiArray.PM25,
+	          fillColor: 'rgba(255,255,255, 0.1)',
+	          marker: {
+	            enabled: false
+	          },
+	          visible: false
+	        }]
+	      });
+	    }
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
 	      var _this3 = this;
 
 	      if (this.props.fromDate != nextProps.fromDate || this.props.toDate != nextProps.toDate) {
-	        var diff;
-	        var diffN;
-	        var incre;
+	        var diff = (0, _moment2.default)(nextProps.toDate, "DD/MM/YYYY").diff((0, _moment2.default)(nextProps.fromDate, "DD/MM/YYYY"));
+	        diff = _moment2.default.duration(diff);
+	        var diffN = diff.asDays();
+	        if (diff.asDays() > 0) {
+	          var incre;
 
-	        (function () {
-	          diff = (0, _moment2.default)(nextProps.toDate, "DD/MM/YYYY").diff((0, _moment2.default)(nextProps.fromDate, "DD/MM/YYYY"));
-
-	          diff = _moment2.default.duration(diff);
-	          diffN = diff.asDays();
-
-	          var temp = _this3.state.aqiArray;
-	          var changeData = false;
-	          if (diff.asDays() > 1) {
+	          (function () {
 	            diffDayArray = [];
 	            for (var i = 0; i <= diffN; i++) {
 	              incre = (0, _moment2.default)(nextProps.fromDate, "DD-MM-YYYY").add(i, 'days');
 
-	              diffDayArray.push(incre.format('Do/MM/YYYY'));
+	              diffDayArray.push((19800 + incre.unix()) * 1000);
 	            }
 
-	            _this3.props.analysisData.map(function (e) {
+	            console.log('diff', diffDayArray);
+	            var Data = [];
+	            if (diffN >= 3) {
+	              var lte = parseInt(new Date().getTime() / 1000);
+	              var today = new Date();
+	              var gte = parseInt(new Date(today.getTime() - 1 * 24 * 60 * 60 * 1000).getTime() / 1000);
+	              console.log(_this3.props.id, gte, lte);
+	              _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/data/daily/' + _this3.props.id + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+	                Data = res.body;
+	                var a = (19800 + parseInt(Data[0].payload.d.t)) * 1000;
+	                var aqiArray = this.state.aqiArray;
+	                aqiArray.AQI = [a, Data[0].aqi];
+	                aqiArray.co = [a, Data[0].payload.d.co];
+	                aqiArray.SO2 = [a, Data[0].payload.d.so2];
+	                aqiArray.NO2 = [a, Data[0].payload.d.no2];
+	                aqiArray.PM10 = [a, Data[0].payload.d.pm10];
+	                aqiArray.PM25 = [a, Data[0].payload.d.pm25];
 
-	              var a = (19800 + parseInt(e.payload.d.t)) * 1000;
+	                this.setState({ aqiArray: aqiArray });
 
-	              changeData = true;
-	              temp.AQI.unshift([a, e.aqi]);
-	              temp.co.unshift([a, e.payload.d.co]);
-	              temp.SO2.unshift([a, e.payload.d.so2]);
-	              temp.NO2.unshift([a, e.payload.d.no2]);
-	              temp.PM10.unshift([a, e.payload.d.pm10]);
-	              temp.PM25.unshift([a, e.payload.d.pm25]);
-	            });
-	            if (changeData == true) {
-	              _this3.setState({ aqiArray: temp });
+	                this.renderChartOnData();
+	              }.bind(_this3));
 	            } else {
-	              var aqiArray = _this3.state.aqiArray;
-	              aqiArray.AQI = [];
-	              aqiArray.co = [];
-	              aqiArray.SO2 = [];
-	              aqiArray.NO2 = [];
-	              aqiArray.PM10 = [];
-	              aqiArray.PM25 = [];
+	              (function () {
+	                Data = _this3.props.analysisData;
 
-	              _this3.setState({ aqiArray: aqiArray });
+	                var temp = _this3.state.aqiArray;
+	                Data.map(function (e) {
+	                  console.log(e);
+	                  // // let xaxis = (19800 + parseInt(e.payload.d.t))*1000;
+	                  // let date = moment.unix(e.payload.d.t).format('Do/MM/YYYY');
+	                  // let a = (19800 + moment(date, 'DD/MM/YYYY').unix())*1000;
+	                  // changedTimeArray = this.sortedPush(changedTimeArray, a);
+	                  var a = (19800 + parseInt(e.payload.d.t)) * 1000;
+	                  changeData = true;
+	                  temp.AQI.unshift([a, e.aqi]);
+	                  temp.co.unshift([a, e.payload.d.co]);
+	                  temp.SO2.unshift([a, e.payload.d.so2]);
+	                  temp.NO2.unshift([a, e.payload.d.no2]);
+	                  temp.PM10.unshift([a, e.payload.d.pm10]);
+	                  temp.PM25.unshift([a, e.payload.d.pm25]);
+	                });
+	                if (changeData == true) {
+	                  _this3.setState({ aqiArray: temp });
+	                } else {
+	                  var aqiArray = _this3.state.aqiArray;
+	                  aqiArray.AQI = [];
+	                  aqiArray.co = [];
+	                  aqiArray.SO2 = [];
+	                  aqiArray.NO2 = [];
+	                  aqiArray.PM10 = [];
+	                  aqiArray.PM25 = [];
+
+	                  _this3.setState({ aqiArray: aqiArray });
+	                }
+	                _this3.renderChartOnData();
+	              })();
 	            }
-	            chart = Highcharts.chart(_this3.refs.highchart, {
-	              chart: {
-	                backgroundColor: 'transparent',
-	                width: 600,
-	                height: 300,
-	                type: 'column'
-	              },
-	              colors: ['#00b3bf'],
-
-	              title: {
-	                text: 'Analytics',
-	                style: {
-	                  color: 'white',
-	                  fontSize: '14px'
-	                }
-	              },
-
-	              legend: {
-	                enabled: false
-	              },
-
-	              credits: {
-	                enabled: false
-	              },
-
-	              xAxis: {
-	                type: 'datetime',
-	                gridLineColor: '#2b313a',
-	                gridLineWidth: 1,
-	                labels: {
-	                  style: {
-	                    color: '#FFF'
-	                  }
-	                }
-	              },
-
-	              yAxis: {
-	                gridLineWidth: 1,
-	                gridLineColor: '#2b313a',
-	                labels: {
-	                  style: {
-	                    color: '#FFF'
-	                  }
-	                },
-	                title: {
-	                  text: null
-	                }
-	              },
-
-	              series: [{
-	                name: 'aqi',
-	                data: _this3.state.aqiArray.AQI,
-	                fillColor: 'rgba(255,255,255, 0.1)',
-	                marker: {
-	                  enabled: false
-	                }
-	              }, {
-	                name: 'co',
-	                data: _this3.state.aqiArray.co,
-	                fillColor: 'rgba(255,255,255, 0.1)',
-	                marker: {
-	                  enabled: false
-	                },
-	                visible: false
-	              }, {
-	                name: 'so2',
-	                data: _this3.state.aqiArray.SO2,
-	                fillColor: 'rgba(255,255,255, 0.1)',
-	                marker: {
-	                  enabled: false
-	                },
-	                visible: false
-	              }, {
-	                name: 'no2',
-	                data: _this3.state.aqiArray.NO2,
-	                fillColor: 'rgba(255,255,255, 0.1)',
-	                marker: {
-	                  enabled: false
-	                },
-	                visible: false
-	              }, {
-	                name: 'pm10',
-	                data: _this3.state.aqiArray.PM10,
-	                fillColor: 'rgba(255,255,255, 0.1)',
-	                marker: {
-	                  enabled: false
-	                },
-	                visible: false
-	              }, {
-	                name: 'pm25',
-	                data: _this3.state.aqiArray.PM25,
-	                fillColor: 'rgba(255,255,255, 0.1)',
-	                marker: {
-	                  enabled: false
-	                },
-	                visible: false
-	              }]
-	            });
-	          }
-	        })();
+	          })();
+	        }
 	      }
 	    }
 	  }, {
@@ -3224,7 +3271,7 @@
 
 	var _CalendarView2 = _interopRequireDefault(_CalendarView);
 
-	var _superagent = __webpack_require__(5);
+	var _superagent = __webpack_require__(4);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -3470,7 +3517,8 @@
 	        activeGraph: this.state.activeGraph,
 	        changeGraphData: this.changeGraphData,
 	        fromDate: this.props.fromDate,
-	        toDate: this.props.toDate
+	        toDate: this.props.toDate,
+	        id: this.props.markerId
 	      }) : _jsx(_CalendarView2.default, {
 	        changeGraphData: this.changeGraphData,
 	        activeGraph: this.state.activeGraph,
