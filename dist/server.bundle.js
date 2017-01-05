@@ -501,7 +501,7 @@
 	    value: function analyticsData(id, time) {
 	      var lte = parseInt(new Date().getTime() / 1000);
 	      var today = new Date();
-	      var gte = parseInt(new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).getTime() / 1000);
+	      var gte = parseInt(new Date(today.getTime() - 1 * 24 * 60 * 60 * 1000).getTime() / 1000);
 	      _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/data/range/' + id + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
 	        this.setState({ analyticsData: res.body, time: time, no_records: false });
 	        this.setState({ analyticsdataLoading: false });
@@ -2735,7 +2735,6 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var arr = { 'AQI': [] },
-	    timeArr = [],
 	    newTime = void 0,
 	    chart = void 0,
 	    diffDayArray = [];
@@ -2754,7 +2753,7 @@
 
 	var _ref4 = _jsx('div', {
 	  className: 'gases-info'
-	}, void 0, _jsx('h5', {}, void 0, 'Carbon Oxides :'), _jsx('p', {}, void 0, 'Carbon Monoxide (CO), Carbon Dioxide (CO2)'), _jsx('h5', {}, void 0, 'Importance of Carbon Dioxide / Monoxide Monitoring :'), _jsx('p', {}, void 0, 'Carbon monoxide (CO) is an extremely toxic gas resulting from incomplete combustion of carbon and carbonaceous products. Carbon Dioxide (CO2) is present in the atmosphere but it is not a toxic gas.'), _jsx('h5', {}, void 0, 'Sources of Carbon Dioxide / Monoxide :'), _jsx('p', {}, void 0, 'Thermal Power Plants, Vehicle Fuel Emission, Open Fire, Solid Waste Sites etc.'), _jsx('h5', {}, void 0, 'Health Hazard of Carbon Dioxide / Monoxide :'), _jsx('p', {}, void 0, 'Carbon monoxide is colorless, odorless, and tasteless, but highly toxic. It combines with hemoglobin to produce carboxyhemoglobin, which usurps the space in hemoglobin that normally carries oxygen, but is ineffective for delivering oxygen to bodily tissues.'));
+	}, void 0, _jsx('h5', {}, void 0, 'Carbon Oxides :'), _jsx('p', {}, void 0, 'Carbon Monoxide (CO), Carbon Dioxide (co)'), _jsx('h5', {}, void 0, 'Importance of Carbon Dioxide / Monoxide Monitoring :'), _jsx('p', {}, void 0, 'Carbon monoxide (CO) is an extremely toxic gas resulting from incomplete combustion of carbon and carbonaceous products. Carbon Dioxide (co) is present in the atmosphere but it is not a toxic gas.'), _jsx('h5', {}, void 0, 'Sources of Carbon Dioxide / Monoxide :'), _jsx('p', {}, void 0, 'Thermal Power Plants, Vehicle Fuel Emission, Open Fire, Solid Waste Sites etc.'), _jsx('h5', {}, void 0, 'Health Hazard of Carbon Dioxide / Monoxide :'), _jsx('p', {}, void 0, 'Carbon monoxide is colorless, odorless, and tasteless, but highly toxic. It combines with hemoglobin to produce carboxyhemoglobin, which usurps the space in hemoglobin that normally carries oxygen, but is ineffective for delivering oxygen to bodily tissues.'));
 
 	var _ref5 = _jsx('div', {
 	  className: 'gases-info'
@@ -2783,7 +2782,7 @@
 	    var _this = _possibleConstructorReturn(this, (GraphView.__proto__ || Object.getPrototypeOf(GraphView)).call(this, props));
 
 	    _this.state = {
-	      aqiArray: { 'AQI': [], 'CO2': [], 'SO2': [], 'NO2': [], 'PM10': [], 'PM25': [] },
+	      aqiArray: { 'AQI': [], 'co': [], 'SO2': [], 'NO2': [], 'PM10': [], 'PM25': [] },
 	      chartList: ['aqi', 'co', 'so2', 'no2', 'pm10', 'pm25'],
 	      gasesInfo: 'AQI'
 	    };
@@ -2801,31 +2800,14 @@
 	          var temp = _this2.state.aqiArray;
 	          var todayDt = parseInt(new Date().getTime() / 1000);
 	          _this2.props.analysisData.map(function (e) {
-	            var a = new Date(e.payload.d.t * 1000);
-	            var month = a.getMonth();
-	            var date = a.getDate();
-	            var year = a.getFullYear();
-	            var hour = a.getHours();
-	            var min = a.getMinutes();
-	            if (min < 10) {
-	              min = '0' + min;
-	            }
+	            var a = (19800 + parseInt(e.payload.d.t)) * 1000;
 
-	            var Time = hour + ':' + min;
-	            if (hour >= 12) {
-	              timeArr.unshift(Time + 'pm');
-	            } else {
-	              timeArr.unshift(Time + 'am');
-	            }
-	            var fullDate = date + '/' + month + '/' + year;
-	            if ((0, _moment2.default)().format('Do/MM/YYYY') == _moment2.default.unix(e.payload.d.t).format('Do/MM/YYYY')) {
-	              temp.AQI.unshift(e.aqi);
-	              temp.CO2.unshift(e.payload.d.co);
-	              temp.SO2.unshift(e.payload.d.so2);
-	              temp.NO2.unshift(e.payload.d.no2);
-	              temp.PM10.unshift(e.payload.d.pm10);
-	              temp.PM25.unshift(e.payload.d.pm25);
-	            }
+	            temp.AQI.unshift([a, e.aqi]);
+	            temp.co.unshift([a, e.payload.d.co]);
+	            temp.SO2.unshift([a, e.payload.d.so2]);
+	            temp.NO2.unshift([a, e.payload.d.no2]);
+	            temp.PM10.unshift([a, e.payload.d.pm10]);
+	            temp.PM25.unshift([a, e.payload.d.pm25]);
 
 	            if (e.payload.d.pm10 == undefined) {
 	              var i = _this2.state.chartList.indexOf("pm10");
@@ -2858,7 +2840,9 @@
 	              }
 	            }
 	          });
-	          _this2.setState({ aqiArray: temp });
+	          _this2.setState({
+	            aqiArray: temp
+	          });
 
 	          chart = Highcharts.chart(_this2.refs.highchart, {
 	            chart: {
@@ -2885,10 +2869,14 @@
 	              enabled: false
 	            },
 
+	            global: {
+	              useUTC: false
+	            },
+
 	            xAxis: {
-	              categories: timeArr,
 	              gridLineColor: '#2b313a',
 	              gridLineWidth: 1,
+	              type: 'datetime',
 	              labels: {
 	                style: {
 	                  color: '#FFF'
@@ -2918,7 +2906,7 @@
 	              }
 	            }, {
 	              name: 'co',
-	              data: _this2.state.aqiArray.CO2,
+	              data: _this2.state.aqiArray.co,
 	              fillColor: 'rgba(255,255,255, 0.1)',
 	              marker: {
 	                enabled: false
@@ -2988,39 +2976,23 @@
 	            }
 
 	            _this3.props.analysisData.map(function (e) {
-	              var a = new Date(e.payload.d.t * 1000);
-	              var month = a.getMonth();
-	              var date = a.getDate() + 'th';
-	              var year = a.getFullYear();
-	              var hour = a.getHours();
-	              var min = a.getMinutes();
-	              if (min < 10) {
-	                min = '0' + min;
-	              }
-	              var Time = hour + ':' + min;
-	              if (hour >= 12) {
-	                timeArr.unshift(Time + 'pm');
-	              } else {
-	                timeArr.unshift(Time + 'am');
-	              }
-	              var fullDate = _moment2.default.unix(e.payload.d.t).format('Do/MM/YYYY');
-	              var pos = diffDayArray.indexOf(fullDate);
-	              if (pos > -1) {
-	                changeData = true;
-	                temp.AQI.unshift(e.aqi);
-	                temp.CO2.unshift(e.payload.d.co);
-	                temp.SO2.unshift(e.payload.d.so2);
-	                temp.NO2.unshift(e.payload.d.no2);
-	                temp.PM10.unshift(e.payload.d.pm10);
-	                temp.PM25.unshift(e.payload.d.pm25);
-	              }
+
+	              var a = (19800 + parseInt(e.payload.d.t)) * 1000;
+
+	              changeData = true;
+	              temp.AQI.unshift([a, e.aqi]);
+	              temp.co.unshift([a, e.payload.d.co]);
+	              temp.SO2.unshift([a, e.payload.d.so2]);
+	              temp.NO2.unshift([a, e.payload.d.no2]);
+	              temp.PM10.unshift([a, e.payload.d.pm10]);
+	              temp.PM25.unshift([a, e.payload.d.pm25]);
 	            });
 	            if (changeData == true) {
 	              _this3.setState({ aqiArray: temp });
 	            } else {
 	              var aqiArray = _this3.state.aqiArray;
 	              aqiArray.AQI = [];
-	              aqiArray.CO2 = [];
+	              aqiArray.co = [];
 	              aqiArray.SO2 = [];
 	              aqiArray.NO2 = [];
 	              aqiArray.PM10 = [];
@@ -3054,7 +3026,7 @@
 	              },
 
 	              xAxis: {
-	                categories: timeArr,
+	                type: 'datetime',
 	                gridLineColor: '#2b313a',
 	                gridLineWidth: 1,
 	                labels: {
@@ -3086,7 +3058,7 @@
 	                }
 	              }, {
 	                name: 'co',
-	                data: _this3.state.aqiArray.CO2,
+	                data: _this3.state.aqiArray.co,
 	                fillColor: 'rgba(255,255,255, 0.1)',
 	                marker: {
 	                  enabled: false
@@ -3168,7 +3140,7 @@
 	          },
 	          id: list,
 	          className: index === 0 ? 'active' : ''
-	        }, list, list == 'co' ? list + '2' : list);
+	        }, list, list == 'co' ? list : list);
 	      })), _jsx('div', {
 	        className: 'chart-btn-group'
 	      }, void 0, _jsx('a', {
@@ -3268,7 +3240,7 @@
 
 	var _ref2 = _jsx('span', {
 	  className: 'ppc-title'
-	}, void 0, 'CO', _jsx('sub', {}, void 0, '2'));
+	}, void 0, 'CO', _jsx('sub', {}));
 
 	var _ref3 = _jsx('small', {}, void 0, '(ug/m3)');
 
