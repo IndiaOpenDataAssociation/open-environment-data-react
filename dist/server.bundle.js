@@ -2801,7 +2801,8 @@
 	    _this.state = {
 	      aqiArray: { 'AQI': [], 'co': [], 'SO2': [], 'NO2': [], 'PM10': [], 'PM25': [] },
 	      chartList: ['aqi', 'co', 'so2', 'no2', 'pm10', 'pm25'],
-	      gasesInfo: 'AQI'
+	      gasesInfo: 'AQI',
+	      dump: false
 	    };
 	    _this.displayGraph = _this.displayGraph.bind(_this);
 	    _this.renderChartOnData = _this.renderChartOnData.bind(_this);
@@ -3031,14 +3032,14 @@
 	        },
 	        series: [{
 	          name: 'aqi',
-	          data: this.state.aqiArray.AQI,
+	          data: Data.AQI,
 	          fillColor: 'rgba(255,255,255, 0.1)',
 	          marker: {
 	            enabled: false
 	          }
 	        }, {
 	          name: 'co',
-	          data: this.state.aqiArray.co,
+	          data: Data.co,
 	          fillColor: 'rgba(255,255,255, 0.1)',
 	          marker: {
 	            enabled: false
@@ -3046,7 +3047,7 @@
 	          visible: false
 	        }, {
 	          name: 'so2',
-	          data: this.state.aqiArray.SO2,
+	          data: Data.SO2,
 	          fillColor: 'rgba(255,255,255, 0.1)',
 	          marker: {
 	            enabled: false
@@ -3054,7 +3055,7 @@
 	          visible: false
 	        }, {
 	          name: 'no2',
-	          data: this.state.aqiArray.NO2,
+	          data: Data.NO2,
 	          fillColor: 'rgba(255,255,255, 0.1)',
 	          marker: {
 	            enabled: false
@@ -3062,7 +3063,7 @@
 	          visible: false
 	        }, {
 	          name: 'pm10',
-	          data: this.state.aqiArray.PM10,
+	          data: Data.PM10,
 	          fillColor: 'rgba(255,255,255, 0.1)',
 	          marker: {
 	            enabled: false
@@ -3070,7 +3071,7 @@
 	          visible: false
 	        }, {
 	          name: 'pm25',
-	          data: this.state.aqiArray.PM25,
+	          data: Data.PM25,
 	          fillColor: 'rgba(255,255,255, 0.1)',
 	          marker: {
 	            enabled: false
@@ -3119,41 +3120,32 @@
 	                  aqiArray.PM25.unshift([a, e.payload.d.pm25]);
 	                });
 	                this.setState({ aqiArray: aqiArray });
-	                this.renderChartOnData();
+	                this.renderChartOnData(aqiArray);
 	              }.bind(_this3));
 	            } else {
 	              (function () {
 	                Data = _this3.props.analysisData;
-
-	                var temp = _this3.state.aqiArray;
+	                var from = (19800 + (0, _moment2.default)(nextProps.fromDate, "DD-MM-YYYY").unix()) * 1000;
+	                var to = (19800 + (0, _moment2.default)(nextProps.toDate, "DD-MM-YYYY").add(1, 'days').unix()) * 1000;
+	                var temp = { 'AQI': [], 'co': [], 'SO2': [], 'NO2': [], 'PM10': [], 'PM25': [] };
 	                Data.map(function (e) {
 	                  // // let xaxis = (19800 + parseInt(e.payload.d.t))*1000;
 	                  // let date = moment.unix(e.payload.d.t).format('Do/MM/YYYY');
 	                  // let a = (19800 + moment(date, 'DD/MM/YYYY').unix())*1000;
 	                  // changedTimeArray = this.sortedPush(changedTimeArray, a);
-	                  var a = (19800 + parseInt(e.payload.d.t)) * 1000;
-	                  changeData = true;
-	                  temp.AQI.unshift([a, e.aqi]);
-	                  temp.co.unshift([a, e.payload.d.co]);
-	                  temp.SO2.unshift([a, e.payload.d.so2]);
-	                  temp.NO2.unshift([a, e.payload.d.no2]);
-	                  temp.PM10.unshift([a, e.payload.d.pm10]);
-	                  temp.PM25.unshift([a, e.payload.d.pm25]);
-	                });
-	                if (changeData == true) {
-	                  _this3.setState({ aqiArray: temp });
-	                } else {
-	                  var aqiArray = _this3.state.aqiArray;
-	                  aqiArray.AQI = [];
-	                  aqiArray.co = [];
-	                  aqiArray.SO2 = [];
-	                  aqiArray.NO2 = [];
-	                  aqiArray.PM10 = [];
-	                  aqiArray.PM25 = [];
 
-	                  _this3.setState({ aqiArray: aqiArray });
-	                }
-	                _this3.renderChartOnData();
+	                  var a = (19800 + parseInt(e.payload.d.t)) * 1000;
+	                  if (a < to && a > from) {
+	                    temp.AQI.unshift([a, e.aqi]);
+	                    temp.co.unshift([a, e.payload.d.co]);
+	                    temp.SO2.unshift([a, e.payload.d.so2]);
+	                    temp.NO2.unshift([a, e.payload.d.no2]);
+	                    temp.PM10.unshift([a, e.payload.d.pm10]);
+	                    temp.PM25.unshift([a, e.payload.d.pm25]);
+	                  }
+	                });
+	                _this3.setState({ aqiArray: temp });
+	                _this3.renderChartOnData(temp);
 	              })();
 	            }
 	          })();
