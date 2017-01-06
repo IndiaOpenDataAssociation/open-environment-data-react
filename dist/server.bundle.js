@@ -405,6 +405,7 @@
 	    _this.handleToDt = _this.handleToDt.bind(_this);
 	    _this.handleDtChange = _this.handleDtChange.bind(_this);
 	    _this.handleDownload = _this.handleDownload.bind(_this);
+	    _this.emptyDate = _this.emptyDate.bind(_this);
 	    return _this;
 	  }
 
@@ -558,6 +559,12 @@
 	      this.setState({ fromDate: fromDate });
 	    }
 	  }, {
+	    key: 'emptyDate',
+	    value: function emptyDate() {
+	      this.setState({ toDate: '' });
+	      this.setState({ fromDate: '' });
+	    }
+	  }, {
 	    key: 'handleDownload',
 	    value: function handleDownload() {
 	      if (typeof window !== 'undefined') {
@@ -648,7 +655,8 @@
 	        time: this.state.time,
 	        markerId: this.state.marker_id,
 	        fromDate: this.state.fromDate,
-	        toDate: this.state.toDate
+	        toDate: this.state.toDate,
+	        emptyDate: this.emptyDate
 	      })))) : null : null)), _ref16);
 	    }
 	  }]);
@@ -2959,6 +2967,11 @@
 	        })();
 	      }
 	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      this.props.emptyDate();
+	    }
 
 	    // sortedPush( timeArray, value ) {
 	    //   timeArray.splice( _.sortedIndex( timeArray, value ), 0, value );
@@ -2994,9 +3007,9 @@
 	        },
 
 	        xAxis: {
-	          type: 'datetime',
 	          gridLineColor: '#2b313a',
 	          gridLineWidth: 1,
+	          type: 'datetime',
 	          labels: {
 	            style: {
 	              color: '#FFF'
@@ -3086,26 +3099,26 @@
 	              diffDayArray.push((19800 + incre.unix()) * 1000);
 	            }
 
-	            console.log('diff', diffDayArray);
 	            var Data = [];
 	            if (diffN >= 3) {
 	              var lte = parseInt(new Date().getTime() / 1000);
 	              var today = new Date();
 	              var gte = parseInt(new Date(today.getTime() - 1 * 24 * 60 * 60 * 1000).getTime() / 1000);
-	              console.log(_this3.props.id, gte, lte);
 	              _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/data/daily/' + _this3.props.id + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
 	                Data = res.body;
-	                var a = (19800 + parseInt(Data[0].payload.d.t)) * 1000;
-	                var aqiArray = this.state.aqiArray;
-	                aqiArray.AQI = [a, Data[0].aqi];
-	                aqiArray.co = [a, Data[0].payload.d.co];
-	                aqiArray.SO2 = [a, Data[0].payload.d.so2];
-	                aqiArray.NO2 = [a, Data[0].payload.d.no2];
-	                aqiArray.PM10 = [a, Data[0].payload.d.pm10];
-	                aqiArray.PM25 = [a, Data[0].payload.d.pm25];
 
+	                var aqiArray = { 'AQI': [], 'co': [], 'SO2': [], 'NO2': [], 'PM10': [], 'PM25': [] };
+	                Data.map(function (e) {
+	                  var a = (19800 + parseInt(e.payload.d.t)) * 1000;
+
+	                  aqiArray.AQI.unshift([a, e.aqi]);
+	                  aqiArray.co.unshift([a, e.payload.d.co]);
+	                  aqiArray.SO2.unshift([a, e.payload.d.so2]);
+	                  aqiArray.NO2.unshift([a, e.payload.d.no2]);
+	                  aqiArray.PM10.unshift([a, e.payload.d.pm10]);
+	                  aqiArray.PM25.unshift([a, e.payload.d.pm25]);
+	                });
 	                this.setState({ aqiArray: aqiArray });
-
 	                this.renderChartOnData();
 	              }.bind(_this3));
 	            } else {
@@ -3114,7 +3127,6 @@
 
 	                var temp = _this3.state.aqiArray;
 	                Data.map(function (e) {
-	                  console.log(e);
 	                  // // let xaxis = (19800 + parseInt(e.payload.d.t))*1000;
 	                  // let date = moment.unix(e.payload.d.t).format('Do/MM/YYYY');
 	                  // let a = (19800 + moment(date, 'DD/MM/YYYY').unix())*1000;
@@ -3336,6 +3348,11 @@
 	      }.bind(this));
 	    }
 	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      this.props.emptyDate();
+	    }
+	  }, {
 	    key: 'displayTime',
 	    value: function displayTime() {
 	      var a = new Date(this.props.time * 1000);
@@ -3517,7 +3534,8 @@
 	        changeGraphData: this.changeGraphData,
 	        fromDate: this.props.fromDate,
 	        toDate: this.props.toDate,
-	        id: this.props.markerId
+	        id: this.props.markerId,
+	        emptyDate: this.props.emptyDate
 	      }) : _jsx(_CalendarView2.default, {
 	        changeGraphData: this.changeGraphData,
 	        activeGraph: this.state.activeGraph,
