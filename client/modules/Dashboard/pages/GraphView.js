@@ -5,7 +5,7 @@ import moment from 'moment'
 import superagent from 'superagent'
 import _ from 'lodash'
 
-let arr = {'AQI': []}, newTime, chart, diffDayArray=[], changedTimeArray = [];
+let arr = {'AQI': []}, newTime, chart, diffDayArray = [], changedTimeArray = [];
 
 let changeData = false
 
@@ -18,7 +18,8 @@ export default class GraphView extends Component {
     this.state = {
       aqiArray: {'AQI': [], 'co': [], 'SO2': [], 'NO2': [], 'PM10': [], 'PM25': []},
       chartList: ['aqi', 'co', 'so2', 'no2', 'pm10', 'pm25'],
-      gasesInfo: 'AQI'
+      gasesInfo: 'AQI',
+      dump:false
     }
     this.displayGraph = this.displayGraph.bind(this)
     this.renderChartOnData = this.renderChartOnData.bind(this)
@@ -29,14 +30,14 @@ export default class GraphView extends Component {
       let temp = this.state.aqiArray
       let todayDt = parseInt(new Date().getTime() / 1000)
       this.props.analysisData.map((e) => {
-        let a = (19800 + parseInt(e.payload.d.t))*1000;
+        let a = (19800 + parseInt(e.payload.d.t)) * 1000;
 
-        temp.AQI.unshift([a,e.aqi])
-        temp.co.unshift([a,e.payload.d.co])
-        temp.SO2.unshift([a,e.payload.d.so2])
-        temp.NO2.unshift([a,e.payload.d.no2])
-        temp.PM10.unshift([a,e.payload.d.pm10])
-        temp.PM25.unshift([a,e.payload.d.pm25])
+        temp.AQI.unshift([a, e.aqi])
+        temp.co.unshift([a, e.payload.d.co])
+        temp.SO2.unshift([a, e.payload.d.so2])
+        temp.NO2.unshift([a, e.payload.d.no2])
+        temp.PM10.unshift([a, e.payload.d.pm10])
+        temp.PM25.unshift([a, e.payload.d.pm25])
 
 
         if (e.payload.d.pm10 == undefined) {
@@ -101,7 +102,7 @@ export default class GraphView extends Component {
         },
 
         global: {
-            useUTC: false
+          useUTC: false
         },
 
         xAxis: {
@@ -187,7 +188,7 @@ export default class GraphView extends Component {
     }
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.props.emptyDate()
   }
 
@@ -196,7 +197,7 @@ export default class GraphView extends Component {
   //   return timeArray;
   // }
 
-  renderChartOnData(Data){
+  renderChartOnData(Data) {
     chart = Highcharts.chart(this.refs.highchart, {
       chart: {
         backgroundColor: 'transparent',
@@ -248,7 +249,7 @@ export default class GraphView extends Component {
       series: [
         {
           name: 'aqi',
-          data: this.state.aqiArray.AQI,
+          data: Data.AQI,
           fillColor: 'rgba(255,255,255, 0.1)',
           marker: {
             enabled: false
@@ -256,7 +257,7 @@ export default class GraphView extends Component {
         },
         {
           name: 'co',
-          data: this.state.aqiArray.co,
+          data: Data.co,
           fillColor: 'rgba(255,255,255, 0.1)',
           marker: {
             enabled: false
@@ -265,7 +266,7 @@ export default class GraphView extends Component {
         },
         {
           name: 'so2',
-          data: this.state.aqiArray.SO2,
+          data: Data.SO2,
           fillColor: 'rgba(255,255,255, 0.1)',
           marker: {
             enabled: false
@@ -274,7 +275,7 @@ export default class GraphView extends Component {
         },
         {
           name: 'no2',
-          data: this.state.aqiArray.NO2,
+          data: Data.NO2,
           fillColor: 'rgba(255,255,255, 0.1)',
           marker: {
             enabled: false
@@ -283,7 +284,7 @@ export default class GraphView extends Component {
         },
         {
           name: 'pm10',
-          data: this.state.aqiArray.PM10,
+          data: Data.PM10,
           fillColor: 'rgba(255,255,255, 0.1)',
           marker: {
             enabled: false
@@ -292,7 +293,7 @@ export default class GraphView extends Component {
         },
         {
           name: 'pm25',
-          data: this.state.aqiArray.PM25,
+          data: Data.PM25,
           fillColor: 'rgba(255,255,255, 0.1)',
           marker: {
             enabled: false
@@ -304,7 +305,7 @@ export default class GraphView extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.fromDate != nextProps.fromDate || this.props.toDate != nextProps.toDate) {
+    if (this.props.fromDate != nextProps.fromDate || this.props.toDate != nextProps.toDate) {
       var diff = moment(nextProps.toDate, "DD/MM/YYYY").diff(moment(nextProps.fromDate, "DD/MM/YYYY"))
       diff = moment.duration(diff)
       var diffN = diff.asDays()
@@ -312,11 +313,11 @@ export default class GraphView extends Component {
         diffDayArray = []
         for (let i = 0; i <= diffN; i++) {
           var incre = moment(nextProps.fromDate, "DD-MM-YYYY").add(i, 'days');
-          diffDayArray.push((19800 + incre.unix())*1000);
+          diffDayArray.push((19800 + incre.unix()) * 1000);
         }
 
         let Data = [];
-        if(diffN >= 3){
+        if (diffN >= 3) {
           let lte = parseInt(new Date().getTime() / 1000)
           let today = new Date()
           let gte = parseInt(new Date(today.getTime() - 1 * 24 * 60 * 60 * 1000).getTime() / 1000);
@@ -325,52 +326,42 @@ export default class GraphView extends Component {
 
             let aqiArray = {'AQI': [], 'co': [], 'SO2': [], 'NO2': [], 'PM10': [], 'PM25': []}
             Data.map((e) => {
-              let a = (19800 + parseInt(e.payload.d.t))*1000;
+              let a = (19800 + parseInt(e.payload.d.t)) * 1000;
 
-              aqiArray.AQI.unshift([a,e.aqi])
-              aqiArray.co.unshift([a,e.payload.d.co])
-              aqiArray.SO2.unshift([a,e.payload.d.so2])
-              aqiArray.NO2.unshift([a,e.payload.d.no2])
-              aqiArray.PM10.unshift([a,e.payload.d.pm10])
-              aqiArray.PM25.unshift([a,e.payload.d.pm25])
+              aqiArray.AQI.unshift([a, e.aqi])
+              aqiArray.co.unshift([a, e.payload.d.co])
+              aqiArray.SO2.unshift([a, e.payload.d.so2])
+              aqiArray.NO2.unshift([a, e.payload.d.no2])
+              aqiArray.PM10.unshift([a, e.payload.d.pm10])
+              aqiArray.PM25.unshift([a, e.payload.d.pm25])
             })
             this.setState({aqiArray: aqiArray})
-            this.renderChartOnData()
+            this.renderChartOnData(aqiArray)
           }.bind(this))
         }
-      else{
+        else {
           Data = this.props.analysisData;
-
-          let temp = this.state.aqiArray
+          let from = (19800 + moment(nextProps.fromDate, "DD-MM-YYYY").unix()) * 1000;
+          let to = (19800 + moment(nextProps.toDate, "DD-MM-YYYY").add(1, 'days').unix()) * 1000;
+          let temp = {'AQI': [], 'co': [], 'SO2': [], 'NO2': [], 'PM10': [], 'PM25': []}
           Data.map((e) => {
             // // let xaxis = (19800 + parseInt(e.payload.d.t))*1000;
             // let date = moment.unix(e.payload.d.t).format('Do/MM/YYYY');
             // let a = (19800 + moment(date, 'DD/MM/YYYY').unix())*1000;
             // changedTimeArray = this.sortedPush(changedTimeArray, a);
-            let a = (19800 + parseInt(e.payload.d.t))*1000;
-            changeData = true
-            temp.AQI.unshift([a,e.aqi])
-            temp.co.unshift([a,e.payload.d.co])
-            temp.SO2.unshift([a,e.payload.d.so2])
-            temp.NO2.unshift([a,e.payload.d.no2])
-            temp.PM10.unshift([a,e.payload.d.pm10])
-            temp.PM25.unshift([a,e.payload.d.pm25])
-          })
-          if (changeData == true) {
-            this.setState({aqiArray: temp})
-          }
-          else {
-            let aqiArray = this.state.aqiArray
-            aqiArray.AQI = []
-            aqiArray.co = []
-            aqiArray.SO2 = []
-            aqiArray.NO2 = []
-            aqiArray.PM10 = []
-            aqiArray.PM25 = []
 
-            this.setState({aqiArray: aqiArray})
-          }
-          this.renderChartOnData()
+            let a = (19800 + parseInt(e.payload.d.t)) * 1000;
+            if (a < to && a > from) {
+              temp.AQI.unshift([a,e.aqi])
+              temp.co.unshift([a,e.payload.d.co])
+              temp.SO2.unshift([a,e.payload.d.so2])
+              temp.NO2.unshift([a,e.payload.d.no2])
+              temp.PM10.unshift([a,e.payload.d.pm10])
+              temp.PM25.unshift([a,e.payload.d.pm25])
+            }
+          });
+          this.setState({aqiArray: temp})
+          this.renderChartOnData(temp)
         }
       }
     }
@@ -635,4 +626,3 @@ export default class GraphView extends Component {
     )
   }
 }
-
