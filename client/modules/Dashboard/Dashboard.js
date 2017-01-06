@@ -30,6 +30,7 @@ export default class Dashboard extends Component {
     this.handleToDt = this.handleToDt.bind(this)
     this.handleDtChange = this.handleDtChange.bind(this)
     this.handleDownload = this. handleDownload.bind(this)
+    this.emptyDate = this.emptyDate.bind(this)
   }
 
   getState() {
@@ -175,6 +176,11 @@ export default class Dashboard extends Component {
     this.setState({fromDate: fromDate})
   }
 
+  emptyDate(){
+    this.setState({toDate: ''})
+    this.setState({fromDate: ''})
+  }
+
   handleDownload(){
     if (typeof window !== 'undefined') {
       window.open(`http://api.airpollution.online/csv/retrive/${this.state.marker_id}/${this.state.gte}/${this.state.lte}`, '_self');
@@ -270,7 +276,7 @@ export default class Dashboard extends Component {
 
                                   <div className="col-sm-7 dtpicker">
                                     <small>From</small><Datetime className="fromDt" timeFormat={false} onChange={this.handleFromDt}/>
-                                    <small>To</small><Datetime className="toDt" timeFormat={false}onChange={this.handleToDt}/>
+                                    <small>To</small><Datetime className="toDt" timeFormat={false} onChange={this.handleToDt}/>
                                     <button onClick={this.handleDtChange}><i className="fa fa-arrow-right"></i></button>
                                   </div>
                                   <span className="download-csv" onClick={this.handleDownload}><i className="fa fa-download"></i>CSV</span>
@@ -288,6 +294,7 @@ export default class Dashboard extends Component {
                                 markerId={this.state.marker_id}
                                 fromDate={this.state.fromDate}
                                 toDate={this.state.toDate}
+                                emptyDate = {this.emptyDate}
                               />
                             </div>
 

@@ -17,6 +17,9 @@ export default class LatestDevice extends Component {
     }.bind(this))
   }
 
+  componentWillUnmount(){
+     this.props.emptyDate()
+  }
 
   displayTime() {
     let a = new Date(this.props.time * 1000)
@@ -346,6 +349,7 @@ export default class LatestDevice extends Component {
                   fromDate={this.props.fromDate}
                   toDate={this.props.toDate}
                   id={this.props.markerId}
+                  emptyDate = {this.props.emptyDate}
                 />
               :
                 <CalendarView

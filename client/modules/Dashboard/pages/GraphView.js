@@ -187,6 +187,10 @@ export default class GraphView extends Component {
     }
   }
 
+  componentWillUnmount(){
+    this.props.emptyDate()
+  }
+
   // sortedPush( timeArray, value ) {
   //   timeArray.splice( _.sortedIndex( timeArray, value ), 0, value );
   //   return timeArray;
@@ -219,9 +223,9 @@ export default class GraphView extends Component {
       },
 
       xAxis: {
-        type: 'datetime',
         gridLineColor: '#2b313a',
         gridLineWidth: 1,
+        type: 'datetime',
         labels: {
           style: {
             color: '#FFF'
@@ -298,6 +302,7 @@ export default class GraphView extends Component {
       ]
     })
   }
+
   componentWillReceiveProps(nextProps) {
     if(this.props.fromDate != nextProps.fromDate || this.props.toDate != nextProps.toDate) {
       var diff = moment(nextProps.toDate, "DD/MM/YYYY").diff(moment(nextProps.fromDate, "DD/MM/YYYY"))
@@ -310,26 +315,26 @@ export default class GraphView extends Component {
           diffDayArray.push((19800 + incre.unix())*1000);
         }
 
-        console.log('diff',diffDayArray)
         let Data = [];
         if(diffN >= 3){
           let lte = parseInt(new Date().getTime() / 1000)
           let today = new Date()
           let gte = parseInt(new Date(today.getTime() - 1 * 24 * 60 * 60 * 1000).getTime() / 1000);
-          console.log(this.props.id, gte, lte)
           superagent.get('https://openenvironment.p.mashape.com/all/public/data/daily/' + this.props.id + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
             Data = res.body
-            let a = (19800 + parseInt(Data[0].payload.d.t))*1000;
-            let aqiArray = this.state.aqiArray
-            aqiArray.AQI = [a,Data[0].aqi]
-            aqiArray.co = [a,Data[0].payload.d.co]
-            aqiArray.SO2 = [a,Data[0].payload.d.so2]
-            aqiArray.NO2 = [a,Data[0].payload.d.no2]
-            aqiArray.PM10 = [a,Data[0].payload.d.pm10]
-            aqiArray.PM25 = [a,Data[0].payload.d.pm25]
 
+            let aqiArray = {'AQI': [], 'co': [], 'SO2': [], 'NO2': [], 'PM10': [], 'PM25': []}
+            Data.map((e) => {
+              let a = (19800 + parseInt(e.payload.d.t))*1000;
+
+              aqiArray.AQI.unshift([a,e.aqi])
+              aqiArray.co.unshift([a,e.payload.d.co])
+              aqiArray.SO2.unshift([a,e.payload.d.so2])
+              aqiArray.NO2.unshift([a,e.payload.d.no2])
+              aqiArray.PM10.unshift([a,e.payload.d.pm10])
+              aqiArray.PM25.unshift([a,e.payload.d.pm25])
+            })
             this.setState({aqiArray: aqiArray})
-
             this.renderChartOnData()
           }.bind(this))
         }
@@ -338,7 +343,6 @@ export default class GraphView extends Component {
 
           let temp = this.state.aqiArray
           Data.map((e) => {
-            console.log(e)
             // // let xaxis = (19800 + parseInt(e.payload.d.t))*1000;
             // let date = moment.unix(e.payload.d.t).format('Do/MM/YYYY');
             // let a = (19800 + moment(date, 'DD/MM/YYYY').unix())*1000;
