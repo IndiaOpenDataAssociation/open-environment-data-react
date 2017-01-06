@@ -3016,7 +3016,6 @@
 	            text: null
 	          }
 	        },
-
 	        series: [{
 	          name: 'aqi',
 	          data: this.state.aqiArray.AQI,

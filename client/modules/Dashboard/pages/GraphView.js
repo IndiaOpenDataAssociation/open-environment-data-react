@@ -3,13 +3,11 @@ import DropdownButton from 'react-bootstrap/lib/DropdownButton'
 import MenuItem from 'react-bootstrap/lib/MenuItem'
 import moment from 'moment'
 import superagent from 'superagent'
-
 import _ from 'lodash'
+
 let arr = {'AQI': []}, newTime, chart, diffDayArray=[], changedTimeArray = [];
 
 let changeData = false
-
-
 
 export default class GraphView extends Component {
 
@@ -243,7 +241,6 @@ export default class GraphView extends Component {
           text: null
         }
       },
-
       series: [
         {
           name: 'aqi',
@@ -371,7 +368,6 @@ export default class GraphView extends Component {
           }
           this.renderChartOnData()
         }
-
       }
     }
 

@@ -126,6 +126,7 @@ export default class Dashboard extends Component {
 
   }
 
+
   handleMarkerClick(targetMarker, index) {
 
     this.setState({
