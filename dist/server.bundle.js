@@ -369,7 +369,39 @@
 	  className: 'fa fa-close'
 	});
 
-	var _ref16 = _jsx('div', {
+	var _ref16 = _jsx('img', {
+	  src: '../../assets/images/CPCB.png'
+	});
+
+	var _ref17 = _jsx('img', {
+	  src: '../../assets/images/AIROWL3G.png'
+	});
+
+	var _ref18 = _jsx('img', {
+	  src: '../../assets/images/POLLUDRON_PUBLIC.png'
+	});
+
+	var _ref19 = _jsx('br', {});
+
+	var _ref20 = _jsx('br', {});
+
+	var _ref21 = _jsx('i', {
+	  className: 'fa fa-close'
+	});
+
+	var _ref22 = _jsx('i', {
+	  className: 'fa fa-arrow-right white'
+	});
+
+	var _ref23 = _jsx('i', {
+	  className: 'fa fa-arrow-right white'
+	});
+
+	var _ref24 = _jsx('i', {
+	  className: 'fa fa-download white'
+	});
+
+	var _ref25 = _jsx('div', {
 	  className: 'dashboard-footer'
 	}, void 0, _jsx('a', {
 	  href: 'http://indiaopendata.com/',
@@ -435,15 +467,18 @@
 	        fromDate: '',
 	        toDate: '',
 	        gte: '',
-	        lte: ''
+	        lte: '',
+	        windowWidth: ''
 	      };
 	    }
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
+	      var width = window.innerWidth || documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
 	      this.setState({
 	        gte: (0, _moment2.default)().unix(),
-	        lte: (0, _moment2.default)().subtract(5, 'days').unix()
+	        lte: (0, _moment2.default)().subtract(5, 'days').unix(),
+	        windowWidth: width
 	      });
 
 	      _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/devices').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
@@ -608,8 +643,8 @@
 	      }, void 0, _jsx('a', {
 	        className: 'open-panel',
 	        onClick: this.openPanel
-	      }, void 0, _ref5)), this.state.show_panel ? this.state.realTimedataLoading == false && this.state.analyticsdataLoading == false ? _jsx('div', {
-	        className: 'review-panel'
+	      }, void 0, _ref5)), this.state.show_panel ? this.state.realTimedataLoading == false && this.state.analyticsdataLoading == false ? this.state.windowWidth > 500 ? _jsx('div', {
+	        className: 'review-panel desktop-view'
 	      }, void 0, _jsx('div', {
 	        className: 'panel panel-default'
 	      }, void 0, _jsx('div', {
@@ -657,7 +692,61 @@
 	        fromDate: this.state.fromDate,
 	        toDate: this.state.toDate,
 	        emptyDate: this.emptyDate
-	      })))) : null : null)), _ref16);
+	      })))) : _jsx('div', {
+	        className: 'mobile-view'
+	      }, void 0, _jsx('div', {
+	        className: 'review-mob-panel'
+	      }, void 0, _jsx('div', {
+	        className: 'panel panel-default'
+	      }, void 0, _jsx('div', {
+	        className: 'panel-heading'
+	      }, void 0, _jsx('div', {
+	        className: 'row'
+	      }, void 0, _jsx('div', {
+	        className: 'col-xs-10'
+	      }, void 0, _jsx('div', {
+	        className: 'inner-block'
+	      }, void 0, _jsx('div', {
+	        className: 'blot'
+	      }, void 0, this.state.realTimeData[0].type == 'CPCB' ? _ref16 : this.state.realTimeData[0].type == 'AIROWL3G' || this.state.realTimeData[0].type == 'AIROWLWI' ? _ref17 : _ref18), _jsx('span', {
+	        className: 'device-label'
+	      }, void 0, this.state.realTimeData[0].label, ', ', this.state.realTimeData[0].city, ', ', this.state.realTimeData[0].country), _ref19, _jsx('small', {
+	        className: 'device-type'
+	      }, void 0, this.state.realTimeData[0].type), _ref20)), _jsx('div', {
+	        className: 'col-xs-2'
+	      }, void 0, _jsx('span', {
+	        className: 'text-right close-panel',
+	        onClick: this.closePanel
+	      }, void 0, _ref21))), _jsx('div', {
+	        className: 'row'
+	      }, void 0, _jsx('div', {
+	        className: 'col-xs-10 dtpicker'
+	      }, void 0, _jsx(_reactDatetime2.default, {
+	        className: 'fromDt',
+	        timeFormat: false,
+	        onChange: this.handleFromDt
+	      }), _ref22, _jsx(_reactDatetime2.default, {
+	        className: 'toDt',
+	        timeFormat: false,
+	        onChange: this.handleToDt
+	      }), _jsx('button', {
+	        onClick: this.handleDtChange
+	      }, void 0, _ref23)), _jsx('div', {
+	        className: 'col-xs-2'
+	      }, void 0, _jsx('span', {
+	        className: 'download-csv',
+	        onClick: this.handleDownload
+	      }, void 0, _ref24)))), _jsx('div', {
+	        className: 'panel-body'
+	      }, void 0, _jsx(_LatestDevice2.default, {
+	        analysisData: this.state.analyticsData,
+	        realtimeData: this.state.realTimeData,
+	        time: this.state.time,
+	        markerId: this.state.marker_id,
+	        fromDate: this.state.fromDate,
+	        toDate: this.state.toDate,
+	        emptyDate: this.emptyDate
+	      }))))) : null : null)), _ref25);
 	    }
 	  }]);
 
@@ -1286,7 +1375,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"main.css": "main-6b2667ec66.css"
+		"main.css": "main-8c02f95605.css"
 	};
 
 /***/ },
@@ -2515,7 +2604,7 @@
 	          chart: {
 	            type: 'heatmap',
 	            backgroundColor: 'transparent',
-	            width: 600,
+	            // width: 600,
 	            height: 300,
 	            plotBorderWidth: 1,
 	            marginTop: 90
@@ -2614,7 +2703,15 @@
 	                textShadow: 'none'
 	              }
 	            }
-	          }]
+	          }],
+	          responsive: {
+	            rules: [{
+	              condition: {
+	                maxWidth: 500
+	              }
+
+	            }]
+	          }
 
 	        });
 
@@ -2866,7 +2963,7 @@
 	          chart = Highcharts.chart(_this2.refs.highchart, {
 	            chart: {
 	              backgroundColor: 'transparent',
-	              width: 600,
+	              // width: 600,
 	              height: 300,
 	              type: 'column'
 	            },
@@ -2963,7 +3060,16 @@
 	                enabled: false
 	              },
 	              visible: false
-	            }]
+	            }],
+
+	            responsive: {
+	              rules: [{
+	                condition: {
+	                  maxWidth: 500
+	                }
+
+	              }]
+	            }
 	          });
 	        })();
 	      }
@@ -2985,7 +3091,7 @@
 	      chart = Highcharts.chart(this.refs.highchart, {
 	        chart: {
 	          backgroundColor: 'transparent',
-	          width: 600,
+	          // width: 600,
 	          height: 300,
 	          type: 'column'
 	        },
@@ -3030,6 +3136,7 @@
 	            text: null
 	          }
 	        },
+
 	        series: [{
 	          name: 'aqi',
 	          data: Data.AQI,
@@ -3077,7 +3184,16 @@
 	            enabled: false
 	          },
 	          visible: false
-	        }]
+	        }],
+
+	        responsive: {
+	          rules: [{
+	            condition: {
+	              maxWidth: 500
+	            }
+
+	          }]
+	        }
 	      });
 	    }
 	  }, {
@@ -3437,7 +3553,7 @@
 	      }, void 0, _jsx('div', {
 	        className: 'row'
 	      }, void 0, _jsx('div', {
-	        className: 'col-sm-4 text-center',
+	        className: 'col-sm-4 col-xs-12 remove-padding text-center',
 	        style: { padding: '30px 0px 30px 20px', position: 'relative' }
 	      }, void 0, _jsx('div', {
 	        className: 'aqi-status'
@@ -3452,7 +3568,7 @@
 	      }, void 0, _jsx('div', {
 	        className: 'row'
 	      }, void 0, latestDevice.payload.d.co != undefined ? _jsx('div', {
-	        className: 'col-md-3 text-center'
+	        className: 'col-md-3 col-xs-3 text-center'
 	      }, void 0, _jsx('div', {
 	        className: 'progress-pie-chart-gas ' + this.getCODegree(latestDevice.payload.d.co).class
 	      }, void 0, _jsx('div', {
@@ -3465,7 +3581,7 @@
 	      }, void 0, _jsx('div', {
 	        className: 'pcc-percents-wrapper-gas'
 	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.co)))), _ref2, _ref3) : null, latestDevice.payload.d.so2 != undefined ? _jsx('div', {
-	        className: 'col-md-3'
+	        className: 'col-md-3 col-xs-3'
 	      }, void 0, _jsx('div', {
 	        className: 'progress-pie-chart-gas ' + this.getSODegree(latestDevice.payload.d.so2).class
 	      }, void 0, _jsx('div', {
@@ -3478,7 +3594,7 @@
 	      }, void 0, _jsx('div', {
 	        className: 'pcc-percents-wrapper-gas'
 	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.so2)))), _ref4, _ref5) : null, latestDevice.payload.d.no2 != undefined ? _jsx('div', {
-	        className: 'col-md-3'
+	        className: 'col-md-3 col-xs-3'
 	      }, void 0, _jsx('div', {
 	        className: 'progress-pie-chart-gas ' + this.getNODegree(latestDevice.payload.d.no2).class
 	      }, void 0, _jsx('div', {
@@ -3491,7 +3607,7 @@
 	      }, void 0, _jsx('div', {
 	        className: 'pcc-percents-wrapper-gas'
 	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.no2)))), _ref6, _ref7) : null, latestDevice.payload.d.pm10 != undefined ? _jsx('div', {
-	        className: 'col-md-3'
+	        className: 'col-md-3 col-xs-3'
 	      }, void 0, _jsx('div', {
 	        className: 'progress-pie-chart-gas ' + this.getPM10Degree(latestDevice.payload.d.pm10).class
 	      }, void 0, _jsx('div', {
@@ -3504,7 +3620,7 @@
 	      }, void 0, _jsx('div', {
 	        className: 'pcc-percents-wrapper-gas'
 	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.pm10)))), _ref8, _ref9) : null, latestDevice.payload.d.pm25 != undefined ? _jsx('div', {
-	        className: 'col-md-3'
+	        className: 'col-md-3 col-xs-3'
 	      }, void 0, _jsx('div', {
 	        className: 'progress-pie-chart-gas ' + this.getPM25Degree(latestDevice.payload.d.pm25).class
 	      }, void 0, _jsx('div', {
@@ -3517,7 +3633,7 @@
 	      }, void 0, _jsx('div', {
 	        className: 'pcc-percents-wrapper-gas'
 	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.pm25)))), _ref10, _ref11) : null))), _jsx('div', {
-	        className: 'col-sm-8',
+	        className: 'col-sm-8 col-xs-12 remove-padding',
 	        style: { padding: '20px' }
 	      }, void 0, this.state.activeGraph === 'graphview' ? _jsx(_GraphView2.default, {
 	        analysisData: this.props.analysisData,
