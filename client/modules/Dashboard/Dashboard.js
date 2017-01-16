@@ -57,14 +57,17 @@ export default class Dashboard extends Component {
       fromDate:'',
       toDate: '',
       gte: '',
-      lte: ''
+      lte: '',
+      windowWidth: '',
     }
   }
 
   componentDidMount() {
+    let width =  window.innerWidth || documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth
     this.setState({
       gte: moment().unix(),
-      lte: moment().subtract(5, 'days').unix()
+      lte: moment().subtract(5, 'days').unix(),
+      windowWidth: width
     })
 
     superagent.get('https://openenvironment.p.mashape.com/all/public/devices').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
@@ -241,7 +244,9 @@ export default class Dashboard extends Component {
                     this.state.realTimedataLoading == false && this.state.analyticsdataLoading == false
                       ?
                       (
-                        <div>
+
+                          this.state.windowWidth > 500
+                          ?
                           <div className="review-panel desktop-view">
                             <div className="panel panel-default">
                               <div className="panel-heading ">
@@ -343,7 +348,7 @@ export default class Dashboard extends Component {
                                </div>*/}
                             </div>
                           </div>
-
+                          :
                           <div className="mobile-view">
                             <div className="review-mob-panel">
                               <div className="panel panel-default">
@@ -407,7 +412,7 @@ export default class Dashboard extends Component {
                               </div>
                             </div>
                           </div>
-                        </div>
+
                       )
                       :
                       null

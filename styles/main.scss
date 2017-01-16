@@ -1832,21 +1832,13 @@ td.rdtYear:hover {
 }
 @import "mobilePanel/panel";
 
-.mobile-view{
-  display: none;
-}
+
 @media (max-width: 767px){
 
   .navbar-brand{
       font-size: 12px;
   }
-  .desktop-view{
-    display: none;
-  }
 
-  .mobile-view{
-    display: block;
-  }
     .partners-list{
       width: auto !important;
       li{
