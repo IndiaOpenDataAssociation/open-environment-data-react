@@ -102,7 +102,7 @@ export default class LatestDevice extends Component {
     return (
       <div className="dashboard-home">
         <div className="row">
-          <div className="col-sm-4 text-center" style={{padding: '30px 0px 30px 20px', position: 'relative'}}>
+          <div className="col-sm-4 col-xs-12 remove-padding text-center" style={{padding: '30px 0px 30px 20px', position: 'relative'}}>
             <div className="aqi-status">
               <p>Current AQI</p>
               <strong className=
@@ -215,7 +215,7 @@ export default class LatestDevice extends Component {
                 {
                   latestDevice.payload.d.co != undefined
                     ?
-                    <div className="col-md-3 text-center">
+                    <div className="col-md-3 col-xs-3 text-center">
 
                       <div className={`progress-pie-chart-gas ${this.getCODegree(latestDevice.payload.d.co).class}`}>
                         <div className="ppc-progress-gas">
@@ -238,7 +238,7 @@ export default class LatestDevice extends Component {
                 {
                   latestDevice.payload.d.so2 != undefined
                     ?
-                    <div className="col-md-3">
+                    <div className="col-md-3 col-xs-3">
                       <div className={`progress-pie-chart-gas ${this.getSODegree(latestDevice.payload.d.so2).class}`}>
                         <div className="ppc-progress-gas">
                           <div className="ppc-progress-fill-gas"
@@ -262,7 +262,7 @@ export default class LatestDevice extends Component {
                 {
                   latestDevice.payload.d.no2 != undefined
                     ?
-                    <div className="col-md-3">
+                    <div className="col-md-3 col-xs-3">
                       <div className={`progress-pie-chart-gas ${this.getNODegree(latestDevice.payload.d.no2).class}`}>
                         <div className="ppc-progress-gas">
                           <div className="ppc-progress-fill-gas"
@@ -286,7 +286,7 @@ export default class LatestDevice extends Component {
                 {
                   latestDevice.payload.d.pm10 != undefined
                     ?
-                    <div className="col-md-3">
+                    <div className="col-md-3 col-xs-3">
                       <div
                         className={`progress-pie-chart-gas ${this.getPM10Degree(latestDevice.payload.d.pm10).class}`}>
                         <div className="ppc-progress-gas">
@@ -311,7 +311,7 @@ export default class LatestDevice extends Component {
                 {
                   latestDevice.payload.d.pm25 != undefined
                     ?
-                    <div className="col-md-3">
+                    <div className="col-md-3 col-xs-3">
                       <div
                         className={`progress-pie-chart-gas ${this.getPM25Degree(latestDevice.payload.d.pm25).class}`}>
                         <div className="ppc-progress-gas">
@@ -337,7 +337,7 @@ export default class LatestDevice extends Component {
             </div>
 
           </div>
-          <div className="col-sm-8" style={{padding: '20px'}}>
+          <div className="col-sm-8 col-xs-12 remove-padding" style={{padding: '20px'}}>
             {
               this.state.activeGraph === 'graphview'
               ?

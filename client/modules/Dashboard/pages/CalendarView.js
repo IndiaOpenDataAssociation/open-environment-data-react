@@ -60,7 +60,7 @@ export default class CalendarView extends Component {
           chart: {
             type: 'heatmap',
             backgroundColor: 'transparent',
-            width: 600,
+            // width: 600,
             height: 300,
             plotBorderWidth: 1,
             marginTop: 90
@@ -171,7 +171,16 @@ export default class CalendarView extends Component {
                 }
               }
             },
-          ]
+          ],
+          responsive: {
+            rules: [{
+              condition: {
+                maxWidth: 500
+              },
+
+
+            }]
+          },
 
         })
 

@@ -1,0 +1,92 @@
+.mobile-view {
+  .white {
+    color: #fff;
+  }
+
+  .rdtPicker{
+    width: 220px;
+  }
+  .panel {
+    position: absolute;
+    top: 0px;
+    right: 0;
+    background: #313841;
+    width: 100%;
+    //height: 92vh;
+    margin: 0;
+
+    .panel-heading {
+      background: #313841;
+      position: fixed;
+      z-index: 1;
+
+      .close-panel {
+        color: #fff;
+      }
+
+      .dtpicker {
+        i {
+          font-weight: lighter;
+        }
+        .fa-arrow-right {
+          margin: 0 10px;
+          font-size: 10px;
+        }
+
+        button {
+          .fa-arrow-right {
+            margin: 0 5px;
+            font-size: 15px;
+          }
+        }
+      }
+
+      .download-csv {
+        i {
+          margin: 0;
+        }
+      }
+    }
+
+    .panel-body{
+      margin-top: 105px;
+    }
+  }
+
+  .remove-padding{
+    padding: 0 !important;
+  }
+
+  .dashboard-home{
+    .aqi-status{
+      padding: 20px;
+      strong{
+        font-size: 70px;
+        margin-top: 15px;
+      }
+      p.aqi-grade{
+        font-size: 15px;
+        margin-bottom: 0 !important;
+      }
+    }
+
+    .gases-details{
+      width: 95%;
+      margin: auto;
+      .progress-pie-chart-gas{
+        margin: auto;
+      }
+    }
+
+    .analytics-div{
+      margin-top: 15px;
+      border-radius: 0;
+    }
+  }
+
+  .chart-indicator{
+    table tbody tr:nth-of-type(2) td{
+      font-size: 14px;
+    }
+  }
+}

@@ -241,105 +241,171 @@ export default class Dashboard extends Component {
                     this.state.realTimedataLoading == false && this.state.analyticsdataLoading == false
                       ?
                       (
-                        <div className="review-panel">
-                          <div className="panel panel-default">
-                            <div className="panel-heading ">
-                              <div className="row">
-                                <div className="col-sm-11 col-xs-11">
-                                  <div className="col-sm-4" style={{position: 'relative'}}>
-                                    <div className="inner-block">
-                                      <div className="blot">
-                                        {
-                                          this.state.realTimeData[0].type == 'CPCB'
-                                          ?
-                                            <img src="../../assets/images/CPCB.png"/>
-                                          :
-                                            (
-                                              this.state.realTimeData[0].type == 'AIROWL3G' || this.state.realTimeData[0].type == 'AIROWLWI'
-                                                ?
-                                                <img src="../../assets/images/AIROWL3G.png"/>
-                                                :
-                                                <img src="../../assets/images/POLLUDRON_PUBLIC.png"/>
+                        <div>
+                          <div className="review-panel desktop-view">
+                            <div className="panel panel-default">
+                              <div className="panel-heading ">
+                                <div className="row">
+                                  <div className="col-sm-11 col-xs-11">
+                                    <div className="col-sm-4" style={{position: 'relative'}}>
+                                      <div className="inner-block">
+                                        <div className="blot">
+                                          {
+                                            this.state.realTimeData[0].type == 'CPCB'
+                                            ?
+                                              <img src="../../assets/images/CPCB.png"/>
+                                            :
+                                              (
+                                                this.state.realTimeData[0].type == 'AIROWL3G' || this.state.realTimeData[0].type == 'AIROWLWI'
+                                                  ?
+                                                  <img src="../../assets/images/AIROWL3G.png"/>
+                                                  :
+                                                  <img src="../../assets/images/POLLUDRON_PUBLIC.png"/>
 
-                                            )
-                                        }
+                                              )
+                                          }
 
+                                        </div>
+                                        <span className="device-label">
+                                          {this.state.realTimeData[0].label}, { this.state.realTimeData[0].city}, { this.state.realTimeData[0].country }
+                                        </span><br/>
+                                        <small className="device-type">
+                                          {this.state.realTimeData[0].type}
+                                        </small><br/>
                                       </div>
-                                      <span className="device-label">
-                                        {this.state.realTimeData[0].label}, { this.state.realTimeData[0].city}, { this.state.realTimeData[0].country }
-                                      </span><br/>
-                                      <small className="device-type">
-                                        {this.state.realTimeData[0].type}
-                                      </small><br/>
+                                    </div>
+
+                                    <div className="col-sm-7 dtpicker">
+                                      <small>From</small><Datetime className="fromDt" timeFormat={false} onChange={this.handleFromDt}/>
+                                      <small>To</small><Datetime className="toDt" timeFormat={false} onChange={this.handleToDt}/>
+                                      <button onClick={this.handleDtChange}><i className="fa fa-arrow-right"></i></button>
+                                    </div>
+                                    <span className="download-csv" onClick={this.handleDownload}><i className="fa fa-download"></i>CSV</span>
+                                  </div>
+                                  <span className="col-sm-1 col-xs-1 text-right close-panel" onClick={this.closePanel}><i
+                                    className="fa fa-close"></i></span>
+                                </div>
+                              </div>
+
+                              <div className="panel-body">
+                                <LatestDevice
+                                  analysisData={this.state.analyticsData}
+                                  realtimeData={this.state.realTimeData}
+                                  time={this.state.time}
+                                  markerId={this.state.marker_id}
+                                  fromDate={this.state.fromDate}
+                                  toDate={this.state.toDate}
+                                  emptyDate = {this.emptyDate}
+                                />
+                              </div>
+
+                              {/*<div className="panel-footer">
+                               <ul className="review-panel-tab">
+                               <a
+                               onClick={() => {this.changeTab('home')}}
+                               className={this.state.active_tab == 'home' ? 'active' : ''}
+                               >
+                               <li>
+                               <img src={this.state.active_tab == 'home' ? 'assets/images/icons/home_b.png' : 'assets/images/icons/home_g.png' }/>
+                               </li>
+                               </a>
+
+                               <a
+                               onClick={() => {
+                               this.state.disable_tab
+                               ?
+                               null
+                               :
+                               this.changeTab('realtime')
+                               }}
+                               className={this.state.active_tab == 'realtime' ? 'active' : ''}>
+                               <li>
+                               <img src={this.state.active_tab == 'realtime' ? 'assets/images/icons/realtime_b.png' : 'assets/images/icons/realtime_g.png' }/>
+                               </li>
+                               </a>
+
+                               <a onClick={() => {
+                               this.state.disable_tab
+                               ?
+                               null
+                               :
+
+                               this.changeTab('analytics')
+
+
+                               }}
+                               className={this.state.active_tab == 'analytics' ? 'active' : ''}>
+                               <li>
+                               <img src={this.state.active_tab == 'analytics' ? 'assets/images/icons/analytics_b.png' : 'assets/images/icons/analytics_g.png' }/>
+                               </li>
+                               </a>
+                               </ul>
+                               </div>*/}
+                            </div>
+                          </div>
+
+                          <div className="mobile-view">
+                            <div className="review-mob-panel">
+                              <div className="panel panel-default">
+                                <div className="panel-heading">
+                                  <div className="row">
+                                    <div className="col-xs-10">
+                                      <div className="inner-block">
+                                        <div className="blot">
+                                          {
+                                            this.state.realTimeData[0].type == 'CPCB'
+                                              ?
+                                              <img src="../../assets/images/CPCB.png"/>
+                                              :
+                                              (
+                                                this.state.realTimeData[0].type == 'AIROWL3G' || this.state.realTimeData[0].type == 'AIROWLWI'
+                                                  ?
+                                                  <img src="../../assets/images/AIROWL3G.png"/>
+                                                  :
+                                                  <img src="../../assets/images/POLLUDRON_PUBLIC.png"/>
+
+                                              )
+                                          }
+
+                                        </div>
+                                          <span className="device-label">
+                                            {this.state.realTimeData[0].label}, { this.state.realTimeData[0].city}, { this.state.realTimeData[0].country }
+                                          </span><br/>
+                                        <small className="device-type">
+                                          {this.state.realTimeData[0].type}
+                                        </small><br/>
+                                      </div>
+                                    </div>
+                                    <div className="col-xs-2">
+                                      <span className="text-right close-panel" onClick={this.closePanel}><i
+                                        className="fa fa-close"></i></span>
                                     </div>
                                   </div>
-
-                                  <div className="col-sm-7 dtpicker">
-                                    <small>From</small><Datetime className="fromDt" timeFormat={false} onChange={this.handleFromDt}/>
-                                    <small>To</small><Datetime className="toDt" timeFormat={false} onChange={this.handleToDt}/>
-                                    <button onClick={this.handleDtChange}><i className="fa fa-arrow-right"></i></button>
+                                  <div className="row">
+                                    <div className="col-xs-10 dtpicker">
+                                      <Datetime className="fromDt" timeFormat={false} onChange={this.handleFromDt}/>
+                                      <i className="fa fa-arrow-right white"></i>
+                                      <Datetime className="toDt" timeFormat={false} onChange={this.handleToDt}/>
+                                      <button onClick={this.handleDtChange}><i className="fa fa-arrow-right white"></i></button>
+                                    </div>
+                                    <div className="col-xs-2">
+                                      <span className="download-csv" onClick={this.handleDownload}><i className="fa fa-download white"></i></span>
+                                    </div>
                                   </div>
-                                  <span className="download-csv" onClick={this.handleDownload}><i className="fa fa-download"></i>CSV</span>
                                 </div>
-                                <span className="col-sm-1 col-xs-1 text-right close-panel" onClick={this.closePanel}><i
-                                  className="fa fa-close"></i></span>
+                                <div className="panel-body">
+                                  <LatestDevice
+                                    analysisData={this.state.analyticsData}
+                                    realtimeData={this.state.realTimeData}
+                                    time={this.state.time}
+                                    markerId={this.state.marker_id}
+                                    fromDate={this.state.fromDate}
+                                    toDate={this.state.toDate}
+                                    emptyDate = {this.emptyDate}
+                                  />
+                                </div>
                               </div>
                             </div>
-
-                            <div className="panel-body">
-                              <LatestDevice
-                                analysisData={this.state.analyticsData}
-                                realtimeData={this.state.realTimeData}
-                                time={this.state.time}
-                                markerId={this.state.marker_id}
-                                fromDate={this.state.fromDate}
-                                toDate={this.state.toDate}
-                                emptyDate = {this.emptyDate}
-                              />
-                            </div>
-
-                            {/*<div className="panel-footer">
-                             <ul className="review-panel-tab">
-                             <a
-                             onClick={() => {this.changeTab('home')}}
-                             className={this.state.active_tab == 'home' ? 'active' : ''}
-                             >
-                             <li>
-                             <img src={this.state.active_tab == 'home' ? 'assets/images/icons/home_b.png' : 'assets/images/icons/home_g.png' }/>
-                             </li>
-                             </a>
-
-                             <a
-                             onClick={() => {
-                             this.state.disable_tab
-                             ?
-                             null
-                             :
-                             this.changeTab('realtime')
-                             }}
-                             className={this.state.active_tab == 'realtime' ? 'active' : ''}>
-                             <li>
-                             <img src={this.state.active_tab == 'realtime' ? 'assets/images/icons/realtime_b.png' : 'assets/images/icons/realtime_g.png' }/>
-                             </li>
-                             </a>
-
-                             <a onClick={() => {
-                             this.state.disable_tab
-                             ?
-                             null
-                             :
-
-                             this.changeTab('analytics')
-
-
-                             }}
-                             className={this.state.active_tab == 'analytics' ? 'active' : ''}>
-                             <li>
-                             <img src={this.state.active_tab == 'analytics' ? 'assets/images/icons/analytics_b.png' : 'assets/images/icons/analytics_g.png' }/>
-                             </li>
-                             </a>
-                             </ul>
-                             </div>*/}
                           </div>
                         </div>
                       )

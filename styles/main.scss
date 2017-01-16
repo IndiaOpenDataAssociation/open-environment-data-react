@@ -142,6 +142,9 @@ section{
 }
 
 //about
+.about, .airowl{
+  padding-bottom: 100px;
+}
 .about-styles{
   background-size: cover;
   background-position: center;
@@ -1827,3 +1830,37 @@ td.rdtYear:hover {
     margin-right: 6px;
   }
 }
+@import "mobilePanel/panel";
+
+.mobile-view{
+  display: none;
+}
+@media (max-width: 767px){
+
+  .navbar-brand{
+      font-size: 12px;
+  }
+  .desktop-view{
+    display: none;
+  }
+
+  .mobile-view{
+    display: block;
+  }
+    .partners-list{
+      width: auto !important;
+      li{
+        list-style-type: none;
+        &:before{
+          content: '\2022';
+          font-size: 20px;
+          margin-right: 10px;
+        }
+      }
+    }
+
+  .about-container p, .api-container p{
+    width: auto !important;
+  }
+}
+

@@ -79,7 +79,7 @@ export default class GraphView extends Component {
       chart = Highcharts.chart(this.refs.highchart, {
         chart: {
           backgroundColor: 'transparent',
-          width: 600,
+          // width: 600,
           height: 300,
           type: 'column',
         },
@@ -183,7 +183,17 @@ export default class GraphView extends Component {
             },
             visible: false
           }
-        ]
+        ],
+
+        responsive: {
+          rules: [{
+            condition: {
+              maxWidth: 500
+            },
+            
+
+          }]
+        },
       })
     }
   }
@@ -201,7 +211,7 @@ export default class GraphView extends Component {
     chart = Highcharts.chart(this.refs.highchart, {
       chart: {
         backgroundColor: 'transparent',
-        width: 600,
+        // width: 600,
         height: 300,
         type: 'column',
       },
@@ -246,6 +256,7 @@ export default class GraphView extends Component {
           text: null
         }
       },
+
       series: [
         {
           name: 'aqi',
@@ -300,7 +311,16 @@ export default class GraphView extends Component {
           },
           visible: false
         }
-      ]
+      ],
+
+      responsive: {
+        rules: [{
+          condition: {
+            maxWidth: 500
+          },
+
+        }]
+      },
     })
   }
 
