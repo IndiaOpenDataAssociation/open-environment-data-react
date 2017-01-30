@@ -1,7 +1,7 @@
 .iframe-container{
   //height: 100vh;
   position: relative;
-  padding: 30px;
+  padding-top: 30px;
 
   .panel{
     //width: 95%;
@@ -10,6 +10,12 @@
     //left: 50%;
     //transform: translate(-50%, -50%);
     border: 1px solid #ddd !important;
+    .panel-title{
+      small{
+        padding-left: 5px;
+        font-weight: bold;
+      }
+    }
 
     .panel-body{
       ul{
@@ -29,6 +35,10 @@
             font-size: 20pt;
             margin-top: 0;
             font-weight: 600;
+            small{
+              font-size: 10pt;
+              padding-left: 5px;
+            }
           }
 
           p{

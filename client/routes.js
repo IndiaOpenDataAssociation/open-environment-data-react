@@ -113,5 +113,14 @@ export default (
       }}
     />
 
+    <Route
+      path="/iframe"
+      getComponent = {(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null,Iframe);
+        });
+      }}
+    />
+
   </Route>
 );
