@@ -12,7 +12,6 @@ export default class Iframe extends Component{
     this.deviceParams = this.props.location.query.devices;
     this.devices = []
     if(this.deviceParams){
-    
        this.devices = this.deviceParams.split(",");
     } else {
       this.devices = null;
@@ -73,13 +72,17 @@ export default class Iframe extends Component{
                       <div className="panel panel-default" key={e.deviceId}>
                         <div className="panel-heading">
                           <h1 className="panel-title text-uppercase">
-                            Kutchch rannotsav
+                            {e.label}
 
                             <small>Last Updated: {moment.unix(e.payload.d.t).format('DD/MM/YYYY, h:mm:ss a')}</small>
                           </h1>
                         </div>
                         <div className="panel-body">
                           <ul className="list-inline">
+                            <li>
+                              <h4>{e.aqi}</h4>
+                              <p>AQI</p>
+                            </li>
                             {
                               Object.keys(e.payload.d).map(function (key){
                                 if(key != 't' && key != 'noise'){
