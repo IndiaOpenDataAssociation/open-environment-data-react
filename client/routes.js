@@ -10,6 +10,8 @@ import Device from './modules/Device/Device'
 import Partner from './modules/Partners/Partners'
 import Airowl from './modules/Airowl/Airowl'
 import Map from './modules/Map/index'
+import Iframe from './modules/iframe/iframe'
+
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
   require.ensure = function requireModule(deps, callback) {
@@ -89,6 +91,15 @@ export default (
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null,Airowl);
+        });
+      }}
+    />
+
+    <Route
+      path="/iframe"
+      getComponent = {(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null,Iframe);
         });
       }}
     />

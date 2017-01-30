@@ -1,0 +1,43 @@
+.iframe-container{
+  //height: 100vh;
+  position: relative;
+  padding: 30px;
+
+  .panel{
+    //width: 95%;
+    //position: absolute;
+    //top: 50%;
+    //left: 50%;
+    //transform: translate(-50%, -50%);
+    border: 1px solid #ddd !important;
+
+    .panel-body{
+      ul{
+        margin: 0;
+
+        li{
+          &:not(:last-child) {
+            border-right: 1px solid #ddd;
+            padding-right: 15px;
+          }
+
+          &:not(:first-child){
+            padding-left: 15px;
+          }
+
+          h4{
+            font-size: 20pt;
+            margin-top: 0;
+            font-weight: 600;
+          }
+
+          p{
+            font-size: 10pt;
+            text-align: center;
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}

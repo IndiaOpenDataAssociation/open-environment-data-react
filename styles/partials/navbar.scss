@@ -1,0 +1,42 @@
+//navbar
+.navbar-inverse{
+  background: #00b3bf;
+  border: none;
+  padding: 0 15px;
+}
+
+.navbar-inverse .navbar-nav>.active>a{
+  background: transparent !important;
+  font-weight: bold !important;
+  color: #fff !important;
+}
+
+.navbar-brand {
+  color: #fff !important;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.navbar-right{
+  margin-top: 6px;
+}
+
+.navbar-right li a{
+  color: #fff !important;
+  font-size: 14px;
+  letter-spacing: 1px;
+  margin-left: 30px;
+  text-transform: uppercase;
+  font-weight: inherit;
+  padding: 8px 15px;
+}
+
+.navbar-right li.custom-navitem a{
+  color: #00b3bf !important;
+  background-color: #fff;
+  border-radius: 6px;
+}
+
+.navbar-right li.custom-navitem a:hover{
+  color: #fff !important;
+}
