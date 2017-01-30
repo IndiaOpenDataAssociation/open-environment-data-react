@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 41);
+/******/ 	return __webpack_require__(__webpack_require__.s = 43);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -65,23 +65,23 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Navbar = __webpack_require__(51);
+	var _Navbar = __webpack_require__(52);
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _Nav = __webpack_require__(49);
+	var _Nav = __webpack_require__(50);
 
 	var _Nav2 = _interopRequireDefault(_Nav);
 
-	var _NavItem = __webpack_require__(50);
+	var _NavItem = __webpack_require__(51);
 
 	var _NavItem2 = _interopRequireDefault(_NavItem);
 
-	var _LinkContainer = __webpack_require__(56);
+	var _LinkContainer = __webpack_require__(57);
 
 	var _LinkContainer2 = _interopRequireDefault(_LinkContainer);
 
-	var _reactRouter = __webpack_require__(3);
+	var _reactRouter = __webpack_require__(4);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -223,13 +223,13 @@
 /* 3 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-router");
+	module.exports = require("superagent");
 
 /***/ },
 /* 4 */
 /***/ function(module, exports) {
 
-	module.exports = require("superagent");
+	module.exports = require("react-router");
 
 /***/ },
 /* 5 */
@@ -280,23 +280,23 @@
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _FormGroup = __webpack_require__(48);
+	var _FormGroup = __webpack_require__(49);
 
 	var _FormGroup2 = _interopRequireDefault(_FormGroup);
 
-	var _FormControl = __webpack_require__(47);
+	var _FormControl = __webpack_require__(48);
 
 	var _FormControl2 = _interopRequireDefault(_FormControl);
 
-	var _LatestDevice = __webpack_require__(36);
+	var _LatestDevice = __webpack_require__(37);
 
 	var _LatestDevice2 = _interopRequireDefault(_LatestDevice);
 
-	var _superagent = __webpack_require__(4);
+	var _superagent = __webpack_require__(3);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
-	var _LoadingMap = __webpack_require__(33);
+	var _LoadingMap = __webpack_require__(34);
 
 	var _LoadingMap2 = _interopRequireDefault(_LoadingMap);
 
@@ -304,7 +304,7 @@
 
 	var _index2 = _interopRequireDefault(_index);
 
-	var _reactDatetime = __webpack_require__(52);
+	var _reactDatetime = __webpack_require__(53);
 
 	var _reactDatetime2 = _interopRequireDefault(_reactDatetime);
 
@@ -1045,22 +1045,28 @@
 /* 12 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/DropdownButton");
+	module.exports = require("lodash");
 
 /***/ },
 /* 13 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/MenuItem");
+	module.exports = require("react-bootstrap/lib/DropdownButton");
 
 /***/ },
 /* 14 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux");
+	module.exports = require("react-bootstrap/lib/MenuItem");
 
 /***/ },
 /* 15 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux");
+
+/***/ },
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1077,9 +1083,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(3);
+	var _reactRouter = __webpack_require__(4);
 
-	var _App = __webpack_require__(30);
+	var _App = __webpack_require__(31);
 
 	var _App2 = _interopRequireDefault(_App);
 
@@ -1087,33 +1093,37 @@
 
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
-	var _About = __webpack_require__(28);
+	var _About = __webpack_require__(29);
 
 	var _About2 = _interopRequireDefault(_About);
 
-	var _Community = __webpack_require__(32);
+	var _Community = __webpack_require__(33);
 
 	var _Community2 = _interopRequireDefault(_Community);
 
-	var _Openapi = __webpack_require__(38);
+	var _Openapi = __webpack_require__(39);
 
 	var _Openapi2 = _interopRequireDefault(_Openapi);
 
-	var _Device = __webpack_require__(37);
+	var _Device = __webpack_require__(38);
 
 	var _Device2 = _interopRequireDefault(_Device);
 
-	var _Partners = __webpack_require__(39);
+	var _Partners = __webpack_require__(40);
 
 	var _Partners2 = _interopRequireDefault(_Partners);
 
-	var _Airowl = __webpack_require__(29);
+	var _Airowl = __webpack_require__(30);
 
 	var _Airowl2 = _interopRequireDefault(_Airowl);
 
 	var _index = __webpack_require__(10);
 
 	var _index2 = _interopRequireDefault(_index);
+
+	var _iframe = __webpack_require__(41);
+
+	var _iframe2 = _interopRequireDefault(_iframe);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1188,16 +1198,30 @@
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
+	  path: '/iframe',
+	  getComponent: function getComponent(nextState, cb) {
+	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
+	      cb(null, _iframe2.default);
+	    }).bind(null, __webpack_require__));
+	  }
+	}), _jsx(_reactRouter.Route, {
 	  path: '/demo',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
 	      cb(null, _index2.default);
 	    }).bind(null, __webpack_require__));
 	  }
+	}), _jsx(_reactRouter.Route, {
+	  path: '/iframe',
+	  getComponent: function getComponent(nextState, cb) {
+	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
+	      cb(null, _iframe2.default);
+	    }).bind(null, __webpack_require__));
+	  }
 	}));
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1208,17 +1232,17 @@
 	});
 	exports.configureStore = configureStore;
 
-	var _redux = __webpack_require__(14);
+	var _redux = __webpack_require__(15);
 
-	var _reduxThunk = __webpack_require__(64);
+	var _reduxThunk = __webpack_require__(65);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-	var _DevTools = __webpack_require__(31);
+	var _DevTools = __webpack_require__(32);
 
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 
-	var _reducers = __webpack_require__(40);
+	var _reducers = __webpack_require__(42);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -1253,7 +1277,7 @@
 	}
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1270,7 +1294,7 @@
 	exports.default = config;
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1281,7 +1305,7 @@
 	});
 	exports.fetchComponentData = fetchComponentData;
 
-	var _promiseUtils = __webpack_require__(42);
+	var _promiseUtils = __webpack_require__(44);
 
 	function fetchComponentData(store, components, params) {
 	  var needs = components.reduce(function (prev, current) {
@@ -1297,16 +1321,16 @@
 	  */
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 
 	var webpack = __webpack_require__(8);
-	var cssnext = __webpack_require__(44);
-	var postcssFocus = __webpack_require__(45);
-	var postcssReporter = __webpack_require__(46);
+	var cssnext = __webpack_require__(45);
+	var postcssFocus = __webpack_require__(46);
+	var postcssReporter = __webpack_require__(47);
 
 	module.exports = {
 	  devtool: 'cheap-module-eval-source-map',
@@ -1371,57 +1395,57 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, ""))
 
 /***/ },
-/* 20 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"main.css": "main-8855fdb319.css"
-	};
-
-/***/ },
 /* 21 */
 /***/ function(module, exports) {
 
-	module.exports = require("body-parser");
+	module.exports = {
+		"main.css": "main-76005d254d.css"
+	};
 
 /***/ },
 /* 22 */
 /***/ function(module, exports) {
 
-	module.exports = require("compression");
+	module.exports = require("body-parser");
 
 /***/ },
 /* 23 */
 /***/ function(module, exports) {
 
-	module.exports = require("express");
+	module.exports = require("compression");
 
 /***/ },
 /* 24 */
 /***/ function(module, exports) {
 
-	module.exports = require("path");
+	module.exports = require("express");
 
 /***/ },
 /* 25 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-dom/server");
+	module.exports = require("path");
 
 /***/ },
 /* 26 */
 /***/ function(module, exports) {
 
-	module.exports = require("webpack-dev-middleware");
+	module.exports = require("react-dom/server");
 
 /***/ },
 /* 27 */
 /***/ function(module, exports) {
 
-	module.exports = require("webpack-hot-middleware");
+	module.exports = require("webpack-dev-middleware");
 
 /***/ },
 /* 28 */
+/***/ function(module, exports) {
+
+	module.exports = require("webpack-hot-middleware");
+
+/***/ },
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1562,7 +1586,7 @@
 	exports.default = About;
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1588,23 +1612,23 @@
 
 	var _Footer2 = _interopRequireDefault(_Footer);
 
-	var _Helmet = __webpack_require__(55);
+	var _Helmet = __webpack_require__(56);
 
 	var _Helmet2 = _interopRequireDefault(_Helmet);
 
-	var _Tab = __webpack_require__(57);
+	var _Tab = __webpack_require__(58);
 
 	var _Tab2 = _interopRequireDefault(_Tab);
 
-	var _TabList = __webpack_require__(58);
+	var _TabList = __webpack_require__(59);
 
 	var _TabList2 = _interopRequireDefault(_TabList);
 
-	var _Tabs = __webpack_require__(60);
+	var _Tabs = __webpack_require__(61);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
-	var _TabPanel = __webpack_require__(59);
+	var _TabPanel = __webpack_require__(60);
 
 	var _TabPanel2 = _interopRequireDefault(_TabPanel);
 
@@ -2053,7 +2077,7 @@
 	exports.default = Airowl;
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2150,7 +2174,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2166,13 +2190,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reduxDevtools = __webpack_require__(61);
+	var _reduxDevtools = __webpack_require__(62);
 
-	var _reduxDevtoolsLogMonitor = __webpack_require__(63);
+	var _reduxDevtoolsLogMonitor = __webpack_require__(64);
 
 	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
 
-	var _reduxDevtoolsDockMonitor = __webpack_require__(62);
+	var _reduxDevtoolsDockMonitor = __webpack_require__(63);
 
 	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
 
@@ -2184,7 +2208,7 @@
 	}, void 0, _jsx(_reduxDevtoolsLogMonitor2.default, {})));
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2210,7 +2234,7 @@
 
 	var _Footer2 = _interopRequireDefault(_Footer);
 
-	var _reactRouter = __webpack_require__(3);
+	var _reactRouter = __webpack_require__(4);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2347,7 +2371,7 @@
 	exports.default = Community;
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2367,11 +2391,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _GoogleMapLoader = __webpack_require__(54);
+	var _GoogleMapLoader = __webpack_require__(55);
 
 	var _GoogleMapLoader2 = _interopRequireDefault(_GoogleMapLoader);
 
-	var _GoogleMap = __webpack_require__(53);
+	var _GoogleMap = __webpack_require__(54);
 
 	var _GoogleMap2 = _interopRequireDefault(_GoogleMap);
 
@@ -2448,7 +2472,7 @@
 	exports.default = LoadingMap;
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2466,15 +2490,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _DropdownButton = __webpack_require__(12);
+	var _DropdownButton = __webpack_require__(13);
 
 	var _DropdownButton2 = _interopRequireDefault(_DropdownButton);
 
-	var _MenuItem = __webpack_require__(13);
+	var _MenuItem = __webpack_require__(14);
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-	var _superagent = __webpack_require__(4);
+	var _superagent = __webpack_require__(3);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -2799,7 +2823,7 @@
 	exports.default = CalendarView;
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2817,11 +2841,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _DropdownButton = __webpack_require__(12);
+	var _DropdownButton = __webpack_require__(13);
 
 	var _DropdownButton2 = _interopRequireDefault(_DropdownButton);
 
-	var _MenuItem = __webpack_require__(13);
+	var _MenuItem = __webpack_require__(14);
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
@@ -2829,11 +2853,11 @@
 
 	var _moment2 = _interopRequireDefault(_moment);
 
-	var _superagent = __webpack_require__(4);
+	var _superagent = __webpack_require__(3);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
-	var _lodash = __webpack_require__(43);
+	var _lodash = __webpack_require__(12);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -3364,7 +3388,7 @@
 	exports.default = GraphView;
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3382,15 +3406,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _GraphView = __webpack_require__(35);
+	var _GraphView = __webpack_require__(36);
 
 	var _GraphView2 = _interopRequireDefault(_GraphView);
 
-	var _CalendarView = __webpack_require__(34);
+	var _CalendarView = __webpack_require__(35);
 
 	var _CalendarView2 = _interopRequireDefault(_CalendarView);
 
-	var _superagent = __webpack_require__(4);
+	var _superagent = __webpack_require__(3);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -3658,7 +3682,7 @@
 	exports.default = LatestDevice;
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3765,7 +3789,7 @@
 	exports.default = Device;
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3894,7 +3918,7 @@
 	exports.default = Openapi;
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4258,7 +4282,7 @@
 	exports.default = Partner;
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4268,7 +4292,154 @@
 	  value: true
 	});
 
-	var _redux = __webpack_require__(14);
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(0);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _superagent = __webpack_require__(3);
+
+	var _superagent2 = _interopRequireDefault(_superagent);
+
+	var _moment = __webpack_require__(5);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
+	var _lodash = __webpack_require__(12);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Iframe = function (_Component) {
+	  _inherits(Iframe, _Component);
+
+	  function Iframe(props) {
+	    _classCallCheck(this, Iframe);
+
+	    var _this = _possibleConstructorReturn(this, (Iframe.__proto__ || Object.getPrototypeOf(Iframe)).call(this, props));
+
+	    _this.state = _this.getState();
+	    _this.getData = _this.getData.bind(_this);
+	    _this.deviceParams = _this.props.location.query.devices;
+	    _this.devices = ["OZ_PARTICLE_005"];
+	    // if(this.deviceParams){
+	    //
+	    //   // this.devices = this.deviceParams.split(",");
+	    // } else {
+	    //   this.devices = null;
+	    // }
+	    // console.log("came here with deviceids : "+this.deviceParams);
+
+	    // this.fields = [];
+
+	    _this.getData();
+
+	    return _this;
+	  }
+
+	  _createClass(Iframe, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      window.apiInterval = setInterval(function () {
+	        this.getData();
+	      }.bind(this), 180000);
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      clearInterval(window.apiInterval);
+	    }
+	  }, {
+	    key: 'getData',
+	    value: function getData() {
+	      console.log('api is called');
+	      _superagent2.default.get('https://openenvironment.p.mashape.com/fields').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+	        if (res) {
+	          this.setState({ fields: res.body });
+	          // this.fields = res.body;
+	          // console.log("fields length : "+this.fields);
+	        }
+	      }.bind(this));
+
+	      _superagent2.default.post('https://openenvironment.p.mashape.com/all/public/devices/iframe').send({ "devices": this.devices }).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').set('Content-Type', 'application/json').end(function (err, res) {
+	        if (res) {
+	          this.setState({ iframeData: res.body });
+	        }
+	      }.bind(this));
+	    }
+	  }, {
+	    key: 'getState',
+	    value: function getState() {
+	      return {
+	        fields: [],
+	        iframeData: []
+	      };
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var fields = this.state.fields;
+	      return _jsx('div', {
+	        className: 'iframe-container'
+	      }, void 0, _jsx('div', {
+	        className: ''
+	      }, void 0, _jsx('div', {
+	        className: 'row'
+	      }, void 0, _jsx('div', {
+	        className: 'col-sm-12'
+	      }, void 0, _jsx('div', {
+	        className: 'col-sm-10 col-sm-offset-1 col-md-offset-1 col-lg-offset-1'
+	      }, void 0, this.state.iframeData.map(function (e) {
+	        return _jsx('div', {
+	          className: 'panel panel-default'
+	        }, e.deviceId, _jsx('div', {
+	          className: 'panel-heading'
+	        }, void 0, _jsx('h1', {
+	          className: 'panel-title text-uppercase'
+	        }, void 0, 'Kutchch rannotsav', _jsx('small', {}, void 0, 'Last Updated: ', _moment2.default.unix(e.payload.d.t).format('DD/MM/YYYY, h:mm:ss a')))), _jsx('div', {
+	          className: 'panel-body'
+	        }, void 0, _jsx('ul', {
+	          className: 'list-inline'
+	        }, void 0, Object.keys(e.payload.d).map(function (key) {
+	          if (key != 't' && key != 'noise') {
+	            return _jsx('li', {}, key, _jsx('h4', {}, void 0, e.payload.d[key], fields.map(function (e) {
+	              if (e.fkey == key) return _jsx('small', {}, key, e.unit);
+	            })), _jsx('p', {}, void 0, fields.map(function (e) {
+	              if (e.fkey == key) return e.label;
+	            })));
+	          }
+	        }))));
+	      }))))));
+	    }
+	  }]);
+
+	  return Iframe;
+	}(_react.Component);
+
+	exports.default = Iframe;
+
+/***/ },
+/* 42 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _redux = __webpack_require__(15);
 
 	// Import Reducers
 
@@ -4279,7 +4450,7 @@
 	                                                    */
 
 /***/ },
-/* 41 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4294,19 +4465,19 @@
 	// Webpack Requirements
 
 
-	var _express = __webpack_require__(23);
+	var _express = __webpack_require__(24);
 
 	var _express2 = _interopRequireDefault(_express);
 
-	var _compression = __webpack_require__(22);
+	var _compression = __webpack_require__(23);
 
 	var _compression2 = _interopRequireDefault(_compression);
 
-	var _bodyParser = __webpack_require__(21);
+	var _bodyParser = __webpack_require__(22);
 
 	var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-	var _path = __webpack_require__(24);
+	var _path = __webpack_require__(25);
 
 	var _path2 = _interopRequireDefault(_path);
 
@@ -4314,19 +4485,19 @@
 
 	var _webpack2 = _interopRequireDefault(_webpack);
 
-	var _webpackConfig = __webpack_require__(19);
+	var _webpackConfig = __webpack_require__(20);
 
 	var _webpackConfig2 = _interopRequireDefault(_webpackConfig);
 
-	var _webpackDevMiddleware = __webpack_require__(26);
+	var _webpackDevMiddleware = __webpack_require__(27);
 
 	var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 
-	var _webpackHotMiddleware = __webpack_require__(27);
+	var _webpackHotMiddleware = __webpack_require__(28);
 
 	var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 
-	var _store = __webpack_require__(16);
+	var _store = __webpack_require__(17);
 
 	var _reactRedux = __webpack_require__(7);
 
@@ -4334,21 +4505,21 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _server = __webpack_require__(25);
+	var _server = __webpack_require__(26);
 
-	var _reactRouter = __webpack_require__(3);
+	var _reactRouter = __webpack_require__(4);
 
 	var _reactHelmet = __webpack_require__(6);
 
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 
-	var _routes = __webpack_require__(15);
+	var _routes = __webpack_require__(16);
 
 	var _routes2 = _interopRequireDefault(_routes);
 
-	var _fetchData = __webpack_require__(18);
+	var _fetchData = __webpack_require__(19);
 
-	var _config = __webpack_require__(17);
+	var _config = __webpack_require__(18);
 
 	var _config2 = _interopRequireDefault(_config);
 
@@ -4383,7 +4554,7 @@
 	  // Import Manifests
 	  var assetsManifest = process.env.webpackAssets && JSON.parse(process.env.webpackAssets);
 	  var chunkManifest = process.env.webpackChunkAssets && JSON.parse(process.env.webpackChunkAssets);
-	  var refManifest = __webpack_require__(20);
+	  var refManifest = __webpack_require__(21);
 	  var styleSrc = '/' + refManifest['main.css'];
 	  return '\n    <!doctype html>\n    <html>\n      <head>\n        ' + head.base.toString() + '\n        ' + head.title.toString() + '\n        ' + head.meta.toString() + '\n        ' + head.link.toString() + '\n        ' + head.script.toString() + '\n\n        ' + (process.env.NODE_ENV === 'production' ? '<link rel=\'stylesheet\' href=\'' + assetsManifest['/app.css'] + '\' />' : '') + '\n        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">\n        <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/png" />\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">\n        <link rel="stylesheet" href=\'' + (process.env.NODE_ENV === 'production' ? styleSrc : '/main.css') + '\' type="text/css" media="screen" charset="utf-8">\n        \n        <script src=\'https://maps.googleapis.com/maps/api/js?key=AIzaSyAnK8lYEkj7mwTu7AWDP4GwiWI8SX9QHwM&extension=.js\'></script>\n        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>\n        <script src="http://code.highcharts.com/highcharts.js"></script>\n        <script src="http://code.highcharts.com/modules/heatmap.js" ></script>\n        <script src="http://code.highcharts.com/modules/exporting.js"></script>\n      </head>\n      <body>\n        <div id="root">' + html + '</div>\n        <script>\n          window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + ';\n          ' + (process.env.NODE_ENV === 'production' ? '//<![CDATA[\n          window.webpackManifest = ' + JSON.stringify(chunkManifest) + ';\n          //]]>' : '') + '\n        </script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/vendor.js'] : '/vendor.js') + '\'></script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/app.js'] : '/app.js') + '\'></script>\n      </body>\n    </html>\n  ';
 	};
@@ -4435,7 +4606,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, "server"))
 
 /***/ },
-/* 42 */
+/* 44 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4466,133 +4637,127 @@
 	}
 
 /***/ },
-/* 43 */
-/***/ function(module, exports) {
-
-	module.exports = require("lodash");
-
-/***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-cssnext");
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-focus");
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-reporter");
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-bootstrap/lib/FormControl");
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-bootstrap/lib/FormGroup");
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-bootstrap/lib/Nav");
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-bootstrap/lib/NavItem");
 
 /***/ },
-/* 51 */
+/* 52 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-bootstrap/lib/Navbar");
 
 /***/ },
-/* 52 */
+/* 53 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-datetime");
 
 /***/ },
-/* 53 */
+/* 54 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-google-maps/lib/GoogleMap");
 
 /***/ },
-/* 54 */
+/* 55 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-google-maps/lib/GoogleMapLoader");
 
 /***/ },
-/* 55 */
+/* 56 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-helmet/lib/Helmet");
 
 /***/ },
-/* 56 */
+/* 57 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-router-bootstrap/lib/LinkContainer");
 
 /***/ },
-/* 57 */
+/* 58 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-tabs/lib/components/Tab");
 
 /***/ },
-/* 58 */
+/* 59 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-tabs/lib/components/TabList");
 
 /***/ },
-/* 59 */
+/* 60 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-tabs/lib/components/TabPanel");
 
 /***/ },
-/* 60 */
+/* 61 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-tabs/lib/components/Tabs");
 
 /***/ },
-/* 61 */
+/* 62 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-devtools");
 
 /***/ },
-/* 62 */
+/* 63 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-devtools-dock-monitor");
 
 /***/ },
-/* 63 */
+/* 64 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-devtools-log-monitor");
 
 /***/ },
-/* 64 */
+/* 65 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-thunk");
