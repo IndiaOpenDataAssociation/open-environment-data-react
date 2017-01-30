@@ -10,13 +10,13 @@ export default class Iframe extends Component{
     this.state = this.getState()
     this.getData=this.getData.bind(this)
     this.deviceParams = this.props.location.query.devices;
-    this.devices = ["OZ_PARTICLE_005"]
-    // if(this.deviceParams){
-    //
-    //   // this.devices = this.deviceParams.split(",");
-    // } else {
-    //   this.devices = null;
-    // }
+    this.devices = []
+    if(this.deviceParams){
+    
+       this.devices = this.deviceParams.split(",");
+    } else {
+      this.devices = null;
+    }
     // console.log("came here with deviceids : "+this.deviceParams);
 
     // this.fields = [];
