@@ -4320,6 +4320,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var _ref = _jsx('p', {}, void 0, 'AQI');
+
 	var Iframe = function (_Component) {
 	  _inherits(Iframe, _Component);
 
@@ -4331,13 +4333,12 @@
 	    _this.state = _this.getState();
 	    _this.getData = _this.getData.bind(_this);
 	    _this.deviceParams = _this.props.location.query.devices;
-	    _this.devices = ["OZ_PARTICLE_005"];
-	    // if(this.deviceParams){
-	    //
-	    //   // this.devices = this.deviceParams.split(",");
-	    // } else {
-	    //   this.devices = null;
-	    // }
+	    _this.devices = [];
+	    if (_this.deviceParams) {
+	      _this.devices = _this.deviceParams.split(",");
+	    } else {
+	      _this.devices = null;
+	    }
 	    // console.log("came here with deviceids : "+this.deviceParams);
 
 	    // this.fields = [];
@@ -4405,11 +4406,11 @@
 	          className: 'panel-heading'
 	        }, void 0, _jsx('h1', {
 	          className: 'panel-title text-uppercase'
-	        }, void 0, 'Kutchch rannotsav', _jsx('small', {}, void 0, 'Last Updated: ', _moment2.default.unix(e.payload.d.t).format('DD/MM/YYYY, h:mm:ss a')))), _jsx('div', {
+	        }, void 0, e.label, _jsx('small', {}, void 0, 'Last Updated: ', _moment2.default.unix(e.payload.d.t).format('DD/MM/YYYY, h:mm:ss a')))), _jsx('div', {
 	          className: 'panel-body'
 	        }, void 0, _jsx('ul', {
 	          className: 'list-inline'
-	        }, void 0, Object.keys(e.payload.d).map(function (key) {
+	        }, void 0, _jsx('li', {}, void 0, _jsx('h4', {}, void 0, e.aqi), _ref), Object.keys(e.payload.d).map(function (key) {
 	          if (key != 't' && key != 'noise') {
 	            return _jsx('li', {}, key, _jsx('h4', {}, void 0, e.payload.d[key], fields.map(function (e) {
 	              if (e.fkey == key) return _jsx('small', {}, key, e.unit);
