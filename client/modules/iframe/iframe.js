@@ -37,7 +37,6 @@ export default class Iframe extends Component{
   }
 
   getData(){
-    console.log('api is called')
     superagent.get('https://openenvironment.p.mashape.com/fields').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
       if(res){
         this.setState({fields:res.body})

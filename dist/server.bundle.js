@@ -1399,7 +1399,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"main.css": "main-76005d254d.css"
+		"main.css": "main-c141ca2e7b.css"
 	};
 
 /***/ },
@@ -4362,7 +4362,6 @@
 	  }, {
 	    key: 'getData',
 	    value: function getData() {
-	      console.log('api is called');
 	      _superagent2.default.get('https://openenvironment.p.mashape.com/fields').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
 	        if (res) {
 	          this.setState({ fields: res.body });
