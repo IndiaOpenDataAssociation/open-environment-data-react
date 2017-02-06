@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import DropdownButton from 'react-bootstrap/lib/DropdownButton'
 import MenuItem from 'react-bootstrap/lib/MenuItem'
 import moment from 'moment'
+require('es6-promise').polyfill();
+
 import superagent from 'superagent'
 import _ from 'lodash'
 
@@ -190,7 +192,7 @@ export default class GraphView extends Component {
             condition: {
               maxWidth: 500
             },
-            
+
 
           }]
         },

@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import DropdownButton from 'react-bootstrap/lib/DropdownButton'
 import MenuItem from 'react-bootstrap/lib/MenuItem'
 // import data from '../components/pollution.json'
+require('es6-promise').polyfill();
+
 import superagent from 'superagent'
 import moment from 'moment'
 

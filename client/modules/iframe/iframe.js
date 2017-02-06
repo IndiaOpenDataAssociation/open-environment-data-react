@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+require('es6-promise').polyfill();
 import superagent from 'superagent'
 import moment from 'moment'
 import _ from 'lodash'

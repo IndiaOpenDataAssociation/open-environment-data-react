@@ -3,6 +3,7 @@ import Navbar from '../Navbar/Navbar'
 import FormGroup from 'react-bootstrap/lib/FormGroup'
 import FormControl from 'react-bootstrap/lib/FormControl'
 import LatestDevice from './pages/LatestDevice'
+require('es6-promise').polyfill();
 import superagent from 'superagent'
 import LoadingMap from './components/LoadingMap'
 import Map from '../Map/index'
