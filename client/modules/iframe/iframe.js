@@ -6,6 +6,11 @@ import moment from 'moment'
 import _ from 'lodash'
 
 var classes = ['good', 'satisfactory', 'moderate', 'poor', 'vpoor', 'severe']
+var config ={
+  baseURL : 'https://openenvironment.p.mashape.com',
+  headers: {'X-Mashape-Key':'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk'},
+};
+
 export default class Iframe extends Component{
 
   constructor(props) {
@@ -36,6 +41,16 @@ export default class Iframe extends Component{
       this.getData()
     }.bind(this), 180000);
 
+
+    axios.get('/limits',config).then(function (response) {
+      if(response) {
+        this.setState({limits: response.data})
+      }
+    }.bind(this))
+      .catch(function (error) {
+        console.log(error);
+      });
+
     // superagent.get('https://openenvironment.p.mashape.com/limits').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
     //   this.setState({limits: res.body})
     // }.bind(this))
@@ -46,10 +61,6 @@ export default class Iframe extends Component{
   }
 
   getData(){
-    var config ={
-      baseURL : 'https://openenvironment.p.mashape.com',
-      headers: {'X-Mashape-Key':'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk'},
-    };
 
     axios.get('/fields',config).then(function (response) {
       if(response) {

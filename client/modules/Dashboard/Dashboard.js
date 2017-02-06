@@ -3,15 +3,19 @@ import Navbar from '../Navbar/Navbar'
 import FormGroup from 'react-bootstrap/lib/FormGroup'
 import FormControl from 'react-bootstrap/lib/FormControl'
 import LatestDevice from './pages/LatestDevice'
-import superagent from 'superagent'
+// import superagent from 'superagent'
 import LoadingMap from './components/LoadingMap'
 import Map from '../Map/index'
 import Datetime from 'react-datetime'
 import moment from 'moment'
+import axios from 'axios'
 
 
 let toDate, fromDate
-
+var config ={
+  baseURL : 'https://openenvironment.p.mashape.com',
+  headers: {'X-Mashape-Key':'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk'},
+};
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -69,6 +73,23 @@ export default class Dashboard extends Component {
       lte: moment().subtract(5, 'days').unix(),
       windowWidth: width
     })
+    axios.get('/all/public/devices',config).then(function (response) {
+      if(response) {
+        this.setState({loading: false, markers: response.data})
+      }
+    }.bind(this))
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    axios.get('/all/public/devices/citiesloc',config).then(function (response) {
+      if(response) {
+        this.setState({city_list: response.data})
+      }
+    }.bind(this))
+      .catch(function (error) {
+        console.log(error);
+      });
 
     // superagent.get('https://openenvironment.p.mashape.com/all/public/devices').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
     //   this.setState({loading: false, markers: res.body})
@@ -112,6 +133,15 @@ export default class Dashboard extends Component {
   }
 
   realTimeData(id, time) {
+    axios.get('/all/public/data/cur/' + id,config).then(function (response) {
+      if(response) {
+        this.setState({realTimeData: response.data, time: time, marker_id : id})
+          this.setState({realTimedataLoading: false})
+      }
+    }.bind(this))
+      .catch(function (error) {
+        console.log(error);
+      });
     // superagent.get('https://openenvironment.p.mashape.com/all/public/data/cur/' + id).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
     //   this.setState({realTimeData: res.body, time: time, marker_id : id})
     //   this.setState({realTimedataLoading: false})
@@ -122,6 +152,16 @@ export default class Dashboard extends Component {
     let lte = parseInt(new Date().getTime() / 1000)
     let today = new Date()
     let gte = parseInt(new Date(today.getTime() - 1 * 24 * 60 * 60 * 1000).getTime() / 1000);
+
+    axios.get('/all/public/data/range/' + id + '?gte=' + gte + '&lte=' + lte,config).then(function (response) {
+      if(response) {
+        this.setState({analyticsData: response.data, time: time, no_records: false})
+        this.setState({analyticsdataLoading: false})
+      }
+    }.bind(this))
+      .catch(function (error) {
+        console.log(error);
+      });
     // superagent.get('https://openenvironment.p.mashape.com/all/public/data/range/' + id + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
     //   this.setState({analyticsData: res.body, time: time, no_records: false})
     //   this.setState({analyticsdataLoading: false})
