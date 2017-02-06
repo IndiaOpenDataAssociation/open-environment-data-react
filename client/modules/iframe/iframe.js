@@ -3,6 +3,7 @@ import superagent from 'superagent'
 import moment from 'moment'
 import _ from 'lodash'
 
+var classes = ['good', 'satisfactory', 'moderate', 'poor', 'vpoor', 'severe']
 export default class Iframe extends Component{
 
   constructor(props) {
@@ -10,6 +11,7 @@ export default class Iframe extends Component{
     this.state = this.getState()
     this.getData=this.getData.bind(this)
     this.deviceParams = this.props.location.query.devices;
+    // this.devices = ["OZ_PARTICLE_005"]
     this.devices = []
     if(this.deviceParams){
        this.devices = this.deviceParams.split(",");
@@ -22,6 +24,8 @@ export default class Iframe extends Component{
 
     this.getData()
 
+    this.getDynamicClassName = this.getDynamicClassName.bind(this)
+
 
   }
 
@@ -29,6 +33,10 @@ export default class Iframe extends Component{
     window.apiInterval = setInterval(function() {
       this.getData()
     }.bind(this), 180000);
+
+    superagent.get('https://openenvironment.p.mashape.com/limits').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+      this.setState({limits: res.body})
+    }.bind(this))
   }
 
   componentWillUnmount(){
@@ -54,10 +62,26 @@ export default class Iframe extends Component{
   getState(){
     return{
       fields: [],
-      iframeData: []
+      iframeData: [],
+      limits: []
     }
   }
 
+  getDynamicClassName(data, key, value){
+    let tempKey='', className=''
+    data.map((dataItem) => {
+      if(dataItem.fkey == key) {
+        dataItem.range.map((rangeItem,index) => {
+          if(value >= rangeItem){
+            tempKey = index
+          }
+        })
+
+        className = classes[tempKey]
+      }
+    })
+    return className
+  }
   render(){
     let fields = this.state.fields;
     return(
@@ -80,7 +104,7 @@ export default class Iframe extends Component{
                         <div className="panel-body">
                           <ul className="list-inline">
                             <li>
-                              <h4>{e.aqi}</h4>
+                              <h4 className={this.getDynamicClassName(this.state.limits, 'aqi', e.aqi)}>{e.aqi}</h4>
                               <p>AQI</p>
                             </li>
                             {
@@ -88,7 +112,7 @@ export default class Iframe extends Component{
                                 if(key != 't' && key != 'noise'){
                                   return(
                                     <li key={key}>
-                                      <h4>
+                                      <h4 className={this.getDynamicClassName(this.state.limits, key, e.payload.d[key])}>
                                         {
                                           e.payload.d[key]
                                         }
@@ -110,7 +134,7 @@ export default class Iframe extends Component{
                                     </li>
                                   )
                                 }
-                              })
+                              }.bind(this))
                             }
                           </ul>
                         </div>

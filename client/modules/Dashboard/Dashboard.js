@@ -258,7 +258,7 @@ export default class Dashboard extends Component {
                                           {
                                             this.state.realTimeData[0].type == 'CPCB'
                                             ?
-                                              <img src="../../assets/images/CPCB.png"/>
+                                              <img src="../../assets/images/CPCB.png" className="white-bg"/>
                                             :
                                               (
                                                 this.state.realTimeData[0].type == 'AIROWL3G' || this.state.realTimeData[0].type == 'AIROWLWI'
