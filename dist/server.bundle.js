@@ -338,7 +338,8 @@
 	});
 
 	var _ref6 = _jsx('img', {
-	  src: '../../assets/images/CPCB.png'
+	  src: '../../assets/images/CPCB.png',
+	  className: 'white-bg'
 	});
 
 	var _ref7 = _jsx('img', {
@@ -1399,7 +1400,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"main.css": "main-c141ca2e7b.css"
+		"main.css": "main-3824d7e8bb.css"
 	};
 
 /***/ },
@@ -3432,7 +3433,7 @@
 	  className: 'ppc-title'
 	}, void 0, 'CO', _jsx('sub', {}));
 
-	var _ref3 = _jsx('small', {}, void 0, '(ug/m3)');
+	var _ref3 = _jsx('small', {}, void 0, '(mg/m3)');
 
 	var _ref4 = _jsx('span', {
 	  className: 'ppc-title'
@@ -4320,6 +4321,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var classes = ['good', 'satisfactory', 'moderate', 'poor', 'vpoor', 'severe'];
+
 	var _ref = _jsx('p', {}, void 0, 'AQI');
 
 	var Iframe = function (_Component) {
@@ -4333,6 +4336,7 @@
 	    _this.state = _this.getState();
 	    _this.getData = _this.getData.bind(_this);
 	    _this.deviceParams = _this.props.location.query.devices;
+	    // this.devices = ["OZ_PARTICLE_005"]
 	    _this.devices = [];
 	    if (_this.deviceParams) {
 	      _this.devices = _this.deviceParams.split(",");
@@ -4345,6 +4349,8 @@
 
 	    _this.getData();
 
+	    _this.getDynamicClassName = _this.getDynamicClassName.bind(_this);
+
 	    return _this;
 	  }
 
@@ -4354,6 +4360,10 @@
 	      window.apiInterval = setInterval(function () {
 	        this.getData();
 	      }.bind(this), 180000);
+
+	      _superagent2.default.get('https://openenvironment.p.mashape.com/limits').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+	        this.setState({ limits: res.body });
+	      }.bind(this));
 	    }
 	  }, {
 	    key: 'componentWillUnmount',
@@ -4382,12 +4392,33 @@
 	    value: function getState() {
 	      return {
 	        fields: [],
-	        iframeData: []
+	        iframeData: [],
+	        limits: []
 	      };
+	    }
+	  }, {
+	    key: 'getDynamicClassName',
+	    value: function getDynamicClassName(data, key, value) {
+	      var tempKey = '',
+	          className = '';
+	      data.map(function (dataItem) {
+	        if (dataItem.fkey == key) {
+	          dataItem.range.map(function (rangeItem, index) {
+	            if (value >= rangeItem) {
+	              tempKey = index;
+	            }
+	          });
+
+	          className = classes[tempKey];
+	        }
+	      });
+	      return className;
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      var fields = this.state.fields;
 	      return _jsx('div', {
 	        className: 'iframe-container'
@@ -4410,15 +4441,19 @@
 	          className: 'panel-body'
 	        }, void 0, _jsx('ul', {
 	          className: 'list-inline'
-	        }, void 0, _jsx('li', {}, void 0, _jsx('h4', {}, void 0, e.aqi), _ref), Object.keys(e.payload.d).map(function (key) {
+	        }, void 0, _jsx('li', {}, void 0, _jsx('h4', {
+	          className: _this2.getDynamicClassName(_this2.state.limits, 'aqi', e.aqi)
+	        }, void 0, e.aqi), _ref), Object.keys(e.payload.d).map(function (key) {
 	          if (key != 't' && key != 'noise') {
-	            return _jsx('li', {}, key, _jsx('h4', {}, void 0, e.payload.d[key], fields.map(function (e) {
+	            return _jsx('li', {}, key, _jsx('h4', {
+	              className: this.getDynamicClassName(this.state.limits, key, e.payload.d[key])
+	            }, void 0, e.payload.d[key], fields.map(function (e) {
 	              if (e.fkey == key) return _jsx('small', {}, key, e.unit);
 	            })), _jsx('p', {}, void 0, fields.map(function (e) {
 	              if (e.fkey == key) return e.label;
 	            })));
 	          }
-	        }))));
+	        }.bind(_this2)))));
 	      }))))));
 	    }
 	  }]);
