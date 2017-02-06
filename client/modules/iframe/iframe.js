@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 require('es6-promise').polyfill();
-import superagent from 'superagent'
+import axios from 'axios'
+// import superagent from 'superagent'
 import moment from 'moment'
 import _ from 'lodash'
 
@@ -35,9 +36,9 @@ export default class Iframe extends Component{
       this.getData()
     }.bind(this), 180000);
 
-    superagent.get('https://openenvironment.p.mashape.com/limits').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-      this.setState({limits: res.body})
-    }.bind(this))
+    // superagent.get('https://openenvironment.p.mashape.com/limits').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+    //   this.setState({limits: res.body})
+    // }.bind(this))
   }
 
   componentWillUnmount(){
@@ -45,19 +46,42 @@ export default class Iframe extends Component{
   }
 
   getData(){
-    superagent.get('https://openenvironment.p.mashape.com/fields').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-      if(res){
-        this.setState({fields:res.body})
-        // this.fields = res.body;
-        // console.log("fields length : "+this.fields);
-      }
-    }.bind(this))
+    var config ={
+      baseURL : 'https://openenvironment.p.mashape.com',
+      headers: {'X-Mashape-Key':'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk'},
+    };
 
-    superagent.post('https://openenvironment.p.mashape.com/all/public/devices/iframe').send({"devices":this.devices}).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').set('Content-Type', 'application/json').end(function (err, res) {
-      if(res){
-        this.setState({iframeData: res.body})
+    axios.get('/fields',config).then(function (response) {
+      if(response) {
+        this.setState({fields: response.data})
       }
     }.bind(this))
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    axios.post('/all/public/devices/iframe',{"devices":this.devices},config).then(function (response) {
+      if(response){
+            this.setState({iframeData: response.data})
+          }
+    }.bind(this))
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    // superagent.get('https://openenvironment.p.mashape.com/fields').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+    //   if(res){
+    //     this.setState({fields:res.body})
+    //     // this.fields = res.body;
+    //     // console.log("fields length : "+this.fields);
+    //   }
+    // }.bind(this))
+    //
+    // superagent.post('https://openenvironment.p.mashape.com/all/public/devices/iframe').send({"devices":this.devices}).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').set('Content-Type', 'application/json').end(function (err, res) {
+    //   if(res){
+    //     this.setState({iframeData: res.body})
+    //   }
+    // }.bind(this))
   }
 
   getState(){

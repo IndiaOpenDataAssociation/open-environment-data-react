@@ -27,6 +27,7 @@
   "author": "Sohil Patel",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.15.3",
     "babel-core": "^6.9.1",
     "body-parser": "^1.15.1",
     "chart.js": "^2.3.0",

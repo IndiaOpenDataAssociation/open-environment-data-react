@@ -2,8 +2,6 @@ import React, {Component} from 'react'
 import DropdownButton from 'react-bootstrap/lib/DropdownButton'
 import MenuItem from 'react-bootstrap/lib/MenuItem'
 // import data from '../components/pollution.json'
-require('es6-promise').polyfill();
-
 import superagent from 'superagent'
 import moment from 'moment'
 
@@ -31,167 +29,167 @@ export default class CalendarView extends Component {
       diffDateArray.push(parseInt(incre));
     }
 
-    superagent.get('https://openenvironment.p.mashape.com/all/public/analytics/range/' + this.props.markerId + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-      if (res.statusText != "Not Found") {
-        this.setState({dailyData: res.body})
-        this.setState({dailyDataLoading: false})
-        array = []
-        this.state.dailyData.map((e)=> {
-          let hour = moment.unix(e.time).format('hh:mm')
-          let date = parseInt(moment.unix(e.time).format('D'))
-          let dateIndex = diffDateArray.indexOf(date)
-          // dataHour.push(hour)
-          if(dataHour.indexOf(hour) === -1){
-            dataHour.push(hour)
-          }
-          let hourIndex = dataHour.indexOf(hour)
-
-          time.push(hour)
-          array.push([hourIndex,dateIndex,e.aqi])
-        })
-
-        // let theme = Highcharts.theme = {
-        //   // colors: ['#0C6657', '#60E5D7'],
-        //
-        //   // colors: ['red', 'blue', 'yellow', 'orange', 'white', 'green', 'gray'],
-        // };
-
-        // Highcharts.setOptions(theme)
-
-        heatmap = Highcharts.chart(this.refs.heatmap, {
-          chart: {
-            type: 'heatmap',
-            backgroundColor: 'transparent',
-            // width: 600,
-            height: 300,
-            plotBorderWidth: 1,
-            marginTop: 90
-          },
-
-          title: {
-            text: ''
-          },
-
-          xAxis: {
-            categories: dataHour,
-            labels: {
-              style: {
-                color: '#E0E0E3'
-              }
-            },
-            gridLineColor: 'transparent',
-          },
-
-          yAxis: {
-            title: null,
-            categories: diffDateArray,
-            // type: 'datetime',
-            labels: {
-              style: {
-                color: '#E0E0E3'
-              }
-            },
-            gridLineColor: 'transparent',
-          },
-
-          // colors: ['#6ecc58', '#bbcf4c', '#eac736', '#ed9a2e', '#e8633a', '#d63636'],
-          colorAxis: {
-            dataClasses: [
-              {
-                from: 0,
-                to: 50,
-                color: '#6ecc58',
-                name: 'good'
-              },
-              {
-                from: 50,
-                to: 100,
-                color: '#bbcf4c',
-                name: 'satisfactory'
-              },
-              {
-                from: 100,
-                to: 200,
-                color: '#eac736',
-                name: 'moderate'
-              },
-              {
-                from: 200,
-                to: 300,
-                color: '#ed9a2e',
-                name: 'poor'
-              },
-              {
-                from: 300,
-                to: 400,
-                color: '#e8633a',
-                name: 'verypoor'
-              },
-              {
-                from: 400,
-                to: 500,
-                color: '#d63636',
-                name: 'severe'
-              },
-              {
-                from: 500,
-                to: 1000,
-                color: '#d63636',
-                name: 'extreme'
-              },
-
-
-            ]
-          },
-
-          // colorAxis: {
-          // min: 0,
-          // max: 600,
-          // stops: [
-          //   [0.1,'green'],
-          //   [0.5,'orange'],
-          //   [0.9,'red']
-          // ],
-          // minColor: Highcharts.getOptions().colors[1],
-          // maxColor: Highcharts.getOptions().colors[0]
-          // },
-
-          legend: {
-            enabled: false,
-          },
-          series: [
-            {
-              name: 'AQI per day',
-              borderWidth: 1,
-              borderColor: '#eee',
-              data: array,
-              dataLabels: {
-                enabled: false,
-                color: 'black',
-                style: {
-                  textShadow: 'none'
-                }
-              }
-            },
-          ],
-          responsive: {
-            rules: [{
-              condition: {
-                maxWidth: 500
-              },
-
-
-            }]
-          },
-
-        })
-
-        heatmap.yAxis[0].setTitle({ text: "Date" });
-      }
-      else {
-        this.setState({noDailyData: true})
-      }
-    }.bind(this))
+    // superagent.get('https://openenvironment.p.mashape.com/all/public/analytics/range/' + this.props.markerId + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+    //   if (res.statusText != "Not Found") {
+    //     this.setState({dailyData: res.body})
+    //     this.setState({dailyDataLoading: false})
+    //     array = []
+    //     this.state.dailyData.map((e)=> {
+    //       let hour = moment.unix(e.time).format('hh:mm')
+    //       let date = parseInt(moment.unix(e.time).format('D'))
+    //       let dateIndex = diffDateArray.indexOf(date)
+    //       // dataHour.push(hour)
+    //       if(dataHour.indexOf(hour) === -1){
+    //         dataHour.push(hour)
+    //       }
+    //       let hourIndex = dataHour.indexOf(hour)
+    //
+    //       time.push(hour)
+    //       array.push([hourIndex,dateIndex,e.aqi])
+    //     })
+    //
+    //     // let theme = Highcharts.theme = {
+    //     //   // colors: ['#0C6657', '#60E5D7'],
+    //     //
+    //     //   // colors: ['red', 'blue', 'yellow', 'orange', 'white', 'green', 'gray'],
+    //     // };
+    //
+    //     // Highcharts.setOptions(theme)
+    //
+    //     heatmap = Highcharts.chart(this.refs.heatmap, {
+    //       chart: {
+    //         type: 'heatmap',
+    //         backgroundColor: 'transparent',
+    //         // width: 600,
+    //         height: 300,
+    //         plotBorderWidth: 1,
+    //         marginTop: 90
+    //       },
+    //
+    //       title: {
+    //         text: ''
+    //       },
+    //
+    //       xAxis: {
+    //         categories: dataHour,
+    //         labels: {
+    //           style: {
+    //             color: '#E0E0E3'
+    //           }
+    //         },
+    //         gridLineColor: 'transparent',
+    //       },
+    //
+    //       yAxis: {
+    //         title: null,
+    //         categories: diffDateArray,
+    //         // type: 'datetime',
+    //         labels: {
+    //           style: {
+    //             color: '#E0E0E3'
+    //           }
+    //         },
+    //         gridLineColor: 'transparent',
+    //       },
+    //
+    //       // colors: ['#6ecc58', '#bbcf4c', '#eac736', '#ed9a2e', '#e8633a', '#d63636'],
+    //       colorAxis: {
+    //         dataClasses: [
+    //           {
+    //             from: 0,
+    //             to: 50,
+    //             color: '#6ecc58',
+    //             name: 'good'
+    //           },
+    //           {
+    //             from: 50,
+    //             to: 100,
+    //             color: '#bbcf4c',
+    //             name: 'satisfactory'
+    //           },
+    //           {
+    //             from: 100,
+    //             to: 200,
+    //             color: '#eac736',
+    //             name: 'moderate'
+    //           },
+    //           {
+    //             from: 200,
+    //             to: 300,
+    //             color: '#ed9a2e',
+    //             name: 'poor'
+    //           },
+    //           {
+    //             from: 300,
+    //             to: 400,
+    //             color: '#e8633a',
+    //             name: 'verypoor'
+    //           },
+    //           {
+    //             from: 400,
+    //             to: 500,
+    //             color: '#d63636',
+    //             name: 'severe'
+    //           },
+    //           {
+    //             from: 500,
+    //             to: 1000,
+    //             color: '#d63636',
+    //             name: 'extreme'
+    //           },
+    //
+    //
+    //         ]
+    //       },
+    //
+    //       // colorAxis: {
+    //       // min: 0,
+    //       // max: 600,
+    //       // stops: [
+    //       //   [0.1,'green'],
+    //       //   [0.5,'orange'],
+    //       //   [0.9,'red']
+    //       // ],
+    //       // minColor: Highcharts.getOptions().colors[1],
+    //       // maxColor: Highcharts.getOptions().colors[0]
+    //       // },
+    //
+    //       legend: {
+    //         enabled: false,
+    //       },
+    //       series: [
+    //         {
+    //           name: 'AQI per day',
+    //           borderWidth: 1,
+    //           borderColor: '#eee',
+    //           data: array,
+    //           dataLabels: {
+    //             enabled: false,
+    //             color: 'black',
+    //             style: {
+    //               textShadow: 'none'
+    //             }
+    //           }
+    //         },
+    //       ],
+    //       responsive: {
+    //         rules: [{
+    //           condition: {
+    //             maxWidth: 500
+    //           },
+    //
+    //
+    //         }]
+    //       },
+    //
+    //     })
+    //
+    //     heatmap.yAxis[0].setTitle({ text: "Date" });
+    //   }
+    //   else {
+    //     this.setState({noDailyData: true})
+    //   }
+    // }.bind(this))
   }
 
   componentDidMount() {

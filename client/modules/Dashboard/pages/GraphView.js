@@ -2,8 +2,6 @@ import React, {Component} from 'react'
 import DropdownButton from 'react-bootstrap/lib/DropdownButton'
 import MenuItem from 'react-bootstrap/lib/MenuItem'
 import moment from 'moment'
-require('es6-promise').polyfill();
-
 import superagent from 'superagent'
 import _ from 'lodash'
 
@@ -343,23 +341,23 @@ export default class GraphView extends Component {
           let lte = parseInt(new Date().getTime() / 1000)
           let today = new Date()
           let gte = parseInt(new Date(today.getTime() - 1 * 24 * 60 * 60 * 1000).getTime() / 1000);
-          superagent.get('https://openenvironment.p.mashape.com/all/public/data/daily/' + this.props.id + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-            Data = res.body
-
-            let aqiArray = {'AQI': [], 'co': [], 'SO2': [], 'NO2': [], 'PM10': [], 'PM25': []}
-            Data.map((e) => {
-              let a = (19800 + parseInt(e.payload.d.t)) * 1000;
-
-              aqiArray.AQI.unshift([a, e.aqi])
-              aqiArray.co.unshift([a, e.payload.d.co])
-              aqiArray.SO2.unshift([a, e.payload.d.so2])
-              aqiArray.NO2.unshift([a, e.payload.d.no2])
-              aqiArray.PM10.unshift([a, e.payload.d.pm10])
-              aqiArray.PM25.unshift([a, e.payload.d.pm25])
-            })
-            this.setState({aqiArray: aqiArray})
-            this.renderChartOnData(aqiArray)
-          }.bind(this))
+          // superagent.get('https://openenvironment.p.mashape.com/all/public/data/daily/' + this.props.id + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+          //   Data = res.body
+          //
+          //   let aqiArray = {'AQI': [], 'co': [], 'SO2': [], 'NO2': [], 'PM10': [], 'PM25': []}
+          //   Data.map((e) => {
+          //     let a = (19800 + parseInt(e.payload.d.t)) * 1000;
+          //
+          //     aqiArray.AQI.unshift([a, e.aqi])
+          //     aqiArray.co.unshift([a, e.payload.d.co])
+          //     aqiArray.SO2.unshift([a, e.payload.d.so2])
+          //     aqiArray.NO2.unshift([a, e.payload.d.no2])
+          //     aqiArray.PM10.unshift([a, e.payload.d.pm10])
+          //     aqiArray.PM25.unshift([a, e.payload.d.pm25])
+          //   })
+          //   this.setState({aqiArray: aqiArray})
+          //   this.renderChartOnData(aqiArray)
+          // }.bind(this))
         }
         else {
           Data = this.props.analysisData;

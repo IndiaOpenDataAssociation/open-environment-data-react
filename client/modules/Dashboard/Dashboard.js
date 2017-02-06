@@ -3,7 +3,6 @@ import Navbar from '../Navbar/Navbar'
 import FormGroup from 'react-bootstrap/lib/FormGroup'
 import FormControl from 'react-bootstrap/lib/FormControl'
 import LatestDevice from './pages/LatestDevice'
-require('es6-promise').polyfill();
 import superagent from 'superagent'
 import LoadingMap from './components/LoadingMap'
 import Map from '../Map/index'
@@ -71,12 +70,12 @@ export default class Dashboard extends Component {
       windowWidth: width
     })
 
-    superagent.get('https://openenvironment.p.mashape.com/all/public/devices').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-      this.setState({loading: false, markers: res.body})
-    }.bind(this))
-    superagent.get('https://openenvironment.p.mashape.com/all/public/devices/citiesloc').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-      this.setState({city_list: res.body})
-    }.bind(this))
+    // superagent.get('https://openenvironment.p.mashape.com/all/public/devices').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+    //   this.setState({loading: false, markers: res.body})
+    // }.bind(this))
+    // superagent.get('https://openenvironment.p.mashape.com/all/public/devices/citiesloc').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+    //   this.setState({city_list: res.body})
+    // }.bind(this))
 
   }
 
@@ -113,21 +112,21 @@ export default class Dashboard extends Component {
   }
 
   realTimeData(id, time) {
-    superagent.get('https://openenvironment.p.mashape.com/all/public/data/cur/' + id).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-      this.setState({realTimeData: res.body, time: time, marker_id : id})
-      this.setState({realTimedataLoading: false})
-    }.bind(this))
+    // superagent.get('https://openenvironment.p.mashape.com/all/public/data/cur/' + id).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+    //   this.setState({realTimeData: res.body, time: time, marker_id : id})
+    //   this.setState({realTimedataLoading: false})
+    // }.bind(this))
   }
 
   analyticsData(id, time) {
     let lte = parseInt(new Date().getTime() / 1000)
     let today = new Date()
     let gte = parseInt(new Date(today.getTime() - 1 * 24 * 60 * 60 * 1000).getTime() / 1000);
-    superagent.get('https://openenvironment.p.mashape.com/all/public/data/range/' + id + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-      this.setState({analyticsData: res.body, time: time, no_records: false})
-      this.setState({analyticsdataLoading: false})
-
-    }.bind(this))
+    // superagent.get('https://openenvironment.p.mashape.com/all/public/data/range/' + id + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+    //   this.setState({analyticsData: res.body, time: time, no_records: false})
+    //   this.setState({analyticsdataLoading: false})
+    //
+    // }.bind(this))
 
   }
 

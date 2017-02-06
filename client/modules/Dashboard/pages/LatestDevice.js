@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import GraphView from './GraphView'
 import CalendarView from './CalendarView'
-require('es6-promise').polyfill();
 import superagent from 'superagent'
 export default class LatestDevice extends Component {
 
