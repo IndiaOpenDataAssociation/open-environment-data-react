@@ -65,23 +65,23 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Navbar = __webpack_require__(52);
+	var _Navbar = __webpack_require__(54);
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _Nav = __webpack_require__(50);
+	var _Nav = __webpack_require__(52);
 
 	var _Nav2 = _interopRequireDefault(_Nav);
 
-	var _NavItem = __webpack_require__(51);
+	var _NavItem = __webpack_require__(53);
 
 	var _NavItem2 = _interopRequireDefault(_NavItem);
 
-	var _LinkContainer = __webpack_require__(57);
+	var _LinkContainer = __webpack_require__(59);
 
 	var _LinkContainer2 = _interopRequireDefault(_LinkContainer);
 
-	var _reactRouter = __webpack_require__(4);
+	var _reactRouter = __webpack_require__(3);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -223,19 +223,19 @@
 /* 3 */
 /***/ function(module, exports) {
 
-	module.exports = require("superagent");
+	module.exports = require("react-router");
 
 /***/ },
 /* 4 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-router");
+	module.exports = require("moment");
 
 /***/ },
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = require("moment");
+	module.exports = require("superagent");
 
 /***/ },
 /* 6 */
@@ -280,11 +280,11 @@
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _FormGroup = __webpack_require__(49);
+	var _FormGroup = __webpack_require__(51);
 
 	var _FormGroup2 = _interopRequireDefault(_FormGroup);
 
-	var _FormControl = __webpack_require__(48);
+	var _FormControl = __webpack_require__(50);
 
 	var _FormControl2 = _interopRequireDefault(_FormControl);
 
@@ -292,7 +292,7 @@
 
 	var _LatestDevice2 = _interopRequireDefault(_LatestDevice);
 
-	var _superagent = __webpack_require__(3);
+	var _superagent = __webpack_require__(5);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -304,11 +304,11 @@
 
 	var _index2 = _interopRequireDefault(_index);
 
-	var _reactDatetime = __webpack_require__(53);
+	var _reactDatetime = __webpack_require__(55);
 
 	var _reactDatetime2 = _interopRequireDefault(_reactDatetime);
 
-	var _moment = __webpack_require__(5);
+	var _moment = __webpack_require__(4);
 
 	var _moment2 = _interopRequireDefault(_moment);
 
@@ -482,12 +482,12 @@
 	        windowWidth: width
 	      });
 
-	      _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/devices').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-	        this.setState({ loading: false, markers: res.body });
-	      }.bind(this));
-	      _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/devices/citiesloc').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-	        this.setState({ city_list: res.body });
-	      }.bind(this));
+	      // superagent.get('https://openenvironment.p.mashape.com/all/public/devices').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+	      //   this.setState({loading: false, markers: res.body})
+	      // }.bind(this))
+	      // superagent.get('https://openenvironment.p.mashape.com/all/public/devices/citiesloc').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+	      //   this.setState({city_list: res.body})
+	      // }.bind(this))
 	    }
 	  }, {
 	    key: 'changeCities',
@@ -528,10 +528,10 @@
 	  }, {
 	    key: 'realTimeData',
 	    value: function realTimeData(id, time) {
-	      _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/data/cur/' + id).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-	        this.setState({ realTimeData: res.body, time: time, marker_id: id });
-	        this.setState({ realTimedataLoading: false });
-	      }.bind(this));
+	      // superagent.get('https://openenvironment.p.mashape.com/all/public/data/cur/' + id).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+	      //   this.setState({realTimeData: res.body, time: time, marker_id : id})
+	      //   this.setState({realTimedataLoading: false})
+	      // }.bind(this))
 	    }
 	  }, {
 	    key: 'analyticsData',
@@ -539,10 +539,11 @@
 	      var lte = parseInt(new Date().getTime() / 1000);
 	      var today = new Date();
 	      var gte = parseInt(new Date(today.getTime() - 1 * 24 * 60 * 60 * 1000).getTime() / 1000);
-	      _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/data/range/' + id + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-	        this.setState({ analyticsData: res.body, time: time, no_records: false });
-	        this.setState({ analyticsdataLoading: false });
-	      }.bind(this));
+	      // superagent.get('https://openenvironment.p.mashape.com/all/public/data/range/' + id + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+	      //   this.setState({analyticsData: res.body, time: time, no_records: false})
+	      //   this.setState({analyticsdataLoading: false})
+	      //
+	      // }.bind(this))
 	    }
 	  }, {
 	    key: 'handleMarkerClick',
@@ -1084,7 +1085,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(4);
+	var _reactRouter = __webpack_require__(3);
 
 	var _App = __webpack_require__(31);
 
@@ -1235,7 +1236,7 @@
 
 	var _redux = __webpack_require__(15);
 
-	var _reduxThunk = __webpack_require__(65);
+	var _reduxThunk = __webpack_require__(67);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -1329,9 +1330,9 @@
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 
 	var webpack = __webpack_require__(8);
-	var cssnext = __webpack_require__(45);
-	var postcssFocus = __webpack_require__(46);
-	var postcssReporter = __webpack_require__(47);
+	var cssnext = __webpack_require__(47);
+	var postcssFocus = __webpack_require__(48);
+	var postcssReporter = __webpack_require__(49);
 
 	module.exports = {
 	  devtool: 'cheap-module-eval-source-map',
@@ -1613,23 +1614,23 @@
 
 	var _Footer2 = _interopRequireDefault(_Footer);
 
-	var _Helmet = __webpack_require__(56);
+	var _Helmet = __webpack_require__(58);
 
 	var _Helmet2 = _interopRequireDefault(_Helmet);
 
-	var _Tab = __webpack_require__(58);
+	var _Tab = __webpack_require__(60);
 
 	var _Tab2 = _interopRequireDefault(_Tab);
 
-	var _TabList = __webpack_require__(59);
+	var _TabList = __webpack_require__(61);
 
 	var _TabList2 = _interopRequireDefault(_TabList);
 
-	var _Tabs = __webpack_require__(61);
+	var _Tabs = __webpack_require__(63);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
-	var _TabPanel = __webpack_require__(60);
+	var _TabPanel = __webpack_require__(62);
 
 	var _TabPanel2 = _interopRequireDefault(_TabPanel);
 
@@ -2191,13 +2192,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reduxDevtools = __webpack_require__(62);
+	var _reduxDevtools = __webpack_require__(64);
 
-	var _reduxDevtoolsLogMonitor = __webpack_require__(64);
+	var _reduxDevtoolsLogMonitor = __webpack_require__(66);
 
 	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
 
-	var _reduxDevtoolsDockMonitor = __webpack_require__(63);
+	var _reduxDevtoolsDockMonitor = __webpack_require__(65);
 
 	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
 
@@ -2235,7 +2236,7 @@
 
 	var _Footer2 = _interopRequireDefault(_Footer);
 
-	var _reactRouter = __webpack_require__(4);
+	var _reactRouter = __webpack_require__(3);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2392,11 +2393,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _GoogleMapLoader = __webpack_require__(55);
+	var _GoogleMapLoader = __webpack_require__(57);
 
 	var _GoogleMapLoader2 = _interopRequireDefault(_GoogleMapLoader);
 
-	var _GoogleMap = __webpack_require__(54);
+	var _GoogleMap = __webpack_require__(56);
 
 	var _GoogleMap2 = _interopRequireDefault(_GoogleMap);
 
@@ -2499,11 +2500,11 @@
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-	var _superagent = __webpack_require__(3);
+	var _superagent = __webpack_require__(5);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
-	var _moment = __webpack_require__(5);
+	var _moment = __webpack_require__(4);
 
 	var _moment2 = _interopRequireDefault(_moment);
 
@@ -2598,153 +2599,167 @@
 	      diffDateArray.push(parseInt(incre));
 	    }
 
-	    _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/analytics/range/' + _this.props.markerId + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-	      if (res.statusText != "Not Found") {
-	        this.setState({ dailyData: res.body });
-	        this.setState({ dailyDataLoading: false });
-	        array = [];
-	        this.state.dailyData.map(function (e) {
-	          var hour = _moment2.default.unix(e.time).format('hh:mm');
-	          var date = parseInt(_moment2.default.unix(e.time).format('D'));
-	          var dateIndex = diffDateArray.indexOf(date);
-	          // dataHour.push(hour)
-	          if (dataHour.indexOf(hour) === -1) {
-	            dataHour.push(hour);
-	          }
-	          var hourIndex = dataHour.indexOf(hour);
-
-	          time.push(hour);
-	          array.push([hourIndex, dateIndex, e.aqi]);
-	        });
-
-	        // let theme = Highcharts.theme = {
-	        //   // colors: ['#0C6657', '#60E5D7'],
-	        //
-	        //   // colors: ['red', 'blue', 'yellow', 'orange', 'white', 'green', 'gray'],
-	        // };
-
-	        // Highcharts.setOptions(theme)
-
-	        heatmap = Highcharts.chart(this.refs.heatmap, {
-	          chart: {
-	            type: 'heatmap',
-	            backgroundColor: 'transparent',
-	            // width: 600,
-	            height: 300,
-	            plotBorderWidth: 1,
-	            marginTop: 90
-	          },
-
-	          title: {
-	            text: ''
-	          },
-
-	          xAxis: {
-	            categories: dataHour,
-	            labels: {
-	              style: {
-	                color: '#E0E0E3'
-	              }
-	            },
-	            gridLineColor: 'transparent'
-	          },
-
-	          yAxis: {
-	            title: null,
-	            categories: diffDateArray,
-	            // type: 'datetime',
-	            labels: {
-	              style: {
-	                color: '#E0E0E3'
-	              }
-	            },
-	            gridLineColor: 'transparent'
-	          },
-
-	          // colors: ['#6ecc58', '#bbcf4c', '#eac736', '#ed9a2e', '#e8633a', '#d63636'],
-	          colorAxis: {
-	            dataClasses: [{
-	              from: 0,
-	              to: 50,
-	              color: '#6ecc58',
-	              name: 'good'
-	            }, {
-	              from: 50,
-	              to: 100,
-	              color: '#bbcf4c',
-	              name: 'satisfactory'
-	            }, {
-	              from: 100,
-	              to: 200,
-	              color: '#eac736',
-	              name: 'moderate'
-	            }, {
-	              from: 200,
-	              to: 300,
-	              color: '#ed9a2e',
-	              name: 'poor'
-	            }, {
-	              from: 300,
-	              to: 400,
-	              color: '#e8633a',
-	              name: 'verypoor'
-	            }, {
-	              from: 400,
-	              to: 500,
-	              color: '#d63636',
-	              name: 'severe'
-	            }, {
-	              from: 500,
-	              to: 1000,
-	              color: '#d63636',
-	              name: 'extreme'
-	            }]
-	          },
-
-	          // colorAxis: {
-	          // min: 0,
-	          // max: 600,
-	          // stops: [
-	          //   [0.1,'green'],
-	          //   [0.5,'orange'],
-	          //   [0.9,'red']
-	          // ],
-	          // minColor: Highcharts.getOptions().colors[1],
-	          // maxColor: Highcharts.getOptions().colors[0]
-	          // },
-
-	          legend: {
-	            enabled: false
-	          },
-	          series: [{
-	            name: 'AQI per day',
-	            borderWidth: 1,
-	            borderColor: '#eee',
-	            data: array,
-	            dataLabels: {
-	              enabled: false,
-	              color: 'black',
-	              style: {
-	                textShadow: 'none'
-	              }
-	            }
-	          }],
-	          responsive: {
-	            rules: [{
-	              condition: {
-	                maxWidth: 500
-	              }
-
-	            }]
-	          }
-
-	        });
-
-	        heatmap.yAxis[0].setTitle({ text: "Date" });
-	      } else {
-	        this.setState({ noDailyData: true });
-	      }
-	    }.bind(_this));
+	    // superagent.get('https://openenvironment.p.mashape.com/all/public/analytics/range/' + this.props.markerId + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+	    //   if (res.statusText != "Not Found") {
+	    //     this.setState({dailyData: res.body})
+	    //     this.setState({dailyDataLoading: false})
+	    //     array = []
+	    //     this.state.dailyData.map((e)=> {
+	    //       let hour = moment.unix(e.time).format('hh:mm')
+	    //       let date = parseInt(moment.unix(e.time).format('D'))
+	    //       let dateIndex = diffDateArray.indexOf(date)
+	    //       // dataHour.push(hour)
+	    //       if(dataHour.indexOf(hour) === -1){
+	    //         dataHour.push(hour)
+	    //       }
+	    //       let hourIndex = dataHour.indexOf(hour)
+	    //
+	    //       time.push(hour)
+	    //       array.push([hourIndex,dateIndex,e.aqi])
+	    //     })
+	    //
+	    //     // let theme = Highcharts.theme = {
+	    //     //   // colors: ['#0C6657', '#60E5D7'],
+	    //     //
+	    //     //   // colors: ['red', 'blue', 'yellow', 'orange', 'white', 'green', 'gray'],
+	    //     // };
+	    //
+	    //     // Highcharts.setOptions(theme)
+	    //
+	    //     heatmap = Highcharts.chart(this.refs.heatmap, {
+	    //       chart: {
+	    //         type: 'heatmap',
+	    //         backgroundColor: 'transparent',
+	    //         // width: 600,
+	    //         height: 300,
+	    //         plotBorderWidth: 1,
+	    //         marginTop: 90
+	    //       },
+	    //
+	    //       title: {
+	    //         text: ''
+	    //       },
+	    //
+	    //       xAxis: {
+	    //         categories: dataHour,
+	    //         labels: {
+	    //           style: {
+	    //             color: '#E0E0E3'
+	    //           }
+	    //         },
+	    //         gridLineColor: 'transparent',
+	    //       },
+	    //
+	    //       yAxis: {
+	    //         title: null,
+	    //         categories: diffDateArray,
+	    //         // type: 'datetime',
+	    //         labels: {
+	    //           style: {
+	    //             color: '#E0E0E3'
+	    //           }
+	    //         },
+	    //         gridLineColor: 'transparent',
+	    //       },
+	    //
+	    //       // colors: ['#6ecc58', '#bbcf4c', '#eac736', '#ed9a2e', '#e8633a', '#d63636'],
+	    //       colorAxis: {
+	    //         dataClasses: [
+	    //           {
+	    //             from: 0,
+	    //             to: 50,
+	    //             color: '#6ecc58',
+	    //             name: 'good'
+	    //           },
+	    //           {
+	    //             from: 50,
+	    //             to: 100,
+	    //             color: '#bbcf4c',
+	    //             name: 'satisfactory'
+	    //           },
+	    //           {
+	    //             from: 100,
+	    //             to: 200,
+	    //             color: '#eac736',
+	    //             name: 'moderate'
+	    //           },
+	    //           {
+	    //             from: 200,
+	    //             to: 300,
+	    //             color: '#ed9a2e',
+	    //             name: 'poor'
+	    //           },
+	    //           {
+	    //             from: 300,
+	    //             to: 400,
+	    //             color: '#e8633a',
+	    //             name: 'verypoor'
+	    //           },
+	    //           {
+	    //             from: 400,
+	    //             to: 500,
+	    //             color: '#d63636',
+	    //             name: 'severe'
+	    //           },
+	    //           {
+	    //             from: 500,
+	    //             to: 1000,
+	    //             color: '#d63636',
+	    //             name: 'extreme'
+	    //           },
+	    //
+	    //
+	    //         ]
+	    //       },
+	    //
+	    //       // colorAxis: {
+	    //       // min: 0,
+	    //       // max: 600,
+	    //       // stops: [
+	    //       //   [0.1,'green'],
+	    //       //   [0.5,'orange'],
+	    //       //   [0.9,'red']
+	    //       // ],
+	    //       // minColor: Highcharts.getOptions().colors[1],
+	    //       // maxColor: Highcharts.getOptions().colors[0]
+	    //       // },
+	    //
+	    //       legend: {
+	    //         enabled: false,
+	    //       },
+	    //       series: [
+	    //         {
+	    //           name: 'AQI per day',
+	    //           borderWidth: 1,
+	    //           borderColor: '#eee',
+	    //           data: array,
+	    //           dataLabels: {
+	    //             enabled: false,
+	    //             color: 'black',
+	    //             style: {
+	    //               textShadow: 'none'
+	    //             }
+	    //           }
+	    //         },
+	    //       ],
+	    //       responsive: {
+	    //         rules: [{
+	    //           condition: {
+	    //             maxWidth: 500
+	    //           },
+	    //
+	    //
+	    //         }]
+	    //       },
+	    //
+	    //     })
+	    //
+	    //     heatmap.yAxis[0].setTitle({ text: "Date" });
+	    //   }
+	    //   else {
+	    //     this.setState({noDailyData: true})
+	    //   }
+	    // }.bind(this))
 	    return _this;
 	  }
 
@@ -2850,11 +2865,11 @@
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-	var _moment = __webpack_require__(5);
+	var _moment = __webpack_require__(4);
 
 	var _moment2 = _interopRequireDefault(_moment);
 
-	var _superagent = __webpack_require__(3);
+	var _superagent = __webpack_require__(5);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -3231,65 +3246,60 @@
 	        diff = _moment2.default.duration(diff);
 	        var diffN = diff.asDays();
 	        if (diff.asDays() > 0) {
-	          var incre;
+	          diffDayArray = [];
+	          for (var i = 0; i <= diffN; i++) {
+	            var incre = (0, _moment2.default)(nextProps.fromDate, "DD-MM-YYYY").add(i, 'days');
+	            diffDayArray.push((19800 + incre.unix()) * 1000);
+	          }
 
-	          (function () {
-	            diffDayArray = [];
-	            for (var i = 0; i <= diffN; i++) {
-	              incre = (0, _moment2.default)(nextProps.fromDate, "DD-MM-YYYY").add(i, 'days');
+	          var Data = [];
+	          if (diffN >= 3) {
+	            var lte = parseInt(new Date().getTime() / 1000);
+	            var today = new Date();
+	            var gte = parseInt(new Date(today.getTime() - 1 * 24 * 60 * 60 * 1000).getTime() / 1000);
+	            // superagent.get('https://openenvironment.p.mashape.com/all/public/data/daily/' + this.props.id + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+	            //   Data = res.body
+	            //
+	            //   let aqiArray = {'AQI': [], 'co': [], 'SO2': [], 'NO2': [], 'PM10': [], 'PM25': []}
+	            //   Data.map((e) => {
+	            //     let a = (19800 + parseInt(e.payload.d.t)) * 1000;
+	            //
+	            //     aqiArray.AQI.unshift([a, e.aqi])
+	            //     aqiArray.co.unshift([a, e.payload.d.co])
+	            //     aqiArray.SO2.unshift([a, e.payload.d.so2])
+	            //     aqiArray.NO2.unshift([a, e.payload.d.no2])
+	            //     aqiArray.PM10.unshift([a, e.payload.d.pm10])
+	            //     aqiArray.PM25.unshift([a, e.payload.d.pm25])
+	            //   })
+	            //   this.setState({aqiArray: aqiArray})
+	            //   this.renderChartOnData(aqiArray)
+	            // }.bind(this))
+	          } else {
+	            (function () {
+	              Data = _this3.props.analysisData;
+	              var from = (19800 + (0, _moment2.default)(nextProps.fromDate, "DD-MM-YYYY").unix()) * 1000;
+	              var to = (19800 + (0, _moment2.default)(nextProps.toDate, "DD-MM-YYYY").add(1, 'days').unix()) * 1000;
+	              var temp = { 'AQI': [], 'co': [], 'SO2': [], 'NO2': [], 'PM10': [], 'PM25': [] };
+	              Data.map(function (e) {
+	                // // let xaxis = (19800 + parseInt(e.payload.d.t))*1000;
+	                // let date = moment.unix(e.payload.d.t).format('Do/MM/YYYY');
+	                // let a = (19800 + moment(date, 'DD/MM/YYYY').unix())*1000;
+	                // changedTimeArray = this.sortedPush(changedTimeArray, a);
 
-	              diffDayArray.push((19800 + incre.unix()) * 1000);
-	            }
-
-	            var Data = [];
-	            if (diffN >= 3) {
-	              var lte = parseInt(new Date().getTime() / 1000);
-	              var today = new Date();
-	              var gte = parseInt(new Date(today.getTime() - 1 * 24 * 60 * 60 * 1000).getTime() / 1000);
-	              _superagent2.default.get('https://openenvironment.p.mashape.com/all/public/data/daily/' + _this3.props.id + '?gte=' + gte + '&lte=' + lte).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-	                Data = res.body;
-
-	                var aqiArray = { 'AQI': [], 'co': [], 'SO2': [], 'NO2': [], 'PM10': [], 'PM25': [] };
-	                Data.map(function (e) {
-	                  var a = (19800 + parseInt(e.payload.d.t)) * 1000;
-
-	                  aqiArray.AQI.unshift([a, e.aqi]);
-	                  aqiArray.co.unshift([a, e.payload.d.co]);
-	                  aqiArray.SO2.unshift([a, e.payload.d.so2]);
-	                  aqiArray.NO2.unshift([a, e.payload.d.no2]);
-	                  aqiArray.PM10.unshift([a, e.payload.d.pm10]);
-	                  aqiArray.PM25.unshift([a, e.payload.d.pm25]);
-	                });
-	                this.setState({ aqiArray: aqiArray });
-	                this.renderChartOnData(aqiArray);
-	              }.bind(_this3));
-	            } else {
-	              (function () {
-	                Data = _this3.props.analysisData;
-	                var from = (19800 + (0, _moment2.default)(nextProps.fromDate, "DD-MM-YYYY").unix()) * 1000;
-	                var to = (19800 + (0, _moment2.default)(nextProps.toDate, "DD-MM-YYYY").add(1, 'days').unix()) * 1000;
-	                var temp = { 'AQI': [], 'co': [], 'SO2': [], 'NO2': [], 'PM10': [], 'PM25': [] };
-	                Data.map(function (e) {
-	                  // // let xaxis = (19800 + parseInt(e.payload.d.t))*1000;
-	                  // let date = moment.unix(e.payload.d.t).format('Do/MM/YYYY');
-	                  // let a = (19800 + moment(date, 'DD/MM/YYYY').unix())*1000;
-	                  // changedTimeArray = this.sortedPush(changedTimeArray, a);
-
-	                  var a = (19800 + parseInt(e.payload.d.t)) * 1000;
-	                  if (a < to && a > from) {
-	                    temp.AQI.unshift([a, e.aqi]);
-	                    temp.co.unshift([a, e.payload.d.co]);
-	                    temp.SO2.unshift([a, e.payload.d.so2]);
-	                    temp.NO2.unshift([a, e.payload.d.no2]);
-	                    temp.PM10.unshift([a, e.payload.d.pm10]);
-	                    temp.PM25.unshift([a, e.payload.d.pm25]);
-	                  }
-	                });
-	                _this3.setState({ aqiArray: temp });
-	                _this3.renderChartOnData(temp);
-	              })();
-	            }
-	          })();
+	                var a = (19800 + parseInt(e.payload.d.t)) * 1000;
+	                if (a < to && a > from) {
+	                  temp.AQI.unshift([a, e.aqi]);
+	                  temp.co.unshift([a, e.payload.d.co]);
+	                  temp.SO2.unshift([a, e.payload.d.so2]);
+	                  temp.NO2.unshift([a, e.payload.d.no2]);
+	                  temp.PM10.unshift([a, e.payload.d.pm10]);
+	                  temp.PM25.unshift([a, e.payload.d.pm25]);
+	                }
+	              });
+	              _this3.setState({ aqiArray: temp });
+	              _this3.renderChartOnData(temp);
+	            })();
+	          }
 	        }
 	      }
 	    }
@@ -3415,7 +3425,7 @@
 
 	var _CalendarView2 = _interopRequireDefault(_CalendarView);
 
-	var _superagent = __webpack_require__(3);
+	var _superagent = __webpack_require__(5);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -4301,11 +4311,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _superagent = __webpack_require__(3);
+	var _axios = __webpack_require__(45);
 
-	var _superagent2 = _interopRequireDefault(_superagent);
+	var _axios2 = _interopRequireDefault(_axios);
 
-	var _moment = __webpack_require__(5);
+	var _moment = __webpack_require__(4);
 
 	var _moment2 = _interopRequireDefault(_moment);
 
@@ -4320,6 +4330,10 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	__webpack_require__(46).polyfill();
+	// import superagent from 'superagent'
+
 
 	var classes = ['good', 'satisfactory', 'moderate', 'poor', 'vpoor', 'severe'];
 
@@ -4361,9 +4375,9 @@
 	        this.getData();
 	      }.bind(this), 180000);
 
-	      _superagent2.default.get('https://openenvironment.p.mashape.com/limits').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-	        this.setState({ limits: res.body });
-	      }.bind(this));
+	      // superagent.get('https://openenvironment.p.mashape.com/limits').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+	      //   this.setState({limits: res.body})
+	      // }.bind(this))
 	    }
 	  }, {
 	    key: 'componentWillUnmount',
@@ -4373,19 +4387,40 @@
 	  }, {
 	    key: 'getData',
 	    value: function getData() {
-	      _superagent2.default.get('https://openenvironment.p.mashape.com/fields').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-	        if (res) {
-	          this.setState({ fields: res.body });
-	          // this.fields = res.body;
-	          // console.log("fields length : "+this.fields);
-	        }
-	      }.bind(this));
+	      var config = {
+	        baseURL: 'https://openenvironment.p.mashape.com',
+	        headers: { 'X-Mashape-Key': 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk' }
+	      };
 
-	      _superagent2.default.post('https://openenvironment.p.mashape.com/all/public/devices/iframe').send({ "devices": this.devices }).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').set('Content-Type', 'application/json').end(function (err, res) {
-	        if (res) {
-	          this.setState({ iframeData: res.body });
+	      _axios2.default.get('/fields', config).then(function (response) {
+	        if (response) {
+	          this.setState({ fields: response.data });
 	        }
-	      }.bind(this));
+	      }.bind(this)).catch(function (error) {
+	        console.log(error);
+	      });
+
+	      _axios2.default.post('/all/public/devices/iframe', { "devices": this.devices }, config).then(function (response) {
+	        if (response) {
+	          this.setState({ iframeData: response.data });
+	        }
+	      }.bind(this)).catch(function (error) {
+	        console.log(error);
+	      });
+
+	      // superagent.get('https://openenvironment.p.mashape.com/fields').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
+	      //   if(res){
+	      //     this.setState({fields:res.body})
+	      //     // this.fields = res.body;
+	      //     // console.log("fields length : "+this.fields);
+	      //   }
+	      // }.bind(this))
+	      //
+	      // superagent.post('https://openenvironment.p.mashape.com/all/public/devices/iframe').send({"devices":this.devices}).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').set('Content-Type', 'application/json').end(function (err, res) {
+	      //   if(res){
+	      //     this.setState({iframeData: res.body})
+	      //   }
+	      // }.bind(this))
 	    }
 	  }, {
 	    key: 'getState',
@@ -4542,7 +4577,7 @@
 
 	var _server = __webpack_require__(26);
 
-	var _reactRouter = __webpack_require__(4);
+	var _reactRouter = __webpack_require__(3);
 
 	var _reactHelmet = __webpack_require__(6);
 
@@ -4675,124 +4710,136 @@
 /* 45 */
 /***/ function(module, exports) {
 
-	module.exports = require("postcss-cssnext");
+	module.exports = require("axios");
 
 /***/ },
 /* 46 */
 /***/ function(module, exports) {
 
-	module.exports = require("postcss-focus");
+	module.exports = require("es6-promise");
 
 /***/ },
 /* 47 */
 /***/ function(module, exports) {
 
-	module.exports = require("postcss-reporter");
+	module.exports = require("postcss-cssnext");
 
 /***/ },
 /* 48 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/FormControl");
+	module.exports = require("postcss-focus");
 
 /***/ },
 /* 49 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/FormGroup");
+	module.exports = require("postcss-reporter");
 
 /***/ },
 /* 50 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/Nav");
+	module.exports = require("react-bootstrap/lib/FormControl");
 
 /***/ },
 /* 51 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/NavItem");
+	module.exports = require("react-bootstrap/lib/FormGroup");
 
 /***/ },
 /* 52 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap/lib/Navbar");
+	module.exports = require("react-bootstrap/lib/Nav");
 
 /***/ },
 /* 53 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-datetime");
+	module.exports = require("react-bootstrap/lib/NavItem");
 
 /***/ },
 /* 54 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-google-maps/lib/GoogleMap");
+	module.exports = require("react-bootstrap/lib/Navbar");
 
 /***/ },
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-google-maps/lib/GoogleMapLoader");
+	module.exports = require("react-datetime");
 
 /***/ },
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-helmet/lib/Helmet");
+	module.exports = require("react-google-maps/lib/GoogleMap");
 
 /***/ },
 /* 57 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-router-bootstrap/lib/LinkContainer");
+	module.exports = require("react-google-maps/lib/GoogleMapLoader");
 
 /***/ },
 /* 58 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/Tab");
+	module.exports = require("react-helmet/lib/Helmet");
 
 /***/ },
 /* 59 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/TabList");
+	module.exports = require("react-router-bootstrap/lib/LinkContainer");
 
 /***/ },
 /* 60 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/TabPanel");
+	module.exports = require("react-tabs/lib/components/Tab");
 
 /***/ },
 /* 61 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/Tabs");
+	module.exports = require("react-tabs/lib/components/TabList");
 
 /***/ },
 /* 62 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools");
+	module.exports = require("react-tabs/lib/components/TabPanel");
 
 /***/ },
 /* 63 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-dock-monitor");
+	module.exports = require("react-tabs/lib/components/Tabs");
 
 /***/ },
 /* 64 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-log-monitor");
+	module.exports = require("redux-devtools");
 
 /***/ },
 /* 65 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-devtools-dock-monitor");
+
+/***/ },
+/* 66 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-devtools-log-monitor");
+
+/***/ },
+/* 67 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-thunk");
