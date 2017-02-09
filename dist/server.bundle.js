@@ -1439,7 +1439,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"main.css": "main-3824d7e8bb.css"
+		"main.css": "main-e498b9ef65.css"
 	};
 
 /***/ },
@@ -4381,7 +4381,15 @@
 	  headers: { 'X-Mashape-Key': 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk' }
 	};
 
-	var _ref = _jsx('p', {}, void 0, 'AQI');
+	var _ref = _jsx('h2', {
+	  className: 'text-center'
+	}, void 0, 'Air Quality Monitoring Data');
+
+	var _ref2 = _jsx('p', {}, void 0, 'AQI');
+
+	var _ref3 = _jsx('i', {
+	  className: 'fa fa-info-circle'
+	});
 
 	var Iframe = function (_Component) {
 	  _inherits(Iframe, _Component);
@@ -4408,6 +4416,7 @@
 	    _this.getData();
 
 	    _this.getDynamicClassName = _this.getDynamicClassName.bind(_this);
+	    _this.changeData = _this.changeData.bind(_this);
 
 	    return _this;
 	  }
@@ -4451,6 +4460,7 @@
 	      _axios2.default.post('/all/public/devices/iframe', { "devices": this.devices }, config).then(function (response) {
 	        if (response) {
 	          this.setState({ iframeData: response.data });
+	          this.setState({ activeTab: this.state.iframeData[0].label });
 	        }
 	      }.bind(this)).catch(function (error) {
 	        console.log(error);
@@ -4469,6 +4479,8 @@
 	      //     this.setState({iframeData: res.body})
 	      //   }
 	      // }.bind(this))
+
+	      // console.log('mount',this.state.iframeData)
 	    }
 	  }, {
 	    key: 'getState',
@@ -4476,7 +4488,8 @@
 	      return {
 	        fields: [],
 	        iframeData: [],
-	        limits: []
+	        limits: [],
+	        activeTab: 'Dhordo'
 	      };
 	    }
 	  }, {
@@ -4498,6 +4511,13 @@
 	      return className;
 	    }
 	  }, {
+	    key: 'changeData',
+	    value: function changeData(data) {
+	      this.setState({
+	        activeTab: data
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -4513,20 +4533,23 @@
 	        className: 'col-sm-12'
 	      }, void 0, _jsx('div', {
 	        className: 'col-sm-10 col-sm-offset-1 col-md-offset-1 col-lg-offset-1'
+	      }, void 0, _ref, _jsx('div', {
+	        className: 'button-group'
 	      }, void 0, this.state.iframeData.map(function (e) {
-	        return _jsx('div', {
-	          className: 'panel panel-default'
-	        }, e.deviceId, _jsx('div', {
-	          className: 'panel-heading'
-	        }, void 0, _jsx('h1', {
-	          className: 'panel-title text-uppercase'
-	        }, void 0, e.label, _jsx('small', {}, void 0, 'Last Updated: ', _moment2.default.unix(e.payload.d.t).format('DD/MM/YYYY, h:mm:ss a')))), _jsx('div', {
-	          className: 'panel-body'
-	        }, void 0, _jsx('ul', {
+	        return _jsx('button', {
+	          onClick: function onClick() {
+	            _this2.changeData(e.label);
+	          },
+	          className: _this2.state.activeTab == e.label ? 'active' : null
+	        }, e.label, e.label, _jsx('small', {}, void 0, 'Last Updated: ', _moment2.default.unix(e.payload.d.t).format('DD/MM/YYYY, h:mm:ss a')));
+	      })), this.state.iframeData.map(function (e) {
+	        return _this2.state.activeTab == e.label ? _jsx('div', {
+	          className: 'iframe-body'
+	        }, e.label, _jsx('ul', {
 	          className: 'list-inline'
 	        }, void 0, _jsx('li', {}, void 0, _jsx('h4', {
 	          className: _this2.getDynamicClassName(_this2.state.limits, 'aqi', e.aqi)
-	        }, void 0, e.aqi), _ref), Object.keys(e.payload.d).map(function (key) {
+	        }, void 0, e.aqi), _ref2), Object.keys(e.payload.d).map(function (key) {
 	          if (key != 't' && key != 'noise') {
 	            return _jsx('li', {}, key, _jsx('h4', {
 	              className: this.getDynamicClassName(this.state.limits, key, e.payload.d[key])
@@ -4536,7 +4559,9 @@
 	              if (e.fkey == key) return e.label;
 	            })));
 	          }
-	        }.bind(_this2)))));
+	        }.bind(_this2))), _jsx('div', {
+	          className: 'description'
+	        }, void 0, _jsx('p', {}, void 0, _ref3, e.desc))) : null;
 	      }))))));
 	    }
 	  }]);
