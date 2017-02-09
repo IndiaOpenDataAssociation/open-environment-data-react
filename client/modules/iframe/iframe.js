@@ -137,7 +137,7 @@ export default class Iframe extends Component{
           <div className="row">
             <div className="col-sm-12">
               <div className="col-sm-10 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
-                <h2 className="text-center">Air Quality Monitoring Data</h2>
+                <h3 className="text-center">Air Quality Monitoring Data</h3>
                 <div className="button-group">
                 {
                   this.state.iframeData.map((e) => {

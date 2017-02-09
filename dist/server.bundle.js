@@ -1439,7 +1439,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"main.css": "main-e498b9ef65.css"
+		"main.css": "main-cfe5480150.css"
 	};
 
 /***/ },
@@ -4381,7 +4381,7 @@
 	  headers: { 'X-Mashape-Key': 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk' }
 	};
 
-	var _ref = _jsx('h2', {
+	var _ref = _jsx('h3', {
 	  className: 'text-center'
 	}, void 0, 'Air Quality Monitoring Data');
 
