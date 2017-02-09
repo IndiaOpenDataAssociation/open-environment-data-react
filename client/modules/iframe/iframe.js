@@ -203,7 +203,7 @@ export default class Iframe extends Component{
                             <div className="description">
                               <p>
                                 <i className="fa fa-info-circle"></i>
-                                {console.log(e)}
+                                {e.desc}
                               </p>
                             </div>
                           </div>
