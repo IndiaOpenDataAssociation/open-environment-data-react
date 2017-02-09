@@ -32,7 +32,7 @@ export default class Iframe extends Component{
     this.getData()
 
     this.getDynamicClassName = this.getDynamicClassName.bind(this)
-    this.changeData = this.changeData.bind(this)
+
 
   }
 
@@ -40,6 +40,7 @@ export default class Iframe extends Component{
     window.apiInterval = setInterval(function() {
       this.getData()
     }.bind(this), 180000);
+
 
     axios.get('/limits',config).then(function (response) {
       if(response) {
@@ -49,7 +50,6 @@ export default class Iframe extends Component{
       .catch(function (error) {
         console.log(error);
       });
-
 
     // superagent.get('https://openenvironment.p.mashape.com/limits').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
     //   this.setState({limits: res.body})
@@ -74,9 +74,7 @@ export default class Iframe extends Component{
     axios.post('/all/public/devices/iframe',{"devices":this.devices},config).then(function (response) {
       if(response){
             this.setState({iframeData: response.data})
-            this.setState({activeTab: this.state.iframeData[0].label})
-
-      }
+          }
     }.bind(this))
       .catch(function (error) {
         console.log(error);
@@ -95,16 +93,13 @@ export default class Iframe extends Component{
     //     this.setState({iframeData: res.body})
     //   }
     // }.bind(this))
-
-    // console.log('mount',this.state.iframeData)
   }
 
   getState(){
     return{
       fields: [],
       iframeData: [],
-      limits: [],
-      activeTab: 'Dhordo'
+      limits: []
     }
   }
 
@@ -123,12 +118,6 @@ export default class Iframe extends Component{
     })
     return className
   }
-
-  changeData(data){
-    this.setState({
-      activeTab: data
-    })
-  }
   render(){
     let fields = this.state.fields;
     return(
@@ -137,84 +126,62 @@ export default class Iframe extends Component{
           <div className="row">
             <div className="col-sm-12">
               <div className="col-sm-10 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
-                <h2 className="text-center">Air Quality Monitoring Data</h2>
-                <div className="button-group">
                 {
-                  this.state.iframeData.map((e) => {
+                  this.state.iframeData.map((e)=>{
                     return(
-                        <button key={e.label} onClick={() => {this.changeData(e.label)}}
-                          className={
-                            this.state.activeTab == e.label
-                            ?
-                              'active'
-                            :
-                              null
-                          }
-                        >
-                          {e.label}
-                          <small>Last Updated: {moment.unix(e.payload.d.t).format('DD/MM/YYYY, h:mm:ss a')}</small>
-                        </button>
+                      <div className="panel panel-default" key={e.deviceId}>
+                        <div className="panel-heading">
+                          <h1 className="panel-title text-uppercase">
+                            {e.label}
+
+                            <small>Last Updated: {moment.unix(e.payload.d.t).format('DD/MM/YYYY, h:mm:ss a')}</small>
+                          </h1>
+                        </div>
+                        <div className="panel-body">
+                          <ul className="list-inline">
+                            <li>
+                              <h4 className={this.getDynamicClassName(this.state.limits, 'aqi', e.aqi)}>{e.aqi}</h4>
+                              <p>AQI</p>
+                            </li>
+                            {
+                              Object.keys(e.payload.d).map(function (key){
+                                if(key != 't' && key != 'noise'){
+                                  return(
+                                    <li key={key}>
+                                      <h4 className={this.getDynamicClassName(this.state.limits, key, e.payload.d[key])}>
+                                        {
+                                          e.payload.d[key]
+                                        }
+                                        {
+                                          fields.map(function (e) {
+                                            if (e.fkey==key)
+                                            return <small key={key}>{e.unit }</small>
+                                          })
+                                        }
+                                      </h4>
+                                      <p>
+                                        {
+                                          fields.map(function (e) {
+                                            if (e.fkey==key)
+                                              return e.label
+                                          })
+                                        }
+                                      </p>
+                                    </li>
+                                  )
+                                }
+                              }.bind(this))
+                            }
+                          </ul>
+                        </div>
+                      </div>
                     )
+
                   })
                 }
-                </div>
 
-                  {
-                    this.state.iframeData.map((e) => {
-                      return(
-                        this.state.activeTab == e.label
-                        ?
-                          <div className="iframe-body" key={e.label}>
-                            <ul className="list-inline">
-                              <li>
-                                <h4 className={this.getDynamicClassName(this.state.limits, 'aqi', e.aqi)}>{e.aqi}</h4>
-                                <p>AQI</p>
-                              </li>
-                              {
-                                Object.keys(e.payload.d).map(function (key){
-                                  if(key != 't' && key != 'noise'){
-                                    return(
-                                      <li key={key}>
-                                        <h4 className={this.getDynamicClassName(this.state.limits, key, e.payload.d[key])}>
-                                          {
-                                            e.payload.d[key]
-                                          }
-                                          {
-                                            fields.map(function (e) {
-                                              if (e.fkey==key)
-                                                return <small key={key}>{e.unit }</small>
-                                            })
-                                          }
-                                        </h4>
-                                        <p>
-                                          {
-                                            fields.map(function (e) {
-                                              if (e.fkey==key)
-                                                return e.label
-                                            })
-                                          }
-                                        </p>
-                                      </li>
-                                    )
-                                  }
-                                }.bind(this))
-                              }
-                            </ul>
-                            <div className="description">
-                              <p>
-                                <i className="fa fa-info-circle"></i>
-                                {console.log(e)}
-                              </p>
-                            </div>
-                          </div>
-                        :
-                        null
-                      )
-                    })
-                  }
 
               </div>
-
             </div>
           </div>
         </div>
