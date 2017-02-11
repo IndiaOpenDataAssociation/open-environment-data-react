@@ -1,10 +1,12 @@
 .iframe-container{
   //height: 100vh;
   position: relative;
-  padding-top: 30px;
+  padding-top: 20px;
   h3{
     color: #00b3bf;
     margin-top: 0;
+    border: 1px solid #333;
+    padding: 3px;
   }
   .button-group{
     background: #333;
@@ -86,3 +88,27 @@
   }
 }
 
+//embed code in latest device
+.embed-btn{
+  margin-top: 15px;
+  a {
+    color: white;
+    background: #00b3bf;
+    padding: 5px;
+    display: inline-block;
+
+    &:hover{
+      text-decoration: none;
+    }
+  }
+}
+
+.iframe-popover{
+  max-width: none !important;
+  .popover-content{
+    pre{
+      background: #fff;
+      border: 0;
+    }
+  }
+}

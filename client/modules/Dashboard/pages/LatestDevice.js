@@ -2,11 +2,14 @@ import React, {Component} from 'react'
 import GraphView from './GraphView'
 import CalendarView from './CalendarView'
 import superagent from 'superagent'
+import Popover from 'react-bootstrap/lib/Popover'
+import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger'
+
 export default class LatestDevice extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {activeGraph: 'graphview', limits: []}
+    this.state = {activeGraph: 'graphview', limits: [], fkey:''}
     this.changeGraphData = this.changeGraphData.bind(this)
     this.displayTime = this.displayTime.bind(this)
   }
@@ -33,7 +36,7 @@ export default class LatestDevice extends Component {
     let displayTime = hour + ':' + min + " " + ampm + " " + date + "-" + month + "-" + year;
     return displayTime
   }
-
+  
   getCODegree(co) {
     let obj = {};
     if (co > 25) {
@@ -99,6 +102,15 @@ export default class LatestDevice extends Component {
 
   render() {
     let latestDevice = this.props.realtimeData[0];
+    let iframeSrc = 'http://openenvironment.indiaopendata.com/iframe?devices='
+    const popoverTop = (
+      <Popover id="popover-positioned-bottom" className="iframe-popover" title={latestDevice.label}>
+        <pre>
+          &lt;iframe src={iframeSrc+latestDevice.deviceId} width="900px" height="300px"&gt;&lt;/iframe&gt;
+        </pre>
+        <iframe src={iframeSrc+latestDevice.deviceId} width="900px" height="300px"></iframe>
+      </Popover>
+    );
     return (
       <div className="dashboard-home">
         <div className="row">
@@ -336,6 +348,11 @@ export default class LatestDevice extends Component {
 
             </div>
 
+            <div className="embed-btn text-center">
+              <OverlayTrigger trigger="click" placement="top" overlay={popoverTop}>
+                <a>Embed Air Quality Data</a>
+              </OverlayTrigger>
+            </div>
           </div>
           <div className="col-sm-8 col-xs-12 remove-padding" style={{padding: '20px'}}>
             {

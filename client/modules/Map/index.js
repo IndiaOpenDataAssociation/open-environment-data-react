@@ -168,7 +168,7 @@ export default class Map extends Component {
 
   render() {
     return (
-      <div ref="map" style={{height: '92vh',width: '100%'}}>
+      <div ref="map" style={{height: '89.5vh',width: '100%'}}>
       </div>
     )
   }
