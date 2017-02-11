@@ -7,6 +7,8 @@
     margin-top: 0;
     border: 1px solid #333;
     padding: 3px;
+    margin-bottom: 0;
+    //border-bottom: 0;
   }
   .button-group{
     background: #333;
@@ -18,7 +20,7 @@
       text-align: left;
       background: #333;
       color: white;
-      border-top: 1px solid #333;
+      //border-top: 1px solid #333;
       font-weight: bold;
       &:first-child{
         border-left: 1px solid #333;
@@ -49,11 +51,11 @@
       li{
         &:not(:last-child) {
           border-right: 1px solid #ddd;
-          padding-right: 15px;
+          padding-right: 13px;
         }
 
         &:not(:first-child){
-          padding-left: 15px;
+          padding-left: 13px;
         }
 
         h4{
