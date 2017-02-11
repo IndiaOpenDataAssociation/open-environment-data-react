@@ -77,7 +77,7 @@
 
 	var _NavItem2 = _interopRequireDefault(_NavItem);
 
-	var _LinkContainer = __webpack_require__(58);
+	var _LinkContainer = __webpack_require__(60);
 
 	var _LinkContainer2 = _interopRequireDefault(_LinkContainer);
 
@@ -300,7 +300,7 @@
 
 	var _index2 = _interopRequireDefault(_index);
 
-	var _reactDatetime = __webpack_require__(54);
+	var _reactDatetime = __webpack_require__(56);
 
 	var _reactDatetime2 = _interopRequireDefault(_reactDatetime);
 
@@ -984,7 +984,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement('div', { ref: 'map', style: { height: '92vh', width: '100%' } });
+	      return _react2.default.createElement('div', { ref: 'map', style: { height: '89.5vh', width: '100%' } });
 	    }
 	  }]);
 
@@ -1274,7 +1274,7 @@
 
 	var _redux = __webpack_require__(15);
 
-	var _reduxThunk = __webpack_require__(66);
+	var _reduxThunk = __webpack_require__(68);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -1439,7 +1439,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"main.css": "main-cfe5480150.css"
+		"main.css": "main-be79f12b8f.css"
 	};
 
 /***/ },
@@ -1652,23 +1652,23 @@
 
 	var _Footer2 = _interopRequireDefault(_Footer);
 
-	var _Helmet = __webpack_require__(57);
+	var _Helmet = __webpack_require__(59);
 
 	var _Helmet2 = _interopRequireDefault(_Helmet);
 
-	var _Tab = __webpack_require__(59);
+	var _Tab = __webpack_require__(61);
 
 	var _Tab2 = _interopRequireDefault(_Tab);
 
-	var _TabList = __webpack_require__(60);
+	var _TabList = __webpack_require__(62);
 
 	var _TabList2 = _interopRequireDefault(_TabList);
 
-	var _Tabs = __webpack_require__(62);
+	var _Tabs = __webpack_require__(64);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
-	var _TabPanel = __webpack_require__(61);
+	var _TabPanel = __webpack_require__(63);
 
 	var _TabPanel2 = _interopRequireDefault(_TabPanel);
 
@@ -2230,13 +2230,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reduxDevtools = __webpack_require__(63);
+	var _reduxDevtools = __webpack_require__(65);
 
-	var _reduxDevtoolsLogMonitor = __webpack_require__(65);
+	var _reduxDevtoolsLogMonitor = __webpack_require__(67);
 
 	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
 
-	var _reduxDevtoolsDockMonitor = __webpack_require__(64);
+	var _reduxDevtoolsDockMonitor = __webpack_require__(66);
 
 	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
 
@@ -2431,11 +2431,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _GoogleMapLoader = __webpack_require__(56);
+	var _GoogleMapLoader = __webpack_require__(58);
 
 	var _GoogleMapLoader2 = _interopRequireDefault(_GoogleMapLoader);
 
-	var _GoogleMap = __webpack_require__(55);
+	var _GoogleMap = __webpack_require__(57);
 
 	var _GoogleMap2 = _interopRequireDefault(_GoogleMap);
 
@@ -3465,9 +3465,17 @@
 
 	var _CalendarView2 = _interopRequireDefault(_CalendarView);
 
-	var _superagent = __webpack_require__(67);
+	var _superagent = __webpack_require__(69);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
+
+	var _Popover = __webpack_require__(55);
+
+	var _Popover2 = _interopRequireDefault(_Popover);
+
+	var _OverlayTrigger = __webpack_require__(54);
+
+	var _OverlayTrigger2 = _interopRequireDefault(_OverlayTrigger);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3479,35 +3487,7 @@
 
 	var _ref = _jsx('p', {}, void 0, 'Current AQI');
 
-	var _ref2 = _jsx('span', {
-	  className: 'ppc-title'
-	}, void 0, 'CO', _jsx('sub', {}));
-
-	var _ref3 = _jsx('small', {}, void 0, '(mg/m3)');
-
-	var _ref4 = _jsx('span', {
-	  className: 'ppc-title'
-	}, void 0, 'SO', _jsx('sub', {}, void 0, '2'));
-
-	var _ref5 = _jsx('small', {}, void 0, '(ug/m3)');
-
-	var _ref6 = _jsx('span', {
-	  className: 'ppc-title'
-	}, void 0, 'NO', _jsx('sub', {}, void 0, '2'));
-
-	var _ref7 = _jsx('small', {}, void 0, '(ug/m3)');
-
-	var _ref8 = _jsx('span', {
-	  className: 'ppc-title'
-	}, void 0, 'PM10');
-
-	var _ref9 = _jsx('small', {}, void 0, '(ug/m3)');
-
-	var _ref10 = _jsx('span', {
-	  className: 'ppc-title'
-	}, void 0, 'PM2.5');
-
-	var _ref11 = _jsx('small', {}, void 0, '(ug/m3)');
+	var _ref2 = _jsx('a', {}, void 0, 'Embed Air Quality Data');
 
 	var LatestDevice = function (_Component) {
 	  _inherits(LatestDevice, _Component);
@@ -3517,9 +3497,10 @@
 
 	    var _this = _possibleConstructorReturn(this, (LatestDevice.__proto__ || Object.getPrototypeOf(LatestDevice)).call(this, props));
 
-	    _this.state = { activeGraph: 'graphview', limits: [] };
+	    _this.state = { activeGraph: 'graphview', limits: [], dataLoaded: false };
 	    _this.changeGraphData = _this.changeGraphData.bind(_this);
 	    _this.displayTime = _this.displayTime.bind(_this);
+	    _this.getLimits = _this.getLimits.bind(_this);
 	    return _this;
 	  }
 
@@ -3528,6 +3509,7 @@
 	    value: function componentDidMount() {
 	      _superagent2.default.get('https://openenvironment.p.mashape.com/limits').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
 	        this.setState({ limits: res.body });
+	        this.setState({ dataLoaded: true });
 	      }.bind(this));
 	    }
 	  }, {
@@ -3550,70 +3532,97 @@
 	      return displayTime;
 	    }
 	  }, {
-	    key: 'getCODegree',
-	    value: function getCODegree(co) {
-	      var obj = {};
-	      if (co > 25) {
-	        obj.class = 'gt-50';
-	      }
-	      var percent = co,
-	          deg = 360 * percent / 50;
-	      obj.percent = percent;
-	      obj.deg = deg;
+	    key: 'getLimits',
+	    value: function getLimits(data, key) {
+	      var name = void 0,
+	          obj = {};
+	      this.state.limits.map(function (e) {
+	        // console.log(e)
+	        if (e.fkey == key) {
+	          if (data > e.max) {
+	            obj.class = 'gt-50';
+	          } else {
+	            obj.class = '';
+	          }
+	          var percent = data;
+	          var deg = 360 * percent / (e.max * 2);
+	          obj.percent = percent;
+	          obj.deg = deg;
+	          // console.log("obj", obj)
+	        }
+	      });
 	      return obj;
+	      // let obj = {};
+	      //   if (data > 25) {
+	      //     obj.class = 'gt-50';
+	      //   }
+	      //   var percent = data
+	      //   var deg = 360 * percent;
+	      //   obj.percent = percent;
+	      //   obj.deg = deg;
+	      //   console.log(obj)
+	      //   return obj;
 	    }
-	  }, {
-	    key: 'getSODegree',
-	    value: function getSODegree(so) {
-	      var obj = {};
-	      if (so > 800) {
-	        obj.class = 'gt-50';
-	      }
-	      var percent = so,
-	          deg = 360 * percent / 1600;
-	      obj.percent = percent;
-	      obj.deg = deg;
-	      return obj;
-	    }
-	  }, {
-	    key: 'getNODegree',
-	    value: function getNODegree(no) {
-	      var obj = {};
-	      if (no > 250) {
-	        obj.class = 'gt-50';
-	      }
-	      var percent = no,
-	          deg = 360 * percent / 500;
-	      obj.percent = percent;
-	      obj.deg = deg;
-	      return obj;
-	    }
-	  }, {
-	    key: 'getPM10Degree',
-	    value: function getPM10Degree(pm10) {
-	      var obj = {};
-	      if (pm10 > 215) {
-	        obj.class = 'gt-50';
-	      }
-	      var percent = pm10,
-	          deg = 360 * percent / 430;
-	      obj.percent = percent;
-	      obj.deg = deg;
-	      return obj;
-	    }
-	  }, {
-	    key: 'getPM25Degree',
-	    value: function getPM25Degree(pm25) {
-	      var obj = {};
-	      if (pm25 > 125) {
-	        obj.class = 'gt-50';
-	      }
-	      var percent = pm25,
-	          deg = 360 * percent / 250;
-	      obj.percent = percent;
-	      obj.deg = deg;
-	      return obj;
-	    }
+
+	    // getCODegree(co) {
+	    //   let obj = {};
+	    //   if (co > 25) {
+	    //     obj.class = 'gt-50';
+	    //   }
+	    //   var percent = co, deg = 360 * percent / 50;
+	    //   obj.percent = percent;
+	    //   obj.deg = deg;
+	    //   return obj;
+	    // }
+	    //
+	    // getSODegree(so) {
+	    //   let obj = {};
+	    //   if (so > 800) {
+	    //     obj.class = 'gt-50';
+	    //   }
+	    //   var percent = so,
+	    //     deg = 360 * percent / 1600;
+	    //   obj.percent = percent;
+	    //   obj.deg = deg;
+	    //   return obj;
+	    // }
+	    //
+	    // getNODegree(no) {
+	    //   let obj = {};
+	    //   if (no > 250) {
+	    //     obj.class = 'gt-50';
+	    //   }
+	    //   var percent = no,
+	    //     deg = 360 * percent / 500;
+	    //   obj.percent = percent;
+	    //   obj.deg = deg;
+	    //   return obj;
+	    // }
+	    //
+	    // getPM10Degree(pm10) {
+	    //   let obj = {};
+	    //   if (pm10 > 215) {
+	    //     obj.class = 'gt-50';
+	    //   }
+	    //   var percent = pm10,
+	    //     deg = 360 * percent / 430;
+	    //   obj.percent = percent;
+	    //   obj.deg = deg;
+	    //   return obj;
+	    // }
+	    //
+	    // getPM25Degree(pm25) {
+	    //   let obj = {};
+	    //   if (pm25 > 125) {
+	    //     obj.class = 'gt-50';
+	    //   }
+	    //   var percent = pm25,
+	    //     deg = 360 * percent / 250;
+	    //   obj.percent = percent;
+	    //   obj.deg = deg;
+	    //   return obj;
+	    // }
+
 	  }, {
 	    key: 'changeGraphData',
 	    value: function changeGraphData(graph) {
@@ -3623,6 +3632,16 @@
 	    key: 'render',
 	    value: function render() {
 	      var latestDevice = this.props.realtimeData[0];
+	      var iframeSrc = 'http://openenvironment.indiaopendata.com/iframe?devices=';
+	      var popoverTop = _jsx(_Popover2.default, {
+	        id: 'popover-positioned-bottom',
+	        className: 'iframe-popover',
+	        title: latestDevice.label
+	      }, void 0, _jsx('pre', {}, void 0, '<iframe src=', iframeSrc + latestDevice.deviceId, ' width="900px" height="300px"></iframe>'), _jsx('iframe', {
+	        src: iframeSrc + latestDevice.deviceId,
+	        width: '900px',
+	        height: '300px'
+	      }));
 	      return _jsx('div', {
 	        className: 'dashboard-home'
 	      }, void 0, _jsx('div', {
@@ -3642,72 +3661,31 @@
 	        className: 'gases-details'
 	      }, void 0, _jsx('div', {
 	        className: 'row'
-	      }, void 0, latestDevice.payload.d.co != undefined ? _jsx('div', {
-	        className: 'col-md-3 col-xs-3 text-center'
-	      }, void 0, _jsx('div', {
-	        className: 'progress-pie-chart-gas ' + this.getCODegree(latestDevice.payload.d.co).class
-	      }, void 0, _jsx('div', {
-	        className: 'ppc-progress-gas'
-	      }, void 0, _jsx('div', {
-	        className: 'ppc-progress-fill-gas',
-	        style: { transform: 'rotate(' + this.getCODegree(latestDevice.payload.d.co).deg + 'deg)' }
-	      })), _jsx('div', {
-	        className: 'ppc-percents-gas'
-	      }, void 0, _jsx('div', {
-	        className: 'pcc-percents-wrapper-gas'
-	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.co)))), _ref2, _ref3) : null, latestDevice.payload.d.so2 != undefined ? _jsx('div', {
-	        className: 'col-md-3 col-xs-3'
-	      }, void 0, _jsx('div', {
-	        className: 'progress-pie-chart-gas ' + this.getSODegree(latestDevice.payload.d.so2).class
-	      }, void 0, _jsx('div', {
-	        className: 'ppc-progress-gas'
-	      }, void 0, _jsx('div', {
-	        className: 'ppc-progress-fill-gas',
-	        style: { transform: 'rotate(' + this.getSODegree(latestDevice.payload.d.so2).deg + 'deg)' }
-	      }, void 0)), _jsx('div', {
-	        className: 'ppc-percents-gas'
-	      }, void 0, _jsx('div', {
-	        className: 'pcc-percents-wrapper-gas'
-	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.so2)))), _ref4, _ref5) : null, latestDevice.payload.d.no2 != undefined ? _jsx('div', {
-	        className: 'col-md-3 col-xs-3'
-	      }, void 0, _jsx('div', {
-	        className: 'progress-pie-chart-gas ' + this.getNODegree(latestDevice.payload.d.no2).class
-	      }, void 0, _jsx('div', {
-	        className: 'ppc-progress-gas'
-	      }, void 0, _jsx('div', {
-	        className: 'ppc-progress-fill-gas',
-	        style: { transform: 'rotate(' + this.getNODegree(latestDevice.payload.d.no2).deg + 'deg)' }
-	      }, void 0)), _jsx('div', {
-	        className: 'ppc-percents-gas'
-	      }, void 0, _jsx('div', {
-	        className: 'pcc-percents-wrapper-gas'
-	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.no2)))), _ref6, _ref7) : null, latestDevice.payload.d.pm10 != undefined ? _jsx('div', {
-	        className: 'col-md-3 col-xs-3'
-	      }, void 0, _jsx('div', {
-	        className: 'progress-pie-chart-gas ' + this.getPM10Degree(latestDevice.payload.d.pm10).class
-	      }, void 0, _jsx('div', {
-	        className: 'ppc-progress-gas'
-	      }, void 0, _jsx('div', {
-	        className: 'ppc-progress-fill-gas',
-	        style: { transform: 'rotate(' + this.getPM10Degree(latestDevice.payload.d.pm10).deg + 'deg)' }
-	      }, void 0)), _jsx('div', {
-	        className: 'ppc-percents-gas'
-	      }, void 0, _jsx('div', {
-	        className: 'pcc-percents-wrapper-gas'
-	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.pm10)))), _ref8, _ref9) : null, latestDevice.payload.d.pm25 != undefined ? _jsx('div', {
-	        className: 'col-md-3 col-xs-3'
-	      }, void 0, _jsx('div', {
-	        className: 'progress-pie-chart-gas ' + this.getPM25Degree(latestDevice.payload.d.pm25).class
-	      }, void 0, _jsx('div', {
-	        className: 'ppc-progress-gas'
-	      }, void 0, _jsx('div', {
-	        className: 'ppc-progress-fill-gas',
-	        style: { transform: 'rotate(' + this.getPM25Degree(latestDevice.payload.d.pm25).deg + 'deg)' }
-	      }, void 0)), _jsx('div', {
-	        className: 'ppc-percents-gas'
-	      }, void 0, _jsx('div', {
-	        className: 'pcc-percents-wrapper-gas'
-	      }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d.pm25)))), _ref10, _ref11) : null))), _jsx('div', {
+	      }, void 0, this.state.dataLoaded ? Object.keys(latestDevice.payload.d).map(function (key) {
+
+	        return key != 't' && key != 'wd' && key != 'ws' && key != 'noise' && key != 'light' && key != 'uv' ? _jsx('div', {
+	          className: 'col-md-3 col-xs-3'
+	        }, key, _jsx('div', {
+	          className: 'progress-pie-chart-gas ' + this.getLimits(latestDevice.payload.d[key], key).class
+	        }, void 0, _jsx('div', {
+	          className: 'ppc-progress-gas'
+	        }, void 0, _jsx('div', {
+	          className: 'ppc-progress-fill-gas',
+	          style: { transform: 'rotate(' + this.getLimits(latestDevice.payload.d[key], key).deg + 'deg)' }
+	        }, void 0)), _jsx('div', {
+	          className: 'ppc-percents-gas'
+	        }, void 0, _jsx('div', {
+	          className: 'pcc-percents-wrapper-gas'
+	        }, void 0, _jsx('span', {}, void 0, latestDevice.payload.d[key])))), _jsx('span', {
+	          className: 'ppc-title'
+	        }, void 0, key), _jsx('small', {}, void 0, key == 'co' ? 'mg/m3' : key == 'temp' ? 'C' : key == 'hum' ? '%' : 'ug/m3')) : null;
+	      }.bind(this)) : null)), _jsx('div', {
+	        className: 'embed-btn text-center'
+	      }, void 0, _jsx(_OverlayTrigger2.default, {
+	        trigger: 'click',
+	        placement: 'top',
+	        overlay: popoverTop
+	      }, void 0, _ref2))), _jsx('div', {
 	        className: 'col-sm-8 col-xs-12 remove-padding',
 	        style: { padding: '20px' }
 	      }, void 0, this.state.activeGraph === 'graphview' ? _jsx(_GraphView2.default, {
@@ -4837,82 +4815,94 @@
 /* 54 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-datetime");
+	module.exports = require("react-bootstrap/lib/OverlayTrigger");
 
 /***/ },
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-google-maps/lib/GoogleMap");
+	module.exports = require("react-bootstrap/lib/Popover");
 
 /***/ },
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-google-maps/lib/GoogleMapLoader");
+	module.exports = require("react-datetime");
 
 /***/ },
 /* 57 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-helmet/lib/Helmet");
+	module.exports = require("react-google-maps/lib/GoogleMap");
 
 /***/ },
 /* 58 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-router-bootstrap/lib/LinkContainer");
+	module.exports = require("react-google-maps/lib/GoogleMapLoader");
 
 /***/ },
 /* 59 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/Tab");
+	module.exports = require("react-helmet/lib/Helmet");
 
 /***/ },
 /* 60 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/TabList");
+	module.exports = require("react-router-bootstrap/lib/LinkContainer");
 
 /***/ },
 /* 61 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/TabPanel");
+	module.exports = require("react-tabs/lib/components/Tab");
 
 /***/ },
 /* 62 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/Tabs");
+	module.exports = require("react-tabs/lib/components/TabList");
 
 /***/ },
 /* 63 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools");
+	module.exports = require("react-tabs/lib/components/TabPanel");
 
 /***/ },
 /* 64 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-dock-monitor");
+	module.exports = require("react-tabs/lib/components/Tabs");
 
 /***/ },
 /* 65 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-log-monitor");
+	module.exports = require("redux-devtools");
 
 /***/ },
 /* 66 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-thunk");
+	module.exports = require("redux-devtools-dock-monitor");
 
 /***/ },
 /* 67 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-devtools-log-monitor");
+
+/***/ },
+/* 68 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-thunk");
+
+/***/ },
+/* 69 */
 /***/ function(module, exports) {
 
 	module.exports = require("superagent");
