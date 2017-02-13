@@ -152,7 +152,6 @@ export default class Iframe extends Component{
                           }
                         >
                           {e.label}
-                          <small>Last Updated: {moment.unix(e.payload.d.t).format('DD/MM/YYYY, h:mm:ss a')}</small>
                         </button>
                     )
                   })
@@ -165,7 +164,10 @@ export default class Iframe extends Component{
                         this.state.activeTab == e.label
                         ?
                           <div>
+
                             <div className="iframe-body" key={e.label}>
+                              <small>Last Updated: {moment.unix(e.payload.d.t).format('DD/MM/YYYY, h:mm:ss a')}</small>
+                              <div className="gas-list">
                               <ul className="list-inline">
                                 <li>
                                   <h4 className={this.getDynamicClassName(this.state.limits, 'aqi', e.aqi)}>{e.aqi}</h4>
@@ -201,6 +203,7 @@ export default class Iframe extends Component{
                                   }.bind(this))
                                 }
                               </ul>
+                              </div>
                             </div>
                             <div className="description">
                               <p>
