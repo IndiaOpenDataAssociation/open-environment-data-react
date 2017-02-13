@@ -1439,7 +1439,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"main.css": "main-be79f12b8f.css"
+		"main.css": "main-9f392c08a8.css"
 	};
 
 /***/ },
@@ -3501,6 +3501,7 @@
 	    _this.changeGraphData = _this.changeGraphData.bind(_this);
 	    _this.displayTime = _this.displayTime.bind(_this);
 	    _this.getLimits = _this.getLimits.bind(_this);
+	    _this.closePopover = _this.closePopover.bind(_this);
 	    return _this;
 	  }
 
@@ -3629,6 +3630,11 @@
 	      this.setState({ activeGraph: graph });
 	    }
 	  }, {
+	    key: 'closePopover',
+	    value: function closePopover() {
+	      this.refs.overlay.hide();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var latestDevice = this.props.realtimeData[0];
@@ -3637,7 +3643,10 @@
 	        id: 'popover-positioned-bottom',
 	        className: 'iframe-popover',
 	        title: latestDevice.label
-	      }, void 0, _jsx('pre', {}, void 0, '<iframe src=', iframeSrc + latestDevice.deviceId, ' width="900px" height="300px"></iframe>'), _jsx('iframe', {
+	      }, void 0, _jsx('i', {
+	        className: 'fa fa-close closePopover',
+	        onClick: this.closePopover
+	      }), _jsx('pre', {}, void 0, '<iframe src=', iframeSrc + latestDevice.deviceId, ' width="900px" height="300px"></iframe>'), _jsx('iframe', {
 	        src: iframeSrc + latestDevice.deviceId,
 	        width: '900px',
 	        height: '300px'
@@ -3681,11 +3690,11 @@
 	        }, void 0, key), _jsx('small', {}, void 0, key == 'co' ? 'mg/m3' : key == 'temp' ? 'C' : key == 'hum' ? '%' : 'ug/m3')) : null;
 	      }.bind(this)) : null)), _jsx('div', {
 	        className: 'embed-btn text-center'
-	      }, void 0, _jsx(_OverlayTrigger2.default, {
-	        trigger: 'click',
-	        placement: 'top',
-	        overlay: popoverTop
-	      }, void 0, _ref2))), _jsx('div', {
+	      }, void 0, _react2.default.createElement(
+	        _OverlayTrigger2.default,
+	        { trigger: 'click', placement: 'top', overlay: popoverTop, ref: 'overlay' },
+	        _ref2
+	      ))), _jsx('div', {
 	        className: 'col-sm-8 col-xs-12 remove-padding',
 	        style: { padding: '20px' }
 	      }, void 0, this.state.activeGraph === 'graphview' ? _jsx(_GraphView2.default, {
