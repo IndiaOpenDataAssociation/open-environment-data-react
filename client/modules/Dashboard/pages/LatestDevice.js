@@ -13,6 +13,7 @@ export default class LatestDevice extends Component {
     this.changeGraphData = this.changeGraphData.bind(this)
     this.displayTime = this.displayTime.bind(this)
     this.getLimits = this.getLimits.bind(this)
+    this.closePopover = this.closePopover.bind(this)
   }
 
   componentDidMount(){
@@ -135,11 +136,15 @@ export default class LatestDevice extends Component {
     this.setState({activeGraph : graph})
   }
 
+  closePopover(){
+    this.refs.overlay.hide();
+  }
   render() {
     let latestDevice = this.props.realtimeData[0];
     let iframeSrc = 'http://openenvironment.indiaopendata.com/iframe?devices='
     const popoverTop = (
       <Popover id="popover-positioned-bottom" className="iframe-popover" title={latestDevice.label}>
+        <i className="fa fa-close closePopover" onClick={this.closePopover}></i>
         <pre>
           &lt;iframe src={iframeSrc+latestDevice.deviceId} width="900px" height="300px"&gt;&lt;/iframe&gt;
         </pre>
@@ -316,7 +321,7 @@ export default class LatestDevice extends Component {
             </div>
 
             <div className="embed-btn text-center">
-              <OverlayTrigger trigger="click" placement="top" overlay={popoverTop}>
+              <OverlayTrigger trigger="click" placement="top" overlay={popoverTop} ref="overlay">
                 <a>Embed Air Quality Data</a>
               </OverlayTrigger>
             </div>
