@@ -146,9 +146,9 @@ export default class LatestDevice extends Component {
       <Popover id="popover-positioned-bottom" className="iframe-popover" title={latestDevice.label}>
         <i className="fa fa-close closePopover" onClick={this.closePopover}></i>
         <pre>
-          &lt;iframe src={iframeSrc+latestDevice.deviceId} width="900px" height="300px"&gt;&lt;/iframe&gt;
+          &lt;iframe src={iframeSrc+latestDevice.deviceId} &gt;&lt;/iframe&gt;
         </pre>
-        <iframe src={iframeSrc+latestDevice.deviceId} width="900px" height="300px"></iframe>
+        <iframe src={iframeSrc+latestDevice.deviceId} width="1000px" height="300px"></iframe>
       </Popover>
     );
     return (

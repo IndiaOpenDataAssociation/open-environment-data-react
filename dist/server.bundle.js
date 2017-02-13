@@ -3646,9 +3646,9 @@
 	      }, void 0, _jsx('i', {
 	        className: 'fa fa-close closePopover',
 	        onClick: this.closePopover
-	      }), _jsx('pre', {}, void 0, '<iframe src=', iframeSrc + latestDevice.deviceId, ' width="900px" height="300px"></iframe>'), _jsx('iframe', {
+	      }), _jsx('pre', {}, void 0, '<iframe src=', iframeSrc + latestDevice.deviceId, ' ></iframe>'), _jsx('iframe', {
 	        src: iframeSrc + latestDevice.deviceId,
-	        width: '900px',
+	        width: '1000px',
 	        height: '300px'
 	      }));
 	      return _jsx('div', {
