@@ -84,15 +84,16 @@
       }
     }
 
-    .description{
-      padding: 10px;
-      border-top: 1px solid #ddd;
-      p{
-        margin-bottom: 0px;
-        font-size: 14px;
-        i{
-          margin-right: 10px;
-        }
+  }
+  .description{
+    padding: 10px;
+    border: 1px solid #333;
+    border-top: 0;
+    p{
+      margin-bottom: 0px;
+      font-size: 14px;
+      i{
+        margin-right: 10px;
       }
     }
   }

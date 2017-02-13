@@ -164,46 +164,48 @@ export default class Iframe extends Component{
                       return(
                         this.state.activeTab == e.label
                         ?
-                          <div className="iframe-body" key={e.label}>
-                            <ul className="list-inline">
-                              <li>
-                                <h4 className={this.getDynamicClassName(this.state.limits, 'aqi', e.aqi)}>{e.aqi}</h4>
-                                <p>AQI</p>
-                              </li>
-                              {
-                                Object.keys(e.payload.d).map(function (key){
-                                  if(key != 't' && key != 'noise'){
-                                    return(
-                                      <li key={key}>
-                                        <h4 className={this.getDynamicClassName(this.state.limits, key, e.payload.d[key])}>
-                                          {
-                                            e.payload.d[key]
-                                          }
-                                          {
-                                            fields.map(function (e) {
-                                              if (e.fkey==key)
-                                                return <small key={key}>{e.unit }</small>
-                                            })
-                                          }
-                                        </h4>
-                                        <p>
-                                          {
-                                            fields.map(function (e) {
-                                              if (e.fkey==key)
-                                                return e.label
-                                            })
-                                          }
-                                        </p>
-                                      </li>
-                                    )
-                                  }
-                                }.bind(this))
-                              }
-                            </ul>
+                          <div>
+                            <div className="iframe-body" key={e.label}>
+                              <ul className="list-inline">
+                                <li>
+                                  <h4 className={this.getDynamicClassName(this.state.limits, 'aqi', e.aqi)}>{e.aqi}</h4>
+                                  <p>AQI</p>
+                                </li>
+                                {
+                                  Object.keys(e.payload.d).map(function (key){
+                                    if(key != 't' && key != 'noise'){
+                                      return(
+                                        <li key={key}>
+                                          <h4 className={this.getDynamicClassName(this.state.limits, key, e.payload.d[key])}>
+                                            {
+                                              e.payload.d[key]
+                                            }
+                                            {
+                                              fields.map(function (e) {
+                                                if (e.fkey==key)
+                                                  return <small key={key}>{e.unit }</small>
+                                              })
+                                            }
+                                          </h4>
+                                          <p>
+                                            {
+                                              fields.map(function (e) {
+                                                if (e.fkey==key)
+                                                  return e.label
+                                              })
+                                            }
+                                          </p>
+                                        </li>
+                                      )
+                                    }
+                                  }.bind(this))
+                                }
+                              </ul>
+                            </div>
                             <div className="description">
                               <p>
-                                <i className="fa fa-info-circle"></i>
-                                {e.desc}
+                              <i className="fa fa-info-circle"></i>
+                              {e.desc}
                               </p>
                             </div>
                           </div>

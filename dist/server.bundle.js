@@ -1439,7 +1439,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"main.css": "main-3a0a631d5f.css"
+		"main.css": "main-6e58859cbe.css"
 	};
 
 /***/ },
@@ -4530,7 +4530,7 @@
 	          className: _this2.state.activeTab == e.label ? 'active' : null
 	        }, e.label, e.label, _jsx('small', {}, void 0, 'Last Updated: ', _moment2.default.unix(e.payload.d.t).format('DD/MM/YYYY, h:mm:ss a')));
 	      })), this.state.iframeData.map(function (e) {
-	        return _this2.state.activeTab == e.label ? _jsx('div', {
+	        return _this2.state.activeTab == e.label ? _jsx('div', {}, void 0, _jsx('div', {
 	          className: 'iframe-body'
 	        }, e.label, _jsx('ul', {
 	          className: 'list-inline'
@@ -4546,7 +4546,7 @@
 	              if (e.fkey == key) return e.label;
 	            })));
 	          }
-	        }.bind(_this2))), _jsx('div', {
+	        }.bind(_this2)))), _jsx('div', {
 	          className: 'description'
 	        }, void 0, _jsx('p', {}, void 0, _ref3, e.desc))) : null;
 	      }))))));
