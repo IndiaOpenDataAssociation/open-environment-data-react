@@ -44,14 +44,19 @@
   .iframe-body{
     border-top: 0;
     border: 1px solid #333;
-
+    width: auto;
+    overflow-x:scroll;
+    overflow-y: hidden;
     ul{
       margin: 0;
       padding: 15px;
+      width: auto;
+      white-space:nowrap;
       li{
-        width: 15%;
+        //width: 15%;
         margin-bottom: 10px;
         text-align: center;
+        display: inline-block;
         &:not(:last-child) {
           border-right: 1px solid #ddd;
           padding-right: 13px;
