@@ -1439,7 +1439,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"main.css": "main-50a4ee61c9.css"
+		"main.css": "main-831a6b5b15.css"
 	};
 
 /***/ },
@@ -4370,13 +4370,9 @@
 
 	var _ref = _jsx('h3', {
 	  className: 'text-center'
-	}, void 0, 'Air Quality Monitoring Data');
+	}, void 0, 'Air Quality Index');
 
 	var _ref2 = _jsx('p', {}, void 0, 'AQI');
-
-	var _ref3 = _jsx('i', {
-	  className: 'fa fa-info-circle'
-	});
 
 	var Iframe = function (_Component) {
 	  _inherits(Iframe, _Component);
@@ -4389,13 +4385,34 @@
 	    _this.state = _this.getState();
 	    _this.getData = _this.getData.bind(_this);
 	    _this.deviceParams = _this.props.location.query.devices;
-	    // this.devices = ["OZ_PARTICLE_005"]
-	    _this.devices = [];
+
+	    //new
+	    _this.devices = [], _this.deviceList = [], _this.params = {};
 	    if (_this.deviceParams) {
-	      _this.devices = _this.deviceParams.split(",");
+	      _this.deviceList = _this.deviceParams.split(",");
+	      _this.deviceList.map(function (e) {
+	        if (e.indexOf('-') === -1) {
+	          _this.devices.push(e);
+	        } else {
+	          _this.devices.push(e.split('-')[0]);
+	          _this.params[e.split('-')[0]] = e.split('-')[1].split('_');
+	        }
+	      });
 	    } else {
 	      _this.devices = null;
 	    }
+	    //new
+
+	    //old
+	    //   this.devices = []
+	    //   if(this.deviceParams){
+	    //      this.devices = this.deviceParams.split(",");
+	    //      console.log('devices',this.deviceParams)
+	    //   } else {
+	    //     this.devices = null;
+	    //   }
+	    //end old
+
 	    // console.log("came here with deviceids : "+this.deviceParams);
 
 	    // this.fields = [];
@@ -4510,6 +4527,7 @@
 	      var _this2 = this;
 
 	      var fields = this.state.fields;
+
 	      return _jsx('div', {
 	        className: 'iframe-container'
 	      }, void 0, _jsx('div', {
@@ -4530,16 +4548,16 @@
 	          className: _this2.state.activeTab == e.label ? 'active' : null
 	        }, e.label, e.label);
 	      })), this.state.iframeData.map(function (e) {
-	        return _this2.state.activeTab == e.label ? _jsx('div', {}, void 0, _jsx('div', {
+	        return _this2.state.activeTab == e.label ? _jsx('div', {}, e.label, _jsx('div', {
 	          className: 'iframe-body'
 	        }, e.label, _jsx('small', {}, void 0, 'Last Updated: ', _moment2.default.unix(e.payload.d.t).format('DD/MM/YYYY, h:mm:ss a')), _jsx('div', {
 	          className: 'gas-list'
 	        }, void 0, _jsx('ul', {
 	          className: 'list-inline'
-	        }, void 0, _jsx('li', {}, void 0, _jsx('h4', {
+	        }, void 0, _this2.params[e.deviceId].indexOf('aqi') > -1 ? _jsx('li', {}, void 0, _jsx('h4', {
 	          className: _this2.getDynamicClassName(_this2.state.limits, 'aqi', e.aqi)
-	        }, void 0, e.aqi), _ref2), Object.keys(e.payload.d).map(function (key) {
-	          if (key != 't' && key != 'noise') {
+	        }, void 0, e.aqi), _ref2) : null, Object.keys(e.payload.d).map(function (key) {
+	          if (this.params[e.deviceId].indexOf(key) > -1) {
 	            return _jsx('li', {}, key, _jsx('h4', {
 	              className: this.getDynamicClassName(this.state.limits, key, e.payload.d[key])
 	            }, void 0, e.payload.d[key], fields.map(function (e) {
@@ -4547,10 +4565,10 @@
 	            })), _jsx('p', {}, void 0, fields.map(function (e) {
 	              if (e.fkey == key) return e.label;
 	            })));
+	          } else {
+	            return false;
 	          }
-	        }.bind(_this2))))), _jsx('div', {
-	          className: 'description'
-	        }, void 0, _jsx('p', {}, void 0, _ref3, e.desc))) : null;
+	        }.bind(_this2)))))) : null;
 	      }))))));
 	    }
 	  }]);
