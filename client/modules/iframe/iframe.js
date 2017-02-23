@@ -18,13 +18,35 @@ export default class Iframe extends Component{
     this.state = this.getState()
     this.getData=this.getData.bind(this)
     this.deviceParams = this.props.location.query.devices;
-    // this.devices = ["OZ_PARTICLE_005"]
-    this.devices = []
-    if(this.deviceParams){
-       this.devices = this.deviceParams.split(",");
-    } else {
-      this.devices = null;
-    }
+
+    //new
+      this.devices = [], this.deviceList=[], this.params={}
+        if(this.deviceParams){
+           this.deviceList = this.deviceParams.split(",");
+            this.deviceList.map((e)=>{
+             if(e.indexOf('-') === -1){
+               this.devices.push(e)
+             } else {
+               this.devices.push(e.split('-')[0])
+               this.params[e.split('-')[0]] = e.split('-')[1].split('_')
+             }
+
+            })
+        } else {
+          this.devices = null;
+        }
+  //new
+
+  //old
+  //   this.devices = []
+  //   if(this.deviceParams){
+  //      this.devices = this.deviceParams.split(",");
+  //      console.log('devices',this.deviceParams)
+  //   } else {
+  //     this.devices = null;
+  //   }
+  //end old
+
     // console.log("came here with deviceids : "+this.deviceParams);
 
     // this.fields = [];
@@ -131,13 +153,14 @@ export default class Iframe extends Component{
   }
   render(){
     let fields = this.state.fields;
+
     return(
       <div className="iframe-container">
         <div className="">
           <div className="row">
             <div className="col-sm-12">
               <div className="col-sm-10 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
-                <h3 className="text-center">Air Quality Monitoring Data</h3>
+                <h3 className="text-center">Air Quality Index</h3>
                 <div className="button-group">
                 {
                   this.state.iframeData.map((e) => {
@@ -163,28 +186,36 @@ export default class Iframe extends Component{
                       return(
                         this.state.activeTab == e.label
                         ?
-                          <div>
+                          <div key={e.label}>
 
                             <div className="iframe-body" key={e.label}>
                               <small>Last Updated: {moment.unix(e.payload.d.t).format('DD/MM/YYYY, h:mm:ss a')}</small>
                               <div className="gas-list">
                               <ul className="list-inline">
-                                <li>
-                                  <h4 className={this.getDynamicClassName(this.state.limits, 'aqi', e.aqi)}>{e.aqi}</h4>
-                                  <p>AQI</p>
-                                </li>
+                                 {
+                                   this.params[e.deviceId].indexOf('aqi') > -1
+                                     ?
+                                      <li>
+                                        <h4 className={this.getDynamicClassName(this.state.limits, 'aqi', e.aqi)}>{e.aqi}</h4>
+                                        <p>AQI</p>
+                                      </li>
+                                   :
+                                     null
+                                }
+
                                 {
                                   Object.keys(e.payload.d).map(function (key){
-                                    if(key != 't' && key != 'noise'){
-                                      return(
+                                    if(this.params[e.deviceId].indexOf(key) > -1) {
+                                      return (
                                         <li key={key}>
-                                          <h4 className={this.getDynamicClassName(this.state.limits, key, e.payload.d[key])}>
+                                          <h4
+                                            className={this.getDynamicClassName(this.state.limits, key, e.payload.d[key])}>
                                             {
                                               e.payload.d[key]
                                             }
                                             {
                                               fields.map(function (e) {
-                                                if (e.fkey==key)
+                                                if (e.fkey == key)
                                                   return <small key={key}>{e.unit }</small>
                                               })
                                             }
@@ -192,7 +223,7 @@ export default class Iframe extends Component{
                                           <p>
                                             {
                                               fields.map(function (e) {
-                                                if (e.fkey==key)
+                                                if (e.fkey == key)
                                                   return e.label
                                               })
                                             }
@@ -200,17 +231,21 @@ export default class Iframe extends Component{
                                         </li>
                                       )
                                     }
+                                    else {
+                                      return false
+                                    }
+
                                   }.bind(this))
                                 }
                               </ul>
                               </div>
                             </div>
-                            <div className="description">
+                            {/*<div className="description">
                               <p>
                               <i className="fa fa-info-circle"></i>
                               {e.desc}
                               </p>
-                            </div>
+                            </div>*/}
                           </div>
                         :
                         null
