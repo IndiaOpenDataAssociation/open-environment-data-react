@@ -93,7 +93,7 @@ export default class Iframe extends Component{
         console.log(error);
       });
 
-    axios.post('/all/public/devices/iframe',{"devices":this.devices},config).then(function (response) {
+    axios.post('/iframe',{"devices":this.devices},config).then(function (response) {
       if(response){
             this.setState({iframeData: response.data})
             this.setState({activeTab: this.state.iframeData[0].label})
