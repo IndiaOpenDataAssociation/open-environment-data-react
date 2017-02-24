@@ -4,7 +4,7 @@
  * See the accompanying LICENSE file for terms.
  */
 
-import {Component, PropTypes, createElement} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {intlShape, messageDescriptorPropTypes} from '../types';
 import {
     invariantIntlContext,
@@ -13,6 +13,23 @@ import {
 } from '../utils';
 
 export default class FormattedHTMLMessage extends Component {
+    static displayName = 'FormattedHTMLMessage';
+
+    static contextTypes = {
+        intl: intlShape,
+    };
+
+    static propTypes = {
+        ...messageDescriptorPropTypes,
+        values  : PropTypes.object,
+        tagName : PropTypes.string,
+        children: PropTypes.func,
+    };
+
+    static defaultProps = {
+        values: {},
+    };
+
     constructor(props, context) {
         super(props, context);
         invariantIntlContext(context);
@@ -38,14 +55,14 @@ export default class FormattedHTMLMessage extends Component {
     }
 
     render() {
-        const {formatHTMLMessage} = this.context.intl;
+        const {formatHTMLMessage, textComponent: Text} = this.context.intl;
 
         const {
             id,
             description,
             defaultMessage,
             values: rawValues,
-            tagName,
+            tagName: Component = Text,
             children,
         } = this.props;
 
@@ -64,28 +81,7 @@ export default class FormattedHTMLMessage extends Component {
         //
         // Note: There's a perf impact of using this component since there's no
         // way for React to do its virtual DOM diffing.
-        return createElement(tagName, {
-            dangerouslySetInnerHTML: {
-                __html: formattedHTMLMessage,
-            },
-        });
+        const html = {__html: formattedHTMLMessage};
+        return <Component dangerouslySetInnerHTML={html}/>;
     }
 }
-
-FormattedHTMLMessage.displayName = 'FormattedHTMLMessage';
-
-FormattedHTMLMessage.contextTypes = {
-    intl: intlShape,
-};
-
-FormattedHTMLMessage.propTypes = {
-    ...messageDescriptorPropTypes,
-    values  : PropTypes.object,
-    tagName : PropTypes.string,
-    children: PropTypes.func,
-};
-
-FormattedHTMLMessage.defaultProps = {
-    values : {},
-    tagName: 'span',
-};

@@ -35,20 +35,18 @@ export default class Map extends Component {
   renderMarkers(markers, map) {
     var infowindow = new google.maps.InfoWindow();
     let pins = markers.map((marker)=> {
-
       let loc = new google.maps.LatLng(marker.latitude, marker.longitude);
       let pin = new google.maps.Marker({
         position: loc,
         map: map,
         icon: this.getMarkerImage(marker.aqi)
       });
-
       pin.addListener('mouseover',function () {
         infowindow.setContent(this.renderInfoWindow(marker));
         infowindow.open(pin.get('map'), pin);
       }.bind(this))
       pin.addListener('click',function () {
-          this.props.setDisable(false,  marker.label, marker.deviceType);
+          this.props.setDisable(false,  marker.loc, marker.deviceType);
           this.props.callRealtime(marker.deviceId, marker.t);
           this.props.callAnalytics(marker.deviceId, marker.t)
       }.bind(this))
@@ -61,35 +59,28 @@ export default class Map extends Component {
   }
 
   renderInfoWindow(marker) {
-    if(marker.deviceType == "AIROWLWI" || marker.deviceType == "AIROWL3G"){
-             var html ='<div class="infowindow-content">'
-                  +'<div class="infowindow-head">'
-                  +'<strong>'+marker.loc+'</strong>'
-                  +'</div>'
-                  +'<div class="infowindow-body">'
-                  +'<div class="left-content">'
-                  +'<div><i class="fa fa-map-marker"></i>'+marker.deviceType+'</div>'
-                  +'<div><i class="fa fa-map-marker"></i>'+marker.state+'</div>'
-                  +'<div><i class="fa fa-home"></i>Indoor <span style="margin-left: 20px;"> <i class="fa fa-circle" aria-hidden="true" style="color: #73C076;"></i>Online</span></div>'
-                  +'<div class="aqi">'
-                  +'<div class="progress-pie-chart '+this.getClass250(marker.aqi)+ ' '+ this.renderClass(marker.aqi)+'" id="ppc" > <div class="ppc-progress"> <div class="ppc-progress-fill '+ this.renderClass(marker.aqi)+'" style="transform: rotate('+this.getDegree(marker.aqi).deg+'deg)"></div> </div> <div class="ppc-percents"> <div class="pcc-percents-wrapper"> <span>'+marker.aqi+'</span></div></div></div>'
-                  +'</div></div></div></div>'
-          } else {
-             var html ='<div class="infowindow-content">'
-                +'<div class="infowindow-head">'
-                +'<strong>'+marker.loc+'</strong>'
-                +'</div>'
-                +'<div class="infowindow-body">'
-                +'<div class="left-content">'
-                +'<div><i class="fa fa-map-marker"></i>'+marker.deviceType+'</div>'
-                +'<div><i class="fa fa-map-marker"></i>'+marker.state+'</div>'
-                +'<div><i class="fa fa-home"></i>Outdoor <span style="margin-left: 20px;"> <i class="fa fa-circle" aria-hidden="true" style="color: #73C076;"></i>Online</span></div>'
-                +'<div class="aqi">'
-                +'<div class="progress-pie-chart '+this.getClass250(marker.aqi)+ ' '+ this.renderClass(marker.aqi)+'" id="ppc" > <div class="ppc-progress"> <div class="ppc-progress-fill '+ this.renderClass(marker.aqi)+'" style="transform: rotate('+this.getDegree(marker.aqi).deg+'deg)"></div> </div> <div class="ppc-percents"> <div class="pcc-percents-wrapper"> <span>'+marker.aqi+'</span></div></div></div>'
-                +'</div></div></div></div>'
-          }
-  
+   var html ='<div class="infowindow-content">'
+            +'<div class="infowindow-head">'
+            +'<strong>'+marker.label+'</strong>'
+            +'</div>'
+            +'<div class="infowindow-body">'
+            +'<div class="left-content">'
+            +'<div><i class="fa fa-map-marker"></i>'+marker.type+'</div>'
+            +'<div><i class="fa fa-map-marker"></i>'+marker.city+'</div>'
+            +'<div><i class="fa fa-home"></i>'+this.getIndoor(marker.deviceType)+' <span style="margin-left: 20px;"> <i class="fa fa-circle" aria-hidden="true" style="color: #73C076;"></i>Online</span></div>'
+            +'<div class="aqi">'
+            +'<div class="progress-pie-chart '+this.getClass250(marker.aqi)+ ' '+ this.renderClass(marker.aqi)+'" id="ppc" > <div class="ppc-progress"> <div class="ppc-progress-fill '+ this.renderClass(marker.aqi)+'" style="transform: rotate('+this.getDegree(marker.aqi).deg+'deg)"></div> </div> <div class="ppc-percents"> <div class="pcc-percents-wrapper"> <span>'+marker.aqi+'</span></div></div></div>'
+            +'</div></div></div></div>'
             return html;
+  }
+
+  getIndoor(device){
+    if(device == 'AIROWLWI' || device == 'AIROWL3G'){
+      return 'Indoor'
+    }
+    else{
+      return 'Outdoor'
+    }
   }
 
   getClass250(aqi){
@@ -146,20 +137,27 @@ export default class Map extends Component {
   }
 
   getDegree(aqi){
-    console.log(aqi)
       var percent = aqi,
       deg = 360*percent/500;
-    console.log(percent, deg)
-
-
     return {percent: percent,deg: deg};
   }
+
   componentDidMount() {
 
     var mapOptions = {
       center: this.mapCenterLatLng(),
       zoom: this.state.zoom,
-      styles: mapStyle
+      styles: mapStyle,
+      zoomControl: true,
+      zoomControlOptions: {
+        style: google.maps.ZoomControlStyle.LARGE,
+        position: google.maps.ControlPosition.LEFT_CENTER
+      },
+      mapTypeControl: false,
+      scaleControl: false,
+      streetViewControl: false,
+      rotateControl: false,
+      fullscreenControl: false
     }
     this.map = new google.maps.Map(this.refs.map, mapOptions);
     {
@@ -170,7 +168,7 @@ export default class Map extends Component {
 
   render() {
     return (
-      <div ref="map" style={{height: '100vh',width: '100%'}}>
+      <div ref="map" style={{height: '89.5vh',width: '100%'}}>
       </div>
     )
   }
