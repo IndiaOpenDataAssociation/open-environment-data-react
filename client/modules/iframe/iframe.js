@@ -93,7 +93,7 @@ export default class Iframe extends Component{
         console.log(error);
       });
 
-    axios.post('/all/public/devices/iframe',{"devices":this.devices},config).then(function (response) {
+    axios.post('/iframe',{"devices":this.devices},config).then(function (response) {
       if(response){
             this.setState({iframeData: response.data})
             this.setState({activeTab: this.state.iframeData[0].label})
@@ -193,46 +193,88 @@ export default class Iframe extends Component{
                               <div className="gas-list">
                               <ul className="list-inline">
                                  {
-                                   this.params[e.deviceId].indexOf('aqi') > -1
+                                   Object.keys(this.params).length > 0
+                                   ?
+                                   (
+                                     this.params[e.deviceId].indexOf('aqi') > -1
                                      ?
                                       <li>
                                         <h4 className={this.getDynamicClassName(this.state.limits, 'aqi', e.aqi)}>{e.aqi}</h4>
                                         <p>AQI</p>
                                       </li>
-                                   :
+                                    :
                                      null
+                                   )
+                                   :
+                                   (
+                                     <li>
+                                       <h4 className={this.getDynamicClassName(this.state.limits, 'aqi', e.aqi)}>{e.aqi}</h4>
+                                       <p>AQI</p>
+                                     </li>
+                                   )
+
                                 }
 
                                 {
                                   Object.keys(e.payload.d).map(function (key){
-                                    if(this.params[e.deviceId].indexOf(key) > -1) {
-                                      return (
-                                        <li key={key}>
-                                          <h4
-                                            className={this.getDynamicClassName(this.state.limits, key, e.payload.d[key])}>
-                                            {
-                                              e.payload.d[key]
-                                            }
-                                            {
-                                              fields.map(function (e) {
-                                                if (e.fkey == key)
-                                                  return <small key={key}>{e.unit }</small>
-                                              })
-                                            }
-                                          </h4>
-                                          <p>
-                                            {
-                                              fields.map(function (e) {
-                                                if (e.fkey == key)
-                                                  return e.label
-                                              })
-                                            }
-                                          </p>
-                                        </li>
-                                      )
+                                    if(Object.keys(this.params).length > 0) {
+                                      if (this.params[e.deviceId].indexOf(key) > -1) {
+                                        return (
+                                          <li key={key}>
+                                            <h4
+                                              className={this.getDynamicClassName(this.state.limits, key, e.payload.d[key])}>
+                                              {
+                                                parseFloat(e.payload.d[key])
+                                              }
+                                              {
+                                                fields.map(function (e) {
+                                                  if (e.fkey == key)
+                                                    return <small key={key}>{e.unit }</small>
+                                                })
+                                              }
+                                            </h4>
+                                            <p>
+                                              {
+                                                fields.map(function (e) {
+                                                  if (e.fkey == key)
+                                                    return e.label
+                                                })
+                                              }
+                                            </p>
+                                          </li>
+                                        )
+                                      }
+                                      else {
+                                        return false
+                                      }
                                     }
-                                    else {
-                                      return false
+                                    else{
+                                      if(key != 't' && key != 'noise') {
+                                        return (
+                                          <li key={key}>
+                                            <h4
+                                              className={this.getDynamicClassName(this.state.limits, key, e.payload.d[key])}>
+                                              {
+                                                e.payload.d[key]
+                                              }
+                                              {
+                                                fields.map(function (e) {
+                                                  if (e.fkey == key)
+                                                    return <small key={key}>{e.unit }</small>
+                                                })
+                                              }
+                                            </h4>
+                                            <p>
+                                              {
+                                                fields.map(function (e) {
+                                                  if (e.fkey == key)
+                                                    return e.label
+                                                })
+                                              }
+                                            </p>
+                                          </li>
+                                        )
+                                      }
                                     }
 
                                   }.bind(this))
