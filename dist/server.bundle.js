@@ -4461,7 +4461,7 @@
 	        console.log(error);
 	      });
 
-	      _axios2.default.post('/all/public/devices/iframe', { "devices": this.devices }, config).then(function (response) {
+	      _axios2.default.post('/iframe', { "devices": this.devices }, config).then(function (response) {
 	        if (response) {
 	          this.setState({ iframeData: response.data });
 	          this.setState({ activeTab: this.state.iframeData[0].label });
