@@ -56,6 +56,7 @@ export default class Iframe extends Component {
 
     this.getDynamicClassName = this.getDynamicClassName.bind(this)
     this.changeData = this.changeData.bind(this)
+    this.createInfoTable = this.createInfoTable.bind(this)
 
   }
 
@@ -127,7 +128,8 @@ export default class Iframe extends Component {
       fields: [],
       iframeData: [],
       limits: [],
-      activeTab: 'Dhordo'
+      activeTab: 'Dhordo',
+      infoItem: []
     }
   }
 
@@ -147,6 +149,19 @@ export default class Iframe extends Component {
     return className
   }
 
+  createInfoTable(data, key){
+    let infoItem = []
+    if(data){
+       data.map((dataItem) => {
+        if (dataItem.fkey == key) {
+          dataItem.range.map((rangeItem, index) => {
+            infoItem.push(rangeItem)
+          })
+        }
+      })
+      this.setState({infoItem})
+    }
+  }
   changeData(data) {
     this.setState({
       activeTab: data
@@ -186,7 +201,7 @@ export default class Iframe extends Component {
                                             <li>
                                               <h4
                                                 className={this.getDynamicClassName(this.state.limits, 'aqi', e.aqi)}>{e.aqi}</h4>
-                                              <p>AQI</p>
+                                              <p onClick={() => {this.createInfoTable(this.state.limits, 'aqi')}}>AQI</p>
                                             </li>
                                             :
                                             null
@@ -196,7 +211,7 @@ export default class Iframe extends Component {
                                           <li>
                                             <h4
                                               className={this.getDynamicClassName(this.state.limits, 'aqi', e.aqi)}>{e.aqi}</h4>
-                                            <p>AQI</p>
+                                            <p onClick={() => {this.createInfoTable(this.state.limits, 'aqi')}}>AQI</p>
                                           </li>
                                         )
 
@@ -220,7 +235,7 @@ export default class Iframe extends Component {
                                                     })
                                                   }
                                                 </h4>
-                                                <p>
+                                                <p onClick={() => {this.createInfoTable(this.state.limits, key)}}>
                                                   {
                                                     fields.map(function (e) {
                                                       if (e.fkey == key)
@@ -228,6 +243,7 @@ export default class Iframe extends Component {
                                                     })
                                                   }
                                                 </p>
+
                                               </li>
                                             )
                                           }
@@ -251,7 +267,7 @@ export default class Iframe extends Component {
                                                     })
                                                   }
                                                 </h4>
-                                                <p>
+                                                <p onClick={() => {this.createInfoTable(this.state.limits, key)}}>
                                                   {
                                                     fields.map(function (e) {
                                                       if (e.fkey == key)
@@ -269,6 +285,38 @@ export default class Iframe extends Component {
                                   </ul>
                                 </div>
                               </div>
+
+                              {
+                                this.state.infoItem.length > 0
+                                  ?
+                                  <div className="gas-indicator">
+                                    <table className="gas-indicator-table">
+                                      <tbody>
+                                      <tr>
+                                        <td><span></span></td>
+                                        <td className="good"><span>Good</span></td>
+                                        <td className="satisfactory"><span >Satisfactory</span></td>
+                                        <td className="moderate"><span >Moderate</span></td>
+                                        <td className="poor"><span>Poor</span></td>
+                                        <td className="vpoor"><span>Very Poor</span></td>
+                                        <td className="severe"><span>Severe</span></td>
+                                      </tr>
+                                      <tr>
+                                        {
+                                          this.state.infoItem.map((e) => {
+                                            return (
+                                              <td className="text-right">{e}</td>
+                                            )
+                                          })
+
+                                        }
+                                      </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                  :
+                                  null
+                              }
                               {/*<div className="description">
                                <p>
                                <i className="fa fa-info-circle"></i>

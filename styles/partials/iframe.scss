@@ -3,14 +3,17 @@
   position: relative;
   padding-top: 20px;
   h3{
-    color: #00b3bf;
+    color: #333;
     margin-top: 0;
     //border: 1px solid #333;
     padding: 3px;
     margin-bottom: 0;
     text-align: center;
-    background: #333;
+    background: #f8f8f8;
     //border-bottom: 0;
+    font-size: 20px;
+    font-weight: bold;
+
   }
   .button-group{
     background: #333;
@@ -72,6 +75,8 @@
             padding-left: 13px;
           }
 
+
+
           h4 {
             font-size: 15pt;
             margin-top: 0;
@@ -86,6 +91,10 @@
             font-size: 10pt;
             text-align: center;
             margin-bottom: 0;
+            &:hover{
+              text-decoration: underline;
+              cursor: pointer;
+            }
           }
         }
       }
@@ -139,13 +148,63 @@
 }
 
 .slick-prev{
-  top: 16%;
+  top: 8.5%;
   left: 2%;
   z-index: 99;
 }
 
 .slick-next{
-  top: 16%;
+  top: 8.5%;
   right: 2%;
   z-index: 99;
+}
+
+.slick-next:before, .slick-prev:before{
+  color: #333;
+}
+
+.gas-indicator {
+  padding: 15px;
+  border: 1px solid #333;
+  border-top: 0;
+  .gas-indicator-table {
+    width: 100%;
+    tbody {
+      td {
+        width: 16.667%;
+        text-align: center;
+        &:first-child{
+          width: 0 !important;
+        }
+        span {
+          color: #333;
+        }
+      }
+      .text-right{
+        text-align: right !important;
+      }
+      .good {
+        background: #6ecc58;
+      }
+      .satisfactory {
+        background: #bbcf4c;
+      }
+      .moderate {
+        background: #eac736;
+      }
+      .poor {
+        background: #ed9a2e;
+      }
+      .vpoor {
+        background: #e8633a;
+      }
+      .severe {
+        background: #d63636;
+      }
+    }
+  }
+}
+
+.slick-slider{
+  height: 185px;
 }
