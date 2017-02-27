@@ -1274,7 +1274,7 @@
 
 	var _redux = __webpack_require__(15);
 
-	var _reduxThunk = __webpack_require__(68);
+	var _reduxThunk = __webpack_require__(69);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -1439,7 +1439,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"main.css": "main-831a6b5b15.css"
+		"main.css": "main-bb3d671b72.css"
 	};
 
 /***/ },
@@ -1656,19 +1656,19 @@
 
 	var _Helmet2 = _interopRequireDefault(_Helmet);
 
-	var _Tab = __webpack_require__(61);
+	var _Tab = __webpack_require__(62);
 
 	var _Tab2 = _interopRequireDefault(_Tab);
 
-	var _TabList = __webpack_require__(62);
+	var _TabList = __webpack_require__(63);
 
 	var _TabList2 = _interopRequireDefault(_TabList);
 
-	var _Tabs = __webpack_require__(64);
+	var _Tabs = __webpack_require__(65);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
-	var _TabPanel = __webpack_require__(63);
+	var _TabPanel = __webpack_require__(64);
 
 	var _TabPanel2 = _interopRequireDefault(_TabPanel);
 
@@ -2230,13 +2230,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reduxDevtools = __webpack_require__(65);
+	var _reduxDevtools = __webpack_require__(66);
 
-	var _reduxDevtoolsLogMonitor = __webpack_require__(67);
+	var _reduxDevtoolsLogMonitor = __webpack_require__(68);
 
 	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
 
-	var _reduxDevtoolsDockMonitor = __webpack_require__(66);
+	var _reduxDevtoolsDockMonitor = __webpack_require__(67);
 
 	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
 
@@ -3465,7 +3465,7 @@
 
 	var _CalendarView2 = _interopRequireDefault(_CalendarView);
 
-	var _superagent = __webpack_require__(69);
+	var _superagent = __webpack_require__(70);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -4350,6 +4350,10 @@
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
+	var _reactSlick = __webpack_require__(61);
+
+	var _reactSlick2 = _interopRequireDefault(_reactSlick);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4368,9 +4372,7 @@
 	  headers: { 'X-Mashape-Key': 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk' }
 	};
 
-	var _ref = _jsx('h3', {
-	  className: 'text-center'
-	}, void 0, 'Air Quality Index');
+	var _ref = _jsx('p', {}, void 0, 'AQI');
 
 	var _ref2 = _jsx('p', {}, void 0, 'AQI');
 
@@ -4527,7 +4529,9 @@
 	      var _this2 = this;
 
 	      var fields = this.state.fields;
-
+	      var settings = {
+	        dots: false
+	      };
 	      return _jsx('div', {
 	        className: 'iframe-container'
 	      }, void 0, _jsx('div', {
@@ -4538,38 +4542,47 @@
 	        className: 'col-sm-12'
 	      }, void 0, _jsx('div', {
 	        className: 'col-sm-10 col-sm-offset-1 col-md-offset-1 col-lg-offset-1'
-	      }, void 0, _ref, _jsx('div', {
-	        className: 'button-group'
-	      }, void 0, this.state.iframeData.map(function (e) {
-	        return _jsx('button', {
-	          onClick: function onClick() {
-	            _this2.changeData(e.label);
-	          },
-	          className: _this2.state.activeTab == e.label ? 'active' : null
-	        }, e.label, e.label);
-	      })), this.state.iframeData.map(function (e) {
-	        return _this2.state.activeTab == e.label ? _jsx('div', {}, e.label, _jsx('div', {
-	          className: 'iframe-body'
-	        }, e.label, _jsx('small', {}, void 0, 'Last Updated: ', _moment2.default.unix(e.payload.d.t).format('DD/MM/YYYY, h:mm:ss a')), _jsx('div', {
-	          className: 'gas-list'
-	        }, void 0, _jsx('ul', {
-	          className: 'list-inline'
-	        }, void 0, _this2.params[e.deviceId].indexOf('aqi') > -1 ? _jsx('li', {}, void 0, _jsx('h4', {
-	          className: _this2.getDynamicClassName(_this2.state.limits, 'aqi', e.aqi)
-	        }, void 0, e.aqi), _ref2) : null, Object.keys(e.payload.d).map(function (key) {
-	          if (this.params[e.deviceId].indexOf(key) > -1) {
-	            return _jsx('li', {}, key, _jsx('h4', {
-	              className: this.getDynamicClassName(this.state.limits, key, e.payload.d[key])
-	            }, void 0, e.payload.d[key], fields.map(function (e) {
-	              if (e.fkey == key) return _jsx('small', {}, key, e.unit);
-	            })), _jsx('p', {}, void 0, fields.map(function (e) {
-	              if (e.fkey == key) return e.label;
-	            })));
-	          } else {
-	            return false;
-	          }
-	        }.bind(_this2)))))) : null;
-	      }))))));
+	      }, void 0, this.state.iframeData.length > 0 ? _react2.default.createElement(
+	        _reactSlick2.default,
+	        settings,
+	        this.state.iframeData.map(function (e) {
+	          return _jsx('div', {}, e.label, _jsx('h3', {}, void 0, 'Air Quality Index - ', e.label), _jsx('div', {
+	            className: 'iframe-body'
+	          }, e.label, _jsx('div', {
+	            className: 'gas-list'
+	          }, void 0, _jsx('ul', {
+	            className: 'list-inline'
+	          }, void 0, _this2.params[e.deviceId] != undefined ? _this2.params[e.deviceId].indexOf('aqi') > -1 ? _jsx('li', {}, void 0, _jsx('h4', {
+	            className: _this2.getDynamicClassName(_this2.state.limits, 'aqi', e.aqi)
+	          }, void 0, e.aqi), _ref) : null : _jsx('li', {}, void 0, _jsx('h4', {
+	            className: _this2.getDynamicClassName(_this2.state.limits, 'aqi', e.aqi)
+	          }, void 0, e.aqi), _ref2), Object.keys(e.payload.d).map(function (key) {
+	            if (this.params[e.deviceId] != undefined) {
+	              if (this.params[e.deviceId].indexOf(key) > -1) {
+	                return _jsx('li', {}, key, _jsx('h4', {
+	                  className: this.getDynamicClassName(this.state.limits, key, e.payload.d[key])
+	                }, void 0, parseFloat(e.payload.d[key]), fields.map(function (e) {
+	                  if (e.fkey == key) return _jsx('small', {}, key, e.unit);
+	                })), _jsx('p', {}, void 0, fields.map(function (e) {
+	                  if (e.fkey == key) return e.label;
+	                })));
+	              } else {
+	                return false;
+	              }
+	            } else {
+	              if (key != 't' && key != 'noise') {
+	                return _jsx('li', {}, key, _jsx('h4', {
+	                  className: this.getDynamicClassName(this.state.limits, key, e.payload.d[key])
+	                }, void 0, e.payload.d[key], fields.map(function (e) {
+	                  if (e.fkey == key) return _jsx('small', {}, key, e.unit);
+	                })), _jsx('p', {}, void 0, fields.map(function (e) {
+	                  if (e.fkey == key) return e.label;
+	                })));
+	              }
+	            }
+	          }.bind(_this2))))));
+	        })
+	      ) : null)))));
 	    }
 	  }]);
 
@@ -4706,7 +4719,7 @@
 	  var chunkManifest = process.env.webpackChunkAssets && JSON.parse(process.env.webpackChunkAssets);
 	  var refManifest = __webpack_require__(21);
 	  var styleSrc = '/' + refManifest['main.css'];
-	  return '\n    <!doctype html>\n    <html>\n      <head>\n        ' + head.base.toString() + '\n        ' + head.title.toString() + '\n        ' + head.meta.toString() + '\n        ' + head.link.toString() + '\n        ' + head.script.toString() + '\n\n        ' + (process.env.NODE_ENV === 'production' ? '<link rel=\'stylesheet\' href=\'' + assetsManifest['/app.css'] + '\' />' : '') + '\n        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">\n        <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/png" />\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">\n        <link rel="stylesheet" href=\'' + (process.env.NODE_ENV === 'production' ? styleSrc : '/main.css') + '\' type="text/css" media="screen" charset="utf-8">\n        \n        <script src=\'https://maps.googleapis.com/maps/api/js?key=AIzaSyAnK8lYEkj7mwTu7AWDP4GwiWI8SX9QHwM&extension=.js\'></script>\n        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>\n        <script src="http://code.highcharts.com/highcharts.js"></script>\n        <script src="http://code.highcharts.com/modules/heatmap.js" ></script>\n        <script src="http://code.highcharts.com/modules/exporting.js"></script>\n      </head>\n      <body>\n        <div id="root">' + html + '</div>\n        <script>\n          window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + ';\n          ' + (process.env.NODE_ENV === 'production' ? '//<![CDATA[\n          window.webpackManifest = ' + JSON.stringify(chunkManifest) + ';\n          //]]>' : '') + '\n        </script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/vendor.js'] : '/vendor.js') + '\'></script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/app.js'] : '/app.js') + '\'></script>\n      </body>\n    </html>\n  ';
+	  return '\n    <!doctype html>\n    <html>\n      <head>\n        ' + head.base.toString() + '\n        ' + head.title.toString() + '\n        ' + head.meta.toString() + '\n        ' + head.link.toString() + '\n        ' + head.script.toString() + '\n\n        ' + (process.env.NODE_ENV === 'production' ? '<link rel=\'stylesheet\' href=\'' + assetsManifest['/app.css'] + '\' />' : '') + '\n        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">\n        <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/png" />\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">\n        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />\n        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />\n        <link rel="stylesheet" href=\'' + (process.env.NODE_ENV === 'production' ? styleSrc : '/main.css') + '\' type="text/css" media="screen" charset="utf-8">\n        \n        <script src=\'https://maps.googleapis.com/maps/api/js?key=AIzaSyAnK8lYEkj7mwTu7AWDP4GwiWI8SX9QHwM&extension=.js\'></script>\n        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>\n        <script src="http://code.highcharts.com/highcharts.js"></script>\n        <script src="http://code.highcharts.com/modules/heatmap.js" ></script>\n        <script src="http://code.highcharts.com/modules/exporting.js"></script>\n      </head>\n      <body>\n        <div id="root">' + html + '</div>\n        <script>\n          window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + ';\n          ' + (process.env.NODE_ENV === 'production' ? '//<![CDATA[\n          window.webpackManifest = ' + JSON.stringify(chunkManifest) + ';\n          //]]>' : '') + '\n        </script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/vendor.js'] : '/vendor.js') + '\'></script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/app.js'] : '/app.js') + '\'></script>\n      </body>\n    </html>\n  ';
 	};
 
 	var renderError = function renderError(err) {
@@ -4886,52 +4899,58 @@
 /* 61 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/Tab");
+	module.exports = require("react-slick");
 
 /***/ },
 /* 62 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/TabList");
+	module.exports = require("react-tabs/lib/components/Tab");
 
 /***/ },
 /* 63 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/TabPanel");
+	module.exports = require("react-tabs/lib/components/TabList");
 
 /***/ },
 /* 64 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-tabs/lib/components/Tabs");
+	module.exports = require("react-tabs/lib/components/TabPanel");
 
 /***/ },
 /* 65 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools");
+	module.exports = require("react-tabs/lib/components/Tabs");
 
 /***/ },
 /* 66 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-dock-monitor");
+	module.exports = require("redux-devtools");
 
 /***/ },
 /* 67 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-log-monitor");
+	module.exports = require("redux-devtools-dock-monitor");
 
 /***/ },
 /* 68 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-thunk");
+	module.exports = require("redux-devtools-log-monitor");
 
 /***/ },
 /* 69 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-thunk");
+
+/***/ },
+/* 70 */
 /***/ function(module, exports) {
 
 	module.exports = require("superagent");
