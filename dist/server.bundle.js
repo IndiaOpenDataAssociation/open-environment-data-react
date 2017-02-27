@@ -4455,7 +4455,7 @@
 	    key: 'getData',
 	    value: function getData() {
 
-	      _axios2.default.get('/fields', config).then(function (response) {
+	      _axios2.default.get('/fields/type/GUJT', config).then(function (response) {
 	        if (response) {
 	          this.setState({ fields: response.data });
 	        }

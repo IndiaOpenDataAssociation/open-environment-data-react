@@ -85,7 +85,7 @@ export default class Iframe extends Component {
 
   getData() {
 
-    axios.get('/fields', config).then(function (response) {
+    axios.get('/fields/type/GUJT', config).then(function (response) {
       if (response) {
         this.setState({fields: response.data})
       }
