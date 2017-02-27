@@ -5,9 +5,11 @@
   h3{
     color: #00b3bf;
     margin-top: 0;
-    border: 1px solid #333;
+    //border: 1px solid #333;
     padding: 3px;
     margin-bottom: 0;
+    text-align: center;
+    background: #333;
     //border-bottom: 0;
   }
   .button-group{
@@ -134,4 +136,16 @@
       cursor: pointer;
     }
   }
+}
+
+.slick-prev{
+  top: 16%;
+  left: 2%;
+  z-index: 99;
+}
+
+.slick-next{
+  top: 16%;
+  right: 2%;
+  z-index: 99;
 }
