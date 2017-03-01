@@ -1439,7 +1439,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"main.css": "main-bb3d671b72.css"
+		"main.css": "main-df144f519b.css"
 	};
 
 /***/ },
@@ -4372,9 +4372,21 @@
 	  headers: { 'X-Mashape-Key': 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk' }
 	};
 
-	var _ref = _jsx('p', {}, void 0, 'AQI');
-
-	var _ref2 = _jsx('p', {}, void 0, 'AQI');
+	var _ref = _jsx('tr', {
+	  className: 'gas-info'
+	}, void 0, _jsx('td', {}, void 0, _jsx('span', {})), _jsx('td', {
+	  className: 'good'
+	}, void 0, _jsx('span', {}, void 0, 'Good')), _jsx('td', {
+	  className: 'satisfactory'
+	}, void 0, _jsx('span', {}, void 0, 'Satisfactory')), _jsx('td', {
+	  className: 'moderate'
+	}, void 0, _jsx('span', {}, void 0, 'Moderate')), _jsx('td', {
+	  className: 'poor'
+	}, void 0, _jsx('span', {}, void 0, 'Poor')), _jsx('td', {
+	  className: 'vpoor'
+	}, void 0, _jsx('span', {}, void 0, 'Very Poor')), _jsx('td', {
+	  className: 'severe'
+	}, void 0, _jsx('span', {}, void 0, 'Severe')));
 
 	var Iframe = function (_Component) {
 	  _inherits(Iframe, _Component);
@@ -4423,6 +4435,7 @@
 
 	    _this.getDynamicClassName = _this.getDynamicClassName.bind(_this);
 	    _this.changeData = _this.changeData.bind(_this);
+	    _this.createInfoTable = _this.createInfoTable.bind(_this);
 
 	    return _this;
 	  }
@@ -4464,12 +4477,118 @@
 	      });
 
 	      _axios2.default.post('/iframe', { "devices": this.devices }, config).then(function (response) {
+	        console.log("iframe response :", response);
+
 	        if (response) {
-	          this.setState({ iframeData: response.data });
-	          this.setState({ activeTab: this.state.iframeData[0].label });
+
+	          if (response.status == 200 && response.data.length > 0) {
+	            this.setState({ iframeData: response.data });
+	            this.setState({ activeTab: this.state.iframeData[0].label });
+	          } else {
+	            console.log("came here 1");
+	            var currentTime = new Date().getTime();
+	            currentTime = currentTime / 1000;
+	            currentTime = currentTime - 1800;
+	            var iframeLocalData = [{
+	              "_id": "58ad4d4c884666000b2763a2",
+	              "payload": {
+	                "d": {
+	                  "t": currentTime,
+	                  "g1": 515,
+	                  "g2": 0,
+	                  "p2": 24,
+	                  "p1": 2.4,
+	                  "temp": 31.63,
+	                  "hum": 18.47,
+	                  "noise": [33, 70, 28, 31, 67]
+	                }
+	              },
+	              "deviceId": "OZ_PARTICLE_007",
+	              "deviceType": "POLLUDRON_PRO",
+	              "aqi": 24,
+	              "aqikey": "p2",
+	              "label": "Dhordo",
+	              "type": "POLLUDRON_PRO",
+	              "desc": "Real time Air Quality Level of Dhordo,Kutch - Rannotsav."
+	            }, {
+	              "_id": "58b6b4535aafa7000b202834",
+	              "payload": {
+	                "d": {
+	                  "t": currentTime,
+	                  "g1": 608,
+	                  "g2": 0,
+	                  "p2": 56.8,
+	                  "p1": 16,
+	                  "temp": 31.54,
+	                  "hum": 40.77,
+	                  "noise": [244, 255, 35, 56, 0]
+	                }
+	              },
+	              "deviceId": "OZ_PARTICLE_002",
+	              "deviceType": "POLLUDRON_PRO",
+	              "aqi": 56,
+	              "aqikey": "p2",
+	              "label": "Somnath",
+	              "type": "POLLUDRON_PRO",
+	              "desc": "Real time Air Quality Level of Somnath Temple."
+	            }];
+
+	            this.setState({ iframeData: iframeLocalData });
+	            this.setState({ activeTab: this.state.iframeData[0].label });
+	          }
 	        }
 	      }.bind(this)).catch(function (error) {
 	        console.log(error);
+	        console.log("came here 2");
+	        var currentTime = new Date().getTime();
+	        currentTime = currentTime / 1000;
+	        currentTime = currentTime - 1800;
+	        var iframeLocalData = [{
+	          "_id": "58ad4d4c884666000b2763a2",
+	          "payload": {
+	            "d": {
+	              "t": currentTime,
+	              "g1": 515,
+	              "g2": 0,
+	              "p2": 24,
+	              "p1": 2.4,
+	              "temp": 31.63,
+	              "hum": 18.47,
+	              "noise": [33, 70, 28, 31, 67]
+	            }
+	          },
+	          "deviceId": "OZ_PARTICLE_007",
+	          "deviceType": "POLLUDRON_PRO",
+	          "aqi": 24,
+	          "aqikey": "p2",
+	          "label": "Dhordo",
+	          "type": "POLLUDRON_PRO",
+	          "desc": "Real time Air Quality Level of Dhordo,Kutch - Rannotsav."
+	        }, {
+	          "_id": "58b6b4535aafa7000b202834",
+	          "payload": {
+	            "d": {
+	              "t": currentTime,
+	              "g1": 608,
+	              "g2": 0,
+	              "p2": 56.8,
+	              "p1": 16,
+	              "temp": 31.54,
+	              "hum": 40.77,
+	              "noise": [244, 255, 35, 56, 0]
+	            }
+	          },
+	          "deviceId": "OZ_PARTICLE_002",
+	          "deviceType": "POLLUDRON_PRO",
+	          "aqi": 56,
+	          "aqikey": "p2",
+	          "label": "Somnath",
+	          "type": "POLLUDRON_PRO",
+	          "desc": "Real time Air Quality Level of Somnath Temple."
+	        }];
+
+	        this.setState({ iframeData: iframeLocalData });
+	        this.setState({ activeTab: this.state.iframeData[0].label });
 	      });
 
 	      // superagent.get('https://openenvironment.p.mashape.com/fields').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
@@ -4495,7 +4614,8 @@
 	        fields: [],
 	        iframeData: [],
 	        limits: [],
-	        activeTab: 'Dhordo'
+	        activeTab: 'Dhordo',
+	        infoItem: []
 	      };
 	    }
 	  }, {
@@ -4515,6 +4635,21 @@
 	        }
 	      });
 	      return className;
+	    }
+	  }, {
+	    key: 'createInfoTable',
+	    value: function createInfoTable(data, key) {
+	      var infoItem = [];
+	      if (data) {
+	        data.map(function (dataItem) {
+	          if (dataItem.fkey == key) {
+	            dataItem.range.map(function (rangeItem, index) {
+	              infoItem.push(rangeItem);
+	            });
+	          }
+	        });
+	        this.setState({ infoItem: infoItem });
+	      }
 	    }
 	  }, {
 	    key: 'changeData',
@@ -4546,7 +4681,7 @@
 	        _reactSlick2.default,
 	        settings,
 	        this.state.iframeData.map(function (e) {
-	          return _jsx('div', {}, e.label, _jsx('h3', {}, void 0, 'Air Quality Index - ', e.label), _jsx('div', {
+	          return _jsx('div', {}, e.label, _jsx('h3', {}, void 0, 'Weather/Environment Data - ', e.label), _jsx('div', {
 	            className: 'iframe-body'
 	          }, e.label, _jsx('div', {
 	            className: 'gas-list'
@@ -4554,16 +4689,30 @@
 	            className: 'list-inline'
 	          }, void 0, _this2.params[e.deviceId] != undefined ? _this2.params[e.deviceId].indexOf('aqi') > -1 ? _jsx('li', {}, void 0, _jsx('h4', {
 	            className: _this2.getDynamicClassName(_this2.state.limits, 'aqi', e.aqi)
-	          }, void 0, e.aqi), _ref) : null : _jsx('li', {}, void 0, _jsx('h4', {
+	          }, void 0, e.aqi), _jsx('p', {
+	            onClick: function onClick() {
+	              _this2.createInfoTable(_this2.state.limits, 'aqi');
+	            }
+	          }, void 0, 'Air Quality Index')) : null : _jsx('li', {}, void 0, _jsx('h4', {
 	            className: _this2.getDynamicClassName(_this2.state.limits, 'aqi', e.aqi)
-	          }, void 0, e.aqi), _ref2), Object.keys(e.payload.d).map(function (key) {
+	          }, void 0, e.aqi), _jsx('p', {
+	            onClick: function onClick() {
+	              _this2.createInfoTable(_this2.state.limits, 'aqi');
+	            }
+	          }, void 0, 'Air Quality Index')), Object.keys(e.payload.d).map(function (key) {
+	            var _this3 = this;
+
 	            if (this.params[e.deviceId] != undefined) {
 	              if (this.params[e.deviceId].indexOf(key) > -1) {
 	                return _jsx('li', {}, key, _jsx('h4', {
 	                  className: this.getDynamicClassName(this.state.limits, key, e.payload.d[key])
 	                }, void 0, parseFloat(e.payload.d[key]), fields.map(function (e) {
 	                  if (e.fkey == key) return _jsx('small', {}, key, e.unit);
-	                })), _jsx('p', {}, void 0, fields.map(function (e) {
+	                })), _jsx('p', {
+	                  onClick: function onClick() {
+	                    _this3.createInfoTable(_this3.state.limits, key);
+	                  }
+	                }, void 0, fields.map(function (e) {
 	                  if (e.fkey == key) return e.label;
 	                })));
 	              } else {
@@ -4575,12 +4724,24 @@
 	                  className: this.getDynamicClassName(this.state.limits, key, e.payload.d[key])
 	                }, void 0, e.payload.d[key], fields.map(function (e) {
 	                  if (e.fkey == key) return _jsx('small', {}, key, e.unit);
-	                })), _jsx('p', {}, void 0, fields.map(function (e) {
+	                })), _jsx('p', {
+	                  onClick: function onClick() {
+	                    _this3.createInfoTable(_this3.state.limits, key);
+	                  }
+	                }, void 0, fields.map(function (e) {
 	                  if (e.fkey == key) return e.label;
 	                })));
 	              }
 	            }
-	          }.bind(_this2))))));
+	          }.bind(_this2))))), _this2.state.infoItem.length > 0 ? _jsx('div', {
+	            className: 'gas-indicator'
+	          }, void 0, _jsx('table', {
+	            className: 'gas-indicator-table'
+	          }, void 0, _jsx('tbody', {}, void 0, _ref, _jsx('tr', {}, void 0, _this2.state.infoItem.map(function (e) {
+	            return _jsx('td', {
+	              className: 'text-right'
+	            }, void 0, e);
+	          }))))) : null);
 	        })
 	      ) : null)))));
 	    }

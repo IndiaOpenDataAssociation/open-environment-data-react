@@ -101,10 +101,11 @@ export default class Iframe extends Component {
 
       if (response) {
 
-        if(response.status == 200){
+        if(response.status == 200 && response.data.length>0){
           this.setState({iframeData: response.data})
           this.setState({activeTab: this.state.iframeData[0].label})
         } else {
+          console.log("came here 1");
           var currentTime = new Date().getTime();
           currentTime = currentTime / 1000;
           currentTime = currentTime - 1800;
@@ -176,6 +177,71 @@ export default class Iframe extends Component {
     }.bind(this))
       .catch(function (error) {
         console.log(error);
+        console.log("came here 2");
+        var currentTime = new Date().getTime();
+          currentTime = currentTime / 1000;
+          currentTime = currentTime - 1800;
+          var iframeLocalData = [
+            {
+              "_id": "58ad4d4c884666000b2763a2",
+              "payload": {
+                "d": {
+                  "t": currentTime,
+                  "g1": 515,
+                  "g2": 0,
+                  "p2": 24,
+                  "p1": 2.4,
+                  "temp": 31.63,
+                  "hum": 18.47,
+                  "noise": [
+                    33,
+                    70,
+                    28,
+                    31,
+                    67
+                  ]
+                }
+              },
+              "deviceId": "OZ_PARTICLE_007",
+              "deviceType": "POLLUDRON_PRO",
+              "aqi": 24,
+              "aqikey": "p2",
+              "label": "Dhordo",
+              "type": "POLLUDRON_PRO",
+              "desc": "Real time Air Quality Level of Dhordo,Kutch - Rannotsav."
+            },
+            {
+              "_id": "58b6b4535aafa7000b202834",
+              "payload": {
+                "d": {
+                  "t": currentTime,
+                  "g1": 608,
+                  "g2": 0,
+                  "p2": 56.8,
+                  "p1": 16,
+                  "temp": 31.54,
+                  "hum": 40.77,
+                  "noise": [
+                    244,
+                    255,
+                    35,
+                    56,
+                    0
+                  ]
+                }
+              },
+              "deviceId": "OZ_PARTICLE_002",
+              "deviceType": "POLLUDRON_PRO",
+              "aqi": 56,
+              "aqikey": "p2",
+              "label": "Somnath",
+              "type": "POLLUDRON_PRO",
+              "desc": "Real time Air Quality Level of Somnath Temple."
+            }
+          ];
+
+          this.setState({iframeData: iframeLocalData})
+          this.setState({activeTab: this.state.iframeData[0].label})
       });
 
     // superagent.get('https://openenvironment.p.mashape.com/fields').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
