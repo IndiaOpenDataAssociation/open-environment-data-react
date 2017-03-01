@@ -164,12 +164,21 @@
 }
 
 .gas-indicator {
-  padding: 15px;
+  padding: 6px 0px 2px 0px;
   border: 1px solid #333;
   border-top: 0;
   .gas-indicator-table {
-    width: 100%;
+    width: 60%;
+    margin : 0 auto;
     tbody {
+      tr {
+        font-size: 8px;
+        &.gas-info{
+          font-size : 10px;
+          padding: 2px;
+          color: #fff;
+        }
+      }
       td {
         width: 16.667%;
         text-align: center;
@@ -177,7 +186,8 @@
           width: 0 !important;
         }
         span {
-          color: #333;
+          color: #fff;
+          font-weight : bold;
         }
       }
       .text-right{
