@@ -127,6 +127,7 @@ export default class Iframe extends Component {
     axios.get('/limits', config).then(function (response) {
       if (response) {
         this.setState({limits: response.data})
+        this.createInfoTable(this.state.limits, 'aqi')
       }
     }.bind(this))
       .catch(function (error) {
