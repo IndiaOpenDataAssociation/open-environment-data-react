@@ -4494,6 +4494,7 @@
 	      _axios2.default.get('/limits', config).then(function (response) {
 	        if (response) {
 	          this.setState({ limits: response.data });
+	          this.createInfoTable(this.state.limits, 'aqi');
 	        }
 	      }.bind(this)).catch(function (error) {
 	        console.log(error);
