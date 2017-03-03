@@ -1,12 +1,11 @@
 .iframe-container{
   //height: 100vh;
   position: relative;
-  padding-top: 20px;
   h3{
     color: #333;
-    margin-top: 0;
+    margin-top: 0px;
     //border: 1px solid #333;
-    padding: 3px;
+    padding: 6px 3px;
     margin-bottom: 0;
     text-align: center;
     background: #f8f8f8;
@@ -148,13 +147,13 @@
 }
 
 .slick-prev{
-  top: 8.5%;
+  top: 15.5%;
   left: 2%;
   z-index: 99;
 }
 
 .slick-next{
-  top: 8.5%;
+  top: 15.5%;
   right: 2%;
   z-index: 99;
 }
@@ -216,5 +215,4 @@
 }
 
 .slick-slider{
-  height: 185px;
 }

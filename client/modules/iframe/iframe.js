@@ -12,6 +12,63 @@ var config = {
   headers: {'X-Mashape-Key': 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk'},
 };
 
+var iframeLocalData = [
+  {
+    "_id": "58ad4d4c884666000b2763a2",
+    "payload": {
+      "d": {
+        "g1": 515,
+        "g2": 0,
+        "p2": 24,
+        "p1": 2.4,
+        "temp": 31.63,
+        "hum": 18.47,
+        "noise": [
+          33,
+          70,
+          28,
+          31,
+          67
+        ]
+      }
+    },
+    "deviceId": "OZ_PARTICLE_007",
+    "deviceType": "POLLUDRON_PRO",
+    "aqi": 24,
+    "aqikey": "p2",
+    "label": "Dhordo",
+    "type": "POLLUDRON_PRO",
+    "desc": "Real time Air Quality Level of Dhordo,Kutch - Rannotsav."
+  },
+  {
+    "_id": "58b6b4535aafa7000b202834",
+    "payload": {
+      "d": {
+        "g1": 608,
+        "g2": 0,
+        "p2": 56.8,
+        "p1": 16,
+        "temp": 31.54,
+        "hum": 40.77,
+        "noise": [
+          244,
+          255,
+          35,
+          56,
+          0
+        ]
+      }
+    },
+    "deviceId": "OZ_PARTICLE_002",
+    "deviceType": "POLLUDRON_PRO",
+    "aqi": 56,
+    "aqikey": "p2",
+    "label": "Somnath",
+    "type": "POLLUDRON_PRO",
+    "desc": "Real time Air Quality Level of Somnath Temple."
+  }
+];
+
 export default class Iframe extends Component {
 
   constructor(props) {
@@ -52,6 +109,8 @@ export default class Iframe extends Component {
 
     // this.fields = [];
 
+    this.setDummyData(this)
+
     this.getData()
 
     this.getDynamicClassName = this.getDynamicClassName.bind(this)
@@ -84,6 +143,28 @@ export default class Iframe extends Component {
     clearInterval(window.apiInterval)
   }
 
+  setDummyData(obj){
+
+    axios.get('/fields/type/GUJT', config).then(function (response) {
+      if (response) {
+        this.setState({fields: response.data})
+
+        let currentTime = new Date().getTime();
+        currentTime = currentTime / 1000;
+        currentTime = currentTime - 1800;
+        
+        iframeLocalData[0].payload.d.t = currentTime;
+        iframeLocalData[1].payload.d.t = currentTime;
+
+        this.setState({iframeData: iframeLocalData})
+        this.setState({activeTab: iframeLocalData[0].label})
+      }
+    }.bind(this))
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   getData() {
 
     axios.get('/fields/type/GUJT', config).then(function (response) {
@@ -106,70 +187,7 @@ export default class Iframe extends Component {
           this.setState({activeTab: this.state.iframeData[0].label})
         } else {
           console.log("came here 1");
-          var currentTime = new Date().getTime();
-          currentTime = currentTime / 1000;
-          currentTime = currentTime - 1800;
-          var iframeLocalData = [
-            {
-              "_id": "58ad4d4c884666000b2763a2",
-              "payload": {
-                "d": {
-                  "t": currentTime,
-                  "g1": 515,
-                  "g2": 0,
-                  "p2": 24,
-                  "p1": 2.4,
-                  "temp": 31.63,
-                  "hum": 18.47,
-                  "noise": [
-                    33,
-                    70,
-                    28,
-                    31,
-                    67
-                  ]
-                }
-              },
-              "deviceId": "OZ_PARTICLE_007",
-              "deviceType": "POLLUDRON_PRO",
-              "aqi": 24,
-              "aqikey": "p2",
-              "label": "Dhordo",
-              "type": "POLLUDRON_PRO",
-              "desc": "Real time Air Quality Level of Dhordo,Kutch - Rannotsav."
-            },
-            {
-              "_id": "58b6b4535aafa7000b202834",
-              "payload": {
-                "d": {
-                  "t": currentTime,
-                  "g1": 608,
-                  "g2": 0,
-                  "p2": 56.8,
-                  "p1": 16,
-                  "temp": 31.54,
-                  "hum": 40.77,
-                  "noise": [
-                    244,
-                    255,
-                    35,
-                    56,
-                    0
-                  ]
-                }
-              },
-              "deviceId": "OZ_PARTICLE_002",
-              "deviceType": "POLLUDRON_PRO",
-              "aqi": 56,
-              "aqikey": "p2",
-              "label": "Somnath",
-              "type": "POLLUDRON_PRO",
-              "desc": "Real time Air Quality Level of Somnath Temple."
-            }
-          ];
-
-          this.setState({iframeData: iframeLocalData})
-          this.setState({activeTab: this.state.iframeData[0].label})
+          
         }
         
 
@@ -178,70 +196,7 @@ export default class Iframe extends Component {
       .catch(function (error) {
         console.log(error);
         console.log("came here 2");
-        var currentTime = new Date().getTime();
-          currentTime = currentTime / 1000;
-          currentTime = currentTime - 1800;
-          var iframeLocalData = [
-            {
-              "_id": "58ad4d4c884666000b2763a2",
-              "payload": {
-                "d": {
-                  "t": currentTime,
-                  "g1": 515,
-                  "g2": 0,
-                  "p2": 24,
-                  "p1": 2.4,
-                  "temp": 31.63,
-                  "hum": 18.47,
-                  "noise": [
-                    33,
-                    70,
-                    28,
-                    31,
-                    67
-                  ]
-                }
-              },
-              "deviceId": "OZ_PARTICLE_007",
-              "deviceType": "POLLUDRON_PRO",
-              "aqi": 24,
-              "aqikey": "p2",
-              "label": "Dhordo",
-              "type": "POLLUDRON_PRO",
-              "desc": "Real time Air Quality Level of Dhordo,Kutch - Rannotsav."
-            },
-            {
-              "_id": "58b6b4535aafa7000b202834",
-              "payload": {
-                "d": {
-                  "t": currentTime,
-                  "g1": 608,
-                  "g2": 0,
-                  "p2": 56.8,
-                  "p1": 16,
-                  "temp": 31.54,
-                  "hum": 40.77,
-                  "noise": [
-                    244,
-                    255,
-                    35,
-                    56,
-                    0
-                  ]
-                }
-              },
-              "deviceId": "OZ_PARTICLE_002",
-              "deviceType": "POLLUDRON_PRO",
-              "aqi": 56,
-              "aqikey": "p2",
-              "label": "Somnath",
-              "type": "POLLUDRON_PRO",
-              "desc": "Real time Air Quality Level of Somnath Temple."
-            }
-          ];
-
-          this.setState({iframeData: iframeLocalData})
-          this.setState({activeTab: this.state.iframeData[0].label})
+        
       });
 
     // superagent.get('https://openenvironment.p.mashape.com/fields').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
@@ -316,7 +271,7 @@ export default class Iframe extends Component {
         <div className="">
           <div className="row">
             <div className="col-sm-12">
-              <div className="col-sm-10 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
+              <div className="col-sm-12">
                 {
                   this.state.iframeData.length > 0
                   ?
