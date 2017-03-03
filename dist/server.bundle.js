@@ -1439,7 +1439,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"main.css": "main-df144f519b.css"
+		"main.css": "main-a4292e1183.css"
 	};
 
 /***/ },
@@ -4372,6 +4372,48 @@
 	  headers: { 'X-Mashape-Key': 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk' }
 	};
 
+	var iframeLocalData = [{
+	  "_id": "58ad4d4c884666000b2763a2",
+	  "payload": {
+	    "d": {
+	      "g1": 515,
+	      "g2": 0,
+	      "p2": 24,
+	      "p1": 2.4,
+	      "temp": 31.63,
+	      "hum": 18.47,
+	      "noise": [33, 70, 28, 31, 67]
+	    }
+	  },
+	  "deviceId": "OZ_PARTICLE_007",
+	  "deviceType": "POLLUDRON_PRO",
+	  "aqi": 24,
+	  "aqikey": "p2",
+	  "label": "Dhordo",
+	  "type": "POLLUDRON_PRO",
+	  "desc": "Real time Air Quality Level of Dhordo,Kutch - Rannotsav."
+	}, {
+	  "_id": "58b6b4535aafa7000b202834",
+	  "payload": {
+	    "d": {
+	      "g1": 608,
+	      "g2": 0,
+	      "p2": 56.8,
+	      "p1": 16,
+	      "temp": 31.54,
+	      "hum": 40.77,
+	      "noise": [244, 255, 35, 56, 0]
+	    }
+	  },
+	  "deviceId": "OZ_PARTICLE_002",
+	  "deviceType": "POLLUDRON_PRO",
+	  "aqi": 56,
+	  "aqikey": "p2",
+	  "label": "Somnath",
+	  "type": "POLLUDRON_PRO",
+	  "desc": "Real time Air Quality Level of Somnath Temple."
+	}];
+
 	var _ref = _jsx('tr', {
 	  className: 'gas-info'
 	}, void 0, _jsx('td', {}, void 0, _jsx('span', {})), _jsx('td', {
@@ -4431,6 +4473,8 @@
 
 	    // this.fields = [];
 
+	    _this.setDummyData(_this);
+
 	    _this.getData();
 
 	    _this.getDynamicClassName = _this.getDynamicClassName.bind(_this);
@@ -4465,6 +4509,28 @@
 	      clearInterval(window.apiInterval);
 	    }
 	  }, {
+	    key: 'setDummyData',
+	    value: function setDummyData(obj) {
+
+	      _axios2.default.get('/fields/type/GUJT', config).then(function (response) {
+	        if (response) {
+	          this.setState({ fields: response.data });
+
+	          var currentTime = new Date().getTime();
+	          currentTime = currentTime / 1000;
+	          currentTime = currentTime - 1800;
+
+	          iframeLocalData[0].payload.d.t = currentTime;
+	          iframeLocalData[1].payload.d.t = currentTime;
+
+	          this.setState({ iframeData: iframeLocalData });
+	          this.setState({ activeTab: iframeLocalData[0].label });
+	        }
+	      }.bind(this)).catch(function (error) {
+	        console.log(error);
+	      });
+	    }
+	  }, {
 	    key: 'getData',
 	    value: function getData() {
 
@@ -4486,109 +4552,11 @@
 	            this.setState({ activeTab: this.state.iframeData[0].label });
 	          } else {
 	            console.log("came here 1");
-	            var currentTime = new Date().getTime();
-	            currentTime = currentTime / 1000;
-	            currentTime = currentTime - 1800;
-	            var iframeLocalData = [{
-	              "_id": "58ad4d4c884666000b2763a2",
-	              "payload": {
-	                "d": {
-	                  "t": currentTime,
-	                  "g1": 515,
-	                  "g2": 0,
-	                  "p2": 24,
-	                  "p1": 2.4,
-	                  "temp": 31.63,
-	                  "hum": 18.47,
-	                  "noise": [33, 70, 28, 31, 67]
-	                }
-	              },
-	              "deviceId": "OZ_PARTICLE_007",
-	              "deviceType": "POLLUDRON_PRO",
-	              "aqi": 24,
-	              "aqikey": "p2",
-	              "label": "Dhordo",
-	              "type": "POLLUDRON_PRO",
-	              "desc": "Real time Air Quality Level of Dhordo,Kutch - Rannotsav."
-	            }, {
-	              "_id": "58b6b4535aafa7000b202834",
-	              "payload": {
-	                "d": {
-	                  "t": currentTime,
-	                  "g1": 608,
-	                  "g2": 0,
-	                  "p2": 56.8,
-	                  "p1": 16,
-	                  "temp": 31.54,
-	                  "hum": 40.77,
-	                  "noise": [244, 255, 35, 56, 0]
-	                }
-	              },
-	              "deviceId": "OZ_PARTICLE_002",
-	              "deviceType": "POLLUDRON_PRO",
-	              "aqi": 56,
-	              "aqikey": "p2",
-	              "label": "Somnath",
-	              "type": "POLLUDRON_PRO",
-	              "desc": "Real time Air Quality Level of Somnath Temple."
-	            }];
-
-	            this.setState({ iframeData: iframeLocalData });
-	            this.setState({ activeTab: this.state.iframeData[0].label });
 	          }
 	        }
 	      }.bind(this)).catch(function (error) {
 	        console.log(error);
 	        console.log("came here 2");
-	        var currentTime = new Date().getTime();
-	        currentTime = currentTime / 1000;
-	        currentTime = currentTime - 1800;
-	        var iframeLocalData = [{
-	          "_id": "58ad4d4c884666000b2763a2",
-	          "payload": {
-	            "d": {
-	              "t": currentTime,
-	              "g1": 515,
-	              "g2": 0,
-	              "p2": 24,
-	              "p1": 2.4,
-	              "temp": 31.63,
-	              "hum": 18.47,
-	              "noise": [33, 70, 28, 31, 67]
-	            }
-	          },
-	          "deviceId": "OZ_PARTICLE_007",
-	          "deviceType": "POLLUDRON_PRO",
-	          "aqi": 24,
-	          "aqikey": "p2",
-	          "label": "Dhordo",
-	          "type": "POLLUDRON_PRO",
-	          "desc": "Real time Air Quality Level of Dhordo,Kutch - Rannotsav."
-	        }, {
-	          "_id": "58b6b4535aafa7000b202834",
-	          "payload": {
-	            "d": {
-	              "t": currentTime,
-	              "g1": 608,
-	              "g2": 0,
-	              "p2": 56.8,
-	              "p1": 16,
-	              "temp": 31.54,
-	              "hum": 40.77,
-	              "noise": [244, 255, 35, 56, 0]
-	            }
-	          },
-	          "deviceId": "OZ_PARTICLE_002",
-	          "deviceType": "POLLUDRON_PRO",
-	          "aqi": 56,
-	          "aqikey": "p2",
-	          "label": "Somnath",
-	          "type": "POLLUDRON_PRO",
-	          "desc": "Real time Air Quality Level of Somnath Temple."
-	        }];
-
-	        this.setState({ iframeData: iframeLocalData });
-	        this.setState({ activeTab: this.state.iframeData[0].label });
 	      });
 
 	      // superagent.get('https://openenvironment.p.mashape.com/fields').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
@@ -4676,7 +4644,7 @@
 	      }, void 0, _jsx('div', {
 	        className: 'col-sm-12'
 	      }, void 0, _jsx('div', {
-	        className: 'col-sm-10 col-sm-offset-1 col-md-offset-1 col-lg-offset-1'
+	        className: 'col-sm-12'
 	      }, void 0, this.state.iframeData.length > 0 ? _react2.default.createElement(
 	        _reactSlick2.default,
 	        settings,
