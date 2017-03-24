@@ -4372,47 +4372,10 @@
 	  headers: { 'X-Mashape-Key': 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk' }
 	};
 
-	var iframeLocalData = [{
-	  "_id": "58ad4d4c884666000b2763a2",
-	  "payload": {
-	    "d": {
-	      "g1": 515,
-	      "g2": 0,
-	      "p2": 24,
-	      "p1": 2.4,
-	      "temp": 31.63,
-	      "hum": 18.47,
-	      "noise": [33, 70, 28, 31, 67]
-	    }
-	  },
-	  "deviceId": "OZ_PARTICLE_007",
-	  "deviceType": "POLLUDRON_PRO",
-	  "aqi": 24,
-	  "aqikey": "p2",
-	  "label": "Dhordo",
-	  "type": "POLLUDRON_PRO",
-	  "desc": "Real time Air Quality Level of Dhordo,Kutch - Rannotsav."
-	}, {
-	  "_id": "58b6b4535aafa7000b202834",
-	  "payload": {
-	    "d": {
-	      "g1": 608,
-	      "g2": 0,
-	      "p2": 56.8,
-	      "p1": 16,
-	      "temp": 31.54,
-	      "hum": 40.77,
-	      "noise": [244, 255, 35, 56, 0]
-	    }
-	  },
-	  "deviceId": "OZ_PARTICLE_002",
-	  "deviceType": "POLLUDRON_PRO",
-	  "aqi": 56,
-	  "aqikey": "p2",
-	  "label": "Somnath",
-	  "type": "POLLUDRON_PRO",
-	  "desc": "Real time Air Quality Level of Somnath Temple."
-	}];
+	var oizom_config = {
+	  baseURL: 'http://gateway.oizom.com',
+	  headers: { 'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImluZm9AZ3VqYXJhdHRvdXJpc20uY29tIiwiYXBpQ291bnRlciI6MCwiaWF0IjoxNDkwMjcyNDU4LCJleHAiOjE1MjE4MjkzODR9.LQDJjtXpqL6K9NxVuhUuOdtHiG3G5ugL0FPeJsA8P8Y' }
+	};
 
 	var _ref = _jsx('tr', {
 	  className: 'gas-info'
@@ -4440,47 +4403,43 @@
 
 	    _this.state = _this.getState();
 	    _this.getData = _this.getData.bind(_this);
+	    _this.getUserIdData = _this.getUserIdData.bind(_this);
 	    _this.deviceParams = _this.props.location.query.devices;
+	    _this.userIdParams = _this.props.location.query.userId;
 
 	    //new
-	    _this.devices = [], _this.deviceList = [], _this.params = {};
-	    if (_this.deviceParams) {
-	      _this.deviceList = _this.deviceParams.split(",");
-	      _this.deviceList.map(function (e) {
-	        if (e.indexOf('-') === -1) {
-	          _this.devices.push(e);
-	        } else {
-	          _this.devices.push(e.split('-')[0]);
-	          _this.params[e.split('-')[0]] = e.split('-')[1].split('_');
-	        }
-	      });
+	    _this.devices = [], _this.deviceList = [], _this.params = {}, _this.userId = '', _this.commonParams = [];
+
+	    if (_this.userIdParams) {
+
+	      _this.userId = _this.userIdParams.split("-")[0];
+	      _this.commonParams = _this.userIdParams.split("-")[1].split("_");
+
+	      _this.getUserIdData(_this.userIdParams);
+
+	      _this.getDynamicClassName = _this.getDynamicClassName.bind(_this);
+	      _this.changeData = _this.changeData.bind(_this);
+	      _this.createInfoTable = _this.createInfoTable.bind(_this);
 	    } else {
-	      _this.devices = null;
+	      if (_this.deviceParams) {
+	        _this.deviceList = _this.deviceParams.split(",");
+	        _this.deviceList.map(function (e) {
+	          if (e.indexOf('-') === -1) {
+	            _this.devices.push(e);
+	          } else {
+	            _this.devices.push(e.split('-')[0]);
+	            _this.params[e.split('-')[0]] = e.split('-')[1].split('_');
+	          }
+	        });
+	      } else {
+	        _this.devices = null;
+	      }
+
+	      _this.getData();
+	      _this.getDynamicClassName = _this.getDynamicClassName.bind(_this);
+	      _this.changeData = _this.changeData.bind(_this);
+	      _this.createInfoTable = _this.createInfoTable.bind(_this);
 	    }
-	    //new
-
-	    //old
-	    //   this.devices = []
-	    //   if(this.deviceParams){
-	    //      this.devices = this.deviceParams.split(",");
-	    //      console.log('devices',this.deviceParams)
-	    //   } else {
-	    //     this.devices = null;
-	    //   }
-	    //end old
-
-	    // console.log("came here with deviceids : "+this.deviceParams);
-
-	    // this.fields = [];
-
-	    _this.setDummyData(_this);
-
-	    _this.getData();
-
-	    _this.getDynamicClassName = _this.getDynamicClassName.bind(_this);
-	    _this.changeData = _this.changeData.bind(_this);
-	    _this.createInfoTable = _this.createInfoTable.bind(_this);
-
 	    return _this;
 	  }
 
@@ -4499,37 +4458,11 @@
 	      }.bind(this)).catch(function (error) {
 	        console.log(error);
 	      });
-
-	      // superagent.get('https://openenvironment.p.mashape.com/limits').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-	      //   this.setState({limits: res.body})
-	      // }.bind(this))
 	    }
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
 	      clearInterval(window.apiInterval);
-	    }
-	  }, {
-	    key: 'setDummyData',
-	    value: function setDummyData(obj) {
-
-	      _axios2.default.get('/fields/type/GUJT', config).then(function (response) {
-	        if (response) {
-	          this.setState({ fields: response.data });
-
-	          var currentTime = new Date().getTime();
-	          currentTime = currentTime / 1000;
-	          currentTime = currentTime - 1800;
-
-	          iframeLocalData[0].payload.d.t = currentTime;
-	          iframeLocalData[1].payload.d.t = currentTime;
-
-	          this.setState({ iframeData: iframeLocalData });
-	          this.setState({ activeTab: iframeLocalData[0].label });
-	        }
-	      }.bind(this)).catch(function (error) {
-	        console.log(error);
-	      });
 	    }
 	  }, {
 	    key: 'getData',
@@ -4544,37 +4477,44 @@
 	      });
 
 	      _axios2.default.post('/iframe', { "devices": this.devices }, config).then(function (response) {
-	        console.log("iframe response :", response);
-
 	        if (response) {
-
 	          if (response.status == 200 && response.data.length > 0) {
 	            this.setState({ iframeData: response.data });
 	            this.setState({ activeTab: this.state.iframeData[0].label });
-	          } else {
-	            console.log("came here 1");
-	          }
+	          } else {}
 	        }
 	      }.bind(this)).catch(function (error) {
 	        console.log(error);
-	        console.log("came here 2");
+	      });
+	    }
+	  }, {
+	    key: 'getUserIdData',
+	    value: function getUserIdData(userIdData) {
+	      _axios2.default.get('/fields/type/GUJT', config).then(function (response) {
+	        if (response) {
+	          this.setState({ fields: response.data });
+	        }
+	      }.bind(this)).catch(function (error) {
+	        console.log(error);
 	      });
 
-	      // superagent.get('https://openenvironment.p.mashape.com/fields').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-	      //   if(res){
-	      //     this.setState({fields:res.body})
-	      //     // this.fields = res.body;
-	      //     // console.log("fields length : "+this.fields);
-	      //   }
-	      // }.bind(this))
-	      //
-	      // superagent.post('https://openenvironment.p.mashape.com/all/public/devices/iframe').send({"devices":this.devices}).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').set('Content-Type', 'application/json').end(function (err, res) {
-	      //   if(res){
-	      //     this.setState({iframeData: res.body})
-	      //   }
-	      // }.bind(this))
+	      _axios2.default.get('/' + userIdData.split("-")[0] + '/data/public', oizom_config).then(function (response) {
+	        if (response) {
+	          if (response.status == 200 && response.data.length > 0) {
+	            this.deviceList = response.data;
+	            for (var i = 0; i < response.data.length; i++) {
+	              this.devices.push(response.data[i].deviceId);
+	              this.params[response.data[i].deviceId] = this.commonParams;
+	            }
 
-	      // console.log('mount',this.state.iframeData)
+	            console.log("params :", this.params);
+	            this.setState({ iframeData: response.data });
+	            this.setState({ activeTab: this.state.iframeData[0].label });
+	          } else {}
+	        }
+	      }.bind(this)).catch(function (error) {
+	        console.log(error);
+	      });
 	    }
 	  }, {
 	    key: 'getState',
