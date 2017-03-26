@@ -89,6 +89,7 @@ export default class Iframe extends Component {
   }
 
   getData() {
+    console.log("came in getData");
 
     axios.get('/fields/type/GUJT', config).then(function (response) {
       if (response) {
@@ -114,6 +115,7 @@ export default class Iframe extends Component {
   }
 
   getUserIdData(userIdData) {
+    console.log("came in getUserIdData");
     axios.get('/fields/type/GUJT', config).then(function (response) {
       if (response) {
         this.setState({fields: response.data})
@@ -131,8 +133,6 @@ export default class Iframe extends Component {
             this.devices.push(response.data[i].deviceId);
             this.params[response.data[i].deviceId] = this.commonParams;
           }
-          
-          console.log("params :",this.params);
           this.setState({iframeData: response.data})
           this.setState({activeTab: this.state.iframeData[0].label})
 
