@@ -1328,7 +1328,7 @@
 	});
 	var config = {
 	  mongoURL: process.env.MONGO_URL || 'mongodb://localhost:27017/mern-starter',
-	  port: process.env.PORT || 3001
+	  port: process.env.PORT || 80
 	};
 
 	exports.default = config;
