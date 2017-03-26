@@ -4447,7 +4447,11 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      window.apiInterval = setInterval(function () {
-	        this.getData();
+	        if (this.userIdParams) {
+	          this.getUserIdData(this.userIdParams);
+	        } else {
+	          this.getData();
+	        }
 	      }.bind(this), 180000);
 
 	      _axios2.default.get('/limits', config).then(function (response) {
