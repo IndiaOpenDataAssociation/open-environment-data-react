@@ -35,7 +35,7 @@ export default class Iframe extends Component {
       this.userId = this.userIdParams.split("-")[0];
       this.commonParams = this.userIdParams.split("-")[1].split("_");
 
-      this.getUserIdData(this.userIdParams,)
+      this.getUserIdData(this.userIdParams)
 
       this.getDynamicClassName = this.getDynamicClassName.bind(this)
       this.changeData = this.changeData.bind(this)
@@ -65,7 +65,12 @@ export default class Iframe extends Component {
 
   componentDidMount() {
     window.apiInterval = setInterval(function () {
-      this.getData()
+      if(this.userIdParams){
+        this.getUserIdData(this.userIdParams)
+      } else {
+        this.getData()
+      }
+      
     }.bind(this), 180000);
 
     axios.get('/limits', config).then(function (response) {
