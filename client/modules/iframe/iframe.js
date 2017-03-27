@@ -12,72 +12,76 @@ var config = {
   headers: {'X-Mashape-Key': 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk'},
 };
 
+var oizom_config = {
+  baseURL : 'http://gateway.oizom.com',
+  headers : {'x-access-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImluZm9AZ3VqYXJhdHRvdXJpc20uY29tIiwiYXBpQ291bnRlciI6MCwiaWF0IjoxNDkwMjcyNDU4LCJleHAiOjE1MjE4MjkzODR9.LQDJjtXpqL6K9NxVuhUuOdtHiG3G5ugL0FPeJsA8P8Y'}
+}
+
 export default class Iframe extends Component {
 
   constructor(props) {
     super(props)
     this.state = this.getState()
     this.getData = this.getData.bind(this)
+    this.getUserIdData = this.getUserIdData.bind(this)
     this.deviceParams = this.props.location.query.devices;
+    this.userIdParams = this.props.location.query.userId;
 
     //new
-    this.devices = [], this.deviceList = [], this.params = {}
-    if (this.deviceParams) {
-      this.deviceList = this.deviceParams.split(",");
-      this.deviceList.map((e) => {
-        if (e.indexOf('-') === -1) {
-          this.devices.push(e)
-        } else {
-          this.devices.push(e.split('-')[0])
-          this.params[e.split('-')[0]] = e.split('-')[1].split('_')
-        }
+    this.devices = [], this.deviceList = [], this.params = {}, this.userId = '', this.commonParams = []
 
-      })
+    if (this.userIdParams){
+
+      this.userId = this.userIdParams.split("-")[0];
+      this.commonParams = this.userIdParams.split("-")[1].split("_");
+
+      this.getUserIdData(this.userIdParams)
+
+      this.getDynamicClassName = this.getDynamicClassName.bind(this)
+      this.changeData = this.changeData.bind(this)
+      this.createInfoTable = this.createInfoTable.bind(this)
     } else {
-      this.devices = null;
+      if (this.deviceParams) {
+        this.deviceList = this.deviceParams.split(",");
+        this.deviceList.map((e) => {
+          if (e.indexOf('-') === -1) {
+            this.devices.push(e)
+          } else {
+            this.devices.push(e.split('-')[0])
+            this.params[e.split('-')[0]] = e.split('-')[1].split('_')
+          }
+
+        })
+      } else {
+        this.devices = null;
+      }
+
+      this.getData()
+      this.getDynamicClassName = this.getDynamicClassName.bind(this)
+      this.changeData = this.changeData.bind(this)
+      this.createInfoTable = this.createInfoTable.bind(this)
     }
-    //new
-
-    //old
-    //   this.devices = []
-    //   if(this.deviceParams){
-    //      this.devices = this.deviceParams.split(",");
-    //      console.log('devices',this.deviceParams)
-    //   } else {
-    //     this.devices = null;
-    //   }
-    //end old
-
-    // console.log("came here with deviceids : "+this.deviceParams);
-
-    // this.fields = [];
-
-    this.getData()
-
-    this.getDynamicClassName = this.getDynamicClassName.bind(this)
-    this.changeData = this.changeData.bind(this)
-    this.createInfoTable = this.createInfoTable.bind(this)
-
   }
 
   componentDidMount() {
     window.apiInterval = setInterval(function () {
-      this.getData()
+      if(this.userIdParams){
+        this.getUserIdData(this.userIdParams)
+      } else {
+        this.getData()
+      }
+      
     }.bind(this), 180000);
 
     axios.get('/limits', config).then(function (response) {
       if (response) {
         this.setState({limits: response.data})
+        this.createInfoTable(this.state.limits, 'aqi')
       }
     }.bind(this))
       .catch(function (error) {
         console.log(error);
       });
-
-
-    // superagent.get('https://openenvironment.p.mashape.com/limits').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-    //   this.setState({limits: res.body})
-    // }.bind(this))
   }
 
   componentWillUnmount() {
@@ -96,169 +100,50 @@ export default class Iframe extends Component {
       });
 
     axios.post('/iframe', {"devices": this.devices}, config).then(function (response) {
-      console.log("iframe response :",response);
-
-
       if (response) {
-
         if(response.status == 200 && response.data.length>0){
           this.setState({iframeData: response.data})
           this.setState({activeTab: this.state.iframeData[0].label})
         } else {
-          console.log("came here 1");
-          var currentTime = new Date().getTime();
-          currentTime = currentTime / 1000;
-          currentTime = currentTime - 1800;
-          var iframeLocalData = [
-            {
-              "_id": "58ad4d4c884666000b2763a2",
-              "payload": {
-                "d": {
-                  "t": currentTime,
-                  "g1": 515,
-                  "g2": 0,
-                  "p2": 24,
-                  "p1": 2.4,
-                  "temp": 31.63,
-                  "hum": 18.47,
-                  "noise": [
-                    33,
-                    70,
-                    28,
-                    31,
-                    67
-                  ]
-                }
-              },
-              "deviceId": "OZ_PARTICLE_007",
-              "deviceType": "POLLUDRON_PRO",
-              "aqi": 24,
-              "aqikey": "p2",
-              "label": "Dhordo",
-              "type": "POLLUDRON_PRO",
-              "desc": "Real time Air Quality Level of Dhordo,Kutch - Rannotsav."
-            },
-            {
-              "_id": "58b6b4535aafa7000b202834",
-              "payload": {
-                "d": {
-                  "t": currentTime,
-                  "g1": 608,
-                  "g2": 0,
-                  "p2": 56.8,
-                  "p1": 16,
-                  "temp": 31.54,
-                  "hum": 40.77,
-                  "noise": [
-                    244,
-                    255,
-                    35,
-                    56,
-                    0
-                  ]
-                }
-              },
-              "deviceId": "OZ_PARTICLE_002",
-              "deviceType": "POLLUDRON_PRO",
-              "aqi": 56,
-              "aqikey": "p2",
-              "label": "Somnath",
-              "type": "POLLUDRON_PRO",
-              "desc": "Real time Air Quality Level of Somnath Temple."
-            }
-          ];
-
-          this.setState({iframeData: iframeLocalData})
-          this.setState({activeTab: this.state.iframeData[0].label})
         }
-        
-
       }
     }.bind(this))
       .catch(function (error) {
         console.log(error);
-        console.log("came here 2");
-        var currentTime = new Date().getTime();
-          currentTime = currentTime / 1000;
-          currentTime = currentTime - 1800;
-          var iframeLocalData = [
-            {
-              "_id": "58ad4d4c884666000b2763a2",
-              "payload": {
-                "d": {
-                  "t": currentTime,
-                  "g1": 515,
-                  "g2": 0,
-                  "p2": 24,
-                  "p1": 2.4,
-                  "temp": 31.63,
-                  "hum": 18.47,
-                  "noise": [
-                    33,
-                    70,
-                    28,
-                    31,
-                    67
-                  ]
-                }
-              },
-              "deviceId": "OZ_PARTICLE_007",
-              "deviceType": "POLLUDRON_PRO",
-              "aqi": 24,
-              "aqikey": "p2",
-              "label": "Dhordo",
-              "type": "POLLUDRON_PRO",
-              "desc": "Real time Air Quality Level of Dhordo,Kutch - Rannotsav."
-            },
-            {
-              "_id": "58b6b4535aafa7000b202834",
-              "payload": {
-                "d": {
-                  "t": currentTime,
-                  "g1": 608,
-                  "g2": 0,
-                  "p2": 56.8,
-                  "p1": 16,
-                  "temp": 31.54,
-                  "hum": 40.77,
-                  "noise": [
-                    244,
-                    255,
-                    35,
-                    56,
-                    0
-                  ]
-                }
-              },
-              "deviceId": "OZ_PARTICLE_002",
-              "deviceType": "POLLUDRON_PRO",
-              "aqi": 56,
-              "aqikey": "p2",
-              "label": "Somnath",
-              "type": "POLLUDRON_PRO",
-              "desc": "Real time Air Quality Level of Somnath Temple."
-            }
-          ];
+      });
+  }
 
-          this.setState({iframeData: iframeLocalData})
-          this.setState({activeTab: this.state.iframeData[0].label})
+  getUserIdData(userIdData) {
+    axios.get('/fields/type/GUJT', config).then(function (response) {
+      if (response) {
+        this.setState({fields: response.data})
+      }
+    }.bind(this))
+      .catch(function (error) {
+        console.log(error);
       });
 
-    // superagent.get('https://openenvironment.p.mashape.com/fields').set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').end(function (err, res) {
-    //   if(res){
-    //     this.setState({fields:res.body})
-    //     // this.fields = res.body;
-    //     // console.log("fields length : "+this.fields);
-    //   }
-    // }.bind(this))
-    //
-    // superagent.post('https://openenvironment.p.mashape.com/all/public/devices/iframe').send({"devices":this.devices}).set('X-Mashape-Key', 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk').set('Content-Type', 'application/json').end(function (err, res) {
-    //   if(res){
-    //     this.setState({iframeData: res.body})
-    //   }
-    // }.bind(this))
+    axios.get('/' + userIdData.split("-")[0] + '/data/public',  oizom_config).then(function (response) {
+      if (response) {
+        if(response.status == 200 && response.data.length>0){
+          this.deviceList = response.data;
+          for(var i=0; i<response.data.length; i++){
+            this.devices.push(response.data[i].deviceId);
+            this.params[response.data[i].deviceId] = this.commonParams;
+          }
+          this.setState({iframeData: response.data})
+          this.setState({activeTab: this.state.iframeData[0].label})
 
-    // console.log('mount',this.state.iframeData)
+          
+
+
+        } else {
+        }
+      }
+    }.bind(this))
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   getState() {
@@ -316,7 +201,7 @@ export default class Iframe extends Component {
         <div className="">
           <div className="row">
             <div className="col-sm-12">
-              <div className="col-sm-10 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
+              <div className="col-sm-12">
                 {
                   this.state.iframeData.length > 0
                   ?
