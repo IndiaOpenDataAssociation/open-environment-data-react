@@ -4471,7 +4471,6 @@
 	  }, {
 	    key: 'getData',
 	    value: function getData() {
-	      console.log("came in getData");
 
 	      _axios2.default.get('/fields/type/GUJT', config).then(function (response) {
 	        if (response) {
@@ -4495,7 +4494,6 @@
 	  }, {
 	    key: 'getUserIdData',
 	    value: function getUserIdData(userIdData) {
-	      console.log("came in getUserIdData");
 	      _axios2.default.get('/fields/type/GUJT', config).then(function (response) {
 	        if (response) {
 	          this.setState({ fields: response.data });
