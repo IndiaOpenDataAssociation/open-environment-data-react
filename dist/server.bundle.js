@@ -3883,7 +3883,7 @@
 	var _ref5 = _jsx('div', {
 	  className: 'text-center consume-api'
 	}, void 0, _jsx('a', {
-	  href: 'https://www.mashape.com/sohil4932/open-environment-data-project?&utm_campaign=mashape5-embed&utm_medium=button&utm_source=open-environment-data-project&utm_content=anchorlink&utm_term=icon-light',
+	  href: 'https://market.mashape.com/sohil4932/open-environment-data-project',
 	  target: '_blank'
 	}, void 0, _jsx('img', {
 	  src: 'https://d1g84eaw0qjo7s.cloudfront.net/images/badges/badge-icon-light-9e8eba63.png',
