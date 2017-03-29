@@ -23,7 +23,7 @@ export default class Openapi extends Component{
             </p>
 
             <div className="text-center consume-api">
-              <a href="https://www.mashape.com/sohil4932/open-environment-data-project?&amp;utm_campaign=mashape5-embed&amp;utm_medium=button&amp;utm_source=open-environment-data-project&amp;utm_content=anchorlink&amp;utm_term=icon-light" target="_blank">
+              <a href="https://market.mashape.com/sohil4932/open-environment-data-project" target="_blank">
                 <img src="https://d1g84eaw0qjo7s.cloudfront.net/images/badges/badge-icon-light-9e8eba63.png" width="143" height="38" alt="Mashape" />
               </a>
             </div>
