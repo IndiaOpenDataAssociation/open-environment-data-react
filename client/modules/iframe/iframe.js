@@ -5,8 +5,8 @@ import axios from 'axios'
 import moment from 'moment'
 import _ from 'lodash'
 import Slider from 'react-slick'
-import static_fields from 'static/fields.json'
-import static_limits from 'static/limits.json'
+import static_fields from './static/fields.json'
+import static_limits from './static/limits.json'
 
 var classes = ['good', 'satisfactory', 'moderate', 'poor', 'vpoor', 'severe']
 var config = {
@@ -28,6 +28,8 @@ export default class Iframe extends Component {
     this.getUserIdData = this.getUserIdData.bind(this)
     this.deviceParams = this.props.location.query.devices;
     this.userIdParams = this.props.location.query.userId;
+    this.staticFieldsData = static_fields;
+    this.staticLimitsData = static_limits;
 
     //new
     this.devices = [], this.deviceList = [], this.params = {}, this.userId = '', this.commonParams = []
@@ -85,7 +87,6 @@ export default class Iframe extends Component {
     //     console.log(error);
     //   });
 
-    this.setState({limits: static_limits})
     this.createInfoTable(this.state.limits, 'aqi')
   }
 
@@ -103,8 +104,6 @@ export default class Iframe extends Component {
     //   .catch(function (error) {
     //     console.log(error);
     //   });
-
-    this.setState({fields: static_fields});
 
     axios.post('/iframe', {"devices": this.devices}, config).then(function (response) {
       if (response) {
@@ -130,7 +129,6 @@ export default class Iframe extends Component {
     //     console.log(error);
     //   });
 
-    this.setState({fields: static_fields});
 
     axios.get('/' + userIdData.split("-")[0] + '/data/public',  oizom_config).then(function (response) {
       if (response) {
@@ -157,9 +155,9 @@ export default class Iframe extends Component {
 
   getState() {
     return {
-      fields: [],
+      fields: static_fields,
       iframeData: [],
-      limits: [],
+      limits: static_limits,
       activeTab: 'Dhordo',
       infoItem: []
     }
