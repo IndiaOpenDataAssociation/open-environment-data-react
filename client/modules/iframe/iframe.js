@@ -5,6 +5,8 @@ import axios from 'axios'
 import moment from 'moment'
 import _ from 'lodash'
 import Slider from 'react-slick'
+import static_fields from 'static/fields.json'
+import static_limits from 'static/limits.json'
 
 var classes = ['good', 'satisfactory', 'moderate', 'poor', 'vpoor', 'severe']
 var config = {
@@ -73,15 +75,18 @@ export default class Iframe extends Component {
       
     }.bind(this), 720000);
 
-    axios.get('/limits', config).then(function (response) {
-      if (response) {
-        this.setState({limits: response.data})
-        this.createInfoTable(this.state.limits, 'aqi')
-      }
-    }.bind(this))
-      .catch(function (error) {
-        console.log(error);
-      });
+    // axios.get('/limits', config).then(function (response) {
+    //   if (response) {
+    //     this.setState({limits: response.data})
+    //     this.createInfoTable(this.state.limits, 'aqi')
+    //   }
+    // }.bind(this))
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+
+    this.setState({limits: static_limits})
+    this.createInfoTable(this.state.limits, 'aqi')
   }
 
   componentWillUnmount() {
@@ -90,14 +95,16 @@ export default class Iframe extends Component {
 
   getData() {
 
-    axios.get('/fields/type/GUJT', config).then(function (response) {
-      if (response) {
-        this.setState({fields: response.data})
-      }
-    }.bind(this))
-      .catch(function (error) {
-        console.log(error);
-      });
+    // axios.get('/fields/type/GUJT', config).then(function (response) {
+    //   if (response) {
+    //     this.setState({fields: response.data})
+    //   }
+    // }.bind(this))
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+
+    this.setState({fields: static_fields});
 
     axios.post('/iframe', {"devices": this.devices}, config).then(function (response) {
       if (response) {
@@ -114,14 +121,16 @@ export default class Iframe extends Component {
   }
 
   getUserIdData(userIdData) {
-    axios.get('/fields/type/GUJT', config).then(function (response) {
-      if (response) {
-        this.setState({fields: response.data})
-      }
-    }.bind(this))
-      .catch(function (error) {
-        console.log(error);
-      });
+    // axios.get('/fields/type/GUJT', config).then(function (response) {
+    //   if (response) {
+    //     this.setState({fields: response.data})
+    //   }
+    // }.bind(this))
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+
+    this.setState({fields: static_fields});
 
     axios.get('/' + userIdData.split("-")[0] + '/data/public',  oizom_config).then(function (response) {
       if (response) {
