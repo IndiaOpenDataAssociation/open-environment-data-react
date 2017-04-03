@@ -71,7 +71,7 @@ export default class Iframe extends Component {
         this.getData()
       }
       
-    }.bind(this), 300000);
+    }.bind(this), 720000);
 
     axios.get('/limits', config).then(function (response) {
       if (response) {
