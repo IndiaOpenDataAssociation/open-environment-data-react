@@ -4452,7 +4452,7 @@
 	        } else {
 	          this.getData();
 	        }
-	      }.bind(this), 300000);
+	      }.bind(this), 720000);
 
 	      _axios2.default.get('/limits', config).then(function (response) {
 	        if (response) {
