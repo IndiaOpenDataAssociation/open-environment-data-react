@@ -4373,7 +4373,7 @@
 	};
 
 	var oizom_config = {
-	  baseURL: 'http://gateway.oizom.com',
+	  baseURL: 'http://gateway.oizom.com:8080',
 	  headers: { 'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImluZm9AZ3VqYXJhdHRvdXJpc20uY29tIiwiYXBpQ291bnRlciI6MCwiaWF0IjoxNDkwMjcyNDU4LCJleHAiOjE1MjE4MjkzODR9.LQDJjtXpqL6K9NxVuhUuOdtHiG3G5ugL0FPeJsA8P8Y' }
 	};
 
@@ -4452,7 +4452,7 @@
 	        } else {
 	          this.getData();
 	        }
-	      }.bind(this), 180000);
+	      }.bind(this), 300000);
 
 	      _axios2.default.get('/limits', config).then(function (response) {
 	        if (response) {
