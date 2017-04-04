@@ -77,16 +77,6 @@ export default class Iframe extends Component {
       
     }.bind(this), 720000);
 
-    // axios.get('/limits', config).then(function (response) {
-    //   if (response) {
-    //     this.setState({limits: response.data})
-    //     this.createInfoTable(this.state.limits, 'aqi')
-    //   }
-    // }.bind(this))
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-
     this.createInfoTable(this.state.limits, 'aqi')
   }
 
@@ -95,15 +85,6 @@ export default class Iframe extends Component {
   }
 
   getData() {
-
-    // axios.get('/fields/type/GUJT', config).then(function (response) {
-    //   if (response) {
-    //     this.setState({fields: response.data})
-    //   }
-    // }.bind(this))
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
 
     axios.post('/iframe', {"devices": this.devices}, config).then(function (response) {
       if (response) {
@@ -120,15 +101,6 @@ export default class Iframe extends Component {
   }
 
   getUserIdData(userIdData) {
-    // axios.get('/fields/type/GUJT', config).then(function (response) {
-    //   if (response) {
-    //     this.setState({fields: response.data})
-    //   }
-    // }.bind(this))
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-
 
     axios.get('/' + userIdData.split("-")[0] + '/data/public',  oizom_config).then(function (response) {
       if (response) {
