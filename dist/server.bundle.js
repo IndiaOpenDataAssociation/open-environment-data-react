@@ -51,6 +51,76 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(0);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _ref = _jsx("div", {
+	  className: "black-bg footer-container"
+	}, void 0, _jsx("div", {
+	  className: "container"
+	}, void 0, _jsx("div", {
+	  className: "row"
+	}, void 0, _jsx("div", {
+	  className: "col-sm-12"
+	}, void 0, _jsx("div", {
+	  className: "text-center white col-sm-10 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+	}, void 0, _jsx("div", {
+	  className: "margin-bottom-50"
+	}, void 0, _jsx("h2", {
+	  className: "white-font bold"
+	}, void 0, "IT'S TIME TO GIVE THE ENVIRONMENT A CLOSER LOOK.", _jsx("br", {}), "LET'S JOIN HANDS FOR HEALTHIER TOMORROW!")), _jsx("div", {
+	  className: "text-center margin-bottom-50"
+	}, void 0, _jsx("a", {
+	  className: "btn btn-transparent join-btn",
+	  href: "https://docs.google.com/forms/d/1G1SyMFx8aZJWFlY1_DqArcs6G7F9Lk8RLz5_SJREQuE/viewform?c=0&w=1",
+	  target: "_blank"
+	}, void 0, "Join Us!")))))));
+
+	var Footer = function (_Component) {
+	  _inherits(Footer, _Component);
+
+	  function Footer() {
+	    _classCallCheck(this, Footer);
+
+	    return _possibleConstructorReturn(this, (Footer.__proto__ || Object.getPrototypeOf(Footer)).apply(this, arguments));
+	  }
+
+	  _createClass(Footer, [{
+	    key: "render",
+	    value: function render() {
+	      return _ref;
+	    }
+	  }]);
+
+	  return Footer;
+	}(_react.Component);
+
+	exports.default = Footer;
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -150,76 +220,6 @@
 	exports.default = Demo;
 
 /***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(0);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _ref = _jsx("div", {
-	  className: "black-bg footer-container"
-	}, void 0, _jsx("div", {
-	  className: "container"
-	}, void 0, _jsx("div", {
-	  className: "row"
-	}, void 0, _jsx("div", {
-	  className: "col-sm-12"
-	}, void 0, _jsx("div", {
-	  className: "text-center white col-sm-10 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
-	}, void 0, _jsx("div", {
-	  className: "margin-bottom-50"
-	}, void 0, _jsx("h2", {
-	  className: "white-font bold"
-	}, void 0, "IT'S TIME TO GIVE THE ENVIRONMENT A CLOSER LOOK.", _jsx("br", {}), "LET'S JOIN HANDS FOR HEALTHIER TOMORROW!")), _jsx("div", {
-	  className: "text-center margin-bottom-50"
-	}, void 0, _jsx("a", {
-	  className: "btn btn-transparent join-btn",
-	  href: "https://docs.google.com/forms/d/1G1SyMFx8aZJWFlY1_DqArcs6G7F9Lk8RLz5_SJREQuE/viewform?c=0&w=1",
-	  target: "_blank"
-	}, void 0, "Join Us!")))))));
-
-	var Footer = function (_Component) {
-	  _inherits(Footer, _Component);
-
-	  function Footer() {
-	    _classCallCheck(this, Footer);
-
-	    return _possibleConstructorReturn(this, (Footer.__proto__ || Object.getPrototypeOf(Footer)).apply(this, arguments));
-	  }
-
-	  _createClass(Footer, [{
-	    key: "render",
-	    value: function render() {
-	      return _ref;
-	    }
-	  }]);
-
-	  return Footer;
-	}(_react.Component);
-
-	exports.default = Footer;
-
-/***/ },
 /* 3 */
 /***/ function(module, exports) {
 
@@ -276,10 +276,6 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Navbar = __webpack_require__(1);
-
-	var _Navbar2 = _interopRequireDefault(_Navbar);
-
 	var _FormGroup = __webpack_require__(52);
 
 	var _FormGroup2 = _interopRequireDefault(_FormGroup);
@@ -329,98 +325,80 @@
 	  headers: { 'X-Mashape-Key': 'SPmv0Z46zymshRjsWckXKsA09OBrp14RCeSjsniWIpRk6llTuk' }
 	};
 
-	var _ref = _jsx(_Navbar2.default, {});
+	var _ref = _jsx(_LoadingMap2.default, {});
 
-	var _ref2 = _jsx(_LoadingMap2.default, {});
-
-	var _ref3 = _jsx(_Navbar2.default, {});
-
-	var _ref4 = _jsx('option', {
+	var _ref2 = _jsx('option', {
 	  value: 'India'
 	}, void 0, 'India');
 
-	var _ref5 = _jsx('i', {
+	var _ref3 = _jsx('i', {
 	  className: 'fa fa-navicon'
 	});
 
-	var _ref6 = _jsx('img', {
+	var _ref4 = _jsx('img', {
 	  src: '../../assets/images/CPCB.png',
 	  className: 'white-bg'
 	});
 
-	var _ref7 = _jsx('img', {
+	var _ref5 = _jsx('img', {
 	  src: '../../assets/images/AIROWL3G.png'
 	});
 
-	var _ref8 = _jsx('img', {
+	var _ref6 = _jsx('img', {
 	  src: '../../assets/images/POLLUDRON_PUBLIC.png'
 	});
 
-	var _ref9 = _jsx('br', {});
+	var _ref7 = _jsx('br', {});
 
-	var _ref10 = _jsx('br', {});
+	var _ref8 = _jsx('br', {});
 
-	var _ref11 = _jsx('small', {}, void 0, 'From');
+	var _ref9 = _jsx('small', {}, void 0, 'From');
 
-	var _ref12 = _jsx('small', {}, void 0, 'To');
+	var _ref10 = _jsx('small', {}, void 0, 'To');
 
-	var _ref13 = _jsx('i', {
+	var _ref11 = _jsx('i', {
 	  className: 'fa fa-arrow-right'
 	});
 
-	var _ref14 = _jsx('i', {
+	var _ref12 = _jsx('i', {
 	  className: 'fa fa-download'
 	});
 
-	var _ref15 = _jsx('i', {
+	var _ref13 = _jsx('i', {
 	  className: 'fa fa-close'
 	});
 
-	var _ref16 = _jsx('img', {
+	var _ref14 = _jsx('img', {
 	  src: '../../assets/images/CPCB.png'
 	});
 
-	var _ref17 = _jsx('img', {
+	var _ref15 = _jsx('img', {
 	  src: '../../assets/images/AIROWL3G.png'
 	});
 
-	var _ref18 = _jsx('img', {
+	var _ref16 = _jsx('img', {
 	  src: '../../assets/images/POLLUDRON_PUBLIC.png'
 	});
 
-	var _ref19 = _jsx('br', {});
+	var _ref17 = _jsx('br', {});
 
-	var _ref20 = _jsx('br', {});
+	var _ref18 = _jsx('br', {});
 
-	var _ref21 = _jsx('i', {
+	var _ref19 = _jsx('i', {
 	  className: 'fa fa-close'
 	});
 
+	var _ref20 = _jsx('i', {
+	  className: 'fa fa-arrow-right white'
+	});
+
+	var _ref21 = _jsx('i', {
+	  className: 'fa fa-arrow-right white'
+	});
+
 	var _ref22 = _jsx('i', {
-	  className: 'fa fa-arrow-right white'
-	});
-
-	var _ref23 = _jsx('i', {
-	  className: 'fa fa-arrow-right white'
-	});
-
-	var _ref24 = _jsx('i', {
 	  className: 'fa fa-download white'
 	});
-
-	var _ref25 = _jsx('div', {
-	  className: 'dashboard-footer'
-	}, void 0, _jsx('a', {
-	  href: 'http://indiaopendata.com/',
-	  target: '_blank',
-	  className: 'title'
-	}, void 0, 'An India Open Data Association Initiative'), _jsx('a', {
-	  href: 'https://oizom.com/',
-	  target: '_blank',
-	  className: 'regards'
-	}, void 0, 'Made with ', _jsx('i', {
-	  className: 'white fa fa-heart'
-	}), ' Oizom'));
 
 	var Dashboard = function (_Component) {
 	  _inherits(Dashboard, _Component);
@@ -650,9 +628,10 @@
 	    key: 'render',
 	    value: function render() {
 	      return _jsx('div', {}, void 0, this.state.loading ? _jsx('div', {
-	        style: { marginTop: '50px' }
-	      }, void 0, _ref, _ref2) : _jsx('div', {}, void 0, _ref3, _jsx('section', {
-	        className: 'dashboard'
+	        style: { marginTop: '0px' }
+	      }, void 0, _ref) : _jsx('div', {}, void 0, _jsx('section', {
+	        className: 'dashboard',
+	        style: { marginTop: '0px' }
 	      }, void 0, _jsx(_index2.default, {
 	        markers: this.state.markers,
 	        cityValue: this.state.city,
@@ -672,7 +651,7 @@
 	        _FormControl2.default,
 	        { componentClass: 'select', placeholder: 'select', ref: 'cityList', className: 'select-cities',
 	          onChange: this.changeCities },
-	        _ref4,
+	        _ref2,
 	        this.state.city_list.map(function (element, index) {
 	          return _jsx('option', {
 	            value: index
@@ -683,7 +662,7 @@
 	      }, void 0, _jsx('a', {
 	        className: 'open-panel',
 	        onClick: this.openPanel
-	      }, void 0, _ref5)), this.state.show_panel ? this.state.realTimedataLoading == false && this.state.analyticsdataLoading == false ? this.state.windowWidth > 500 ? _jsx('div', {
+	      }, void 0, _ref3)), this.state.show_panel ? this.state.realTimedataLoading == false && this.state.analyticsdataLoading == false ? this.state.windowWidth > 500 ? _jsx('div', {
 	        className: 'review-panel desktop-view'
 	      }, void 0, _jsx('div', {
 	        className: 'panel panel-default'
@@ -700,29 +679,29 @@
 	        className: 'inner-block'
 	      }, void 0, _jsx('div', {
 	        className: 'blot'
-	      }, void 0, this.state.realTimeData[0].type == 'CPCB' ? _ref6 : this.state.realTimeData[0].type == 'AIROWL3G' || this.state.realTimeData[0].type == 'AIROWLWI' ? _ref7 : _ref8), _jsx('span', {
+	      }, void 0, this.state.realTimeData[0].type == 'CPCB' ? _ref4 : this.state.realTimeData[0].type == 'AIROWL3G' || this.state.realTimeData[0].type == 'AIROWLWI' ? _ref5 : _ref6), _jsx('span', {
 	        className: 'device-label'
-	      }, void 0, this.state.realTimeData[0].label, ', ', this.state.realTimeData[0].city, ', ', this.state.realTimeData[0].country), _ref9, _jsx('small', {
+	      }, void 0, this.state.realTimeData[0].label, ', ', this.state.realTimeData[0].city, ', ', this.state.realTimeData[0].country), _ref7, _jsx('small', {
 	        className: 'device-type'
-	      }, void 0, this.state.realTimeData[0].type), _ref10)), _jsx('div', {
+	      }, void 0, this.state.realTimeData[0].type), _ref8)), _jsx('div', {
 	        className: 'col-sm-7 dtpicker'
-	      }, void 0, _ref11, _jsx(_reactDatetime2.default, {
+	      }, void 0, _ref9, _jsx(_reactDatetime2.default, {
 	        className: 'fromDt',
 	        timeFormat: false,
 	        onChange: this.handleFromDt
-	      }), _ref12, _jsx(_reactDatetime2.default, {
+	      }), _ref10, _jsx(_reactDatetime2.default, {
 	        className: 'toDt',
 	        timeFormat: false,
 	        onChange: this.handleToDt
 	      }), _jsx('button', {
 	        onClick: this.handleDtChange
-	      }, void 0, _ref13)), _jsx('span', {
+	      }, void 0, _ref11)), _jsx('span', {
 	        className: 'download-csv',
 	        onClick: this.handleDownload
-	      }, void 0, _ref14, 'CSV')), _jsx('span', {
+	      }, void 0, _ref12, 'CSV')), _jsx('span', {
 	        className: 'col-sm-1 col-xs-1 text-right close-panel',
 	        onClick: this.closePanel
-	      }, void 0, _ref15))), _jsx('div', {
+	      }, void 0, _ref13))), _jsx('div', {
 	        className: 'panel-body'
 	      }, void 0, _jsx(_LatestDevice2.default, {
 	        analysisData: this.state.analyticsData,
@@ -748,16 +727,16 @@
 	        className: 'inner-block'
 	      }, void 0, _jsx('div', {
 	        className: 'blot'
-	      }, void 0, this.state.realTimeData[0].type == 'CPCB' ? _ref16 : this.state.realTimeData[0].type == 'AIROWL3G' || this.state.realTimeData[0].type == 'AIROWLWI' ? _ref17 : _ref18), _jsx('span', {
+	      }, void 0, this.state.realTimeData[0].type == 'CPCB' ? _ref14 : this.state.realTimeData[0].type == 'AIROWL3G' || this.state.realTimeData[0].type == 'AIROWLWI' ? _ref15 : _ref16), _jsx('span', {
 	        className: 'device-label'
-	      }, void 0, this.state.realTimeData[0].label, ', ', this.state.realTimeData[0].city, ', ', this.state.realTimeData[0].country), _ref19, _jsx('small', {
+	      }, void 0, this.state.realTimeData[0].label, ', ', this.state.realTimeData[0].city, ', ', this.state.realTimeData[0].country), _ref17, _jsx('small', {
 	        className: 'device-type'
-	      }, void 0, this.state.realTimeData[0].type), _ref20)), _jsx('div', {
+	      }, void 0, this.state.realTimeData[0].type), _ref18)), _jsx('div', {
 	        className: 'col-xs-2'
 	      }, void 0, _jsx('span', {
 	        className: 'text-right close-panel',
 	        onClick: this.closePanel
-	      }, void 0, _ref21))), _jsx('div', {
+	      }, void 0, _ref19))), _jsx('div', {
 	        className: 'row'
 	      }, void 0, _jsx('div', {
 	        className: 'col-xs-10 dtpicker'
@@ -765,18 +744,18 @@
 	        className: 'fromDt',
 	        timeFormat: false,
 	        onChange: this.handleFromDt
-	      }), _ref22, _jsx(_reactDatetime2.default, {
+	      }), _ref20, _jsx(_reactDatetime2.default, {
 	        className: 'toDt',
 	        timeFormat: false,
 	        onChange: this.handleToDt
 	      }), _jsx('button', {
 	        onClick: this.handleDtChange
-	      }, void 0, _ref23)), _jsx('div', {
+	      }, void 0, _ref21)), _jsx('div', {
 	        className: 'col-xs-2'
 	      }, void 0, _jsx('span', {
 	        className: 'download-csv',
 	        onClick: this.handleDownload
-	      }, void 0, _ref24)))), _jsx('div', {
+	      }, void 0, _ref22)))), _jsx('div', {
 	        className: 'panel-body'
 	      }, void 0, _jsx(_LatestDevice2.default, {
 	        analysisData: this.state.analyticsData,
@@ -786,7 +765,7 @@
 	        fromDate: this.state.fromDate,
 	        toDate: this.state.toDate,
 	        emptyDate: this.emptyDate
-	      }))))) : null : null)), _ref25);
+	      }))))) : null : null)));
 	    }
 	  }]);
 
@@ -984,7 +963,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement('div', { ref: 'map', style: { height: '89.5vh', width: '100%' } });
+	      return _react2.default.createElement('div', { ref: 'map', style: { height: '100vh', width: '100%' } });
 	    }
 	  }]);
 
@@ -1195,69 +1174,6 @@
 	      cb(null, _Dashboard2.default);
 	    }).bind(null, __webpack_require__));
 	  }
-	}), _jsx(_reactRouter.Route, {
-	  path: '/about',
-	  getComponent: function getComponent(nextState, cb) {
-	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, _About2.default);
-	    }).bind(null, __webpack_require__));
-	  }
-	}), _jsx(_reactRouter.Route, {
-	  path: '/community',
-	  getComponent: function getComponent(nextState, cb) {
-	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, _Community2.default);
-	    }).bind(null, __webpack_require__));
-	  }
-	}), _jsx(_reactRouter.Route, {
-	  path: '/openapi',
-	  getComponent: function getComponent(nextState, cb) {
-	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, _Openapi2.default);
-	    }).bind(null, __webpack_require__));
-	  }
-	}), _jsx(_reactRouter.Route, {
-	  path: '/devices',
-	  getComponent: function getComponent(nextState, cb) {
-	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, _Device2.default);
-	    }).bind(null, __webpack_require__));
-	  }
-	}), _jsx(_reactRouter.Route, {
-	  path: '/partners',
-	  getComponent: function getComponent(nextState, cb) {
-	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, _Partners2.default);
-	    }).bind(null, __webpack_require__));
-	  }
-	}), _jsx(_reactRouter.Route, {
-	  path: '/airowl',
-	  getComponent: function getComponent(nextState, cb) {
-	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, _Airowl2.default);
-	    }).bind(null, __webpack_require__));
-	  }
-	}), _jsx(_reactRouter.Route, {
-	  path: '/iframe',
-	  getComponent: function getComponent(nextState, cb) {
-	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, _iframe2.default);
-	    }).bind(null, __webpack_require__));
-	  }
-	}), _jsx(_reactRouter.Route, {
-	  path: '/demo',
-	  getComponent: function getComponent(nextState, cb) {
-	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, _index2.default);
-	    }).bind(null, __webpack_require__));
-	  }
-	}), _jsx(_reactRouter.Route, {
-	  path: '/iframe',
-	  getComponent: function getComponent(nextState, cb) {
-	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, _iframe2.default);
-	    }).bind(null, __webpack_require__));
-	  }
 	}));
 
 /***/ },
@@ -1328,7 +1244,7 @@
 	});
 	var config = {
 	  mongoURL: process.env.MONGO_URL || 'mongodb://localhost:27017/mern-starter',
-	  port: process.env.PORT || 80
+	  port: process.env.PORT || 8080
 	};
 
 	exports.default = config;
@@ -1503,11 +1419,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Navbar = __webpack_require__(1);
+	var _Navbar = __webpack_require__(2);
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _Footer = __webpack_require__(2);
+	var _Footer = __webpack_require__(1);
 
 	var _Footer2 = _interopRequireDefault(_Footer);
 
@@ -1644,11 +1560,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Navbar = __webpack_require__(1);
+	var _Navbar = __webpack_require__(2);
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _Footer = __webpack_require__(2);
+	var _Footer = __webpack_require__(1);
 
 	var _Footer2 = _interopRequireDefault(_Footer);
 
@@ -2266,11 +2182,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Navbar = __webpack_require__(1);
+	var _Navbar = __webpack_require__(2);
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _Footer = __webpack_require__(2);
+	var _Footer = __webpack_require__(1);
 
 	var _Footer2 = _interopRequireDefault(_Footer);
 
@@ -2491,7 +2407,7 @@
 	      }, void 0, _jsx(_GoogleMapLoader2.default, {
 	        containerElement: _react2.default.createElement("div", _extends({}, this.props.containerElementProps, {
 	          style: {
-	            height: "92.5vh"
+	            height: "100vh"
 	          }
 	        })),
 	        googleMapElement: _jsx(_GoogleMap2.default, {
@@ -3738,11 +3654,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Navbar = __webpack_require__(1);
+	var _Navbar = __webpack_require__(2);
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _Footer = __webpack_require__(2);
+	var _Footer = __webpack_require__(1);
 
 	var _Footer2 = _interopRequireDefault(_Footer);
 
@@ -3845,11 +3761,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Navbar = __webpack_require__(1);
+	var _Navbar = __webpack_require__(2);
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _Footer = __webpack_require__(2);
+	var _Footer = __webpack_require__(1);
 
 	var _Footer2 = _interopRequireDefault(_Footer);
 
@@ -3974,11 +3890,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Navbar = __webpack_require__(1);
+	var _Navbar = __webpack_require__(2);
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _Footer = __webpack_require__(2);
+	var _Footer = __webpack_require__(1);
 
 	var _Footer2 = _interopRequireDefault(_Footer);
 
@@ -4464,16 +4380,6 @@
 	        }
 	      }.bind(this), 720000);
 
-	      // axios.get('/limits', config).then(function (response) {
-	      //   if (response) {
-	      //     this.setState({limits: response.data})
-	      //     this.createInfoTable(this.state.limits, 'aqi')
-	      //   }
-	      // }.bind(this))
-	      //   .catch(function (error) {
-	      //     console.log(error);
-	      //   });
-
 	      this.createInfoTable(this.state.limits, 'aqi');
 	    }
 	  }, {
@@ -4484,15 +4390,6 @@
 	  }, {
 	    key: 'getData',
 	    value: function getData() {
-
-	      // axios.get('/fields/type/GUJT', config).then(function (response) {
-	      //   if (response) {
-	      //     this.setState({fields: response.data})
-	      //   }
-	      // }.bind(this))
-	      //   .catch(function (error) {
-	      //     console.log(error);
-	      //   });
 
 	      _axios2.default.post('/iframe', { "devices": this.devices }, config).then(function (response) {
 	        if (response) {
@@ -4508,15 +4405,6 @@
 	  }, {
 	    key: 'getUserIdData',
 	    value: function getUserIdData(userIdData) {
-	      // axios.get('/fields/type/GUJT', config).then(function (response) {
-	      //   if (response) {
-	      //     this.setState({fields: response.data})
-	      //   }
-	      // }.bind(this))
-	      //   .catch(function (error) {
-	      //     console.log(error);
-	      //   });
-
 
 	      _axios2.default.get('/' + userIdData.split("-")[0] + '/data/public', oizom_config).then(function (response) {
 	        if (response) {
