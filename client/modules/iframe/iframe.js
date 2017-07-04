@@ -5,6 +5,8 @@ import axios from 'axios'
 import moment from 'moment'
 import _ from 'lodash'
 import Slider from 'react-slick'
+import static_fields from './static/fields.json'
+import static_limits from './static/limits.json'
 
 var classes = ['good', 'satisfactory', 'moderate', 'poor', 'vpoor', 'severe']
 var config = {
@@ -13,7 +15,7 @@ var config = {
 };
 
 var oizom_config = {
-  baseURL : 'http://gateway.oizom.com',
+  baseURL : 'http://gateway.oizom.com:8080',
   headers : {'x-access-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImluZm9AZ3VqYXJhdHRvdXJpc20uY29tIiwiYXBpQ291bnRlciI6MCwiaWF0IjoxNDkwMjcyNDU4LCJleHAiOjE1MjE4MjkzODR9.LQDJjtXpqL6K9NxVuhUuOdtHiG3G5ugL0FPeJsA8P8Y'}
 }
 
@@ -26,6 +28,8 @@ export default class Iframe extends Component {
     this.getUserIdData = this.getUserIdData.bind(this)
     this.deviceParams = this.props.location.query.devices;
     this.userIdParams = this.props.location.query.userId;
+    this.staticFieldsData = static_fields;
+    this.staticLimitsData = static_limits;
 
     //new
     this.devices = [], this.deviceList = [], this.params = {}, this.userId = '', this.commonParams = []
@@ -71,17 +75,9 @@ export default class Iframe extends Component {
         this.getData()
       }
       
-    }.bind(this), 180000);
+    }.bind(this), 720000);
 
-    axios.get('/limits', config).then(function (response) {
-      if (response) {
-        this.setState({limits: response.data})
-        this.createInfoTable(this.state.limits, 'aqi')
-      }
-    }.bind(this))
-      .catch(function (error) {
-        console.log(error);
-      });
+    this.createInfoTable(this.state.limits, 'aqi')
   }
 
   componentWillUnmount() {
@@ -89,15 +85,6 @@ export default class Iframe extends Component {
   }
 
   getData() {
-
-    axios.get('/fields/type/GUJT', config).then(function (response) {
-      if (response) {
-        this.setState({fields: response.data})
-      }
-    }.bind(this))
-      .catch(function (error) {
-        console.log(error);
-      });
 
     axios.post('/iframe', {"devices": this.devices}, config).then(function (response) {
       if (response) {
@@ -114,14 +101,6 @@ export default class Iframe extends Component {
   }
 
   getUserIdData(userIdData) {
-    axios.get('/fields/type/GUJT', config).then(function (response) {
-      if (response) {
-        this.setState({fields: response.data})
-      }
-    }.bind(this))
-      .catch(function (error) {
-        console.log(error);
-      });
 
     axios.get('/' + userIdData.split("-")[0] + '/data/public',  oizom_config).then(function (response) {
       if (response) {
@@ -148,9 +127,9 @@ export default class Iframe extends Component {
 
   getState() {
     return {
-      fields: [],
+      fields: static_fields,
       iframeData: [],
-      limits: [],
+      limits: static_limits,
       activeTab: 'Dhordo',
       infoItem: []
     }
