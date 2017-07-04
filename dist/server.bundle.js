@@ -1892,7 +1892,7 @@
 	  className: 'col-sm-6 col-lg-offset-3'
 	}, void 0, _jsx('a', {
 	  className: 'btn btn-default btn-red fa-btn-custom',
-	  href: 'https://github.com/IndiaOpenDataAssociation/India-Open-Environment-Data-Project/tree/master/Airowl',
+	  href: 'https://github.com/IndiaOpenDataAssociation/AirOwl',
 	  target: '_blank'
 	}, void 0, ' ', _jsx('i', {
 	  className: 'fa fa-github'
