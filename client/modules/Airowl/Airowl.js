@@ -291,7 +291,7 @@ export default class Airowl extends Component{
                   </div>
                 </div>
                 <div className="col-sm-6 col-lg-offset-3">
-                  <a className="btn btn-default btn-red fa-btn-custom" href="https://github.com/IndiaOpenDataAssociation/India-Open-Environment-Data-Project/tree/master/Airowl" target="_blank"> <i className="fa fa-github"></i> Github <br /> <span className="small-desc">(Technical Details)</span> </a>
+                  <a className="btn btn-default btn-red fa-btn-custom" href="https://github.com/IndiaOpenDataAssociation/AirOwl" target="_blank"> <i className="fa fa-github"></i> Github <br /> <span className="small-desc">(Technical Details)</span> </a>
                   <a className="btn btn-default btn-red fa-btn-custom" href="
                             http://knowledge.indiaopendata.com/index.php/AirOwl" target="_blank"> <i className="fa fa-wikipedia-w"></i> Wiki <br /> <span className="small-desc">(Assembly Details)</span></a>
                 </div>
