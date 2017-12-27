@@ -5,13 +5,16 @@ http://openenvironment.indiaopendata.com.
 # India Open Data had developed a small and cost effective device to measure the air quality and send the captured data to their server.
 #Installation:
 This Front end application has been implemented in **React JS**. NodeJS is there to run your code and deploy it to production server. One needs to install all node packages described in package.json to run this application.
+
 #1. install node and bower components 
 Please run clone this application and run following commands : 
 ```
 npm install
 ```
+
 #2. Code Structure 
 Each of the modules in ReactJS are having it's own controllers and components.
+
 ```
 Dashboard
   --- components
@@ -21,18 +24,26 @@ Dashboard
 	  --- Analytics.js
 	  --- Realtime.js
 ``` 
+
 #3. Run Application with npm  
 We are using node npm, it builds your code, uglifies it, minifies it and joins all js and css files into one.
 To run your application in local with (browser sync open) run following command.
+
+Run the following fisrt and make sure there is `rev-manifest.json` is available in `dist/`.
+```
+npm run bs
+```
+
+then the following to start development server:
+
 ```
 npm start
 ```
 
 To minify and combine all files, run production deployment which combines all js and css files to one and save all the data to "dist" directory.
+
 ```
-
 npm run bs
-
 ```
 
 #4. React Version 
