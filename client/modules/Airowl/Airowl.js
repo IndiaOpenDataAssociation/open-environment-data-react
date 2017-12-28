@@ -18,6 +18,9 @@ export default class Airowl extends Component{
   }
 
   render(){
+    const buttonStyle = {
+      color:"#fff", background:"#C30F1F", borderRadius:"1.5em", padding:"0.6em", width: "250px", borderColor: "#C30F1F", margin:'20px'
+    };
     return(
       <div className="airowl">
         <Helmet script={[
@@ -95,7 +98,7 @@ export default class Airowl extends Component{
                           {/*<a href="https://www.instamojo.com/AirOwl/airowl/" rel="im-checkout" data-behaviour="remote"
                           data-style="flat" data-text="Buy AirOwl 3G" data-token="4aaf75271bbcbaa4e9d9bc35a38433d1">
                             </a>  */}
-                            <Button style={{color:"#fff", background:"#C30F1F", borderRadius:"1.5em", padding:"0.6em", width: "250px", borderColor: "#C30F1F", margin:'20px' }} disabled>B̶u̶y̶ ̶A̶i̶r̶O̶w̶l̶ ̶3̶G̶  (Sold Out)</Button>
+                            <Button style={buttonStyle} disabled><strike> BuyAirOwl 3G </strike>  (Sold Out)</Button>
                         </div>
 
                       </div>
@@ -108,7 +111,7 @@ export default class Airowl extends Component{
                              {/*<a href="https://www.instamojo.com/AirOwl/airowl-wi/" rel="im-checkout" data-behaviour="remote"
                             data-style="flat" data-text="Buy AirOwl Wi" data-token="4aaf75271bbcbaa4e9d9bc35a38433d1">
                             </a> */}
-                              <Button style={{color:"#fff", background:"#C30F1F", borderRadius:"1.5em", padding:"0.6em", width: "250px", borderColor: "#C30F1F", margin:'20px' }} disabled>B̶u̶y̶ ̶A̶i̶r̶O̶w̶l̶ ̶W̶i̶  (Sold Out)</Button>
+                              <Button style={buttonStyle} disabled><strike> Buy AirOwl Wi </strike>  (Sold Out)</Button>
                         </div>
 
                       </div>
