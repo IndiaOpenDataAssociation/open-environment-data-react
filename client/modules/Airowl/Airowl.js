@@ -6,6 +6,7 @@ import Tab from 'react-tabs/lib/components/Tab'
 import TabList from 'react-tabs/lib/components/TabList'
 import Tabs from 'react-tabs/lib/components/Tabs'
 import TabPanel from 'react-tabs/lib/components/TabPanel'
+import Button from 'react-bootstrap/lib/Button';
 
 export default class Airowl extends Component{
   constructor(props){
@@ -17,6 +18,9 @@ export default class Airowl extends Component{
   }
 
   render(){
+    const buttonStyle = {
+      color:"#fff", background:"#C30F1F", borderRadius:"1.5em", padding:"0.6em", width: "250px", borderColor: "#C30F1F", margin:'20px'
+    };
     return(
       <div className="airowl">
         <Helmet script={[
@@ -62,7 +66,7 @@ export default class Airowl extends Component{
 
                 <div className="text-center airowl-intro margin-bottom-25">
                   <p>
-                    Airowl is India's first reliable and most affordable Do-it-Yourself (DiY) personal air quality <a className="theme-link" href="https://en.wikipedia.org/wiki/Particulates" target="_blank">(Dust SPM 2.5 & 10 micron)</a> monitoring device.
+                    Airowl is India's' first reliable and most affordable Do-it-Yourself (DiY) personal air quality <a className="theme-link" href="https://en.wikipedia.org/wiki/Particulates" target="_blank">(Dust SPM 2.5 & 10 micron)</a> monitoring device.
                   </p>
                   <p>
                     This device generates real-time dust pollution data and shows it on this open data project <a className="theme-link" href="/#/dashboard/" >website</a> and a free mobile app (<a className="theme-link" href="https://play.google.com/store/apps/details?id=com.idn0phl3108ed43d22s30&hl=en" target="_blank">Android</a>, iOS) that anyone can download. It will not only constantly update you on the quality of air that you are currently breathing but also helps other citizens of the country know the air quality.
@@ -91,8 +95,10 @@ export default class Airowl extends Component{
                             <div className="text-center red margin-bottom-10p">
                               <i className="fa fa-inr" style={{marginRight:"5px"}}></i> 5,000/-
                             </div>
-                            <a href="https://www.instamojo.com/AirOwl/airowl/" rel="im-checkout" data-behaviour="remote" data-style="flat" data-text="Buy AirOwl 3G" data-token="4aaf75271bbcbaa4e9d9bc35a38433d1">
-                            </a>
+                          {/*<a href="https://www.instamojo.com/AirOwl/airowl/" rel="im-checkout" data-behaviour="remote"
+                          data-style="flat" data-text="Buy AirOwl 3G" data-token="4aaf75271bbcbaa4e9d9bc35a38433d1">
+                            </a>  */}
+                            <Button style={buttonStyle} disabled><strike> BuyAirOwl 3G </strike>  (Sold Out)</Button>
                         </div>
 
                       </div>
@@ -102,9 +108,10 @@ export default class Airowl extends Component{
                             <div className="text-center red margin-bottom-10p">
                               <i className="fa fa-inr" style={{marginRight: "5px"}}></i> 5,000/-
                             </div>
-                            <a href="https://www.instamojo.com/AirOwl/airowl-wi/" rel="im-checkout" data-behaviour="remote" data-style="flat" data-text="Buy AirOwl Wi" data-token="4aaf75271bbcbaa4e9d9bc35a38433d1">
-
-                            </a>
+                             {/*<a href="https://www.instamojo.com/AirOwl/airowl-wi/" rel="im-checkout" data-behaviour="remote"
+                            data-style="flat" data-text="Buy AirOwl Wi" data-token="4aaf75271bbcbaa4e9d9bc35a38433d1">
+                            </a> */}
+                              <Button style={buttonStyle} disabled><strike> Buy AirOwl Wi </strike>  (Sold Out)</Button>
                         </div>
 
                       </div>
@@ -286,7 +293,7 @@ export default class Airowl extends Component{
                 <div className="row margin-bottom-default">
                   <div className="col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
                     <p>
-                      It's never late, Good deeds often brings happiness to you and to the people around. Start caring through sharing!
+                      It's' never late, Good deeds often brings happiness to you and to the people around. Start caring through sharing!
                     </p>
                   </div>
                 </div>
