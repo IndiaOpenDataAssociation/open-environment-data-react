@@ -67,12 +67,12 @@ const renderFullPage = (html, initialState) => {
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
         <link rel="stylesheet" href='${process.env.NODE_ENV === 'production' ?  styleSrc : '/main.css' }' type="text/css" media="screen" charset="utf-8">
-        
+
         <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAnK8lYEkj7mwTu7AWDP4GwiWI8SX9QHwM&extension=.js'></script>
         <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-        <script src="http://code.highcharts.com/highcharts.js"></script>
-        <script src="http://code.highcharts.com/modules/heatmap.js" ></script>
-        <script src="http://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/heatmap.js" ></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
       </head>
       <body>
         <div id="root">${html}</div>
